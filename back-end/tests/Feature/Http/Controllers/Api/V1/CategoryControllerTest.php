@@ -18,8 +18,8 @@ class CategoryControllerTest extends TestCase
     public function test_public_menu_contains_only_active_categories_in_stable_sort_order(): void
     {
         $last = Category::factory()->create(['sort_order' => 30]);
-        $first = Category::factory()->create(['sort_order' => 10]);
-        $second = Category::factory()->create(['sort_order' => 10]);
+        $first = Category::factory()->create(['name' => 'A', 'sort_order' => 10]);
+        $second = Category::factory()->create(['name' => 'B', 'sort_order' => 10]);
         Category::factory()->inactive()->create(['sort_order' => 0]);
 
         $response = $this->getJson('/api/v1/categories')->assertOk()->assertJsonCount(3, 'data');
@@ -111,7 +111,7 @@ class CategoryControllerTest extends TestCase
 
         $this->deleteJson('/api/v1/admin/categories/'.$category->uuid)->assertOk();
 
-        $this->assertModelMissing($category);
+        $this->assertSoftDeleted($category);
         $this->getJson('/api/v1/admin/categories/'.$category->uuid)->assertNotFound();
     }
 
@@ -164,7 +164,7 @@ class CategoryControllerTest extends TestCase
             'missing name' => [['name' => null], 'name'],
             'invalid name' => [['name' => []], 'name'],
             'long name' => [['name' => str_repeat('a', 256)], 'name'],
-            'missing slug' => [['slug' => null], 'slug'],
+            'invalid slug type' => [['slug' => []], 'slug'],
             'invalid slug' => [['slug' => 'invalid slug'], 'slug'],
             'long slug' => [['slug' => str_repeat('a', 256)], 'slug'],
             'description type' => [['description' => []], 'description'],
@@ -232,7 +232,7 @@ class CategoryControllerTest extends TestCase
 
         $this->seed(CategorySeeder::class);
 
-        $this->assertDatabaseCount('categories', 10);
+        $this->assertDatabaseCount('categories', 11);
         $this->assertSame('المشويات', $category->name);
         $this->assertSame(999, $category->fresh()->sort_order);
         $this->assertSame($uuid, $category->fresh()->uuid);

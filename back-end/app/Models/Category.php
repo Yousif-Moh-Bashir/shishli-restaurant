@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,8 @@ use Illuminate\Support\Str;
 class Category extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $hidden = ['id', 'parent_id', 'deleted_at'];
 
     protected $fillable = [
         'parent_id',
@@ -33,17 +36,25 @@ class Category extends Model
 
     protected static function booted(): void
     {
-        static::creating(function (Category $category) {
-
+        static::creating(function (Category $category): void {
             $category->uuid ??= (string) Str::uuid();
+        });
 
-            if (empty($category->slug)) {
+        static::saving(function (Category $category): void {
+            if (! filled($category->slug)) {
+                $base = Str::slug($category->name);
+                $base = $base !== '' ? substr($base, 0, 160) : 'category-'.Str::lower(Str::random(8));
+                $slug = $base;
+                $suffix = 2;
 
-                $slug = Str::slug($category->name);
+                while (static::withTrashed()->where('slug', $slug)->when(
+                    $category->exists,
+                    fn (Builder $query): Builder => $query->whereKeyNot($category->getKey()),
+                )->exists()) {
+                    $slug = $base.'-'.$suffix++;
+                }
 
-                $category->slug = $slug !== ''
-                    ? $slug
-                    : 'category-'.Str::lower(Str::random(8));
+                $category->slug = $slug;
             }
         });
     }
@@ -69,7 +80,12 @@ class Category extends Model
         );
     }
 
-    public function scopeActive($query)
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);
     }

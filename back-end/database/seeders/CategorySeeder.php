@@ -10,23 +10,26 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
+            'turkish-chicken' => 'الدجاج التركي',
+            'shish' => 'الشيش',
             'grills' => 'المشويات',
-            'skewers' => 'الشيش',
-            'mixed-platters' => 'أطباق مشكل',
+            'mixed-grills' => 'أطباق المشكل',
             'meat' => 'اللحوم',
             'sandwiches' => 'السندوتشات',
             'appetizers' => 'المقبلات',
             'stews' => 'الإيدامات',
             'rice' => 'الأرز',
-            'juices' => 'العصائر',
+            'drinks' => 'العصائر والمشروبات',
             'extras' => 'الإضافات',
         ];
 
-        $sortOrder = 10;
+        $sortOrder = 1;
 
         foreach ($categories as $slug => $name) {
-            Category::firstOrCreate(['slug' => $slug], ['name' => $name, 'sort_order' => $sortOrder]);
-            $sortOrder += 10;
+            Category::withTrashed()->firstOrCreate(['slug' => $slug], [
+                'name' => $name, 'sort_order' => $sortOrder, 'parent_id' => null, 'is_active' => true,
+            ]);
+            $sortOrder++;
         }
     }
 }

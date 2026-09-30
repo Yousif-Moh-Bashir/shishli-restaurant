@@ -23,4 +23,19 @@ class ProductFactory extends Factory
             'base_price' => fake()->numberBetween(1, 200).'.00',
         ];
     }
+
+    public function inactive(): static
+    {
+        return $this->state(fn (array $attributes): array => ['is_active' => false]);
+    }
+
+    public function unavailable(): static
+    {
+        return $this->state(fn (array $attributes): array => ['is_available' => false]);
+    }
+
+    public function featured(): static
+    {
+        return $this->state(fn (array $attributes): array => ['is_featured' => true]);
+    }
 }

@@ -9,17 +9,20 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /** @mixin OptionGroup */
 class OptionGroupResource extends JsonResource
 {
-    /** @return array<string, mixed> */
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->uuid,
             'name' => $this->name,
-            'type' => $this->type,
+            'slug' => $this->slug,
+            'type' => $this->type->value,
+            'is_required' => $this->is_required,
             'required' => $this->is_required,
             'min_select' => $this->min_select,
             'max_select' => $this->max_select,
             'sort_order' => $this->sort_order,
+            'is_active' => $this->is_active,
+            'values' => OptionValueResource::collection($this->whenLoaded('values')),
             'options' => OptionValueResource::collection($this->whenLoaded('values')),
         ];
     }

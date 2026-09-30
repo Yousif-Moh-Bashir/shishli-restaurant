@@ -17,6 +17,8 @@ class UpdateBranchRequest extends FormRequest
         $branch = $this->route('branch');
 
         return [
+            'supports_pickup' => ['sometimes', 'boolean'],
+            'supports_delivery' => ['sometimes', 'boolean'],
             'name' => [
                 'sometimes',
                 'required',
@@ -105,6 +107,8 @@ class UpdateBranchRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'supports_pickup.boolean' => 'حالة دعم الاستلام غير صحيحة.',
+            'supports_delivery.boolean' => 'حالة دعم التوصيل غير صحيحة.',
             'name.required' => 'اسم الفرع مطلوب.',
             'name.max' => 'اسم الفرع يجب ألا يتجاوز 150 حرفًا.',
 

@@ -25,4 +25,9 @@ class CategoryFactory extends Factory
     {
         return $this->state(fn (array $attributes): array => ['is_active' => false]);
     }
+
+    public function childOf(Category $category): static
+    {
+        return $this->for($category, 'parent');
+    }
 }

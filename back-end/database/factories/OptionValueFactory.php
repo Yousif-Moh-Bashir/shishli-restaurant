@@ -14,4 +14,14 @@ class OptionValueFactory extends Factory
     {
         return ['option_group_id' => OptionGroup::factory(), 'name' => fake()->word()];
     }
+
+    public function default(): static
+    {
+        return $this->state(['is_default' => true]);
+    }
+
+    public function inactive(): static
+    {
+        return $this->state(['is_active' => false]);
+    }
 }

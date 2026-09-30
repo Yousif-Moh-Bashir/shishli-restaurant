@@ -22,10 +22,11 @@ class ProductController extends Controller
     public function show(Product $product): JsonResponse
     {
         $product->load('category');
-        abort_unless($product->is_active && $product->category->is_active, 404);
+        abort_unless($product->is_active && $product->category?->is_active, 404);
 
         $product->load([
             'images',
+            'primaryImage',
             'optionGroups' => fn (BelongsToMany $groups): BelongsToMany => $groups->where('option_groups.is_active', true),
             'optionGroups.values' => fn (HasMany $values): HasMany => $values->where('is_active', true),
         ]);

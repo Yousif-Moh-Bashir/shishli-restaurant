@@ -21,6 +21,12 @@ class CategoryResource extends JsonResource
             'slug' => $this->slug,
             'description' => $this->description,
             'image' => $this->image,
+            'parent' => $this->whenLoaded('parent', fn (Category $parent): array => [
+                'id' => $parent->uuid,
+                'name' => $parent->name,
+                'slug' => $parent->slug,
+            ]),
+            'children' => CategoryResource::collection($this->whenLoaded('children')),
             'products_count' => $this->whenCounted('products'),
             'sort_order' => $this->sort_order,
             'is_active' => $this->is_active,

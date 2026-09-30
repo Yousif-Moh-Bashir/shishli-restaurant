@@ -25,7 +25,7 @@ class OptionGroupTest extends TestCase
         $this->assertModelExists($group);
         $this->assertSame('-2.25', $value->fresh()->price_modifier);
         $this->assertSame([$products[1]->id], $group->products()->pluck('products.id')->all());
-        $group->delete();
+        $group->forceDelete();
         $this->assertModelMissing($value);
         $this->assertDatabaseCount('product_option_groups', 0);
         $this->assertModelExists($products[1]);

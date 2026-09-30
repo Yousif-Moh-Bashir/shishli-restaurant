@@ -7,6 +7,29 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Product image storage
+
+Product uploads use `MEDIA_DISK=public` by default, independently of `FILESYSTEM_DISK`.
+Run `php artisan migrate` and `php artisan storage:link` from this directory.
+Set `APP_URL` to the application URL so the public disk generates the correct image URLs.
+Files are stored under `products/{product_uuid}/{generated_uuid}.{detected_extension}`;
+on the public disk this is inside `storage/app/public`.
+
+The upload endpoint accepts multipart `images[]` (1–10 JPG, PNG or WebP files, each at most
+5 MiB), optional shared `alt_text`, and optional `is_primary=1` to make the first uploaded
+image primary. A product can have at most 20 images. PHP/web server upload limits must
+allow this payload (for example `upload_max_filesize=5M` and `post_max_size=55M`).
+Image management requires `products.update` and a Sanctum token.
+
+To change storage, configure a Laravel filesystem disk and set `MEDIA_DISK` to its name.
+Each image retains its original disk; changing the setting affects only new uploads.
+Cloud disks need their appropriate Laravel filesystem adapter and public URL/visibility configuration.
+No cloud dependency is required for the default public disk.
+
+Product soft deletes preserve images. Model `forceDelete()` cleans their files after the
+database transaction commits; bulk SQL deletes bypass model events and must not be used
+for deleting products with media. Tests use `Storage::fake()` and do not need a storage link.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

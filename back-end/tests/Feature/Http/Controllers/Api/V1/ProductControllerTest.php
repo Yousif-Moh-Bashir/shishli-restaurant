@@ -44,7 +44,7 @@ class ProductControllerTest extends TestCase
             ->assertJsonPath('data.0.uuid', $product->uuid)
             ->assertJsonPath('data.0.is_available', false)
             ->assertJsonPath('data.0.availability_message', 'غير متوفر حاليًا');
-        $this->getJson('/api/v1/products/'.$product->slug)->assertOk()
+        $this->getJson('/api/v1/products/'.$product->uuid)->assertOk()
             ->assertJsonPath('data.is_active', true)
             ->assertJsonPath('data.is_available', false)
             ->assertJsonPath('data.availability_message', 'غير متوفر حاليًا')
@@ -59,7 +59,7 @@ class ProductControllerTest extends TestCase
     {
         $product = Product::factory()->create();
 
-        $this->getJson('/api/v1/products/'.$product->slug)->assertOk()
+        $this->getJson('/api/v1/products/'.$product->uuid)->assertOk()
             ->assertJsonPath('data.is_available', true)
             ->assertJsonPath('data.availability_message', null);
     }
@@ -68,7 +68,7 @@ class ProductControllerTest extends TestCase
     {
         $product = Product::factory()->create(['is_active' => false]);
 
-        $this->getJson('/api/v1/products/'.$product->slug)->assertNotFound();
+        $this->getJson('/api/v1/products/'.$product->uuid)->assertNotFound();
 
         $this->assertTrue(Product::findOrFail($product->id)->is($product));
     }
@@ -79,14 +79,14 @@ class ProductControllerTest extends TestCase
         $product = Product::factory()->for($category)->create();
 
         $this->getJson('/api/v1/products')->assertOk()->assertJsonCount(0, 'data');
-        $this->getJson('/api/v1/products/'.$product->slug)->assertNotFound();
+        $this->getJson('/api/v1/products/'.$product->uuid)->assertNotFound();
     }
 
     public function test_products_keep_sort_order_including_unavailable_items(): void
     {
         $last = Product::factory()->create(['sort_order' => 20]);
-        $first = Product::factory()->create(['sort_order' => 10, 'is_available' => false]);
-        $second = Product::factory()->create(['sort_order' => 10]);
+        $first = Product::factory()->create(['name' => 'A', 'sort_order' => 10, 'is_available' => false]);
+        $second = Product::factory()->create(['name' => 'B', 'sort_order' => 10]);
 
         $response = $this->getJson('/api/v1/products')->assertOk();
 

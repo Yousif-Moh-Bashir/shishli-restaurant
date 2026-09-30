@@ -32,8 +32,8 @@ class StoreCategoryRequest extends FormRequest
                 'nullable',
                 'string',
                 'max:180',
-                Rule::unique('categories', 'slug')
-                    ->whereNull('deleted_at'),
+                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/D',
+                Rule::unique('categories', 'slug'),
             ],
 
             'description' => [
@@ -45,13 +45,14 @@ class StoreCategoryRequest extends FormRequest
             'image' => [
                 'nullable',
                 'string',
-                'max:500',
+                'max:255',
             ],
 
             'sort_order' => [
                 'sometimes',
                 'integer',
                 'min:0',
+                'max:2147483647',
             ],
 
             'is_active' => [
@@ -75,12 +76,19 @@ class StoreCategoryRequest extends FormRequest
             'name.max' => 'اسم القسم يجب ألا يتجاوز 150 حرفًا.',
 
             'slug.unique' => 'الرابط المختصر مستخدم مسبقًا.',
+            'slug.string' => 'الرابط المختصر يجب أن يكون نصًا.',
+            'slug.max' => 'الرابط المختصر يجب ألا يتجاوز 180 حرفًا.',
+            'slug.regex' => 'الرابط المختصر يجب أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.',
+            'description.string' => 'وصف القسم يجب أن يكون نصًا.',
+            'image.string' => 'مسار الصورة يجب أن يكون نصًا.',
+            'image.max' => 'مسار الصورة يجب ألا يتجاوز 255 حرفًا.',
 
             'description.max' => 'وصف القسم يجب ألا يتجاوز 2000 حرف.',
 
             'sort_order.integer' => 'ترتيب القسم يجب أن يكون رقمًا صحيحًا.',
 
             'sort_order.min' => 'ترتيب القسم لا يمكن أن يكون أقل من صفر.',
+            'sort_order.max' => 'ترتيب القسم يجب ألا يتجاوز 2147483647.',
 
             'is_active.boolean' => 'حالة القسم غير صحيحة.',
         ];

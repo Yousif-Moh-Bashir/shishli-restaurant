@@ -30,6 +30,8 @@ class BranchResource extends JsonResource
 
             'is_active' => $this->is_active,
             'accepts_orders' => $this->accepts_orders,
+            'supports_pickup' => $this->supports_pickup,
+            'supports_delivery' => $this->supports_delivery,
 
             'sort_order' => $this->sort_order,
 

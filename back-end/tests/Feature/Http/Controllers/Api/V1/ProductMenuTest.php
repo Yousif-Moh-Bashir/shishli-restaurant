@@ -21,12 +21,14 @@ class ProductMenuTest extends TestCase
         $first = OptionGroup::factory()->create(['name' => 'الإضافات', 'type' => 'multiple', 'sort_order' => 1, 'max_select' => 3]);
         $hidden = OptionGroup::factory()->create(['is_active' => false]);
         OptionGroup::factory()->create();
-        $product->optionGroups()->attach([$last->id, $first->id, $hidden->id]);
+        $product->optionGroups()->attach([
+            $last->id => ['sort_order' => 20], $first->id => ['sort_order' => 1], $hidden->id => ['sort_order' => 0],
+        ]);
         $second = OptionValue::factory()->for($first, 'optionGroup')->create(['sort_order' => 10]);
         $value = OptionValue::factory()->for($first, 'optionGroup')->create(['name' => 'حمص', 'price_modifier' => '5.25', 'sort_order' => 0]);
         OptionValue::factory()->for($first, 'optionGroup')->create(['is_active' => false]);
 
-        $response = $this->getJson('/api/v1/products/shish-tawook')->assertOk()
+        $response = $this->getJson('/api/v1/products/'.$product->uuid)->assertOk()
             ->assertJsonPath('success', true)->assertJsonPath('data.id', $product->uuid)
             ->assertJsonPath('data.price', '20.00')->assertJsonPath('data.available', false)
             ->assertJsonPath('data.category.name', $product->category->name)
@@ -36,14 +38,14 @@ class ProductMenuTest extends TestCase
             ->assertJsonPath('data.option_groups.0.required', false)
             ->assertJsonPath('data.option_groups.0.max_select', 3)
             ->assertJsonPath('data.option_groups.0.options.0.price', '5.25');
-        $this->assertSame([$value->id, $second->id], array_column($response->json('data.option_groups.0.options'), 'id'));
-        $this->getJson('/api/v1/products/'.$product->uuid)->assertNotFound();
+        $this->assertSame([$value->uuid, $second->uuid], array_column($response->json('data.option_groups.0.options'), 'id'));
+        $this->getJson('/api/v1/products/'.$product->slug)->assertNotFound();
     }
 
     public function test_details_without_options_return_empty_array_and_unknown_slug_returns_json_404(): void
     {
         $product = Product::factory()->create();
-        $this->getJson('/api/v1/products/'.$product->slug)->assertOk()->assertJsonPath('data.option_groups', []);
+        $this->getJson('/api/v1/products/'.$product->uuid)->assertOk()->assertJsonPath('data.option_groups', []);
         $this->getJson('/api/v1/products/missing')->assertNotFound()->assertJsonPath('success', false);
     }
 

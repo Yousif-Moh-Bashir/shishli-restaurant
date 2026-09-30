@@ -125,10 +125,10 @@ class ProductTest extends TestCase
 
         $this->expectException(QueryException::class);
 
-        $product->category->delete();
+        $product->category->forceDelete();
     }
 
-    public function test_api_returns_409_when_deleting_a_category_with_products(): void
+    public function test_api_returns_422_when_deleting_a_category_with_products(): void
     {
         $this->seed(RolesAndPermissionsSeeder::class);
         $manager = User::factory()->create()->assignRole('manager');
@@ -137,22 +137,25 @@ class ProductTest extends TestCase
 
         $this->withToken($manager->createToken('test')->plainTextToken)
             ->deleteJson('/api/v1/admin/categories/'.$category->uuid)
-            ->assertConflict()->assertJsonPath('success', false);
+            ->assertUnprocessable()->assertJsonPath('success', false)
+            ->assertJsonPath('errors.category.0', 'لا يمكن حذف القسم لأنه يحتوي على منتجات.');
 
         $this->assertModelExists($category);
         $this->assertModelExists($product);
     }
 
-    public function test_optional_sample_seeder_is_repeatable_and_inactive(): void
+    public function test_product_seeder_is_repeatable_and_populates_the_restaurant_menu(): void
     {
         $this->seed(ProductSeeder::class);
         $this->seed(ProductSeeder::class);
 
-        $this->assertDatabaseCount('products', 1);
-        $this->assertDatabaseCount('categories', 1);
-        $product = Product::where('slug', 'sample-product')->sole();
-        $this->assertFalse($product->is_active);
-        $this->assertFalse($product->is_available);
-        $this->assertFalse($product->category->is_active);
+        $this->assertDatabaseCount('products', 5);
+        $this->assertDatabaseCount('categories', 11);
+        $product = Product::where('slug', 'shish-tawook')->sole();
+        $this->assertTrue($product->is_active);
+        $this->assertTrue($product->is_available);
+        $this->assertTrue($product->is_featured);
+        $this->assertSame('20.00', $product->base_price);
+        $this->assertSame('shish', $product->category->slug);
     }
 }

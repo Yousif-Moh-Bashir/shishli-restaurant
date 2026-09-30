@@ -34,6 +34,14 @@ class AppServiceProvider extends ServiceProvider
 
     private function rateLimitKey(Request $request, string $name): string
     {
+        if ($name === 'cart') {
+            if ($request->user()) {
+                return 'user:'.$request->user()->getAuthIdentifier();
+            }
+            if ($request->hasHeader('X-Cart-Token')) {
+                return 'cart:'.hash('sha256', $request->header('X-Cart-Token'));
+            }
+        }
         if (in_array($name, ['checkout', 'coupons'], true) && $request->user()) {
             return 'user:'.$request->user()->getAuthIdentifier();
         }

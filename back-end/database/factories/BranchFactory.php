@@ -31,6 +31,8 @@ class BranchFactory extends Factory
             'longitude' => fake()->longitude(),
             'is_active' => true,
             'accepts_orders' => true,
+            'supports_pickup' => true,
+            'supports_delivery' => true,
             'sort_order' => 0,
         ];
     }

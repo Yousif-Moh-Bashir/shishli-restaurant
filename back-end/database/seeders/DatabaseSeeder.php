@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolePermissionSeeder::class,
             BranchSeeder::class,
+            DeliveryZoneSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
+            OptionSeeder::class,
+            BranchProductSeeder::class,
         ]);
 
         User::factory()->create([

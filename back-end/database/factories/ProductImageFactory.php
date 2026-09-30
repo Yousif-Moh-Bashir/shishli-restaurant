@@ -18,6 +18,7 @@ class ProductImageFactory extends Factory
     {
         return [
             'product_id' => Product::factory(),
+            'disk' => 'public',
             'path' => 'products/'.fake()->uuid().'.webp',
         ];
     }

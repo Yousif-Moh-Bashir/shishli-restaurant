@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Storage;
 class ProductImageResource extends JsonResource
 {
     /**
-     * @return array{path: string, url: string, alt_text: ?string, sort_order: int, is_primary: bool}
+     * @return array{id: string, url: string, alt_text: ?string, sort_order: int, is_primary: bool}
      */
     public function toArray(Request $request): array
     {
         return [
-            'path' => $this->path,
-            'url' => Storage::disk('public')->url($this->path),
+            'id' => $this->uuid,
+            'url' => Storage::disk($this->disk)->url($this->path),
             'alt_text' => $this->alt_text,
             'sort_order' => $this->sort_order,
             'is_primary' => $this->is_primary,

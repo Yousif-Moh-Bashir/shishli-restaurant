@@ -9,8 +9,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ListProductsAction
 {
+    public function __construct(private ApplyProductFilters $applyFilters) {}
+
     /**
-     * @param  array{category?: ?string, branch?: ?string, search?: ?string, featured?: bool|int|string, page?: int|string, per_page?: int|string}  $filters
+     * @param  array<string, mixed>  $filters
      * @return LengthAwarePaginator<int, Product>
      */
     public function handle(array $filters): LengthAwarePaginator
@@ -21,23 +23,9 @@ class ListProductsAction
                 ->firstOrFail();
         }
 
-        $query = Product::visibleInMenu()->with(['category', 'images']);
+        $query = Product::visibleInMenu()->with(['category', 'primaryImage']);
 
-        if (isset($filters['category'])) {
-            $query->whereHas('category', fn (Builder $category): Builder => $category->where('slug', $filters['category']));
-        }
-
-        if (isset($filters['search'])) {
-            $pattern = '%'.$filters['search'].'%';
-            $query->where(fn (Builder $search): Builder => $search->where('name', 'like', $pattern)
-                ->orWhere('short_description', 'like', $pattern)->orWhere('description', 'like', $pattern));
-        }
-
-        if (array_key_exists('featured', $filters)) {
-            $query->where('is_featured', (bool) $filters['featured']);
-        }
-
-        return $query->orderBy('sort_order')->orderBy('id')
+        return $this->applyFilters->handle($query, $filters)
             ->paginate((int) ($filters['per_page'] ?? 20), ['*'], 'page', (int) ($filters['page'] ?? 1))
             ->appends($filters);
     }

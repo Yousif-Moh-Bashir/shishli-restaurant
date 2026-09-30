@@ -18,6 +18,8 @@ class BranchSeeder extends Seeder
             'address' => 'المصيف - بجوار إشارة المصيف',
             'is_active' => true,
             'accepts_orders' => true,
+            'supports_pickup' => true,
+            'supports_delivery' => true,
             'sort_order' => 1,
         ]);
     }

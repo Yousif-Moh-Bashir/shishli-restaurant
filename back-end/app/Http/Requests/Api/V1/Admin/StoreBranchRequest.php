@@ -14,6 +14,8 @@ class StoreBranchRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'supports_pickup' => ['sometimes', 'boolean'],
+            'supports_delivery' => ['sometimes', 'boolean'],
             'name' => [
                 'required',
                 'string',
@@ -92,6 +94,8 @@ class StoreBranchRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'supports_pickup.boolean' => 'حالة دعم الاستلام غير صحيحة.',
+            'supports_delivery.boolean' => 'حالة دعم التوصيل غير صحيحة.',
             'name.required' => 'اسم الفرع مطلوب.',
             'name.max' => 'اسم الفرع يجب ألا يتجاوز 150 حرفًا.',
 

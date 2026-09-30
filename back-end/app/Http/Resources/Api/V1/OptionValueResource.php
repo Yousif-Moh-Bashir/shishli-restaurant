@@ -9,14 +9,16 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /** @mixin OptionValue */
 class OptionValueResource extends JsonResource
 {
-    /** @return array<string, mixed> */
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->uuid,
             'name' => $this->name,
+            'slug' => $this->slug,
+            'price_modifier' => $this->price_modifier,
             'price' => $this->price_modifier,
             'is_default' => $this->is_default,
+            'is_active' => $this->is_active,
             'sort_order' => $this->sort_order,
         ];
     }
