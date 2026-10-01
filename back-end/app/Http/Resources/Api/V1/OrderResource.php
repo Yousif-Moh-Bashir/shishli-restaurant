@@ -12,6 +12,7 @@ class OrderResource extends JsonResource
     {
         return ['id' => $this->uuid, 'order_number' => $this->order_number, 'type' => $this->type->value, 'status' => $this->status->value,
             'payment' => ['method' => $this->payment_method->value, 'status' => $this->payment_status->value],
+            'latest_payment' => new PaymentResource($this->whenLoaded('latestPayment')),
             'customer' => ['name' => $this->customer_name, 'phone' => $this->customer_phone, 'email' => $this->customer_email],
             'branch' => $this->whenLoaded('branch', fn (): array => ['id' => $this->branch->uuid, 'name' => $this->branch->name]),
             'items' => OrderItemResource::collection($this->whenLoaded('items')),

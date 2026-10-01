@@ -2,23 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\PaymentWebhookEvent;
+use App\Enums\WebhookEventStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends Factory<PaymentWebhookEvent>
- */
 class PaymentWebhookEventFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
-        return [
-            //
-        ];
+        return ['provider' => 'test', 'provider_event_id' => fake()->uuid(), 'fingerprint' => hash('sha256', fake()->uuid()),
+            'event_type' => 'payment.paid', 'signature_valid' => true, 'status' => WebhookEventStatus::Received];
     }
 }

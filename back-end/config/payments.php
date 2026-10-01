@@ -1,4 +1,5 @@
 <?php
+
 return [
     'default_provider' => env('PAYMENT_DEFAULT_PROVIDER'),
     // Real adapters must be registered explicitly; there is no production fake.

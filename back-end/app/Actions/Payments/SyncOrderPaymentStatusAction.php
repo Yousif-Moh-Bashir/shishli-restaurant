@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Actions\Payments;
+
 use App\Enums\PaymentStatus;
 use App\Models\Order;
 use App\Services\Money;
 use Illuminate\Support\Facades\DB;
+
 class SyncOrderPaymentStatusAction
 {
     public function handle(Order $order): Order
@@ -21,6 +24,7 @@ class SyncOrderPaymentStatusAction
                     ? PaymentStatus::Cancelled : PaymentStatus::Pending;
             }
             $locked->save();
+
             return $locked;
         }, 3);
     }

@@ -42,6 +42,7 @@ class RolesAndPermissionsTest extends TestCase
     {
         return [
             'administrator' => ['super_admin', [
+                'payments.view', 'payments.collect_cash',
                 'delivery_zones.view', 'delivery_zones.create', 'delivery_zones.update', 'delivery_zones.delete',
                 'branches.products.manage',
                 'branches.view', 'branches.create', 'branches.update', 'branches.delete',
@@ -53,6 +54,7 @@ class RolesAndPermissionsTest extends TestCase
                 'options.view', 'options.create', 'options.update', 'options.delete',
             ]],
             'manager' => ['manager', [
+                'payments.view', 'payments.collect_cash',
                 'delivery_zones.view', 'delivery_zones.create', 'delivery_zones.update', 'delivery_zones.delete',
                 'branches.products.manage',
                 'branches.view', 'branches.create', 'branches.update', 'branches.delete',
@@ -63,7 +65,7 @@ class RolesAndPermissionsTest extends TestCase
                 'categories.view', 'categories.create', 'categories.update', 'categories.delete',
                 'options.view', 'options.create', 'options.update', 'options.delete',
             ]],
-            'cashier' => ['cashier', ['orders.view', 'orders.create', 'orders.confirm', 'orders.complete', 'products.view', 'customers.view']],
+            'cashier' => ['cashier', ['orders.view', 'orders.create', 'orders.confirm', 'orders.complete', 'products.view', 'customers.view', 'payments.view', 'payments.collect_cash']],
             'kitchen' => ['kitchen', ['orders.view', 'orders.update_status', 'orders.start_preparing', 'orders.mark_ready']],
             'customer' => ['customer', []],
         ];
@@ -78,7 +80,7 @@ class RolesAndPermissionsTest extends TestCase
         $this->seed(RolesAndPermissionsSeeder::class);
 
         $this->assertDatabaseCount('roles', 5);
-        $this->assertDatabaseCount('permissions', 35);
+        $this->assertDatabaseCount('permissions', 37);
         $this->assertDatabaseCount('model_has_roles', 1);
         $this->assertSame(['cashier'], $user->fresh()->getRoleNames()->all());
         $this->assertDatabaseHas('model_has_roles', ['model_id' => $user->id, 'model_type' => User::class]);

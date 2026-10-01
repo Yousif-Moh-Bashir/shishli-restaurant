@@ -2,23 +2,43 @@
 
 namespace Database\Factories;
 
-use App\Models\PaymentTransaction;
+use App\Enums\PaymentTransactionStatus;
+use App\Enums\PaymentTransactionType;
+use App\Models\Payment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends Factory<PaymentTransaction>
- */
 class PaymentTransactionFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
-        return [
-            //
-        ];
+        return ['payment_id' => PaymentFactory::new(), 'type' => PaymentTransactionType::Sale,
+            'status' => PaymentTransactionStatus::Pending,
+            'provider' => fn (array $attributes): ?string => Payment::findOrFail($attributes['payment_id'])->provider,
+            'amount' => fn (array $attributes): string => Payment::findOrFail($attributes['payment_id'])->amount];
+    }
+
+    public function pending(): static
+    {
+        return $this->state(['status' => PaymentTransactionStatus::Pending]);
+    }
+
+    public function succeeded(): static
+    {
+        return $this->state(['status' => PaymentTransactionStatus::Succeeded, 'processed_at' => now()]);
+    }
+
+    public function failed(): static
+    {
+        return $this->state(['status' => PaymentTransactionStatus::Failed, 'processed_at' => now()]);
+    }
+
+    public function sale(): static
+    {
+        return $this->state(['type' => PaymentTransactionType::Sale]);
+    }
+
+    public function refund(): static
+    {
+        return $this->state(['type' => PaymentTransactionType::Refund]);
     }
 }

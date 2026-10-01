@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\Admin\OptionValueController;
 use App\Http\Controllers\Api\V1\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Api\V1\Admin\OrderHistoryController;
 use App\Http\Controllers\Api\V1\Admin\OrderOperationController;
+use App\Http\Controllers\Api\V1\Admin\PaymentController as AdminPaymentController;
 use App\Http\Controllers\Api\V1\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Api\V1\Admin\ProductImageController;
 use App\Http\Controllers\Api\V1\Admin\ProductOptionGroupController;
@@ -30,6 +31,8 @@ use App\Http\Controllers\Api\V1\KitchenOrderController;
 use App\Http\Controllers\Api\V1\MenuController;
 use App\Http\Controllers\Api\V1\OrderCancellationController;
 use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\OrderPaymentController;
+use App\Http\Controllers\Api\V1\PaymentWebhookController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Middleware\OptionalCartAuthentication;
 use App\Models\CustomerAddress;
@@ -42,6 +45,10 @@ Route::bind('address', function (string $uuid): CustomerAddress {
 });
 
 Route::prefix('v1')->name('api.v1.')->group(function (): void {
+    Route::post('/webhooks/payments/{provider}', PaymentWebhookController::class)
+        ->where('provider', '[a-z0-9_-]{1,50}')->middleware('throttle:120,1')->name('payments.webhook');
+    Route::post('/orders/{order}/guest/payments', [OrderPaymentController::class, 'guest'])
+        ->whereUuid('order')->middleware('throttle:30,1')->name('orders.guest.payments');
     Route::get('/kitchen/orders', KitchenOrderController::class)->middleware(['auth:sanctum', 'permission:orders.view'])->name('kitchen.orders');
     Route::post('/orders/{order}/guest/cancel', [OrderCancellationController::class, 'guest'])
         ->whereUuid('order')->middleware('throttle:60,1')->name('orders.guest.cancel');
@@ -50,6 +57,8 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
     Route::get('/orders/{order}/guest', GuestOrderController::class)
         ->whereUuid('order')->middleware('throttle:60,1')->name('orders.guest');
     Route::middleware('auth:sanctum')->group(function (): void {
+        Route::get('/orders/{order}/payments', [OrderPaymentController::class, 'index'])->whereUuid('order')->name('orders.payments.index');
+        Route::post('/orders/{order}/payments', [OrderPaymentController::class, 'store'])->whereUuid('order')->middleware('throttle:30,1')->name('orders.payments.store');
         Route::post('/orders/{order}/cancel', [OrderCancellationController::class, 'authenticated'])->whereUuid('order')->name('orders.cancel');
         Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
         Route::get('/orders/{order}', [OrderController::class, 'show'])->whereUuid('order')->name('orders.show');
@@ -84,6 +93,13 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
     Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
     Route::prefix('admin')->name('admin.')->middleware('auth:sanctum')->group(function (): void {
+        Route::post('/orders/{order}/payments/cash/collect', [AdminPaymentController::class, 'collect'])
+            ->whereUuid('order')->middleware('permission:payments.collect_cash')->name('orders.payments.cash.collect');
+        Route::middleware('permission:payments.view')->prefix('payments')->name('payments.')->group(function (): void {
+            Route::get('/', [AdminPaymentController::class, 'index'])->name('index');
+            Route::get('/{payment}', [AdminPaymentController::class, 'show'])->whereUuid('payment')->name('show');
+            Route::get('/{payment}/transactions', [AdminPaymentController::class, 'transactions'])->whereUuid('payment')->name('transactions');
+        });
         Route::prefix('orders/{order}')->whereUuid('order')->name('orders.')->group(function (): void {
             Route::post('/confirm', [OrderOperationController::class, 'confirm'])->middleware('permission:orders.confirm')->name('confirm');
             Route::post('/start-preparing', [OrderOperationController::class, 'startPreparing'])->middleware('permission:orders.start_preparing')->name('start-preparing');

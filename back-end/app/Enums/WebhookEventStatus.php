@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Enums;
+
 enum WebhookEventStatus: string
 {
     case Received = 'received';

@@ -1,6 +1,9 @@
 <?php
+
 namespace App\Data\Payments;
+
 use App\Enums\PaymentStatus;
+
 /** Values must come from a verified provider API, never a browser redirect. */
 final readonly class PaymentProviderResult
 {

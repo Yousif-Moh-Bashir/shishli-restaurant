@@ -2,25 +2,27 @@
 
 namespace App\Actions\Orders;
 
+use App\Actions\Payments\SyncOrderPaymentStatusAction;
 use App\Enums\OrderStatus;
 use App\Enums\OrderStatusSource;
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
-use App\Exceptions\PaymentException;
-use App\Actions\Payments\SyncOrderPaymentStatusAction;
 use App\Events\OrderStatusChanged;
+use App\Exceptions\PaymentException;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\OrderOperationAuthorization;
 use App\Services\OrderStateMachine;
 use App\Services\Payments\OrderPaymentPolicy;
+use App\Services\Payments\PaymentStateMachine;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class TransitionOrderStatusAction
 {
     public function __construct(private OrderStateMachine $machine, private OrderOperationAuthorization $authorization,
-        private OrderPaymentPolicy $paymentPolicy, private SyncOrderPaymentStatusAction $syncPayments) {}
+        private OrderPaymentPolicy $paymentPolicy, private SyncOrderPaymentStatusAction $syncPayments,
+        private PaymentStateMachine $paymentMachine) {}
 
     public function handle(Order $order, OrderStatus $target, ?User $actor, OrderStatusSource $source, ?string $note = null, ?string $guestToken = null): Order
     {
@@ -47,7 +49,7 @@ class TransitionOrderStatusAction
             $locked->save();
             if ($target === OrderStatus::Cancelled && $locked->payment_method === PaymentMethod::Cash) {
                 foreach ($locked->payments()->where('method', PaymentMethod::Cash)->where('status', PaymentStatus::Pending)->lockForUpdate()->get() as $payment) {
-                    $payment->status = PaymentStatus::Cancelled;
+                    $payment->status = $this->paymentMachine->transition($payment->status, PaymentStatus::Cancelled);
                     $payment->cancelled_at = now();
                     $payment->save();
                 }

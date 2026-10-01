@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\PaymentException;
 use App\Http\Responses\ApiResponse;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -41,7 +42,7 @@ return Application::configure(basePath: dirname(__DIR__))
             }
 
             $status = $response->getStatusCode();
-            if ($exception instanceof \App\Exceptions\PaymentException) {
+            if ($exception instanceof PaymentException) {
                 return ApiResponse::error($exception->errorCode, ['payment' => [$exception->errorCode]], $exception->statusCode);
             }
             $message = match ($status) {

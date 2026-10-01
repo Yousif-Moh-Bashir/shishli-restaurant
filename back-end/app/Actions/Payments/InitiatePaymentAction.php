@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Actions\Payments;
+
 use App\Data\Payments\CreatePaymentData;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentMethod;
@@ -15,33 +17,50 @@ use App\Services\Money;
 use App\Services\Payments\PaymentPresentation;
 use App\Services\Payments\PaymentProviderManager;
 use App\Services\Payments\PaymentStatusWriter;
-use Illuminate\Database\QueryException;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Throwable;
+
 class InitiatePaymentAction
 {
     public function __construct(private PaymentProviderManager $providers, private GuestOrderAccess $guestAccess,
         private PaymentStatusWriter $writer, private PaymentPresentation $presentation) {}
+
     public function handle(Order $order, ?User $actor, ?string $key = null, ?string $guestToken = null): Payment
     {
-        if ($actor === null) { $this->guestAccess->authorize($order, $guestToken); }
-        else { abort_unless($order->user_id === $actor->id, 404); }
-        if (DB::transactionLevel() > 0) { throw new PaymentException('PAYMENT_INITIATION_REQUIRES_COMMITTED_ORDER', 409); }
+        if ($actor === null) {
+            $this->guestAccess->authorize($order, $guestToken);
+        } else {
+            abort_unless($order->user_id === $actor->id, 404);
+        }
+        if (DB::transactionLevel() > 0) {
+            throw new PaymentException('PAYMENT_INITIATION_REQUIRES_COMMITTED_ORDER', 409);
+        }
         $identity = $actor !== null ? 'user:'.$actor->uuid : 'guest:'.hash('sha256', (string) $guestToken);
         $key = hash('sha256', 'initiate|'.$identity.'|'.($key ?? (string) Str::uuid()));
         [$payment, $created] = DB::transaction(function () use ($order, $key): array {
             $locked = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
             $existing = $locked->payments()->where('idempotency_key', $key)->first();
-            if ($existing !== null) { return [$existing, false]; }
-            if ($locked->status === OrderStatus::Cancelled) { throw new PaymentException('ORDER_CANCELLED'); }
+            if ($existing !== null) {
+                return [$existing, false];
+            }
+            if ($locked->status === OrderStatus::Cancelled) {
+                throw new PaymentException('ORDER_CANCELLED');
+            }
             if ($locked->payment_status === PaymentStatus::Paid || $locked->payments()->whereIn('status', [
                 PaymentStatus::Paid, PaymentStatus::Refunded, PaymentStatus::PartiallyRefunded,
-            ])->exists()) { throw new PaymentException('ORDER_ALREADY_PAID'); }
-            if ($locked->payment_method === PaymentMethod::Cash) { throw new PaymentException('PAYMENT_METHOD_NOT_SUPPORTED'); }
+            ])->exists()) {
+                throw new PaymentException('ORDER_ALREADY_PAID');
+            }
+            if ($locked->payment_method === PaymentMethod::Cash) {
+                throw new PaymentException('PAYMENT_METHOD_NOT_SUPPORTED');
+            }
             $providerName = config('payments.default_provider');
             $provider = $this->providers->resolve($providerName);
-            if (! $provider->supports($locked->payment_method)) { throw new PaymentException('PAYMENT_METHOD_NOT_SUPPORTED'); }
+            if (! $provider->supports($locked->payment_method)) {
+                throw new PaymentException('PAYMENT_METHOD_NOT_SUPPORTED');
+            }
             if ($locked->payments()->whereIn('status', [PaymentStatus::Pending, PaymentStatus::Processing])->exists()) {
                 throw new PaymentException('PAYMENT_ALREADY_IN_PROGRESS', 409);
             }
@@ -50,10 +69,14 @@ class InitiatePaymentAction
                 'amount' => $locked->total, 'currency' => $locked->currency, 'idempotency_key' => $key,
             ]);
             $payment->transactions()->create(['type' => PaymentTransactionType::Sale, 'status' => PaymentTransactionStatus::Pending,
+                'provider' => $payment->provider,
                 'amount' => $payment->amount, 'operation_key' => 'sale', 'request_reference' => $payment->uuid]);
+
             return [$payment, true];
         }, 3);
-        if (! $created) { return $payment; }
+        if (! $created) {
+            return $payment;
+        }
         try {
             $result = $this->providers->resolve($payment->provider)->createPayment(new CreatePaymentData(
                 $payment->uuid, $order->uuid, $payment->method, $payment->amount, $payment->currency, $key));
@@ -83,17 +106,22 @@ class InitiatePaymentAction
                 if ($locked->provider_payment_id !== null && $locked->provider_payment_id !== $result->providerPaymentId) {
                     throw new PaymentException('PROVIDER_REFERENCE_COLLISION');
                 }
+                if ($locked->provider_reference !== null && $result->providerReference !== null
+                    && $locked->provider_reference !== $result->providerReference) {
+                    throw new PaymentException('PROVIDER_REFERENCE_COLLISION');
+                }
                 $locked->provider_payment_id = $result->providerPaymentId;
-                $locked->provider_reference = $result->providerReference;
+                $locked->provider_reference ??= $result->providerReference;
                 $locked->checkout_url = $this->presentation->checkoutUrl($result->checkoutUrl);
                 $locked->save();
                 // An already processed webhook must not be downgraded by an older initiation response.
                 if (! in_array($locked->status, [PaymentStatus::Paid, PaymentStatus::Failed, PaymentStatus::Cancelled], true)) {
                     $this->writer->apply($locked, $lockedOrder, $result->status, $result->providerTransactionId, $locked->uuid);
                 }
+
                 return $locked;
             }, 3);
-        } catch (QueryException) {
+        } catch (UniqueConstraintViolationException) {
             throw new PaymentException('PROVIDER_REFERENCE_COLLISION', 409);
         }
     }

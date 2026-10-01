@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Services\Payments;
+
 use App\Actions\Payments\SyncOrderPaymentStatusAction;
 use App\Enums\PaymentStatus;
 use App\Enums\PaymentTransactionStatus;
@@ -9,10 +11,12 @@ use App\Events\PaymentSucceeded;
 use App\Exceptions\PaymentException;
 use App\Models\Order;
 use App\Models\Payment;
+
 /** Internal writer: callers lock the order first, then its payment, in one transaction. */
 class PaymentStatusWriter
 {
     public function __construct(private PaymentStateMachine $machine, private SyncOrderPaymentStatusAction $sync) {}
+
     public function apply(Payment $payment, Order $order, PaymentStatus $target,
         ?string $transactionId = null, ?string $requestReference = null, ?int $actorId = null): void
     {
@@ -30,16 +34,23 @@ class PaymentStatusWriter
             throw new PaymentException('ORDER_ALREADY_PAID');
         }
         $payment->status = $target;
-        if ($target === PaymentStatus::Paid) { $payment->paid_at = now(); }
+        if ($target === PaymentStatus::Paid) {
+            $payment->paid_at = now();
+            $payment->failure_code = null;
+            $payment->failure_message = null;
+        }
         if ($target === PaymentStatus::Failed) {
             $payment->failed_at = now();
             $payment->failure_code = 'PAYMENT_FAILED';
             $payment->failure_message = 'Payment was declined by the provider.';
         }
-        if ($target === PaymentStatus::Cancelled) { $payment->cancelled_at = now(); }
+        if ($target === PaymentStatus::Cancelled) {
+            $payment->cancelled_at = now();
+        }
         $payment->save();
         $transaction = $payment->transactions()->firstOrCreate(['operation_key' => 'sale'], [
             'type' => PaymentTransactionType::Sale, 'status' => PaymentTransactionStatus::Pending, 'amount' => $payment->amount,
+            'provider' => $payment->provider,
         ]);
         $transaction->status = match ($target) {
             PaymentStatus::Paid => PaymentTransactionStatus::Succeeded,
@@ -51,11 +62,19 @@ class PaymentStatusWriter
         $transaction->request_reference = $requestReference ?? $transaction->request_reference;
         $transaction->failure_code = $payment->failure_code;
         $transaction->failure_message = $payment->failure_message;
-        if ($actorId !== null) { $transaction->metadata = ['collected_by' => $actorId]; }
-        if ($transaction->status !== PaymentTransactionStatus::Pending) { $transaction->processed_at = now(); }
+        if ($actorId !== null) {
+            $transaction->metadata = ['collected_by' => $actorId];
+        }
+        if ($transaction->status !== PaymentTransactionStatus::Pending) {
+            $transaction->processed_at = now();
+        }
         $transaction->save();
         $synced = $this->sync->handle($order);
-        if ($from !== $target && $target === PaymentStatus::Paid) { PaymentSucceeded::dispatch($payment, $synced); }
-        if ($from !== $target && $target === PaymentStatus::Failed) { PaymentFailed::dispatch($payment); }
+        if ($from !== $target && $target === PaymentStatus::Paid) {
+            PaymentSucceeded::dispatch($payment, $synced);
+        }
+        if ($from !== $target && $target === PaymentStatus::Failed) {
+            PaymentFailed::dispatch($payment);
+        }
     }
 }

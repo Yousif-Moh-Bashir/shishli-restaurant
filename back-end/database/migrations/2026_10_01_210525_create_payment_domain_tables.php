@@ -1,7 +1,9 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+
 return new class extends Migration
 {
     public function up(): void
@@ -41,6 +43,7 @@ return new class extends Migration
             $table->string('status', 30);
             $table->decimal('amount', 12, 2);
             $table->string('provider_transaction_id')->nullable();
+            $table->string('provider', 50)->nullable();
             $table->string('provider_reference')->nullable();
             $table->string('request_reference')->nullable();
             $table->string('operation_key', 64)->nullable();
@@ -50,7 +53,7 @@ return new class extends Migration
             $table->timestamp('processed_at')->nullable();
             $table->timestamps();
             $table->unique(['payment_id', 'operation_key']);
-            $table->unique(['payment_id', 'provider_transaction_id']);
+            $table->unique(['provider', 'provider_transaction_id']);
             $table->index(['status', 'created_at']);
         });
         Schema::create('payment_webhook_events', function (Blueprint $table): void {
@@ -72,6 +75,7 @@ return new class extends Migration
             $table->index(['status', 'created_at']);
         });
     }
+
     public function down(): void
     {
         Schema::dropIfExists('payment_webhook_events');
