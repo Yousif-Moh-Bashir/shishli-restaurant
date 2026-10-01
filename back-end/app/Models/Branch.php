@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class Branch extends Model
 {
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     use HasFactory, SoftDeletes;
 
     protected $hidden = ['id'];

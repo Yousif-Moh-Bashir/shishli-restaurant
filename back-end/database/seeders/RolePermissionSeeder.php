@@ -30,6 +30,13 @@ class RolePermissionSeeder extends Seeder
                 'orders.create',
                 'orders.update_status',
                 'orders.cancel',
+                'orders.confirm',
+                'orders.start_preparing',
+                'orders.mark_ready',
+                'orders.dispatch',
+                'orders.complete',
+                'payments.view',
+                'payments.collect_cash',
                 'products.view',
                 'products.create',
                 'products.update',
@@ -56,8 +63,8 @@ class RolePermissionSeeder extends Seeder
             $roles = [
                 'super_admin' => $permissions,
                 'manager' => array_values(array_diff($permissions, ['settings.manage'])),
-                'cashier' => ['orders.view', 'orders.create', 'products.view', 'customers.view'],
-                'kitchen' => ['orders.view', 'orders.update_status'],
+                'cashier' => ['orders.view', 'orders.create', 'orders.confirm', 'orders.complete', 'products.view', 'customers.view', 'payments.view', 'payments.collect_cash'],
+                'kitchen' => ['orders.view', 'orders.update_status', 'orders.start_preparing', 'orders.mark_ready'],
                 'customer' => [],
             ];
 

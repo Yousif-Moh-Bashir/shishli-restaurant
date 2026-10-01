@@ -41,6 +41,9 @@ return Application::configure(basePath: dirname(__DIR__))
             }
 
             $status = $response->getStatusCode();
+            if ($exception instanceof \App\Exceptions\PaymentException) {
+                return ApiResponse::error($exception->errorCode, ['payment' => [$exception->errorCode]], $exception->statusCode);
+            }
             $message = match ($status) {
                 400 => 'الطلب غير صحيح',
                 401 => 'يجب تسجيل الدخول',

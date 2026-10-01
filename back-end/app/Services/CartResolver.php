@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class CartResolver
 {
-    public function resolve(Request $request): Cart
+    public function resolve(Request $request, bool $forCheckout = false): Cart
     {
         $user = $request->user();
         $token = $request->header('X-Cart-Token');
@@ -33,8 +33,15 @@ class CartResolver
         } else {
             throw new AuthenticationException;
         }
-        $cart = $query->firstOrFail();
-        $this->assertActive($cart);
+        $cart = $query->first();
+        if ($cart === null && $forCheckout && $user !== null && $token === null && ! $request->hasHeader('X-Cart-UUID')) {
+            $cart = Cart::where('user_id', $user->id)->where('status', CartStatus::Converted)
+                ->whereHas('order')->latest('id')->first();
+        }
+        abort_if($cart === null, 404);
+        if (! ($forCheckout && $cart->status === CartStatus::Converted)) {
+            $this->assertActive($cart);
+        }
 
         return $cart;
     }

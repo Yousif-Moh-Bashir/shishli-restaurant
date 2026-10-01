@@ -18,6 +18,11 @@ use Spatie\Permission\Traits\HasRoles;
 #[Hidden(['id', 'password', 'remember_token'])]
 class User extends Authenticatable
 {
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, HasRoles, HasUuids, Notifiable;
 

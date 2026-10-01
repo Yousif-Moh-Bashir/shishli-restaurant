@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Admin\BranchController as AdminBranchController;
 use App\Http\Controllers\Api\V1\Admin\BranchProductController;
 use App\Http\Controllers\Api\V1\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Api\V1\Admin\DeliveryZoneController;
 use App\Http\Controllers\Api\V1\Admin\OptionGroupController;
 use App\Http\Controllers\Api\V1\Admin\OptionValueController;
+use App\Http\Controllers\Api\V1\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Api\V1\Admin\OrderHistoryController;
+use App\Http\Controllers\Api\V1\Admin\OrderOperationController;
 use App\Http\Controllers\Api\V1\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Api\V1\Admin\ProductImageController;
 use App\Http\Controllers\Api\V1\Admin\ProductOptionGroupController;
@@ -12,14 +16,20 @@ use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\LogoutController;
 use App\Http\Controllers\Api\V1\Auth\ProfileController;
 use App\Http\Controllers\Api\V1\Auth\RegisterController;
+use App\Http\Controllers\Api\V1\BranchController;
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CartDeliveryQuoteController;
 use App\Http\Controllers\Api\V1\CartItemController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\CheckoutController;
 use App\Http\Controllers\Api\V1\CustomerAddressController;
 use App\Http\Controllers\Api\V1\DeliveryQuoteController;
+use App\Http\Controllers\Api\V1\GuestOrderController;
 use App\Http\Controllers\Api\V1\HealthController;
+use App\Http\Controllers\Api\V1\KitchenOrderController;
 use App\Http\Controllers\Api\V1\MenuController;
+use App\Http\Controllers\Api\V1\OrderCancellationController;
+use App\Http\Controllers\Api\V1\OrderController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Middleware\OptionalCartAuthentication;
 use App\Models\CustomerAddress;
@@ -32,6 +42,18 @@ Route::bind('address', function (string $uuid): CustomerAddress {
 });
 
 Route::prefix('v1')->name('api.v1.')->group(function (): void {
+    Route::get('/kitchen/orders', KitchenOrderController::class)->middleware(['auth:sanctum', 'permission:orders.view'])->name('kitchen.orders');
+    Route::post('/orders/{order}/guest/cancel', [OrderCancellationController::class, 'guest'])
+        ->whereUuid('order')->middleware('throttle:60,1')->name('orders.guest.cancel');
+    Route::post('/checkout', CheckoutController::class)
+        ->middleware([OptionalCartAuthentication::class, 'throttle:checkout'])->name('checkout');
+    Route::get('/orders/{order}/guest', GuestOrderController::class)
+        ->whereUuid('order')->middleware('throttle:60,1')->name('orders.guest');
+    Route::middleware('auth:sanctum')->group(function (): void {
+        Route::post('/orders/{order}/cancel', [OrderCancellationController::class, 'authenticated'])->whereUuid('order')->name('orders.cancel');
+        Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{order}', [OrderController::class, 'show'])->whereUuid('order')->name('orders.show');
+    });
     Route::get('/health', HealthController::class)->name('health');
     Route::post('/delivery/quote', DeliveryQuoteController::class)->middleware('throttle:delivery-quote')->name('delivery.quote');
     Route::prefix('addresses')->name('addresses.')->middleware('auth:sanctum')->group(function (): void {
@@ -62,6 +84,17 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
     Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
     Route::prefix('admin')->name('admin.')->middleware('auth:sanctum')->group(function (): void {
+        Route::prefix('orders/{order}')->whereUuid('order')->name('orders.')->group(function (): void {
+            Route::post('/confirm', [OrderOperationController::class, 'confirm'])->middleware('permission:orders.confirm')->name('confirm');
+            Route::post('/start-preparing', [OrderOperationController::class, 'startPreparing'])->middleware('permission:orders.start_preparing')->name('start-preparing');
+            Route::post('/mark-ready', [OrderOperationController::class, 'markReady'])->middleware('permission:orders.mark_ready')->name('mark-ready');
+            Route::post('/dispatch', [OrderOperationController::class, 'dispatch'])->middleware('permission:orders.dispatch')->name('dispatch');
+            Route::post('/complete', [OrderOperationController::class, 'complete'])->middleware('permission:orders.complete')->name('complete');
+            Route::post('/cancel', [OrderOperationController::class, 'cancel'])->middleware('permission:orders.cancel')->name('cancel');
+            Route::get('/history', OrderHistoryController::class)->middleware('permission:orders.view')->name('history');
+        });
+        Route::get('/orders', [AdminOrderController::class, 'index'])->middleware('permission:orders.view')->name('orders.index');
+        Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->whereUuid('order')->middleware('permission:orders.view')->name('orders.show');
         Route::prefix('branches/{branch}/delivery-zones')->name('delivery-zones.')->scopeBindings()->group(function (): void {
             Route::get('/', [DeliveryZoneController::class, 'index'])->middleware('permission:delivery_zones.view')->name('index');
             Route::post('/', [DeliveryZoneController::class, 'store'])->middleware('permission:delivery_zones.create')->name('store');
@@ -120,9 +153,6 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
 });
 
 Route::get('/user', ProfileController::class)->middleware('auth:sanctum');
-
-use App\Http\Controllers\Api\V1\Admin\BranchController as AdminBranchController;
-use App\Http\Controllers\Api\V1\BranchController;
 
 Route::prefix('v1')->group(function () {
 

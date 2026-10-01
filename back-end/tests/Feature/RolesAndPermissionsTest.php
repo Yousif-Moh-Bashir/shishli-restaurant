@@ -46,6 +46,7 @@ class RolesAndPermissionsTest extends TestCase
                 'branches.products.manage',
                 'branches.view', 'branches.create', 'branches.update', 'branches.delete',
                 'orders.view', 'orders.create', 'orders.update_status', 'orders.cancel',
+                'orders.confirm', 'orders.start_preparing', 'orders.mark_ready', 'orders.dispatch', 'orders.complete',
                 'products.view', 'products.create', 'products.update', 'products.delete',
                 'categories.manage', 'offers.manage', 'customers.view', 'reports.view', 'settings.manage',
                 'categories.view', 'categories.create', 'categories.update', 'categories.delete',
@@ -56,13 +57,14 @@ class RolesAndPermissionsTest extends TestCase
                 'branches.products.manage',
                 'branches.view', 'branches.create', 'branches.update', 'branches.delete',
                 'orders.view', 'orders.create', 'orders.update_status', 'orders.cancel',
+                'orders.confirm', 'orders.start_preparing', 'orders.mark_ready', 'orders.dispatch', 'orders.complete',
                 'products.view', 'products.create', 'products.update', 'products.delete',
                 'categories.manage', 'offers.manage', 'customers.view', 'reports.view',
                 'categories.view', 'categories.create', 'categories.update', 'categories.delete',
                 'options.view', 'options.create', 'options.update', 'options.delete',
             ]],
-            'cashier' => ['cashier', ['orders.view', 'orders.create', 'products.view', 'customers.view']],
-            'kitchen' => ['kitchen', ['orders.view', 'orders.update_status']],
+            'cashier' => ['cashier', ['orders.view', 'orders.create', 'orders.confirm', 'orders.complete', 'products.view', 'customers.view']],
+            'kitchen' => ['kitchen', ['orders.view', 'orders.update_status', 'orders.start_preparing', 'orders.mark_ready']],
             'customer' => ['customer', []],
         ];
     }
@@ -76,7 +78,7 @@ class RolesAndPermissionsTest extends TestCase
         $this->seed(RolesAndPermissionsSeeder::class);
 
         $this->assertDatabaseCount('roles', 5);
-        $this->assertDatabaseCount('permissions', 30);
+        $this->assertDatabaseCount('permissions', 35);
         $this->assertDatabaseCount('model_has_roles', 1);
         $this->assertSame(['cashier'], $user->fresh()->getRoleNames()->all());
         $this->assertDatabaseHas('model_has_roles', ['model_id' => $user->id, 'model_type' => User::class]);
