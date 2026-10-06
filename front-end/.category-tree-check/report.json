@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "Nested hierarchy, collapse/expand, search with ancestor path, empty search, action UUIDs, busy and read-only permissions",
+    "Empty tree and responsive layout; isolated component fixtures without API mutations"
+  ],
+  "responsive": [
+    390,
+    768,
+    1440
+  ],
+  "diagnostics": []
+}

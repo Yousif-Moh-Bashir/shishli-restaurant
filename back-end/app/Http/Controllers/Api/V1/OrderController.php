@@ -7,15 +7,16 @@ use App\Http\Requests\Api\V1\ListOrdersRequest;
 use App\Http\Resources\Api\V1\OrderResource;
 use App\Http\Responses\ApiResponse;
 use App\Models\Order;
+use App\Services\Customers\CustomerOrderQuery;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index(ListOrdersRequest $request): JsonResponse
+    public function index(ListOrdersRequest $request, CustomerOrderQuery $orders): JsonResponse
     {
-        return ApiResponse::paginated(OrderResource::collection($request->user()->orders()->with('branch')
-            ->orderByDesc('placed_at')->orderByDesc('id')->paginate($request->integer('per_page', 15))));
+        return ApiResponse::paginated(OrderResource::collection($orders->apply($request->user()->orders()->getQuery(), $request->validated())
+            ->paginate($request->integer('per_page', 15))->withQueryString()));
     }
 
     public function show(Request $request, Order $order): JsonResponse

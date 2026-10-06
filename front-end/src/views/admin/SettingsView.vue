@@ -1,0 +1,39 @@
+<script setup>
+import AdminPageHeader from '../../components/admin/AdminPageHeader.vue'
+import {computed,ref,reactive,inject,onBeforeUnmount} from 'vue'
+import {onBeforeRouteLeave} from 'vue-router'
+import {useAuthStore} from '../../stores/auth'
+import {useApiState,useApiMutation} from '../../composables/useApiState'
+import {settingsApi} from '../../api/settings.api'
+import {settingFields,settingsGroups,settingsGroupDescriptions,operationPermissions} from '../../constants/settings'
+import {usePublicSettingsStore} from '../../stores/publicSettings'
+import AdminSectionHeading from '../../components/admin/AdminSectionHeading.vue'
+import AdminModal from '../../components/admin/AdminModal.vue'
+import ApiFeedback from '../../components/admin/catalog/ApiFeedback.vue'
+import BranchOperations from '../../components/admin/operations/BranchOperations.vue'
+import SettingsAudit from '../../components/admin/operations/SettingsAudit.vue'
+const auth=useAuthStore(),state=useApiState(),mutation=useApiMutation(),publicSettings=usePublicSettingsStore(),{notify}=inject('admin')
+const form=reactive({}),baseline=ref({}),tab=ref(auth.can('settings.view')?'general':operationPermissions.some(permission=>auth.can(permission))?'branches':'audit'),confirmation=ref(false),pendingBody=ref(null),saving=ref(false)
+const groups=computed(()=>Object.entries(settingsGroups).filter(([key])=>state.data.value?.some(row=>row.group===key&&settingFields[row.key])))
+const rows=computed(()=>state.data.value?.filter(row=>row.group===tab.value&&settingFields[row.key])||[])
+const changed=computed(()=>Object.fromEntries(Object.entries(form).filter(([key,value])=>JSON.stringify(value)!==JSON.stringify(baseline.value[key]))))
+const dirty=computed(()=>Object.keys(changed.value).length>0)
+const canOperate=computed(()=>operationPermissions.some(permission=>auth.can(permission)))
+async function load(){if(!auth.can('settings.view'))return;const result=await state.run(signal=>settingsApi.list(signal));if(result){for(const key of Object.keys(form))delete form[key];for(const row of result)if(settingFields[row.key])form[row.key]=row.value;baseline.value=structuredClone({...form})}}
+function reset(){Object.assign(form,structuredClone(baseline.value));mutation.error.value=null}
+function requestSave(){if(saving.value||!dirty.value||!auth.can('settings.update'))return;pendingBody.value=Object.fromEntries(Object.entries(changed.value).map(([key,value])=>[key,settingFields[key].nullable&&value===''?null:value]));if(Object.entries(pendingBody.value).some(([key,value])=>settingFields[key]?.sensitive&&(key==='orders.maintenance_mode'?value===true:value===false)))confirmation.value=true;else save()}
+async function save(){if(saving.value)return;saving.value=true;try{const result=await mutation.run(()=>settingsApi.update(pendingBody.value));if(result.ok){confirmation.value=false;notify('تم حفظ الإعدادات على الخادم.');await load();await publicSettings.load(true)}}finally{saving.value=false}}
+onBeforeRouteLeave(()=>!saving.value&&(!dirty.value||confirm('هناك تغييرات غير محفوظة. هل تريد مغادرة الإعدادات؟')))
+const beforeUnload=event=>{if(dirty.value||saving.value){event.preventDefault();event.returnValue=''}}
+window.addEventListener('beforeunload',beforeUnload);onBeforeUnmount(()=>window.removeEventListener('beforeunload',beforeUnload))
+void load()
+</script>
+<template><main id="main" class="settings-page"><AdminPageHeader class="page-heading"><div><span class="eyebrow">إدارة شيشلي</span><h1>الإعدادات والتشغيل</h1><p>بيانات المطعم، استقبال الطلبات، ساعات الفروع والإغلاقات المؤقتة.</p></div><button v-if="auth.can('settings.view')" class="button secondary" :disabled="saving||state.loading.value" @click="(!dirty||confirm('تجاهل التغييرات وإعادة التحميل؟'))&&load()">تحديث الإعدادات</button></AdminPageHeader>
+<div class="settings-tabs" role="tablist" aria-label="أقسام الإعدادات"><button v-for="[key,label] in groups" :key="key" class="row-button" role="tab" :aria-selected="tab===key" :disabled="saving" @click="tab=key">{{ label }}</button><button v-if="canOperate" class="row-button" role="tab" :aria-selected="tab==='branches'" :disabled="saving" @click="tab='branches'">تشغيل الفروع</button><button v-if="auth.can('settings.audit.view')" class="row-button" role="tab" :aria-selected="tab==='audit'" :disabled="saving" @click="tab='audit'">سجل التغييرات</button></div>
+<ApiFeedback :loading="state.loading.value" :error="state.error.value" @retry="load"/>
+<p v-if="dirty" class="form-note" role="status">لديك تغييرات غير محفوظة؛ تبقى في النموذج عند التنقل بين الأقسام.</p>
+<section v-if="rows.length" class="panel settings-panel" :class="{ 'settings-contact': tab === 'contact' }" role="tabpanel"><AdminSectionHeading icon="settings">{{ settingsGroups[tab] }}</AdminSectionHeading><p class="settings-section-intro">{{ settingsGroupDescriptions[tab] }}</p><form id="settings-form" @submit.prevent="requestSave"><fieldset class="settings-fields" :disabled="saving||!auth.can('settings.update')"><div class="form-grid"><label v-for="row in rows" :key="row.key" class="field" :class="{ 'settings-toggle-field': row.type === 'boolean' }"><span class="settings-field-label">{{ settingFields[row.key].label }}<span v-if="settingFields[row.key].required" class="required-marker" aria-hidden="true">*</span><span v-if="settingFields[row.key].nullable" class="settings-optional">اختياري</span></span><input v-if="row.type==='boolean'" v-model="form[row.key]" :name="row.key" type="checkbox"><select v-else-if="settingFields[row.key].options" v-model="form[row.key]" :name="row.key"><option v-for="value in settingFields[row.key].options" :key="value">{{ value }}</option></select><input v-else v-model="form[row.key]" :name="row.key" :type="settingFields[row.key].type||'text'" :dir="tab==='contact'||['restaurant.name_en','restaurant.currency','restaurant.timezone','restaurant.country','branding.logo_path','branding.primary_color'].includes(row.key)?'ltr':undefined" :placeholder="settingFields[row.key].placeholder" :autocomplete="settingFields[row.key].autocomplete" :required="settingFields[row.key].required" :maxlength="settingFields[row.key].max" :min="settingFields[row.key].min" :max="settingFields[row.key].maxValue" :step="settingFields[row.key].step||(row.type==='integer'?1:undefined)" :aria-invalid="mutation.error.value?.errors?.['settings.'+row.key]?'true':undefined"><small v-if="settingFields[row.key].note">{{ settingFields[row.key].note }}</small><small v-for="message in mutation.error.value?.errors?.['settings.'+row.key]||[]" :key="message" class="field-error" role="alert">{{ message }}</small></label></div></fieldset><p v-if="!auth.can('settings.update')" class="form-note">صلاحيتك تسمح بالعرض فقط.</p><div class="form-actions"><button v-if="auth.can('settings.update')" class="button settings-save" type="submit" :disabled="saving||!dirty">{{ saving?'جارٍ الحفظ…':'حفظ جميع التغييرات' }}</button><button type="button" class="row-button" :disabled="saving||!dirty" @click="reset">تراجع عن التغييرات</button></div><ApiFeedback :error="mutation.error.value" @retry="mutation.error.value=null"/></form></section>
+<BranchOperations v-if="canOperate" v-show="tab==='branches'"/>
+<SettingsAudit v-if="tab==='audit'&&auth.can('settings.audit.view')"/>
+<AdminModal :open="confirmation" title="تأكيد تغيير استقبال الطلبات" :busy="saving" @update:open="confirmation=$event" @submit="save"><p>قد توقف هذه التغييرات الطلبات الجديدة أو إحدى طرق الاستلام. تبقى القائمة والطلبات الحالية متاحة.</p><ul><li v-for="(value,key) in pendingBody" :key="key">{{ settingFields[key].label }}: {{ typeof value==='boolean'?(value?'مفعّل':'غير مفعّل'):value }}</li></ul><button class="button" type="submit" :disabled="saving">{{ saving?'جارٍ الحفظ…':'تأكيد وحفظ التغييرات' }}</button><ApiFeedback :error="mutation.error.value" @retry="mutation.error.value=null"/></AdminModal>
+</main></template>

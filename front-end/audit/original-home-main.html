@@ -1,0 +1,42 @@
+<main id="main">
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-art" role="img" aria-label="شيش طاووق ومشويات تركية مع الأرز والخضروات"></div>
+      <div class="hero-shade"></div>
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow"><span></span> من الفحم… إلى قلبك</span>
+          <h1 id="hero-title"><span class="restaurant-word">مطعم</span> شيشلي</h1>
+          <h2>للدجاج التركي والشيش</h2>
+          <p>مذاق تركي أصيل… يُحضّر يوميًا بعناية</p>
+          <div class="hero-buttons"><a class="button button-primary" href="menu.html"><i data-icon="utensils"></i> اطلب الآن</a><a class="button button-outline" href="menu.html">شاهد المنيو <i data-icon="arrow-left"></i></a></div>
+          <div class="hero-note"><span class="tiny-line"></span> مكونات طازجة. تتبيلة أصيلة. طعم لا يُنسى.</div>
+        </div>
+      </div>
+      <div class="hero-caption"><span></span> مشوي على الفحم، بكل حب</div>
+    </section>
+    <section class="features" aria-label="ما يميز شيشلي"><div class="container features-grid">
+      <article><i data-icon="drumstick"></i><div><h3>دجاج طازج يوميًا</h3><p>من أفضل المزارع</p></div></article>
+      <article><i data-icon="flame"></i><div><h3>مشويات تركية</h3><p>على الفحم الطبيعي</p></div></article>
+      <article><i data-icon="badge-check"></i><div><h3>جودة عالية</h3><p>في جميع المكونات</p></div></article>
+      <article><i data-icon="truck"></i><div><h3>خدمة توصيل سريعة</h3><p>لجميع مناطق التوصيل</p></div></article>
+    </div></section>
+    <section class="popular section-space container" id="popular" aria-labelledby="popular-title">
+      <div class="section-heading"><div><span class="section-kicker">من شوايتنا إلى مائدتك</span><h2 id="popular-title">الأكثر طلبًا <span class="title-flourish">✦</span></h2><p>أطباقنا المميزة التي يفضلها عملاؤنا</p></div><a class="text-button" href="menu.html">شاهد المنيو الكامل <i data-icon="arrow-left"></i></a></div>
+      <div class="search-bar" id="search-bar" hidden><label for="product-search">ابحث عن طبقك المفضل</label><div><i data-icon="search"></i><input id="product-search" type="search" placeholder="دجاج، شيش، كباب…" autocomplete="off"><button class="icon-button" type="button" id="search-close" aria-label="إغلاق البحث"><i data-icon="x"></i></button></div></div>
+      <div class="products-grid" id="products-grid"></div><p class="empty-search" id="empty-search" hidden>لم نجد طبقًا بهذا الاسم. جرّب البحث بكلمة أخرى.</p>
+      <noscript><p>فعّل JavaScript لعرض الأطباق واستخدام السلة، أو <a href="assets/images/products/restaurant-menu.jpeg">شاهد قائمة الطعام</a>.</p></noscript>
+    </section>
+    <section class="about container" id="about" aria-labelledby="about-title"><div class="about-photo" role="img" aria-label="صورة توضيحية لواجهة مطعم شيشلي"></div><div class="about-copy"><span class="section-kicker">حكاية طعم… وأصول تركية</span><h2 id="about-title">أهلاً بكم في مطعم شيشلي</h2><p>نقدم لكم أشهى المأكولات التركية الأصيلة بجودة عالية ومكونات طازجة، لنمنحكم تجربة طعام لا تُنسى.</p><button class="button button-primary button-small" type="button" id="about-more">تعرف علينا أكثر <i data-icon="arrow-left"></i></button><p id="about-details" hidden>من تتبيلة الدجاج إلى آخر لمسة على الفحم، نهتم بالتفاصيل التي تجعل وجبتكم مميزة. يسعدنا استقبالكم في المصيف، بجوار إشارة المصيف. <a class="footer-link" href="https://maps.app.goo.gl/yS1bHr8mAG1dNf2t9" target="_blank" rel="noopener noreferrer">الوصول إلى المطعم على خرائط جوجل</a></p></div></section>
+    <section class="gallery-banner container" id="gallery" aria-labelledby="gallery-title">
+      <div class="gallery-banner-heading"><div><span class="section-kicker">لقطات تفتح النفس</span><h2 id="gallery-title">معرض الصور</h2><p>من أطباقنا… حكاية طعم في كل صورة</p></div><a class="button button-outline" href="menu.html">اختر طبقك المفضل <i data-icon="arrow-left"></i></a></div>
+      <div class="gallery-carousel" id="gallery-carousel" role="region" aria-roledescription="عارض صور" aria-label="صور أطباق شيشلي">
+        <div class="gallery-banner-photos" id="gallery-photos" tabindex="0" aria-label="صور الأطباق، اسحب للتنقل أو استخدم الأسهم"></div>
+        <div class="gallery-bottom"><div class="gallery-progress" aria-hidden="true"><span class="gallery-progress-fill" id="gallery-progress"></span></div><div class="gallery-controls">
+          <button class="icon-button" type="button" id="gallery-prev" aria-label="تحريك الصور إلى اليمين" aria-controls="gallery-photos">→</button>
+          <span class="gallery-count" id="gallery-count" aria-hidden="true"></span><button class="icon-button" type="button" id="gallery-next" aria-label="تحريك الصور إلى اليسار" aria-controls="gallery-photos">←</button>
+          </div><span class="visually-hidden" id="gallery-status" role="status"></span>
+        </div>
+      </div>
+    </section>
+    <section class="cta container" aria-labelledby="cta-title"><div class="cta-symbol"><i data-icon="utensils"></i></div><div><h2 id="cta-title">جاهز لتجربة مذاق شيشلي؟</h2><p>اختر وجبتك المفضلة واطلبها الآن</p></div><a class="button button-primary" href="menu.html">ابدأ طلبك <i data-icon="arrow-left"></i></a></section>
+  </main>

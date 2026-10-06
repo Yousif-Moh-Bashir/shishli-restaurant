@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\CartStatus;
+use App\Services\CartDiscountResult;
 use Database\Factories\CartFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,11 +22,18 @@ class Cart extends Model
     /** @use HasFactory<CartFactory> */
     use HasFactory;
 
-    protected $fillable = ['user_id', 'branch_id', 'status', 'subtotal', 'total', 'expires_at'];
+    protected $fillable = ['user_id', 'branch_id', 'status', 'subtotal', 'total', 'expires_at', 'coupon_id', 'discount_total'];
 
-    protected $hidden = ['id', 'token', 'user_id', 'branch_id', 'active_user_id'];
+    protected $hidden = ['id', 'token', 'user_id', 'branch_id', 'active_user_id', 'coupon_id'];
 
     public array $issues = [];
+
+    public ?CartDiscountResult $discountResult = null;
+
+    public function coupon(): BelongsTo
+    {
+        return $this->belongsTo(Coupon::class)->withTrashed();
+    }
 
     protected static function booted(): void
     {
@@ -37,7 +45,7 @@ class Cart extends Model
 
     protected function casts(): array
     {
-        return ['status' => CartStatus::class, 'subtotal' => 'decimal:2', 'total' => 'decimal:2', 'expires_at' => 'datetime'];
+        return ['status' => CartStatus::class, 'subtotal' => 'decimal:2', 'total' => 'decimal:2', 'discount_total' => 'decimal:2', 'expires_at' => 'datetime'];
     }
 
     public function getRouteKeyName(): string

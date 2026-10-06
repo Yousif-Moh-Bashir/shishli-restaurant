@@ -1,6 +1,8 @@
 <?php
 
 use App\Exceptions\PaymentException;
+use App\Http\Middleware\EnsureUserIsActive;
+use App\Http\Middleware\RequestId;
 use App\Http\Responses\ApiResponse;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -21,6 +23,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->prepend(RequestId::class);
+        $middleware->appendToGroup('api', EnsureUserIsActive::class);
         $middleware->alias([
             'role' => RoleMiddleware::class,
             'permission' => PermissionMiddleware::class,
@@ -32,18 +36,23 @@ return Application::configure(basePath: dirname(__DIR__))
         );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        $exceptions->context(fn (): array => ['request_id' => request()->attributes->get('request_id'), 'user_uuid' => request()->user()?->uuid, 'route' => request()->route()?->getName() ?? request()->path()]);
+        $exceptions->dontFlash(['token', 'access_token', 'guest_access_token_hash']);
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request): bool => $request->is('api', 'api/*') || $request->expectsJson(),
         );
 
         $exceptions->respond(function (Response $response, Throwable $exception, Request $request): Response {
+            if ($request->attributes->has('request_id')) {
+                $response->headers->set('X-Request-ID', $request->attributes->get('request_id'));
+            }
             if ((! $request->is('api', 'api/*') && ! $request->expectsJson()) || $response->getStatusCode() < 400) {
                 return $response;
             }
 
             $status = $response->getStatusCode();
             if ($exception instanceof PaymentException) {
-                return ApiResponse::error($exception->errorCode, ['payment' => [$exception->errorCode]], $exception->statusCode);
+                return ApiResponse::error($exception->errorCode, ['payment' => [$exception->errorCode]], $exception->statusCode)->withHeaders(Arr::except($response->headers->all(), ['content-type', 'content-length']));
             }
             $message = match ($status) {
                 400 => 'الطلب غير صحيح',

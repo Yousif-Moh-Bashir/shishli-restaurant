@@ -1,0 +1,50 @@
+{
+  "browser": [
+    "Actual masked list, server filters/pagination, 500/422/empty without demo fallback",
+    "Full snapshot only in authorized details, escaped plain text, email-only subject, separate immutable attempts, fixed server pagination and missing finish time",
+    "Duplicate-submit prevention, 202 pending is not sent, post-retry full GET preserves content and terminal server state",
+    "Fresh state before retry, 422/409/403/429, cooldown without spam, 403 preserves auth and no optimistic sent",
+    "Uncertain before-commit and fast failed-after-commit requests: verify-only confirmation survives close/open, another explicit confirmation required before any POST",
+    "View-only access, kitchen permission guards/sidebar, 403/404 clear sensitive details without logout",
+    "Order and payment UUID reference sections and links; history remains separate, no per-row attempts requests",
+    "20-second pending/processing polling updates to server sent then stops; list remains manual refresh (three 21-second observations)",
+    "Reload restores server attempt history/manual flag; 401 clears session and notification content"
+  ],
+  "responsive": [
+    "Notifications list 390",
+    "Notifications list 768",
+    "Notifications list 1440",
+    "Notification details and attempts 390",
+    "Notification details and attempts 768",
+    "Notification details and attempts 1440",
+    "Retry confirmation 390",
+    "Retry confirmation 768",
+    "Retry confirmation 1440",
+    "Order notification section 390",
+    "Order notification section 768",
+    "Order notification section 1440",
+    "Payment notification section 390",
+    "Payment notification section 768",
+    "Payment notification section 1440"
+  ],
+  "live": [
+    {
+      "endpoint": "GET /admin/notifications",
+      "status": 401
+    },
+    {
+      "endpoint": "GET /admin/notifications/00000090-1111-4111-8111-111111111111",
+      "status": 401
+    },
+    {
+      "endpoint": "GET /admin/notifications/00000090-1111-4111-8111-111111111111/attempts",
+      "status": 401
+    },
+    {
+      "endpoint": "POST /admin/notifications/00000090-1111-4111-8111-111111111111/retry",
+      "status": 401
+    }
+  ],
+  "diagnostics": [],
+  "assetFailures": []
+}

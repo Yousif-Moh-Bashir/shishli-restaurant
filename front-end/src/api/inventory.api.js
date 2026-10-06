@@ -1,0 +1,3 @@
+import {http,unwrap} from './http'
+import {crud,cleanParams,page} from './catalogTransport'
+export const inventoryApi={...crud('/admin/inventory',['list','show','create','update']),movements:(params,signal,id)=>http.get(id?`/admin/inventory/${id}/movements`:'/admin/inventory/movements',{params:cleanParams(params),signal}).then(page),report:(params,signal)=>http.get('/admin/reports/inventory',{params:cleanParams(params),signal}).then(unwrap),action:(id,action,payload)=>http.post(`/admin/inventory/${id}/${action}`,payload).then(unwrap),returnStock:(id,reason)=>http.post(`/admin/orders/${id}/stock/return`,{reason}).then(unwrap)}

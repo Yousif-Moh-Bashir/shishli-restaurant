@@ -1,0 +1,23 @@
+﻿[
+    {
+        "suite":  "auth",
+        "exit":  0,
+        "fixtures":  9,
+        "responsive":  3,
+        "diagnostics":  0
+    },
+    {
+        "suite":  "cart",
+        "exit":  0,
+        "fixtures":  7,
+        "responsive":  3,
+        "diagnostics":  0
+    },
+    {
+        "suite":  "checkout",
+        "exit":  0,
+        "fixtures":  12,
+        "responsive":  12,
+        "diagnostics":  0
+    }
+]

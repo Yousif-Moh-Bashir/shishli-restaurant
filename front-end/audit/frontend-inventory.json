@@ -1,0 +1,3187 @@
+[
+  {
+    "file": "src/api/addresses.api.js",
+    "lines": 12,
+    "sha256": "9500ce0d05683e8f3e4ad6bfe2d0edf9d2fb20eb7d1ea5d4e437372636cd4685",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/adminOperations.api.js",
+    "lines": 6,
+    "sha256": "97c7bb381f362a6e6cad64c022d5eb2510b57d0645a88062f0b25dcc0417b825",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/auth.api.js",
+    "lines": 11,
+    "sha256": "61917aceff28d6132f006bac4a9ee78ffca97f91dc688fd6480c3c3bfb8dbf3c",
+    "imports": [
+      "./http"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/branches.api.js",
+    "lines": 15,
+    "sha256": "345a51228e811102ee8115f4843a21e024974030782a33417321ddf7b9e0de5d",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/businessHours.api.js",
+    "lines": 15,
+    "sha256": "de52686671a4b64954a5e1028bd8424aa5f4107c9cc501567f0138107957ff87",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/cart.api.js",
+    "lines": 19,
+    "sha256": "aaf9fa85c63bf0c02d5157cfc7e10e157df0a84e38bf88408a2380958cb29a1a",
+    "imports": [
+      "./http"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/catalogTransport.js",
+    "lines": 20,
+    "sha256": "1356c2c763ffe289958501093795cc5eeb97cd3595fc8dc1e9d055c732b4f5d6",
+    "imports": [
+      "./http"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/categories.api.js",
+    "lines": 10,
+    "sha256": "900eb6d9f452282488b9b951554972cb93b18786683c4632363f6ece56025846",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/checkout.api.js",
+    "lines": 9,
+    "sha256": "f9d41746c1cd274dbe6970d9d315df91935e7a9dd228e425dc5419012907e43c",
+    "imports": [
+      "./settings.api",
+      "./http"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/cms.api.js",
+    "lines": 6,
+    "sha256": "a011ebcea9d1494cc87a5d8c08dc4214962351b7963c225e249efa805ffe3b0e",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/customers.api.js",
+    "lines": 6,
+    "sha256": "4eb57936991fe2d40cb9d6eb275ea5a91d410feb657f5b3590261b62068ea072",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/dashboard.api.js",
+    "lines": 15,
+    "sha256": "b727a28651c4551930582f44bc5de3f652fc2af6cc4ad3f2532579448f7eb30c",
+    "imports": [
+      "./http",
+      "./reports.api"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/delivery.api.js",
+    "lines": 14,
+    "sha256": "b5d508a85606a1d283fedcba77b604cd8d12667fdd0990913c3a3561fed75496",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/http.js",
+    "lines": 22,
+    "sha256": "ab0871804c5fc3e8faaad13f0cd6b24e02bcd721362314a6c5c743e204b56e66",
+    "imports": [
+      "axios"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/inventory.api.js",
+    "lines": 4,
+    "sha256": "bc45824e8a96afa66f4a9690446e33c83e6879acb04727579ed0f62a5280f3b6",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/notifications.api.js",
+    "lines": 10,
+    "sha256": "c6933d279989347c6ec73ae54831e09412e7615da1e61f43eb20855bae77709b",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/operations.api.js",
+    "lines": 6,
+    "sha256": "c607b7d4ecae19137c0074fa17fad9946dcdb9fe00387482b65c70b2aac64563",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/orders.api.js",
+    "lines": 26,
+    "sha256": "cb9f6c7b70a2650c82d6ca3412c2f5aa48f73207c1e396b7d277c961d8c8e0be",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/payments.api.js",
+    "lines": 11,
+    "sha256": "d99af8970434c7916e524825cc4d3f9a707a1e28eb11f7b5b655b7cce02bf708",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/productImages.api.js",
+    "lines": 15,
+    "sha256": "6ad9d56e02d89d1a731473e9c13f8f87256f94b3394ce89b4c52163d90958a79",
+    "imports": [
+      "./http"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/productOptions.api.js",
+    "lines": 17,
+    "sha256": "eed9c9266967eaf067ac06ec22b6974bdccb1356581e10452d0f6eb884f775c7",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/products.api.js",
+    "lines": 10,
+    "sha256": "d11c854945ec2c7e8659ee9f957f40311f40d4492941cf02925b25d387bb92c1",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/promotions.api.js",
+    "lines": 6,
+    "sha256": "0fe9a06733a865496714b5f0977e8b113678396878e5993516608013c912cfbc",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/reports.api.js",
+    "lines": 42,
+    "sha256": "5279ae36497ad9a0b852919eb34882e70dd5df40e6956e57c2619da4da060fcb",
+    "imports": [
+      "./http",
+      "../constants/reports",
+      ","
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/api/settings.api.js",
+    "lines": 10,
+    "sha256": "96f09c095c9c2b8bd3ef4cf2a5d5efb2d90043545fd1cb4c5f52d3ba2a19c152",
+    "imports": [
+      "./http",
+      "./catalogTransport"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/App.vue",
+    "lines": 14,
+    "sha256": "bc158061b39359b92590f760fc225cd237cc922f5bd740098b0c021e8c36fc4a",
+    "imports": [
+      "./components/common/AppSkeleton.vue",
+      "vue-router",
+      "vue",
+      "./stores/auth"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/assets/css/admin.css",
+    "lines": 141,
+    "sha256": "91a560eb382fc3167918ec0ccdacf59198e80d25d1c2334f950606ca00d91cda",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/assets/css/audit-modules.css",
+    "lines": 21,
+    "sha256": "fef84b4f455bd41799adbc1f54d4063fc812b5b2c5265815e251f01de86f09e4",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/assets/css/details.css",
+    "lines": 46,
+    "sha256": "551c16a1c58d6ce0719ddddf71dacba2a24d3e7bef3c8e87446fe1033b54a1c5",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/assets/css/modals.css",
+    "lines": 5,
+    "sha256": "dfc5e5600e6a0bef149d6f8fbb5cda176b08bc00bd3cc0d4e328f1d752d7d40e",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/assets/css/orders.css",
+    "lines": 16,
+    "sha256": "1143751fa871a52616ba1361fbba630d183fb761e4cd69dd9c2447a163f8fff7",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/assets/css/reports.css",
+    "lines": 24,
+    "sha256": "43914cda94ef6e5553928d0291cc323646a7331830d82abb40aae0e29dc20bc9",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/assets/css/responsive.css",
+    "lines": 26,
+    "sha256": "0402e685594a5cb92e72428c7c6540767b0d7018b4693f74b2eed5d8df2c0b17",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/assets/css/settings.css",
+    "lines": 3,
+    "sha256": "cfcd919a5c5d9722694a627ef3130b4f3375ca95241c00d7877781c112665611",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/assets/css/site.css",
+    "lines": 23,
+    "sha256": "12d44730d65b8d2ca6bebb2b496187a9eadeafb698a8ada9bee23b5397dbc654",
+    "imports": [
+      "./style.css",
+      "./responsive.css",
+      "./orders.css"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/assets/css/skeleton.css",
+    "lines": 23,
+    "sha256": "935b80262fddd6e89ea04d0241b38751f1eb4a2080d61cd80e69011337d39d6f",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/assets/css/style.css",
+    "lines": 14,
+    "sha256": "8830d7facd7affacbc19dff95e7eb424b6f09f7a16db49840a1bf7862c8fc391",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/AdminFilterExtras.vue",
+    "lines": 14,
+    "sha256": "bb77cc55eae4491fc41b6d9f5c77149f478ea9ce623210637721e73ab6cb94b0",
+    "imports": [
+      "vue",
+      "./AdminIcon.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/AdminHeader.vue",
+    "lines": 21,
+    "sha256": "a93a3601c50154640832a0248a1f7a106dffd5b116f581602b87f742deda59a8",
+    "imports": [
+      "vue",
+      "./AdminIcon.vue",
+      "../../stores/auth",
+      "../../composables/useSessionLogout"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/AdminIcon.vue",
+    "lines": 6,
+    "sha256": "5c6b59b8786c186d250dc5918731dce2cfde10cd9399073cc75cbcaf3334c367",
+    "imports": [
+      "../../data/adminIcons"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/AdminModal.vue",
+    "lines": 20,
+    "sha256": "0d4efd858228ff4a5cae2fa8cda0df4f429131965e50a59c67a5ee5ca3a1f8a6",
+    "imports": [
+      "vue",
+      "./AdminIcon.vue"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/AdminSectionHeading.vue",
+    "lines": 6,
+    "sha256": "df0dd65c8034d6b12c6cac8cdbe1305650872f52579495ed5a04a5b8a34126cb",
+    "imports": [
+      "./AdminIcon.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/AdminSidebar.vue",
+    "lines": 27,
+    "sha256": "e1a596560a9152ab95b343a1482d000521bde9717147f1c627ea89603d5da936",
+    "imports": [
+      "vue",
+      "vue-router",
+      "./AdminIcon.vue",
+      "../../assets/images/logo/shishli-logo.png",
+      "../../stores/auth",
+      "../../constants/adminNavigation",
+      "../../router/authGuards"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/catalog/ApiFeedback.vue",
+    "lines": 7,
+    "sha256": "9f289eece109dd7852a103632ecdf32d155b621695c7bfa9be2be05488fb8a23",
+    "imports": [
+      "../../common/AppSkeleton.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/catalog/ApiPagination.vue",
+    "lines": 6,
+    "sha256": "f60f4b55f69895f9215a0521b8b4248fb2534abc2b42e7b7739f2d76561bb76c",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/catalog/BranchProductsPanel.vue",
+    "lines": 47,
+    "sha256": "d0d573936ad6f211d2de02464d540e06df87bffd665950a6623d6ecf5f198500",
+    "imports": [
+      "../AdminIcon.vue",
+      "../AdminSectionHeading.vue",
+      "vue",
+      "../../../api/branches.api",
+      "../../../api/products.api",
+      "../../../stores/auth",
+      "../../../composables/useApiState",
+      "../../../constants/catalogFields",
+      "../../../utils/formatters",
+      "./RemotePicker.vue",
+      "./CatalogFields.vue",
+      "./ApiFeedback.vue",
+      "./ApiPagination.vue"
+    ],
+    "forms": 2,
+    "dialogs": 0,
+    "permissions": [
+      "branches.products.manage",
+      "products.view",
+      "branches.products.manage"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/catalog/CatalogEditor.vue",
+    "lines": 47,
+    "sha256": "9c01d8b4ac1f5fd38ad49908b44679756e2bd38b23aebf730b2b6deafe18635c",
+    "imports": [
+      "../../../utils/apiError",
+      "vue",
+      "../AdminModal.vue",
+      "./CatalogFields.vue",
+      "./ApiFeedback.vue",
+      "../../../composables/useApiState",
+      "../../../constants/catalogFields",
+      "../../../api/categories.api",
+      "../../../stores/auth",
+      "../../common/AppSkeleton.vue"
+    ],
+    "forms": 0,
+    "dialogs": 1,
+    "permissions": [
+      "categories.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/catalog/CatalogFields.vue",
+    "lines": 13,
+    "sha256": "7c35bfa067c1612986130f6cce3d782f591ad5c45d7dbbc5368ce0d8f85023de",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/catalog/CatalogList.vue",
+    "lines": 129,
+    "sha256": "09c147ee592b317bf92af2679184c974eeaeab609545ef6286dd986b428a7e7f",
+    "imports": [
+      "../../../utils/apiError",
+      "../../common/AppSkeleton.vue",
+      "../AdminSectionHeading.vue",
+      "../AdminFilterExtras.vue",
+      "vue",
+      "vue-router",
+      "../../../stores/auth",
+      "../../../composables/useApiState",
+      "../../../api/products.api",
+      "../../../api/branches.api",
+      "../../../api/categories.api",
+      "../../../api/productOptions.api",
+      "../../../utils/formatters",
+      "../AdminIcon.vue",
+      "./ProductImage.vue",
+      "./CatalogEditor.vue",
+      "./ApiFeedback.vue",
+      "./ApiPagination.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "products",
+      "categories",
+      "branches",
+      "options",
+      "categories.view",
+      "categories.view",
+      "products.update",
+      "products.update",
+      "products.update",
+      "products.update",
+      "products.delete"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/catalog/ProductBranchesPanel.vue",
+    "lines": 43,
+    "sha256": "29279a69d054f5ebef6fe516733ea26d475ee23700f1166049969ae38f179a1f",
+    "imports": [
+      "../AdminIcon.vue",
+      "../AdminSectionHeading.vue",
+      "vue",
+      "../../../api/branches.api",
+      "../../../stores/auth",
+      "../../../composables/useApiState",
+      "../../../constants/catalogFields",
+      "../../../utils/formatters",
+      "./CatalogFields.vue",
+      "./ApiFeedback.vue",
+      "./ApiPagination.vue"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "branches.view",
+      "branches.view",
+      "branches.products.manage"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/catalog/ProductImage.vue",
+    "lines": 11,
+    "sha256": "f6d486773f040fc6bd16a80a38edcf423c3f2d358dfb0cae339c6dd05ac694a4",
+    "imports": [
+      "vue",
+      "../AdminIcon.vue",
+      "../../../utils/contentUrl"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/catalog/ProductImagesPanel.vue",
+    "lines": 30,
+    "sha256": "376cc56dc92a55e501c0b3d984e7c8d38bb32f3cce05efb836eafcdb18db6491",
+    "imports": [
+      "../AdminIcon.vue",
+      "../AdminSectionHeading.vue",
+      "vue",
+      "../../../api/productImages.api",
+      "../../../composables/useApiState",
+      "../../../stores/auth",
+      "./ApiFeedback.vue",
+      "./ProductImage.vue"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "products.update",
+      "products.update"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/catalog/ProductOptionsPanel.vue",
+    "lines": 27,
+    "sha256": "ebe56a4134daa44bef146959ccf3bb77cdb67bb5a73f0fb9ddf9af0b3622b748",
+    "imports": [
+      "../AdminIcon.vue",
+      "../AdminSectionHeading.vue",
+      "vue",
+      "../../../api/productOptions.api",
+      "../../../constants/catalogFields",
+      "../../../stores/auth",
+      "../../../composables/useApiState",
+      "./CatalogFields.vue",
+      "./ApiFeedback.vue",
+      "./RemotePicker.vue"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "products.update",
+      "products.update",
+      "options.view",
+      "products.update",
+      "options.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/catalog/RemotePicker.vue",
+    "lines": 17,
+    "sha256": "efd79d7349c2e8dc5762f7f9a48f0b460d147b2d562dd97a9ad15f1ecc716caa",
+    "imports": [
+      "vue",
+      "../../../composables/useApiState",
+      "./ApiFeedback.vue",
+      "./ApiPagination.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/CouponsPanel.vue",
+    "lines": 22,
+    "sha256": "0d1e4a3d0b66c36de9c6610bcc8c2c1ad3e61d3f94639e4776f3035da00e8e47",
+    "imports": [
+      "../../composables/useModalDraft",
+      "vue",
+      "../../api/promotions.api",
+      "../../composables/useServerList",
+      "../../composables/useApiState",
+      "../../stores/auth",
+      "../../utils/formDates",
+      "./AdminModal.vue",
+      "./DomainFields.vue",
+      "./catalog/ApiFeedback.vue",
+      "./catalog/ApiPagination.vue"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [
+      "coupons.create",
+      "coupons.update",
+      "coupons.delete"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/DomainFields.vue",
+    "lines": 22,
+    "sha256": "1bf76c22b5b2a3f26b11373941c9285b9cdebc257553f84d2f6d22938d0b160c",
+    "imports": [
+      "vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/DomainFilters.vue",
+    "lines": 7,
+    "sha256": "e152f52eeb3bcea5ee342e49811ac193a6d1ffc875899733f9ff11cfd5f15c00",
+    "imports": [
+      "./DomainFields.vue",
+      "./catalog/RemotePicker.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/operations/BranchOperations.vue",
+    "lines": 32,
+    "sha256": "0fa734d3ec2821f0bb0f0ea4b6e6d041d15cf6b76ff4361a31687a0adea182b3",
+    "imports": [
+      "vue",
+      "../../../stores/auth",
+      "../../../composables/useOrderBranches",
+      "../../../composables/useApiState",
+      "../../../composables/useUnsavedForm",
+      "../../../api/branches.api",
+      "../../../api/operations.api",
+      "./BusinessHoursPanel.vue",
+      "./ClosuresPanel.vue",
+      "../AdminSectionHeading.vue",
+      "../AdminModal.vue",
+      "../catalog/ApiFeedback.vue"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [
+      "branches.view",
+      "branches.view",
+      "branches.view",
+      "branches.view",
+      "branches.view",
+      "branches.update",
+      "branches.update",
+      "branches.hours.view",
+      "branches.closures.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/operations/BusinessHoursPanel.vue",
+    "lines": 24,
+    "sha256": "bf5ef17bc3dced89a80f3d01fa1fdd3354da1373ce2103457999f2f58ad0e7ce",
+    "imports": [
+      "vue",
+      "../../../stores/auth",
+      "../../../composables/useApiState",
+      "../../../composables/useUnsavedForm",
+      "../../../api/businessHours.api",
+      "../../../constants/settings",
+      "../AdminSectionHeading.vue",
+      "../AdminModal.vue",
+      "../catalog/ApiFeedback.vue"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [
+      "branches.hours.update",
+      "branches.hours.update",
+      "branches.hours.update"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/operations/ClosuresPanel.vue",
+    "lines": 24,
+    "sha256": "9a89dc6ac217e68a8d6ca899ca72fdda6387c5bcd2f8dba0b8b446216021560f",
+    "imports": [
+      "vue",
+      "../../../stores/auth",
+      "../../../composables/useApiState",
+      "../../../composables/useUnsavedForm",
+      "../../../api/businessHours.api",
+      "../AdminSectionHeading.vue",
+      "../AdminModal.vue",
+      "../catalog/ApiFeedback.vue",
+      "../catalog/ApiPagination.vue"
+    ],
+    "forms": 0,
+    "dialogs": 2,
+    "permissions": [
+      "branches.closures.create",
+      "branches.closures.update",
+      "branches.closures.delete"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/operations/SettingsAudit.vue",
+    "lines": 15,
+    "sha256": "b732d1a870090cfbce8608d13d33f0ed5f5971b58a5560b252e35dfd58688cf1",
+    "imports": [
+      "vue",
+      "../../../api/settings.api",
+      "../../../constants/settings",
+      "../../../composables/useApiState",
+      "../catalog/ApiFeedback.vue",
+      "../catalog/ApiPagination.vue",
+      "../AdminSectionHeading.vue",
+      " type="
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/PromotionEditor.vue",
+    "lines": 24,
+    "sha256": "51cdf3785fd6a92717f2f00316bb8f386ef4743758466df3667fbd0c730c1c71",
+    "imports": [
+      "../../composables/useModalDraft",
+      "vue",
+      "./AdminModal.vue",
+      "./DomainFields.vue",
+      "./catalog/RemotePicker.vue",
+      "./catalog/ApiFeedback.vue",
+      "../../stores/auth",
+      "../../composables/useApiState",
+      "../../api/promotions.api",
+      "../../api/branches.api",
+      "../../api/products.api",
+      "../../api/categories.api",
+      "../../utils/formDates"
+    ],
+    "forms": 0,
+    "dialogs": 1,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/admin/StockReturn.vue",
+    "lines": 12,
+    "sha256": "1335e7e3487a564bbdef8e95fa144f8a2733c120179ba4ee0023109d3c945442",
+    "imports": [
+      "vue",
+      "../../api/inventory.api",
+      "../../composables/useApiState",
+      "../../stores/auth",
+      "./catalog/ApiFeedback.vue"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "inventory.adjust"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/common/AppSkeleton.vue",
+    "lines": 20,
+    "sha256": "b7f9f9fc54e9b286dc7189e6ab75238cbab58f4ae8a69ff2e1abc1dd36c318f6",
+    "imports": [
+      "vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/notifications/NotificationBadge.vue",
+    "lines": 6,
+    "sha256": "470192109ed9f6c887e198483d916b4003441e6985c1813f470adb2cceb2cafa",
+    "imports": [
+      "../../utils/notificationStatus"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/notifications/NotificationRetry.vue",
+    "lines": 42,
+    "sha256": "b0db051105d0eec72d80776ca65cd806761d26e91706fb5e5880544278185818",
+    "imports": [
+      "vue",
+      "../../stores/auth",
+      "../../api/notifications.api",
+      "../../utils/apiError",
+      "../admin/AdminIcon.vue",
+      "../admin/AdminSectionHeading.vue"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [
+      "notifications.retry",
+      "notifications.retry"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/notifications/RelatedNotifications.vue",
+    "lines": 19,
+    "sha256": "c8838febe3a02063cd01287115f8dc5fda88f551accd09e503bc0f69b3600775",
+    "imports": [
+      "../common/AppSkeleton.vue",
+      "vue",
+      "vue-router",
+      "../../stores/auth",
+      "../../api/notifications.api",
+      "../../composables/useApiState",
+      "../../utils/notificationStatus",
+      "../../utils/formatters",
+      "./NotificationBadge.vue",
+      "../admin/catalog/ApiPagination.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "notifications.view",
+      "notifications.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/orders/AdminOrderOperations.vue",
+    "lines": 37,
+    "sha256": "13306a46b96d8789c229a3d6c31213de05350d16346a775013e75ac3f9732c7e",
+    "imports": [
+      "vue",
+      "../../stores/auth",
+      "../../api/orders.api",
+      "../../constants/orderOperations",
+      "../../utils/apiError",
+      "../admin/AdminIcon.vue",
+      "../admin/AdminSectionHeading.vue"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/orders/AdminOrdersBoard.vue",
+    "lines": 47,
+    "sha256": "a0fb74f0d3944ca8a9d72515f549f73efb29ccbb90bf5c79dcb1ed01244aa143",
+    "imports": [
+      "../common/AppSkeleton.vue",
+      "../admin/AdminIcon.vue",
+      "../admin/AdminFilterExtras.vue",
+      "vue",
+      "vue-router",
+      "../../api/orders.api",
+      "../../composables/useOrderPolling",
+      "../../composables/useOrderBranches",
+      "../../stores/auth",
+      "../../utils/apiError",
+      "../../constants/orderStatus",
+      "../../utils/formatters",
+      "./OrderStatusBadge.vue",
+      "../admin/catalog/ApiPagination.vue",
+      "./AdminOrderOperations.vue",
+      "../../constants/orderOperations",
+      " name=",
+      " type="
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "orders.view",
+      "orders.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/orders/CustomerOrderCancel.vue",
+    "lines": 17,
+    "sha256": "88f76690fb3bdf477c988b36d974a662788f5474f535ab0ec701d03968c7834e",
+    "imports": [
+      "vue",
+      "../../stores/auth",
+      "../../api/orders.api",
+      "../../utils/apiError"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/orders/KitchenSnapshot.vue",
+    "lines": 6,
+    "sha256": "cf2abe23ba0e4cdc07349e9c3c780edfd7500574a2f47891e279eea1e21ad03f",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/orders/OrderStatusBadge.vue",
+    "lines": 6,
+    "sha256": "e22a106d12ea82f75a51e5288d513e37e4b746d9462eaf523c6c110dd85ca72d",
+    "imports": [
+      "../../constants/orderStatus"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/orders/OrderTimeline.vue",
+    "lines": 12,
+    "sha256": "36413f5858753230f6b18bc3238c0f220ebdc0aa67c46880fc1522fddde747b2",
+    "imports": [
+      "vue",
+      "../../constants/orderStatus",
+      "../../utils/formatters",
+      "./OrderStatusBadge.vue",
+      ">من {{ getOrderStatusLabel(step.from) }}</p><time v-if="
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/orders/OrderTrackingPanel.vue",
+    "lines": 39,
+    "sha256": "b2e52ef6ef5dd4788a80bf0e548a712e3d1c1a6512bbf0fe7700e7bb55975e32",
+    "imports": [
+      "../common/AppSkeleton.vue",
+      "vue",
+      "../../stores/auth",
+      "../../composables/useOrderPolling",
+      "../../api/orders.api",
+      "../../utils/orderAccess",
+      "../../constants/orderStatus",
+      "../../utils/formatters",
+      "./OrderTimeline.vue",
+      "./OrderStatusBadge.vue",
+      "./CustomerOrderCancel.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/payments/CashCollection.vue",
+    "lines": 45,
+    "sha256": "a8d2ee7a42d920f85aa77e1fc1161ed3210a1777f683dcf166d272cf9ea97ed6",
+    "imports": [
+      "vue",
+      "../../stores/auth",
+      "../../api/payments.api",
+      "../../api/orders.api",
+      "../../utils/apiError",
+      "../../utils/paymentStatus",
+      "../admin/AdminIcon.vue",
+      "../admin/AdminSectionHeading.vue"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [
+      "payments.collect_cash",
+      "payments.collect_cash"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/payments/CustomerPayments.vue",
+    "lines": 21,
+    "sha256": "2c9340a503f38bd151e95799b01d1cc63d51cacc2712b32396f64511d534c817",
+    "imports": [
+      "../common/AppSkeleton.vue",
+      "vue",
+      "../../stores/auth",
+      "../../api/payments.api",
+      "../../api/orders.api",
+      "../../composables/useOrderPolling",
+      "../../utils/paymentStatus",
+      "./PaymentSummary.vue",
+      "../admin/catalog/ApiPagination.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/payments/PaymentStatusBadge.vue",
+    "lines": 6,
+    "sha256": "6da93ec84049f82177217006a0ec72e3168f487da810f04e0c108afd24b9006b",
+    "imports": [
+      "../../utils/paymentStatus"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/payments/PaymentSummary.vue",
+    "lines": 9,
+    "sha256": "39e7d254b61e6f82d47ce6c5622d84075c89231d4af7d6e3760912e367cc8f04",
+    "imports": [
+      "./PaymentStatusBadge.vue",
+      "../../utils/paymentStatus",
+      "../../utils/formatters"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/reports/ReportChart.vue",
+    "lines": 21,
+    "sha256": "039e308b00deadc87501298dbf0d127ce75432d00a6faa6dd1293c5d6b1d5480",
+    "imports": [
+      "vue",
+      "../../utils/reportFormatters",
+      "../admin/AdminSectionHeading.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/reports/ReportFilters.vue",
+    "lines": 62,
+    "sha256": "746f26577273723d38cad4833211af7100a232de4425314d5293947f6d19c530",
+    "imports": [
+      "../common/AppSkeleton.vue",
+      "vue",
+      "../../stores/auth",
+      "../../api/products.api",
+      "../../api/categories.api",
+      "../../composables/useApiState",
+      "../../composables/useOrderBranches",
+      "../../constants/orderStatus",
+      "../../utils/paymentStatus",
+      "../admin/AdminFilterExtras.vue",
+      "../admin/AdminIcon.vue",
+      " name=",
+      " type=",
+      ")",
+      ") }}</small></label>\n        <label>إلى تاريخ<input v-model="
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "products.view",
+      "categories.view",
+      "products.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/components/reports/ReportMetrics.vue",
+    "lines": 23,
+    "sha256": "42e180f499a3931b645178514ce34276134c8248f574f572b4a985a611b27bdf",
+    "imports": [
+      "vue",
+      "../../constants/reports",
+      "../../utils/reportFormatters",
+      "../admin/AdminIcon.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/reports/ReportTable.vue",
+    "lines": 14,
+    "sha256": "ed98a865d9f26b9eaba10cf2b8f465e37703da484fe2933c0c55f2c1baf3ce2f",
+    "imports": [
+      "../admin/AdminIcon.vue",
+      "../../utils/reportFormatters"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/AddressBook.vue",
+    "lines": 37,
+    "sha256": "9d392b54dbb69d2aec02aaddb2012af8e5eb2574f18fc1b1f87aa91f0ffc907b",
+    "imports": [
+      "../common/AppSkeleton.vue",
+      "vue",
+      "../../api/addresses.api",
+      "../../stores/auth",
+      "../../composables/useApiState",
+      "../../constants/addressFields",
+      "./AddressFields.vue",
+      "../admin/catalog/ApiPagination.vue"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/AddressFields.vue",
+    "lines": 17,
+    "sha256": "9756a9e42a2a46d19ba96e3491b9b4dc35b250185d22807c640aa17093c5cb5c",
+    "imports": [
+      "vue",
+      "../../constants/addressFields"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/BranchSelector.vue",
+    "lines": 27,
+    "sha256": "77d8d61943b79565ec7489dce6b17237c79f42bba1808c08a678f7379577f4f0",
+    "imports": [
+      "../common/AppSkeleton.vue",
+      "vue",
+      "../../stores/branch",
+      "../../stores/cart",
+      "../../stores/operations"
+    ],
+    "forms": 0,
+    "dialogs": 1,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/CartCoupon.vue",
+    "lines": 9,
+    "sha256": "a86ea58242d464d73c67987c98f206239b287f46c154a4c10028c15a396c5311",
+    "imports": [
+      "vue",
+      "../../stores/cart"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/CartItems.vue",
+    "lines": 35,
+    "sha256": "28f8512ef3be74192297fb1a6158d6c580a83e60da4aaace09e14f3345781034",
+    "imports": [
+      "../common/AppSkeleton.vue",
+      "vue",
+      "vue-router",
+      "../../stores/cart",
+      "../../utils/formatters",
+      "./SiteIcon.vue"
+    ],
+    "forms": 0,
+    "dialogs": 1,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/CartSummary.vue",
+    "lines": 13,
+    "sha256": "5cdce71b2d8ac24d70b2e495b12e95de448fd6dadff98a7d0b5b9ec06a66c5a7",
+    "imports": [
+      "../common/AppSkeleton.vue",
+      "vue-router",
+      "../../stores/cart",
+      "../../utils/formatters",
+      "./SiteIcon.vue",
+      "./CartCoupon.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/CmsSection.vue",
+    "lines": 21,
+    "sha256": "a5e204da6d3d0c0de1b6752661cd33d3c89f2bedf04dd987b9c6935416c21b9b",
+    "imports": [
+      "vue",
+      "./SiteIcon.vue",
+      "./PublicBusinessHours.vue",
+      "./BranchSelector.vue",
+      "../../composables/useRestaurantInfo",
+      "../../utils/contentUrl"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/OrderSnapshot.vue",
+    "lines": 24,
+    "sha256": "97faa080bb812966b0024f594e2fdf6e9979356acd4b317affe7e9264d50571f",
+    "imports": [
+      "../orders/OrderStatusBadge.vue",
+      "../payments/PaymentStatusBadge.vue",
+      "../../utils/formatters",
+      "../../constants/orderStatus"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/ProductCard.vue",
+    "lines": 29,
+    "sha256": "5dad542a67c334d27231dc99a2a9fdc648ce04b274e8245858086fb72d942449",
+    "imports": [
+      "vue",
+      "vue-router",
+      "./SiteIcon.vue",
+      "../../stores/cart"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/PublicBusinessHours.vue",
+    "lines": 13,
+    "sha256": "a1facfc569df8eb139319fb24f886cb133a06ae3f3fb26c21b7c3a0c833ddabe",
+    "imports": [
+      "vue",
+      "../../stores/branch",
+      "../../composables/useApiState",
+      "../../api/businessHours.api",
+      "../../constants/settings",
+      "../common/AppSkeleton.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/PublicOperationStatus.vue",
+    "lines": 18,
+    "sha256": "e907dfe0a0569eafc3e9bd1856c816628d57e8daeb6f71db97c931ccf0610803",
+    "imports": [
+      "vue",
+      "../../stores/branch",
+      "../../stores/operations",
+      "../../stores/publicSettings",
+      "../common/AppSkeleton.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/SiteFooter.vue",
+    "lines": 16,
+    "sha256": "9622d5c93352fc4adc08648dba02b975e27003e4ab9c0ad4e0be5cfb6ea97363",
+    "imports": [
+      "./PublicBusinessHours.vue",
+      "./SiteIcon.vue",
+      "vue-router",
+      "../../composables/useRestaurantInfo"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/SiteHeader.vue",
+    "lines": 47,
+    "sha256": "35daab431ad12dbfcf91fb144dec910e674603b110f5082a6d8c73de9845e322",
+    "imports": [
+      "vue",
+      "vue-router",
+      "./SiteIcon.vue",
+      "../../stores/cart",
+      "../../composables/useRestaurantInfo",
+      "../../stores/auth",
+      "../../composables/useSessionLogout"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/SiteIcon.vue",
+    "lines": 6,
+    "sha256": "17893a9933276fcb6cfc5a7bf6dfdc0d772d31bc276e88432c36b5e8343df354",
+    "imports": [
+      "../../data/icons"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/components/site/SiteOffers.vue",
+    "lines": 7,
+    "sha256": "f0b457ef127e3ae25b948bc4c9bd1c29eb1145d897d023d8492b912eca2ac0bd",
+    "imports": [
+      "vue-router",
+      "../../utils/formatters"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useApiState.js",
+    "lines": 30,
+    "sha256": "57d2d742aa5f94e137e3b86bd123ea6bfc91de8a36eb0400874a59e47446db23",
+    "imports": [
+      "vue",
+      "../utils/apiError"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useAuthForm.js",
+    "lines": 56,
+    "sha256": "8052bf72490a5f90a4bab7213a182dfd243f02810e5cae1b9aa5507b2477aadb",
+    "imports": [
+      "vue",
+      "vue-router",
+      "../stores/auth",
+      "../utils/apiError",
+      "../router/authGuards"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useCmsPage.js",
+    "lines": 8,
+    "sha256": "dbe4b7736f32eb50403991eecf136f86c8560ed02cc98321e4e0b0f96fe52211",
+    "imports": [
+      "vue",
+      "../api/cms.api",
+      "./useApiState",
+      "../utils/contentUrl"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useDeliveryQuote.js",
+    "lines": 27,
+    "sha256": "b5fd2d5050a494e2cd3abaa47a0e58c9ea1c0b24f29c0155bac35f665440b062",
+    "imports": [
+      "vue",
+      "../stores/cart",
+      "../stores/auth"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useModalDraft.js",
+    "lines": 10,
+    "sha256": "4a136828bc96d880ae72a76b891ae270434dbf6703b1be49bc586dc7f28ed738",
+    "imports": [
+      "vue",
+      "./useUnsavedForm"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useOrderBranches.js",
+    "lines": 10,
+    "sha256": "e0e9d32c4c8b10c2ab47620397b0f9f86f559cccac732eb579754546ae89a479",
+    "imports": [
+      "vue",
+      "../stores/auth",
+      "../api/branches.api",
+      "../utils/apiError"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "branches.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useOrderDetails.js",
+    "lines": 25,
+    "sha256": "5842a3bb2793e87e1ce5694e51abbf89f7e0386b6b1d628c82251b6ee8087a5e",
+    "imports": [
+      "vue",
+      "vue-router",
+      "../stores/auth",
+      "./useApiState",
+      "../api/orders.api",
+      "../utils/orderAccess"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useOrderPolling.js",
+    "lines": 23,
+    "sha256": "c02bf0629741b5420918d533ea45de7a7cfebf34fe5313d1a20c0f053d34d498",
+    "imports": [
+      "vue",
+      "../utils/apiError"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/usePublicMenu.js",
+    "lines": 22,
+    "sha256": "9e8e9d03e29a3bada13ed0b62a907cddc4013bec11bc31d4259b385f2db07301",
+    "imports": [
+      "vue",
+      "../stores/branch",
+      "../api/products.api",
+      "../api/categories.api",
+      "./useApiState",
+      "../utils/apiError"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useReportContext.js",
+    "lines": 10,
+    "sha256": "09e2afb44f21f109f2acb02d7f3fc0880f16212e1a25f789e3aa4391dc29a41f",
+    "imports": [
+      "vue",
+      "../api/dashboard.api",
+      "./useApiState"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useRestaurantInfo.js",
+    "lines": 14,
+    "sha256": "d313439b5abca001e0fd611a26ece46761829369523a605de18764e736c92416",
+    "imports": [
+      "vue",
+      "../stores/publicSettings",
+      "../stores/branch"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useServerList.js",
+    "lines": 10,
+    "sha256": "9623e7fdb9dc781060faaf365877f7b6a8ffea57feff108e1e22afd49817134d",
+    "imports": [
+      "vue",
+      "./useApiState"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useSessionLogout.js",
+    "lines": 14,
+    "sha256": "9d2ac8de6acba5c512510e8a1fbbe50e4b31bb78eb763489a0dc10731d3d15ad",
+    "imports": [
+      "vue",
+      "vue-router",
+      "../stores/auth",
+      "../utils/apiError"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/composables/useUnsavedForm.js",
+    "lines": 10,
+    "sha256": "9bf5a686f92b1064031fbe0e29db131fbeb7f29f28123701d956454551578406",
+    "imports": [
+      "vue",
+      "vue-router"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/constants/addressFields.js",
+    "lines": 24,
+    "sha256": "ac961d25f73327a08ffa408dc983556a908cb4f8e46d6ec7a9b3220b088c329b",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/constants/adminNavigation.js",
+    "lines": 27,
+    "sha256": "fe296d3cd4932c6cb3208d31663e2381acb1271a576a68447ee32bb837b128c6",
+    "imports": [
+      "./settings",
+      "./reports"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "dashboard.view",
+      "orders.view",
+      "orders.view",
+      "payments.view",
+      "notifications.view",
+      "products.view",
+      "branches.view",
+      "options.view",
+      "categories.view",
+      "promotions.view",
+      "customers.view",
+      "delivery_zones.view",
+      "staff.view",
+      "roles.view",
+      "activity_logs.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/constants/catalogFields.js",
+    "lines": 35,
+    "sha256": "0f37c39050aaabadf2b97bee5eb1381bd095a96147969936d7f11cf6ffd11923",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/constants/cmsFields.js",
+    "lines": 5,
+    "sha256": "7c83a02828079230b173f965fb5d481a9b9defd84e097b6ab06f02eadba2789f",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/constants/domainFilters.js",
+    "lines": 12,
+    "sha256": "af24dfbfb2f3a2365a7c971a7b242094383b796e862b2d587f90eb33b6c7a367",
+    "imports": [
+      "./orderStatus",
+      ",",
+      ","
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/constants/orderOperations.js",
+    "lines": 10,
+    "sha256": "178cc4d0c908ae53ffd5187956bd93c59a904b5f04ff5fd35944902a62269092",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "orders.confirm",
+      "orders.start_preparing",
+      "orders.mark_ready",
+      "orders.dispatch",
+      "orders.complete",
+      "orders.cancel"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/constants/orderStatus.js",
+    "lines": 17,
+    "sha256": "587d6ccc93573b3dc9d91005c337cce4c4a359faf8dbdb94789585cd07792c40",
+    "imports": [
+      "../utils/paymentStatus"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/constants/reports.js",
+    "lines": 21,
+    "sha256": "8c8a909f2a4b8fe8ec23e034bc523768a8c36f43f5e71d386b6545ce73f8963b",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "reports.sales.view",
+      "reports.orders.view",
+      "reports.branches.view",
+      "reports.products.view",
+      "reports.products.view",
+      "reports.payments.view",
+      "reports.promotions.view",
+      "reports.promotions.view",
+      "reports.customers.view",
+      "reports.delivery.view",
+      "reports.orders.view",
+      "reports.orders.view",
+      "inventory.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/constants/settings.js",
+    "lines": 33,
+    "sha256": "6c00fe6a8f2b0140d6ae4ac7cc56fcb044eb303f208d237dbd5160efee9115a1",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/data/adminIcons.js",
+    "lines": 31,
+    "sha256": "b3f1ec21bd01354fc159bcf251e126d6df93402eabdc2fad1ca0c1ee059b362a",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/data/icons.js",
+    "lines": 23,
+    "sha256": "675d6a2587a0463dd11c0a780c3db86b14cd553c9c794b0f030e6a57efd109fd",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/layouts/AdminLayout.vue",
+    "lines": 46,
+    "sha256": "58b6f3dd0be9de71d1043b2e45de5d42f332aa74bf21a7b97ca1497dd67dbe86",
+    "imports": [
+      "vue",
+      "vue-router",
+      "../components/admin/AdminSidebar.vue",
+      "../components/admin/AdminHeader.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/layouts/SiteLayout.vue",
+    "lines": 89,
+    "sha256": "47a41c667a71368e43ab045b72ccee4b4e7cd8bd1373057c45394f8f65d4fcf1",
+    "imports": [
+      "../components/site/PublicOperationStatus.vue",
+      "vue",
+      "vue-router",
+      "../components/site/SiteHeader.vue",
+      "../components/site/SiteFooter.vue",
+      "../components/site/SiteIcon.vue",
+      "../components/site/CartItems.vue",
+      "../components/site/CartSummary.vue",
+      "../stores/cart",
+      "../composables/useRestaurantInfo"
+    ],
+    "forms": 0,
+    "dialogs": 1,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/main.js",
+    "lines": 28,
+    "sha256": "65496b31415a04f44f71d71423cc2949199099e388ab521a8ff7f8419dcc7708",
+    "imports": [
+      "vue",
+      "pinia",
+      "./App.vue",
+      "./router",
+      "./assets/css/site.css",
+      "./assets/css/admin.css",
+      "./assets/css/skeleton.css",
+      "./assets/css/modals.css",
+      "./assets/css/settings.css",
+      "./assets/css/details.css",
+      "./assets/css/audit-modules.css",
+      "./stores/auth",
+      "./stores/cart",
+      "./api/http",
+      "./router/authGuards"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/router/authGuards.js",
+    "lines": 32,
+    "sha256": "89d79bca0d7977a172e9bf69042fd9357437cda1bd5b1c991e4a40122c9a3270",
+    "imports": [
+      "../constants/adminNavigation",
+      "../constants/adminNavigation",
+      "../constants/reports"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/router/index.js",
+    "lines": 123,
+    "sha256": "00b4de9a0731a7e4d234bc15435ca6202f5a54af21f4251a0128b498bcd28364",
+    "imports": [
+      "vue-router",
+      "../views/site/PublicBranchesView.vue",
+      "../views/site/PublicOffersView.vue",
+      "../views/errors/NotFoundView.vue",
+      "../layouts/SiteLayout.vue",
+      "../views/site/CmsHomeView.vue",
+      "../views/site/MenuView.vue",
+      "../views/site/ProductView.vue",
+      "../views/auth/LoginView.vue",
+      "../views/auth/RegisterView.vue",
+      "../views/site/CartView.vue",
+      "../views/site/CheckoutView.vue",
+      "../views/site/OrderSuccessView.vue",
+      "../views/site/TrackOrderView.vue",
+      "../views/site/CmsPageView.vue",
+      "../views/site/ProfileView.vue",
+      "../layouts/AdminLayout.vue",
+      "../views/admin/DashboardView.vue",
+      "../views/admin/ReportsView.vue",
+      "../constants/reports",
+      "../views/admin/OrdersView.vue",
+      "../views/admin/ProductsView.vue",
+      "../views/admin/CategoriesView.vue",
+      "../views/admin/PromotionsView.vue",
+      "../views/admin/CustomerManagementView.vue",
+      "../views/admin/StaffView.vue",
+      "../views/admin/RolesView.vue",
+      "../views/admin/ActivityLogsView.vue",
+      "../views/admin/InventoryView.vue",
+      "../views/admin/CmsView.vue",
+      "../views/admin/SettingsView.vue",
+      "../views/errors/ForbiddenView.vue",
+      "../views/admin/BranchesView.vue",
+      "../views/admin/BranchDetailsView.vue",
+      "../views/admin/ProductOptionsView.vue",
+      "../views/admin/OptionGroupDetailsView.vue",
+      "../views/admin/ProductDetailsView.vue",
+      "../constants/settings",
+      "../constants/adminNavigation",
+      "../views/site/AddressesView.vue",
+      "../views/admin/DeliveryZonesView.vue",
+      "../views/site/CustomerOrdersView.vue",
+      "../views/site/CustomerOrderView.vue",
+      "../views/admin/OrderDetailsView.vue",
+      "../views/admin/KitchenView.vue",
+      "../views/admin/PaymentsView.vue",
+      "../views/admin/PaymentDetailsView.vue",
+      "../views/admin/NotificationsView.vue",
+      "../views/admin/NotificationDetailsView.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "staff.view",
+      "roles.view",
+      "activity_logs.view",
+      "branches.view",
+      "delivery_zones.view",
+      "branches.view",
+      "options.view",
+      "options.view",
+      "products.view",
+      "orders.view",
+      "orders.view",
+      "orders.view",
+      "payments.view",
+      "payments.view",
+      "notifications.view",
+      "notifications.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/stores/auth.js",
+    "lines": 98,
+    "sha256": "7a26efeb106ea9b225bf3fbe9b545a10aee49973c374e60541b9ba72e829dae0",
+    "imports": [
+      "vue",
+      "pinia",
+      "../api/auth.api",
+      "../utils/apiError",
+      "../utils/authToken"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/stores/branch.js",
+    "lines": 37,
+    "sha256": "c72a2f84056cf11bdbdc330cb1e8fed80de0c305ceaa2e6fab1a686668eeeae0",
+    "imports": [
+      "vue",
+      "pinia",
+      "../api/branches.api",
+      "../utils/apiError"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/stores/cart.js",
+    "lines": 198,
+    "sha256": "d14ead85cdd962a9bc444774d9db2938a177cd2de78a53b19c6b249bbf13e810",
+    "imports": [
+      "vue",
+      "pinia",
+      "../api/cart.api",
+      "../api/delivery.api",
+      "../api/checkout.api",
+      "../utils/orderAccess",
+      "../utils/apiError",
+      "./auth",
+      "./branch"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/stores/operations.js",
+    "lines": 18,
+    "sha256": "848c7815d03f1f1a457ff95240129659b28f284b51498d55f0bb9b4d53cfb621",
+    "imports": [
+      "pinia",
+      "vue",
+      "../api/operations.api",
+      "../utils/apiError"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/stores/publicSettings.js",
+    "lines": 17,
+    "sha256": "d6fe649aad9407e99a8ed285d5d1b34e8cdd155423d9fcb77d15cec18405394f",
+    "imports": [
+      "pinia",
+      "vue",
+      "../api/settings.api",
+      "../utils/apiError"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/utils/apiError.js",
+    "lines": 11,
+    "sha256": "53d26483c129c6ff8f8b5dc442c879ace3094d150b06cdaf88d0e3f32b9a6329",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/utils/authToken.js",
+    "lines": 6,
+    "sha256": "2a3146835cc6e9a9f84a24968f36aef76f147b22994d3934d0b0ac4590cacd45",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/utils/contentUrl.js",
+    "lines": 2,
+    "sha256": "8ae53579dcb72f612569eedf700d4a159caacd915b8f945539fc5144fab3ea33",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/utils/formatters.js",
+    "lines": 24,
+    "sha256": "572ab8d8d21f036f873d996b1a09f280071a8cec5b0d858fb8fd3f7ad478c743",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/utils/formDates.js",
+    "lines": 4,
+    "sha256": "5b2b72808ea2061b8fc5e1f8426fa017b19fa0f335f7ef1cd036b9cadab0593d",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/utils/notificationStatus.js",
+    "lines": 10,
+    "sha256": "e387faa06768acfc03d79b9563ad473f7326ad38a0ec157cca489ff04ea032f8",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/utils/orderAccess.js",
+    "lines": 29,
+    "sha256": "2ea37e846625f22f74ea833ba6ac91fdcaa1c6487be377df7a99b62ddc3dae23",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/utils/paymentStatus.js",
+    "lines": 17,
+    "sha256": "c34110e9cf35562d6035960646187daad5358d2a7e80025de364d91a2878c67a",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/utils/reportFormatters.js",
+    "lines": 25,
+    "sha256": "034633f96a6166121a10fc44622c4d64be7d83d230bf24bdd1bcc15400d3b92a",
+    "imports": [
+      "../constants/orderStatus",
+      "./paymentStatus",
+      "./formatters"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/ActivityLogsView.vue",
+    "lines": 19,
+    "sha256": "3e34893bd4ac53af79442fb30ca93ed498f9b34934b411b29d1a153fbc4ee84e",
+    "imports": [
+      "vue",
+      "../../components/admin/DomainFilters.vue",
+      "../../constants/domainFilters",
+      "../../api/adminOperations.api",
+      "../../stores/auth",
+      "../../api/adminOperations.api",
+      "../../composables/useServerList",
+      "../../utils/formatters",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/catalog/ApiPagination.vue",
+      " type="
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "staff.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/BranchDetailsView.vue",
+    "lines": 20,
+    "sha256": "ed3b10c4c670f9291f35341676429aabfbb6a24d8b294de662608ca23905bebe",
+    "imports": [
+      "../../components/admin/operations/BranchOperations.vue",
+      "../../components/admin/AdminSectionHeading.vue",
+      "vue",
+      "vue-router",
+      "../../api/branches.api",
+      "../../stores/auth",
+      "../../composables/useApiState",
+      "../../utils/apiError",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/catalog/CatalogEditor.vue",
+      "../../components/admin/catalog/BranchProductsPanel.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "branches.update",
+      "delivery_zones.view",
+      "branches.hours.view",
+      "branches.closures.view",
+      "branches.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/BranchesView.vue",
+    "lines": 2,
+    "sha256": "1c1d92aad6fd4491637543e1bbac6013a1faed358cca18efc15a3a82abbf9134",
+    "imports": [
+      "../../components/admin/catalog/CatalogList.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/CategoriesView.vue",
+    "lines": 2,
+    "sha256": "90d96351a8a886694f06defe8a2dd635887e33d94fd589ed21258b02768ea25b",
+    "imports": [
+      "../../components/admin/catalog/CatalogList.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/CmsView.vue",
+    "lines": 27,
+    "sha256": "9bf26fc5c4f6d3ba9c5efa816f15b7f9844753dfc6dfe22cb2229891d4677e64",
+    "imports": [
+      "../../composables/useModalDraft",
+      "../../components/admin/DomainFilters.vue",
+      "../../constants/domainFilters",
+      "vue",
+      "../../api/cms.api",
+      "../../constants/cmsFields",
+      "../../utils/formDates",
+      "../../stores/auth",
+      "../../composables/useServerList",
+      "../../composables/useApiState",
+      "../../components/admin/AdminModal.vue",
+      "../../components/admin/DomainFields.vue",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/catalog/ApiPagination.vue"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [
+      "cms.",
+      "cms.",
+      "cms.",
+      "cms.",
+      "cms.",
+      "cms.",
+      "cms.",
+      "cms.pages.update"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/CustomerManagementView.vue",
+    "lines": 26,
+    "sha256": "2a650f4f85ea7dda342fa1c2590e6cfc8a0760fc7ddc45462d853558426e3a55",
+    "imports": [
+      "vue-router",
+      "../../components/admin/DomainFilters.vue",
+      "../../constants/domainFilters",
+      "vue",
+      "vue-router",
+      "../../api/customers.api",
+      "../../stores/auth",
+      "../../composables/useServerList",
+      "../../composables/useApiState",
+      "../../utils/formatters",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/catalog/ApiPagination.vue"
+    ],
+    "forms": 2,
+    "dialogs": 0,
+    "permissions": [
+      "orders.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/DashboardView.vue",
+    "lines": 88,
+    "sha256": "d80e76b8a609aebeae4d3e31c3ad8d159f0110bb945c407ae8914d5cf10fccc6",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "vue",
+      "../../stores/auth",
+      "../../composables/useApiState",
+      "../../composables/useReportContext",
+      "../../api/dashboard.api",
+      "../../api/reports.api",
+      "../../api/orders.api",
+      "vue-router",
+      "../../utils/reportFormatters",
+      "../../utils/reportFormatters",
+      "../../components/reports/ReportFilters.vue",
+      "../../components/admin/AdminIcon.vue",
+      "../../components/orders/OrderStatusBadge.vue",
+      "../../components/reports/ReportTable.vue",
+      "../../constants/reports",
+      "../../assets/css/reports.css"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "reports.sales.view",
+      "orders.view",
+      "orders.view",
+      "reports.orders.view",
+      "reports.sales.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/DeliveryZonesView.vue",
+    "lines": 33,
+    "sha256": "5f5ab17787468186ad4cdb1d83c21a1d84659462250cfb689014beb20db41f53",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "../../components/admin/AdminIcon.vue",
+      "vue",
+      "vue-router",
+      "../../stores/auth",
+      "../../api/branches.api",
+      "../../api/delivery.api",
+      "../../composables/useApiState",
+      "../../utils/apiError",
+      "../../components/admin/catalog/CatalogFields.vue",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/catalog/ApiPagination.vue",
+      "../../utils/formatters"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [
+      "branches.view",
+      "delivery_zones.create",
+      "delivery_zones.update",
+      "delivery_zones.update",
+      "delivery_zones.delete",
+      "delivery_zones.update",
+      "delivery_zones.update",
+      "delivery_zones.update",
+      "delivery_zones.update",
+      "delivery_zones.create"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/InventoryView.vue",
+    "lines": 32,
+    "sha256": "6781e9d981c37feb83a197e222d508198e7710f99175036a1549b8386dccc73e",
+    "imports": [
+      "../../composables/useModalDraft",
+      "../../components/admin/DomainFilters.vue",
+      "../../constants/domainFilters",
+      "vue",
+      "../../api/inventory.api",
+      "../../api/categories.api",
+      "../../api/branches.api",
+      "../../api/products.api",
+      "../../stores/auth",
+      "../../composables/useServerList",
+      "../../composables/useApiState",
+      "../../utils/formatters",
+      "../../components/admin/catalog/RemotePicker.vue",
+      "../../components/admin/AdminModal.vue",
+      "../../components/admin/DomainFields.vue",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/catalog/ApiPagination.vue",
+      " type="
+    ],
+    "forms": 3,
+    "dialogs": 1,
+    "permissions": [
+      "inventory.view",
+      "inventory.create",
+      "inventory.view",
+      "inventory.movements.view",
+      "inventory.view",
+      "inventory.movements.view",
+      "inventory.movements.view",
+      "inventory.movements.view",
+      "branches.view",
+      "products.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/KitchenView.vue",
+    "lines": 32,
+    "sha256": "ff2452bfd94e893ed28785b36b0b8ed744d2fe9b2aa1cfabe76c337e0a6605e3",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "../../components/admin/AdminIcon.vue",
+      "vue",
+      "vue-router",
+      "../../api/orders.api",
+      "../../composables/useOrderPolling",
+      "../../composables/useOrderBranches",
+      "../../stores/auth",
+      "../../constants/orderStatus",
+      "../../components/orders/OrderStatusBadge.vue",
+      "../../components/orders/KitchenSnapshot.vue",
+      "../../components/orders/AdminOrderOperations.vue",
+      "../../components/admin/catalog/ApiPagination.vue",
+      "../../utils/apiError"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "orders.view",
+      "orders.view",
+      "orders.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/NotificationDetailsView.vue",
+    "lines": 27,
+    "sha256": "7e6f2fbbe9c602fbaaade94db0906093a74421b9511beb60950cffb15a8a1966",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "../../components/admin/AdminIcon.vue",
+      "../../components/admin/AdminSectionHeading.vue",
+      "vue",
+      "vue-router",
+      "../../api/notifications.api",
+      "../../stores/auth",
+      "../../composables/useOrderPolling",
+      "../../utils/notificationStatus",
+      "../../utils/formatters",
+      "../../utils/apiError",
+      "../../components/notifications/NotificationBadge.vue",
+      "../../components/notifications/NotificationRetry.vue",
+      "../../components/admin/catalog/ApiPagination.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "notifications.view",
+      "notifications.view",
+      "orders.view",
+      "payments.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/NotificationsView.vue",
+    "lines": 25,
+    "sha256": "5375b34ca37aea038f7eb4f29006c5c43ec277f304117baf74e22ca6749e4708",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "../../components/admin/AdminIcon.vue",
+      "../../components/admin/AdminFilterExtras.vue",
+      "vue",
+      "vue-router",
+      "../../stores/auth",
+      "../../composables/useApiState",
+      "../../api/notifications.api",
+      "../../utils/notificationStatus",
+      "../../utils/formatters",
+      "../../components/notifications/NotificationBadge.vue",
+      "../../components/admin/catalog/ApiPagination.vue",
+      " name=",
+      " type="
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "notifications.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/OptionGroupDetailsView.vue",
+    "lines": 29,
+    "sha256": "c31233fff64592c5b6da3697d8283c43a985f9aaf49098a1975256b0aff2f7d1",
+    "imports": [
+      "../../components/admin/AdminIcon.vue",
+      "../../components/admin/AdminSectionHeading.vue",
+      "vue",
+      "vue-router",
+      "../../api/productOptions.api",
+      "../../constants/catalogFields",
+      "../../stores/auth",
+      "../../composables/useApiState",
+      "../../utils/formatters",
+      "../../components/admin/catalog/CatalogFields.vue",
+      "../../components/admin/catalog/CatalogEditor.vue",
+      "../../components/admin/catalog/ApiFeedback.vue"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "options.update",
+      "options.create",
+      "options.update",
+      "options.delete"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/OrderDetailsView.vue",
+    "lines": 40,
+    "sha256": "112a8d0240665eac282eaf805d76872411190c8c3615288d0e11b5bd9d16ad28",
+    "imports": [
+      "../../components/admin/StockReturn.vue",
+      "../../components/common/AppSkeleton.vue",
+      "../../components/admin/AdminSectionHeading.vue",
+      "../../components/admin/AdminIcon.vue",
+      "vue",
+      "vue-router",
+      "../../api/orders.api",
+      "../../composables/useOrderPolling",
+      "../../stores/auth",
+      "../../constants/orderStatus",
+      "../../utils/formatters",
+      "../../components/site/OrderSnapshot.vue",
+      "../../components/orders/OrderStatusBadge.vue",
+      "../../components/orders/OrderTimeline.vue",
+      "../../components/orders/AdminOrderOperations.vue",
+      "../../components/orders/KitchenSnapshot.vue",
+      "../../components/admin/catalog/ApiPagination.vue",
+      "../../utils/apiError",
+      "../../components/payments/PaymentSummary.vue",
+      "../../components/payments/CashCollection.vue",
+      "../../utils/paymentStatus",
+      "../../components/notifications/RelatedNotifications.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "orders.view",
+      "orders.view",
+      "payments.view",
+      "payments.view",
+      "notifications.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/OrdersView.vue",
+    "lines": 5,
+    "sha256": "fe94e6df60c0102119781220cd0069b4ae0aedb62d30fd21996bac6e36216f2d",
+    "imports": [
+      "../../components/orders/AdminOrdersBoard.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/PaymentDetailsView.vue",
+    "lines": 27,
+    "sha256": "698590698ab1040c8d05bb96fb420659dde435f003a4b3cd6b506bb8f59ef2f0",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "../../components/admin/AdminIcon.vue",
+      "../../components/admin/AdminSectionHeading.vue",
+      "vue",
+      "vue-router",
+      "../../api/payments.api",
+      "../../stores/auth",
+      "../../composables/useOrderPolling",
+      "../../utils/paymentStatus",
+      "../../utils/formatters",
+      "../../utils/apiError",
+      "../../components/payments/PaymentSummary.vue",
+      "../../components/payments/CashCollection.vue",
+      "../../components/admin/catalog/ApiPagination.vue",
+      "../../components/notifications/RelatedNotifications.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "payments.view",
+      "payments.view",
+      "orders.view",
+      "notifications.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/PaymentsView.vue",
+    "lines": 23,
+    "sha256": "e2447cab255ea9802f9ec9768e55956ec067191193fe78563281cab316bd9647",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "../../components/admin/AdminIcon.vue",
+      "../../components/admin/AdminFilterExtras.vue",
+      "vue",
+      "vue-router",
+      "../../api/payments.api",
+      "../../composables/useOrderPolling",
+      "../../stores/auth",
+      "../../utils/paymentStatus",
+      "../../utils/formatters",
+      "../../components/payments/PaymentStatusBadge.vue",
+      "../../components/admin/catalog/ApiPagination.vue",
+      " name=",
+      " type="
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "payments.view",
+      "payments.view",
+      "orders.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/ProductDetailsView.vue",
+    "lines": 47,
+    "sha256": "dc39851d0a885f07ba4c786c52cd24595a6a736ea4624efca15e1bfbbe20a689",
+    "imports": [
+      "../../components/admin/AdminIcon.vue",
+      "../../components/admin/AdminSectionHeading.vue",
+      "../../components/admin/catalog/ProductImage.vue",
+      "vue",
+      "vue-router",
+      "../../stores/auth",
+      "../../api/products.api",
+      "../../composables/useApiState",
+      "../../utils/formatters",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/catalog/CatalogEditor.vue",
+      "../../components/admin/catalog/ProductImagesPanel.vue",
+      "../../components/admin/catalog/ProductOptionsPanel.vue",
+      "../../components/admin/catalog/ProductBranchesPanel.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "products.update"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/ProductOptionsView.vue",
+    "lines": 2,
+    "sha256": "b9ed513daebb795de72774301ea1408489f486c525151a446c3c70cd4beb74f6",
+    "imports": [
+      "../../components/admin/catalog/CatalogList.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/ProductsView.vue",
+    "lines": 2,
+    "sha256": "e8e0ef54978db98af04eee5435e6449402ff545918f748ddc7773a6feb9b684c",
+    "imports": [
+      "../../components/admin/catalog/CatalogList.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/PromotionsView.vue",
+    "lines": 24,
+    "sha256": "b2e8111d5b331a4448115e63ac08034d20bc4098d802946c49e98523805fe22a",
+    "imports": [
+      "vue",
+      "../../api/branches.api",
+      "../../components/admin/DomainFilters.vue",
+      "../../constants/domainFilters",
+      "vue",
+      "../../api/promotions.api",
+      "../../composables/useServerList",
+      "../../composables/useApiState",
+      "../../stores/auth",
+      "../../utils/formatters",
+      "../../components/admin/PromotionEditor.vue",
+      "../../components/admin/CouponsPanel.vue",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/catalog/ApiPagination.vue"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "branches.view",
+      "promotions.create",
+      "promotions.update",
+      "coupons.view",
+      "promotions.delete",
+      "coupons.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/ReportsView.vue",
+    "lines": 74,
+    "sha256": "951a2da91ccd70aeadd7a9c753ae449beca62d27c582a0f1ff52be2a3faa9dc5",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "../../components/admin/AdminIcon.vue",
+      "vue",
+      "vue-router",
+      "../../stores/auth",
+      "../../composables/useApiState",
+      "../../composables/useReportContext",
+      "../../api/reports.api",
+      "../../utils/apiError",
+      "../../utils/reportFormatters",
+      "../../constants/reports",
+      "../../components/reports/ReportFilters.vue",
+      "../../components/reports/ReportMetrics.vue",
+      "../../components/reports/ReportChart.vue",
+      "../../components/reports/ReportTable.vue",
+      "../../assets/css/reports.css"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [
+      "reports.export",
+      "reports.export"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/RolesView.vue",
+    "lines": 18,
+    "sha256": "5b922740d1c4f215b2986e0ccd48cbcb165e778da1dbcc9d478c499345eb41b9",
+    "imports": [
+      "vue",
+      "../../api/adminOperations.api",
+      "../../composables/useApiState",
+      "../../stores/auth",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../composables/useUnsavedForm"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [
+      "roles.update_permissions"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/SettingsView.vue",
+    "lines": 39,
+    "sha256": "afddb5cbaa5d47b6c272970b54464bd42c03e9ab0f9402854c62c15b97260afa",
+    "imports": [
+      "vue",
+      "vue-router",
+      "../../stores/auth",
+      "../../composables/useApiState",
+      "../../api/settings.api",
+      "../../constants/settings",
+      "../../stores/publicSettings",
+      "../../components/admin/AdminSectionHeading.vue",
+      "../../components/admin/AdminModal.vue",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/operations/BranchOperations.vue",
+      "../../components/admin/operations/SettingsAudit.vue"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [
+      "settings.view",
+      "settings.view",
+      "settings.update",
+      "settings.view",
+      "settings.audit.view",
+      "settings.update",
+      "settings.update",
+      "settings.update",
+      "settings.audit.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/admin/StaffView.vue",
+    "lines": 24,
+    "sha256": "fd702306e9ff9ddaca370bcae949c4c8b19eaf3a2c376a61536bff484b4ca23f",
+    "imports": [
+      "../../composables/useModalDraft",
+      "vue",
+      "../../stores/auth",
+      "../../api/adminOperations.api",
+      "../../composables/useServerList",
+      "../../composables/useApiState",
+      "../../components/admin/AdminModal.vue",
+      "../../components/admin/DomainFields.vue",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/catalog/ApiPagination.vue"
+    ],
+    "forms": 1,
+    "dialogs": 1,
+    "permissions": [
+      "roles.view",
+      "staff.create",
+      "roles.view",
+      "staff.update",
+      "roles.view"
+    ],
+    "todo": []
+  },
+  {
+    "file": "src/views/auth/LoginView.vue",
+    "lines": 32,
+    "sha256": "3f31e87193530d2d8bc5d156221809bb1a49c4c5f673ef5e5974dcef51cad7b5",
+    "imports": [
+      "vue-router",
+      "../../components/site/SiteIcon.vue",
+      "../../composables/useAuthForm"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/auth/RegisterView.vue",
+    "lines": 34,
+    "sha256": "2100f56380c3cc8ddc0eb5f07825c3dff987b1b35633dc4a82d15fab4979bbaa",
+    "imports": [
+      "vue-router",
+      "../../components/site/SiteIcon.vue",
+      "../../composables/useAuthForm"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/errors/ForbiddenView.vue",
+    "lines": 5,
+    "sha256": "21ff9a53379e01177200ec6f18efcc1ccf3d2bd8dea05d316a7f60c291f1dada",
+    "imports": [
+      "vue-router"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/errors/NotFoundView.vue",
+    "lines": 2,
+    "sha256": "20a0d32a3b0bc3e75f905462e47c1b46a2101524e141d89f36ad149084364442",
+    "imports": [],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/AddressesView.vue",
+    "lines": 8,
+    "sha256": "77400fa29c01baebd6cfe807b5086194695ba9d22a8228678a1f2c219db76744",
+    "imports": [
+      "vue-router",
+      "../../stores/auth",
+      "../../components/site/AddressBook.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/CartView.vue",
+    "lines": 25,
+    "sha256": "304c392bbbc6883cde9ce76a1a2f8e790d97987ba3f3df200b01ffc99446db6f",
+    "imports": [
+      "vue-router",
+      "../../stores/cart",
+      "../../components/site/CartItems.vue",
+      "../../components/site/CartSummary.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/CheckoutView.vue",
+    "lines": 158,
+    "sha256": "eab03bb92bcd3e2eccd53840588cb9253f276094f36a3b38dae00e20e1f76bae",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "vue",
+      "vue-router",
+      "../../stores/cart",
+      "../../stores/auth",
+      "../../stores/branch",
+      "../../constants/addressFields",
+      "../../composables/useDeliveryQuote",
+      "pinia",
+      "../../stores/publicSettings",
+      "../../stores/operations",
+      "../../components/site/AddressFields.vue",
+      "../../components/site/AddressBook.vue",
+      "../../utils/formatters",
+      "../../utils/paymentStatus"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/CmsHomeView.vue",
+    "lines": 21,
+    "sha256": "419268cdc03fa63604160907139bb6334c61f98cd3bebf015ed00335f82bcca3",
+    "imports": [
+      "vue",
+      "vue-router",
+      "../../api/cms.api",
+      "../../stores/branch",
+      "../../composables/useCmsPage",
+      "../../composables/usePublicMenu",
+      "../../utils/contentUrl",
+      "../../components/site/CmsSection.vue",
+      "../../components/site/ProductCard.vue",
+      "../../components/site/SiteOffers.vue",
+      "../../components/site/BranchSelector.vue",
+      "../../components/admin/catalog/ApiFeedback.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/CmsPageView.vue",
+    "lines": 16,
+    "sha256": "917a8f237497027318b59fadca2bcfc140fe2025854927bb1cd53a616ad1b11f",
+    "imports": [
+      "vue",
+      "vue-router",
+      "../../api/cms.api",
+      "../../composables/useCmsPage",
+      "../../composables/useApiState",
+      "../../components/site/CmsSection.vue",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/catalog/ApiPagination.vue",
+      "../../utils/contentUrl"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/CustomerOrdersView.vue",
+    "lines": 21,
+    "sha256": "b60e73e8fac516d900b7b04a158e42bb093a2c837ee5e64e2a20a4d727b8168e",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "../../components/orders/OrderStatusBadge.vue",
+      "vue",
+      "vue-router",
+      "../../stores/auth",
+      "../../composables/useApiState",
+      "../../api/orders.api",
+      "../../components/admin/catalog/ApiPagination.vue",
+      "../../constants/orderStatus",
+      "../../utils/formatters",
+      " name=",
+      " type="
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/CustomerOrderView.vue",
+    "lines": 14,
+    "sha256": "a199d43a894a9de2a239596d22fe2d979e34f82449f3606c8621ca29d0700f5e",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "vue-router",
+      "../../composables/useOrderDetails",
+      "../../components/site/OrderSnapshot.vue",
+      "../../components/orders/OrderTrackingPanel.vue",
+      "../../components/payments/CustomerPayments.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/MenuView.vue",
+    "lines": 28,
+    "sha256": "a29e2906154a366c3be57b50a968b0bfa9ec7731b4fac7f893d2d79c039f1979",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "vue",
+      "vue-router",
+      "../../components/site/ProductCard.vue",
+      "../../components/site/SiteIcon.vue",
+      "../../components/site/BranchSelector.vue",
+      "../../composables/usePublicMenu"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/OrderSuccessView.vue",
+    "lines": 24,
+    "sha256": "1a5bc8c7f7ef7c6fa8b53773ae9cae805f64c88027e8242ec59dff1ad90fa3c6",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "vue-router",
+      "../../composables/useOrderDetails",
+      "../../stores/auth",
+      "../../components/site/OrderSnapshot.vue",
+      "../../components/site/SiteIcon.vue",
+      "../../utils/orderAccess",
+      "../../components/payments/CustomerPayments.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/ProductView.vue",
+    "lines": 62,
+    "sha256": "3cfebdf3ab2598b758e7ddab6e4ccf53f135aed4999140d6f9d00f1bcc0d10ce",
+    "imports": [
+      "../../components/common/AppSkeleton.vue",
+      "vue",
+      "vue-router",
+      "../../components/site/SiteIcon.vue",
+      "../../components/site/BranchSelector.vue",
+      "../../stores/branch",
+      "../../stores/cart",
+      "../../api/products.api",
+      "../../composables/useApiState",
+      "../../composables/usePublicMenu",
+      "../../utils/formatters"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/ProfileView.vue",
+    "lines": 19,
+    "sha256": "390458c39d629953b1e19e37bfeb797185419bc0d577ad038d3bdb2d9016237b",
+    "imports": [
+      "vue",
+      "../../composables/useUnsavedForm",
+      "vue-router",
+      "../../api/customers.api",
+      "../../composables/useApiState",
+      "../../stores/auth",
+      "../../components/admin/catalog/ApiFeedback.vue"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/PublicBranchesView.vue",
+    "lines": 10,
+    "sha256": "63b707d9a34e1c2f4de5632781528a8748661c947731ff9dc2528022d1332a79",
+    "imports": [
+      "../../api/branches.api",
+      "../../composables/useApiState",
+      "../../components/admin/catalog/ApiFeedback.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/PublicOffersView.vue",
+    "lines": 15,
+    "sha256": "bd792e2703c95cb2a461a104b79d608141a6358261bfb2e2533964aa75eeaaac",
+    "imports": [
+      "vue",
+      "../../api/promotions.api",
+      "../../stores/branch",
+      "../../composables/useServerList",
+      "../../components/site/SiteOffers.vue",
+      "../../components/site/BranchSelector.vue",
+      "../../components/admin/catalog/ApiFeedback.vue",
+      "../../components/admin/catalog/ApiPagination.vue"
+    ],
+    "forms": 0,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  },
+  {
+    "file": "src/views/site/TrackOrderView.vue",
+    "lines": 18,
+    "sha256": "40a4de3877220f6c5cefc55a287543616b0680d60b2795425dd863d9eed4f14a",
+    "imports": [
+      "vue",
+      "vue-router",
+      "../../api/orders.api",
+      "../../utils/orderAccess",
+      "../../utils/apiError",
+      "../../constants/orderStatus",
+      "../../components/orders/OrderTrackingPanel.vue"
+    ],
+    "forms": 1,
+    "dialogs": 0,
+    "permissions": [],
+    "todo": []
+  }
+]

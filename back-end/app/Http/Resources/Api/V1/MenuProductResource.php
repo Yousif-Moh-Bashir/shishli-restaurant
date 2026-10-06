@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\V1;
 
+use App\Services\InventoryAvailabilityService;
 use App\Services\PricingService;
 use App\Services\ProductAvailabilityService;
 use Illuminate\Http\Request;
@@ -16,6 +17,8 @@ class MenuProductResource extends JsonResource
         $data['has_price_override'] = $this->price_override !== null;
         $data['is_available'] = $data['available'] = app(ProductAvailabilityService::class)->isAvailable($this->product, $this->branch, $this->resource);
         $data['availability_message'] = $data['is_available'] ? null : 'غير متوفر حاليًا';
+        $data['availability_reason'] = app(InventoryAvailabilityService::class)
+            ->checkProductAvailability($this->branch, $this->product, 1)?->value;
 
         return $data;
     }

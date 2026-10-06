@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "Phase query, type filter, empty result and reset, responsive page",
+    "Action dialog opens, allowed operations shown, nested confirmation cancel, active close guard, visible API error, stale response ignored after close"
+  ],
+  "responsive": [
+    390,
+    768,
+    1440
+  ],
+  "diagnostics": []
+}

@@ -1,0 +1,1676 @@
+{
+  "pages": [
+    {
+      "route": "/admin",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "نظرة عامة",
+      "active": [
+        "/admin"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        },
+        {
+          "display": "table",
+          "labels": true
+        },
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "نظرة عامة",
+      "active": [
+        "/admin"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        },
+        {
+          "display": "table",
+          "labels": true
+        },
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "نظرة عامة",
+      "active": [
+        "/admin"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        },
+        {
+          "display": "table",
+          "labels": true
+        },
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "نظرة عامة",
+      "active": [
+        "/admin"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        },
+        {
+          "display": "block",
+          "labels": true
+        },
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/orders",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الطلبات",
+      "active": [
+        "/admin/orders"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/orders",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الطلبات",
+      "active": [
+        "/admin/orders"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/orders",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الطلبات",
+      "active": [
+        "/admin/orders"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/orders",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الطلبات",
+      "active": [
+        "/admin/orders"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/kitchen",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المطبخ",
+      "active": [
+        "/admin/kitchen"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/kitchen",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المطبخ",
+      "active": [
+        "/admin/kitchen"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/kitchen",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المطبخ",
+      "active": [
+        "/admin/kitchen"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/kitchen",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المطبخ",
+      "active": [
+        "/admin/kitchen"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/products",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المنتجات",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/products",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المنتجات",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/products",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المنتجات",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/products",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المنتجات",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/categories",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "التصنيفات",
+      "active": [
+        "/admin/categories"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/categories",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "التصنيفات",
+      "active": [
+        "/admin/categories"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/categories",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "التصنيفات",
+      "active": [
+        "/admin/categories"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/categories",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "التصنيفات",
+      "active": [
+        "/admin/categories"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/branches",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الفروع",
+      "active": [
+        "/admin/branches"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/branches",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الفروع",
+      "active": [
+        "/admin/branches"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/branches",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الفروع",
+      "active": [
+        "/admin/branches"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/branches",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الفروع",
+      "active": [
+        "/admin/branches"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/product-options",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "خيارات المنتجات",
+      "active": [
+        "/admin/product-options"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/product-options",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "خيارات المنتجات",
+      "active": [
+        "/admin/product-options"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/product-options",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "خيارات المنتجات",
+      "active": [
+        "/admin/product-options"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/product-options",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "خيارات المنتجات",
+      "active": [
+        "/admin/product-options"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/inventory",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المخزون",
+      "active": [
+        "/admin/inventory"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/inventory",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المخزون",
+      "active": [
+        "/admin/inventory"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/inventory",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المخزون",
+      "active": [
+        "/admin/inventory"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/inventory",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المخزون",
+      "active": [
+        "/admin/inventory"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/delivery-zones",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "مناطق التوصيل",
+      "active": [
+        "/admin/delivery-zones"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/delivery-zones",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "مناطق التوصيل",
+      "active": [
+        "/admin/delivery-zones"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/delivery-zones",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "مناطق التوصيل",
+      "active": [
+        "/admin/delivery-zones"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/delivery-zones",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "مناطق التوصيل",
+      "active": [
+        "/admin/delivery-zones"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/offers",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "العروض والكوبونات",
+      "active": [
+        "/admin/offers"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/offers",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "العروض والكوبونات",
+      "active": [
+        "/admin/offers"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/offers",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "العروض والكوبونات",
+      "active": [
+        "/admin/offers"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/offers",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "العروض والكوبونات",
+      "active": [
+        "/admin/offers"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/customers",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "العملاء",
+      "active": [
+        "/admin/customers"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/customers",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "العملاء",
+      "active": [
+        "/admin/customers"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/customers",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "العملاء",
+      "active": [
+        "/admin/customers"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/customers",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "العملاء",
+      "active": [
+        "/admin/customers"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/payments",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المدفوعات",
+      "active": [
+        "/admin/payments"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/payments",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المدفوعات",
+      "active": [
+        "/admin/payments"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/payments",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المدفوعات",
+      "active": [
+        "/admin/payments"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/payments",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "المدفوعات",
+      "active": [
+        "/admin/payments"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/notifications",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الإشعارات",
+      "active": [
+        "/admin/notifications"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/notifications",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الإشعارات",
+      "active": [
+        "/admin/notifications"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/notifications",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الإشعارات",
+      "active": [
+        "/admin/notifications"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/notifications",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الإشعارات",
+      "active": [
+        "/admin/notifications"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/reports",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "التقارير",
+      "active": [
+        "/admin/reports"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/reports",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "التقارير",
+      "active": [
+        "/admin/reports"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/reports",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "التقارير",
+      "active": [
+        "/admin/reports"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/reports",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "التقارير",
+      "active": [
+        "/admin/reports"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/cms",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "محتوى الموقع",
+      "active": [
+        "/admin/cms"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/cms",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "محتوى الموقع",
+      "active": [
+        "/admin/cms"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/cms",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "محتوى الموقع",
+      "active": [
+        "/admin/cms"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/cms",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "محتوى الموقع",
+      "active": [
+        "/admin/cms"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/staff",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الموظفون",
+      "active": [
+        "/admin/staff"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/staff",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الموظفون",
+      "active": [
+        "/admin/staff"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/staff",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الموظفون",
+      "active": [
+        "/admin/staff"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/staff",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الموظفون",
+      "active": [
+        "/admin/staff"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/roles",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الأدوار والصلاحيات",
+      "active": [
+        "/admin/roles"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/roles",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الأدوار والصلاحيات",
+      "active": [
+        "/admin/roles"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/roles",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الأدوار والصلاحيات",
+      "active": [
+        "/admin/roles"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/roles",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الأدوار والصلاحيات",
+      "active": [
+        "/admin/roles"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/activity-logs",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "سجل النشاط",
+      "active": [
+        "/admin/activity-logs"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/activity-logs",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "سجل النشاط",
+      "active": [
+        "/admin/activity-logs"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/activity-logs",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "سجل النشاط",
+      "active": [
+        "/admin/activity-logs"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/activity-logs",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "سجل النشاط",
+      "active": [
+        "/admin/activity-logs"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/settings",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الإعدادات والتشغيل",
+      "active": [
+        "/admin/settings"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/settings",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الإعدادات والتشغيل",
+      "active": [
+        "/admin/settings"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/settings",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الإعدادات والتشغيل",
+      "active": [
+        "/admin/settings"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/settings",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الإعدادات والتشغيل",
+      "active": [
+        "/admin/settings"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/products/74a4a099-87b7-4c3d-aa3d-c99cb3f48147",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "شيش طاووق",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/products/74a4a099-87b7-4c3d-aa3d-c99cb3f48147",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "شيش طاووق",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/products/74a4a099-87b7-4c3d-aa3d-c99cb3f48147",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "شيش طاووق",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/products/74a4a099-87b7-4c3d-aa3d-c99cb3f48147",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "شيش طاووق",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "فرع المصيف",
+      "active": [
+        "/admin/branches"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "فرع المصيف",
+      "active": [
+        "/admin/branches"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "فرع المصيف",
+      "active": [
+        "/admin/branches"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "فرع المصيف",
+      "active": [
+        "/admin/branches"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/product-options/5081d7a0-3b61-44bc-938f-242431752da6",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الحجم",
+      "active": [
+        "/admin/product-options"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/product-options/5081d7a0-3b61-44bc-938f-242431752da6",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الحجم",
+      "active": [
+        "/admin/product-options"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/product-options/5081d7a0-3b61-44bc-938f-242431752da6",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الحجم",
+      "active": [
+        "/admin/product-options"
+      ],
+      "mobileTables": [
+        {
+          "display": "table",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/product-options/5081d7a0-3b61-44bc-938f-242431752da6",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "الحجم",
+      "active": [
+        "/admin/product-options"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "route": "/admin/orders/7b430745-aacc-471d-a94d-fa6ce1c9f807",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل الطلب",
+      "active": [
+        "/admin/orders"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/orders/7b430745-aacc-471d-a94d-fa6ce1c9f807",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل الطلب",
+      "active": [
+        "/admin/orders"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/orders/7b430745-aacc-471d-a94d-fa6ce1c9f807",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل الطلب",
+      "active": [
+        "/admin/orders"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/orders/7b430745-aacc-471d-a94d-fa6ce1c9f807",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل الطلب",
+      "active": [
+        "/admin/orders"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/kitchen/39d61a88-2f83-4472-9447-f64ee30af50c",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل طلب المطبخ",
+      "active": [
+        "/admin/kitchen"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/kitchen/39d61a88-2f83-4472-9447-f64ee30af50c",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل طلب المطبخ",
+      "active": [
+        "/admin/kitchen"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/kitchen/39d61a88-2f83-4472-9447-f64ee30af50c",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل طلب المطبخ",
+      "active": [
+        "/admin/kitchen"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/kitchen/39d61a88-2f83-4472-9447-f64ee30af50c",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل طلب المطبخ",
+      "active": [
+        "/admin/kitchen"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/payments/02b489c4-5e92-4b8c-9a92-4b5ebe7c3ce5",
+      "width": 1440,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل الدفع",
+      "active": [
+        "/admin/payments"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/payments/02b489c4-5e92-4b8c-9a92-4b5ebe7c3ce5",
+      "width": 1024,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل الدفع",
+      "active": [
+        "/admin/payments"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/payments/02b489c4-5e92-4b8c-9a92-4b5ebe7c3ce5",
+      "width": 768,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل الدفع",
+      "active": [
+        "/admin/payments"
+      ],
+      "mobileTables": []
+    },
+    {
+      "route": "/admin/payments/02b489c4-5e92-4b8c-9a92-4b5ebe7c3ce5",
+      "width": 390,
+      "overflow": false,
+      "collisions": [],
+      "heading": "تفاصيل الدفع",
+      "active": [
+        "/admin/payments"
+      ],
+      "mobileTables": []
+    }
+  ],
+  "modals": [
+    {
+      "route": "products",
+      "width": 1440,
+      "outside": false,
+      "overflow": false,
+      "sections": 4
+    },
+    {
+      "route": "products",
+      "width": 768,
+      "outside": false,
+      "overflow": false,
+      "sections": 4
+    },
+    {
+      "route": "products",
+      "width": 390,
+      "outside": false,
+      "overflow": false,
+      "sections": 4
+    },
+    {
+      "route": "categories",
+      "width": 1440,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    },
+    {
+      "route": "categories",
+      "width": 768,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    },
+    {
+      "route": "categories",
+      "width": 390,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    },
+    {
+      "route": "branches",
+      "width": 1440,
+      "outside": false,
+      "overflow": false,
+      "sections": 4
+    },
+    {
+      "route": "branches",
+      "width": 768,
+      "outside": false,
+      "overflow": false,
+      "sections": 4
+    },
+    {
+      "route": "branches",
+      "width": 390,
+      "outside": false,
+      "overflow": false,
+      "sections": 4
+    },
+    {
+      "route": "product-options",
+      "width": 1440,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    },
+    {
+      "route": "product-options",
+      "width": 768,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    },
+    {
+      "route": "product-options",
+      "width": 390,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    },
+    {
+      "route": "staff",
+      "width": 1440,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    },
+    {
+      "route": "staff",
+      "width": 768,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    },
+    {
+      "route": "staff",
+      "width": 390,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    },
+    {
+      "route": "offers",
+      "width": 1440,
+      "outside": false,
+      "overflow": false,
+      "sections": 4
+    },
+    {
+      "route": "offers",
+      "width": 768,
+      "outside": false,
+      "overflow": false,
+      "sections": 4
+    },
+    {
+      "route": "offers",
+      "width": 390,
+      "outside": false,
+      "overflow": false,
+      "sections": 4
+    },
+    {
+      "route": "inventory",
+      "width": 1440,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    },
+    {
+      "route": "inventory",
+      "width": 768,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    },
+    {
+      "route": "inventory",
+      "width": 390,
+      "outside": false,
+      "overflow": false,
+      "sections": 0
+    }
+  ],
+  "tabs": [
+    {
+      "domain": "product",
+      "label": "المعلومات",
+      "overflow": false,
+      "collisions": [],
+      "heading": "شيش طاووق",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": []
+    },
+    {
+      "domain": "product",
+      "label": "الصور",
+      "overflow": false,
+      "collisions": [],
+      "heading": "شيش طاووق",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": []
+    },
+    {
+      "domain": "product",
+      "label": "الخيارات",
+      "overflow": false,
+      "collisions": [],
+      "heading": "شيش طاووق",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": [
+        {
+          "display": "block",
+          "labels": true
+        }
+      ]
+    },
+    {
+      "domain": "product",
+      "label": "الفروع والأسعار",
+      "overflow": false,
+      "collisions": [],
+      "heading": "شيش طاووق",
+      "active": [
+        "/admin/products"
+      ],
+      "mobileTables": []
+    },
+    {
+      "domain": "branch",
+      "label": "بيانات الفرع",
+      "overflow": false,
+      "collisions": [],
+      "heading": "فرع المصيف",
+      "active": [
+        "/admin/branches"
+      ],
+      "mobileTables": []
+    },
+    {
+      "domain": "branch",
+      "label": "التشغيل وساعات العمل",
+      "overflow": false,
+      "collisions": [],
+      "heading": "فرع المصيف",
+      "active": [
+        "/admin/branches"
+      ],
+      "mobileTables": []
+    },
+    {
+      "domain": "branch",
+      "label": "المنتجات والأسعار",
+      "overflow": false,
+      "collisions": [],
+      "heading": "فرع المصيف",
+      "active": [
+        "/admin/branches"
+      ],
+      "mobileTables": []
+    }
+  ],
+  "checks": [
+    "26 route templates and live API reads; nested active navigation; responsive tables and grids",
+    "Mobile drawer backdrop, inert background, Escape close and scroll restoration; seven responsive create dialogs; product/branch tabs"
+  ],
+  "failures": [],
+  "diagnostics": [],
+  "assetFailures": []
+}

@@ -17,6 +17,9 @@ class OptionalCartAuthentication
             throw new AuthenticationException;
         }
         $request->setUserResolver(fn () => $user);
+        if ($user !== null && ! $user->is_active) {
+            throw new AuthenticationException;
+        }
 
         return $next($request);
     }

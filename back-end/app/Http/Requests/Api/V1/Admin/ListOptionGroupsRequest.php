@@ -18,6 +18,7 @@ class ListOptionGroupsRequest extends FormRequest
         return [
             'search' => ['nullable', 'string', 'max:150'],
             'is_active' => ['sometimes', 'boolean'],
+            'active' => ['sometimes', 'boolean'], 'sort' => ['sometimes', Rule::in(['name', 'sort_order', 'created_at'])], 'direction' => ['sometimes', Rule::in(['asc', 'desc'])],
             'type' => ['sometimes', Rule::enum(OptionGroupType::class)],
             'per_page' => ['sometimes', 'integer', 'min:1', 'max:100'],
             'page' => ['sometimes', 'integer', 'min:1', 'max:2147483647'],

@@ -42,4 +42,24 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function customer(): static
+    {
+        return $this->afterCreating(fn (User $user) => $user->assignRole('customer'));
+    }
+
+    public function inactive(): static
+    {
+        return $this->state(['is_active' => false]);
+    }
+
+    public function verifiedPhone(): static
+    {
+        return $this->state(['phone' => '+249'.fake()->unique()->numerify('9########'), 'phone_verified_at' => now()]);
+    }
+
+    public function unverifiedPhone(): static
+    {
+        return $this->state(['phone_verified_at' => null]);
+    }
 }

@@ -9,6 +9,7 @@ use App\Models\OptionGroup;
 use App\Models\OptionValue;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Services\RestaurantSettingsService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -216,6 +217,7 @@ class MenuTest extends TestCase
     {
         $branch = Branch::factory()->create();
         $assignment = BranchProduct::factory()->for($branch)->create();
+        app(RestaurantSettingsService::class)->all();
         DB::enableQueryLog();
         $this->getJson($this->menu($branch))->assertOk();
         $baseline = count(DB::getQueryLog());

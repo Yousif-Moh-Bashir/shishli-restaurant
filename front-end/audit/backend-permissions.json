@@ -1,0 +1,134 @@
+{
+  "activity_logs": [
+    "activity_logs.view"
+  ],
+  "branches": [
+    "branches.closures.create",
+    "branches.closures.delete",
+    "branches.closures.update",
+    "branches.closures.view",
+    "branches.create",
+    "branches.delete",
+    "branches.hours.update",
+    "branches.hours.view",
+    "branches.products.manage",
+    "branches.update",
+    "branches.view"
+  ],
+  "categories": [
+    "categories.create",
+    "categories.delete",
+    "categories.manage",
+    "categories.update",
+    "categories.view"
+  ],
+  "cms": [
+    "cms.banners.create",
+    "cms.banners.delete",
+    "cms.banners.update",
+    "cms.banners.view",
+    "cms.gallery.create",
+    "cms.gallery.delete",
+    "cms.gallery.update",
+    "cms.gallery.view",
+    "cms.pages.update",
+    "cms.pages.view"
+  ],
+  "coupons": [
+    "coupons.create",
+    "coupons.delete",
+    "coupons.update",
+    "coupons.view"
+  ],
+  "customers": [
+    "customers.activate",
+    "customers.deactivate",
+    "customers.view"
+  ],
+  "dashboard": [
+    "dashboard.view"
+  ],
+  "delivery_zones": [
+    "delivery_zones.create",
+    "delivery_zones.delete",
+    "delivery_zones.update",
+    "delivery_zones.view"
+  ],
+  "inventory": [
+    "inventory.adjust",
+    "inventory.create",
+    "inventory.movements.view",
+    "inventory.receive",
+    "inventory.view",
+    "inventory.waste"
+  ],
+  "notifications": [
+    "notifications.retry",
+    "notifications.view"
+  ],
+  "offers": [
+    "offers.manage"
+  ],
+  "options": [
+    "options.create",
+    "options.delete",
+    "options.update",
+    "options.view"
+  ],
+  "orders": [
+    "orders.cancel",
+    "orders.complete",
+    "orders.confirm",
+    "orders.create",
+    "orders.dispatch",
+    "orders.mark_ready",
+    "orders.start_preparing",
+    "orders.update_status",
+    "orders.view"
+  ],
+  "payments": [
+    "payments.collect_cash",
+    "payments.view"
+  ],
+  "products": [
+    "products.create",
+    "products.delete",
+    "products.update",
+    "products.view"
+  ],
+  "promotions": [
+    "promotions.create",
+    "promotions.delete",
+    "promotions.update",
+    "promotions.view"
+  ],
+  "reports": [
+    "reports.branches.view",
+    "reports.customers.view",
+    "reports.delivery.view",
+    "reports.export",
+    "reports.orders.view",
+    "reports.payments.view",
+    "reports.products.view",
+    "reports.promotions.view",
+    "reports.sales.view",
+    "reports.view"
+  ],
+  "roles": [
+    "roles.update_permissions",
+    "roles.view"
+  ],
+  "settings": [
+    "settings.audit.view",
+    "settings.manage",
+    "settings.update",
+    "settings.view"
+  ],
+  "staff": [
+    "staff.activate",
+    "staff.create",
+    "staff.deactivate",
+    "staff.update",
+    "staff.view"
+  ]
+}

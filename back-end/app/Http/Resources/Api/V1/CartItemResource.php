@@ -16,7 +16,8 @@ class CartItemResource extends JsonResource
             'quantity' => $this->quantity,
             'options' => CartItemOptionResource::collection($this->whenLoaded('options')),
             'pricing' => ['base_price' => $this->base_price, 'options_total' => $this->options_total,
-                'unit_price' => $this->unit_price, 'line_total' => $this->line_total],
+                'unit_price' => $this->unit_price, 'line_total' => $this->line_total,
+                'discount_total' => $this->resource->discountTotal, 'line_total_after_discount' => $this->resource->lineTotalAfterDiscount ?? $this->line_total],
             'is_available' => $this->resource->issues === [],
             'issues' => $this->resource->issues,
         ];

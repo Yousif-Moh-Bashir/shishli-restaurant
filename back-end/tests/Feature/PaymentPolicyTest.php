@@ -38,7 +38,7 @@ class PaymentPolicyTest extends TestCase
 
     public static function confirmationPolicies(): array
     {
-        return ['unpaid cash' => ['cash', 'pending', true], 'unpaid online' => ['card', 'pending', false],
+        return ['unpaid network' => ['network', 'pending', true], 'unpaid cash' => ['cash', 'pending', true], 'unpaid online' => ['card', 'pending', false],
             'failed online' => ['card', 'failed', false], 'paid online' => ['card', 'paid', true]];
     }
 
@@ -61,7 +61,7 @@ class PaymentPolicyTest extends TestCase
 
     public static function cancellationPolicies(): array
     {
-        return ['pending cash' => ['cash', 'pending', 'cancelled'], 'paid cash' => ['cash', 'paid', 'paid'],
+        return ['pending network' => ['network', 'pending', 'cancelled'], 'paid network' => ['network', 'paid', 'paid'], 'pending cash' => ['cash', 'pending', 'cancelled'], 'paid cash' => ['cash', 'paid', 'paid'],
             'paid online' => ['card', 'paid', 'paid'], 'pending online' => ['card', 'pending', 'pending']];
     }
 

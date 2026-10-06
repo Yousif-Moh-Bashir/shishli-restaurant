@@ -11,6 +11,24 @@ use Illuminate\Support\Str;
  */
 class BranchFactory extends Factory
 {
+    /** Existing commerce fixtures represent an operational branch. Real branches receive no invented schedule. */
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Branch $branch): void {
+            $hours = [];
+            for ($day = 1; $day <= 7; $day++) {
+                $hours[] = ['day_of_week' => $day, 'opens_at' => '00:00', 'closes_at' => '12:00'];
+                $hours[] = ['day_of_week' => $day, 'opens_at' => '12:00', 'closes_at' => '00:00'];
+            }
+            $branch->businessHours()->createMany($hours);
+        });
+    }
+
+    public function withoutBusinessHours(): static
+    {
+        return $this->afterCreating(fn (Branch $branch) => $branch->businessHours()->delete());
+    }
+
     /**
      * @return array<string, mixed>
      */

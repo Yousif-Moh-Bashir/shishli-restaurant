@@ -1,0 +1,3365 @@
+[
+  {
+    "file": "back-end/database/migrations/0001_01_01_000000_create_users_table.php",
+    "tables": [
+      "users",
+      "password_reset_tokens",
+      "sessions"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "string",
+        "definition": "'name')"
+      },
+      {
+        "method": "string",
+        "definition": "'email')->unique()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'email_verified_at')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'password')"
+      },
+      {
+        "method": "rememberToken",
+        "definition": ")"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "string",
+        "definition": "'email')->primary()"
+      },
+      {
+        "method": "string",
+        "definition": "'token')"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'created_at')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'id')->primary()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'user_id')->nullable()->index()"
+      },
+      {
+        "method": "string",
+        "definition": "'ip_address', 45)->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'user_agent')->nullable()"
+      },
+      {
+        "method": "longText",
+        "definition": "'payload')"
+      },
+      {
+        "method": "integer",
+        "definition": "'last_activity')->index()"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/0001_01_01_000001_create_cache_table.php",
+    "tables": [
+      "cache",
+      "cache_locks"
+    ],
+    "columns": [
+      {
+        "method": "string",
+        "definition": "'key')->primary()"
+      },
+      {
+        "method": "mediumText",
+        "definition": "'value')"
+      },
+      {
+        "method": "bigInteger",
+        "definition": "'expiration')->index()"
+      },
+      {
+        "method": "string",
+        "definition": "'key')->primary()"
+      },
+      {
+        "method": "string",
+        "definition": "'owner')"
+      },
+      {
+        "method": "bigInteger",
+        "definition": "'expiration')->index()"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/0001_01_01_000002_create_jobs_table.php",
+    "tables": [
+      "jobs",
+      "job_batches",
+      "failed_jobs"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "string",
+        "definition": "'queue')->index()"
+      },
+      {
+        "method": "longText",
+        "definition": "'payload')"
+      },
+      {
+        "method": "unsignedSmallInteger",
+        "definition": "'attempts')"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'reserved_at')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'available_at')"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'created_at')"
+      },
+      {
+        "method": "string",
+        "definition": "'id')->primary()"
+      },
+      {
+        "method": "string",
+        "definition": "'name')"
+      },
+      {
+        "method": "integer",
+        "definition": "'total_jobs')"
+      },
+      {
+        "method": "integer",
+        "definition": "'pending_jobs')"
+      },
+      {
+        "method": "integer",
+        "definition": "'failed_jobs')"
+      },
+      {
+        "method": "longText",
+        "definition": "'failed_job_ids')"
+      },
+      {
+        "method": "mediumText",
+        "definition": "'options')->nullable()"
+      },
+      {
+        "method": "integer",
+        "definition": "'cancelled_at')->nullable()"
+      },
+      {
+        "method": "integer",
+        "definition": "'created_at')"
+      },
+      {
+        "method": "integer",
+        "definition": "'finished_at')->nullable()"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "string",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'connection')"
+      },
+      {
+        "method": "string",
+        "definition": "'queue')"
+      },
+      {
+        "method": "longText",
+        "definition": "'payload')"
+      },
+      {
+        "method": "longText",
+        "definition": "'exception')"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'failed_at')->useCurrent()"
+      },
+      {
+        "method": "index",
+        "definition": "['connection', 'queue', 'failed_at'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_23_211542_create_personal_access_tokens_table.php",
+    "tables": [
+      "personal_access_tokens"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "morphs",
+        "definition": "'tokenable')"
+      },
+      {
+        "method": "text",
+        "definition": "'name')"
+      },
+      {
+        "method": "string",
+        "definition": "'token', 64)->unique()"
+      },
+      {
+        "method": "text",
+        "definition": "'abilities')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'last_used_at')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'expires_at')->nullable()->index()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_23_214937_add_uuid_to_users_table.php",
+    "tables": [
+      "users",
+      "users",
+      "users"
+    ],
+    "columns": [
+      {
+        "method": "uuid",
+        "definition": "'uuid')->nullable()"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->nullable(false)->change()"
+      },
+      {
+        "method": "unique",
+        "definition": "'uuid')"
+      },
+      {
+        "method": "dropUnique",
+        "definition": "['uuid'])"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "'uuid')"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_24_202311_create_permission_tables.php",
+    "tables": [],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "string",
+        "definition": "'name')"
+      },
+      {
+        "method": "string",
+        "definition": "'guard_name')"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['name', 'guard_name'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "unsignedBigInteger",
+        "definition": "$columnNames['team_foreign_key'])->nullable()"
+      },
+      {
+        "method": "index",
+        "definition": "$columnNames['team_foreign_key'], 'roles_team_foreign_key_index')"
+      },
+      {
+        "method": "string",
+        "definition": "'name')"
+      },
+      {
+        "method": "string",
+        "definition": "'guard_name')"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "[$columnNames['team_foreign_key'], 'name', 'guard_name'])"
+      },
+      {
+        "method": "unique",
+        "definition": "['name', 'guard_name'])"
+      },
+      {
+        "method": "unsignedBigInteger",
+        "definition": "$pivotPermission)"
+      },
+      {
+        "method": "string",
+        "definition": "'model_type')"
+      },
+      {
+        "method": "unsignedBigInteger",
+        "definition": "$columnNames['model_morph_key'])"
+      },
+      {
+        "method": "index",
+        "definition": "[$columnNames['model_morph_key'], 'model_type'], 'model_has_permissions_model_id_model_type_index')"
+      },
+      {
+        "method": "foreign",
+        "definition": "$pivotPermission)"
+      },
+      {
+        "method": "unsignedBigInteger",
+        "definition": "$columnNames['team_foreign_key'])"
+      },
+      {
+        "method": "index",
+        "definition": "$columnNames['team_foreign_key'], 'model_has_permissions_team_foreign_key_index')"
+      },
+      {
+        "method": "primary",
+        "definition": "[$columnNames['team_foreign_key'], $pivotPermission, $columnNames['model_morph_key'], 'model_type'],"
+      },
+      {
+        "method": "primary",
+        "definition": "[$pivotPermission, $columnNames['model_morph_key'], 'model_type'],"
+      },
+      {
+        "method": "unsignedBigInteger",
+        "definition": "$pivotRole)"
+      },
+      {
+        "method": "string",
+        "definition": "'model_type')"
+      },
+      {
+        "method": "unsignedBigInteger",
+        "definition": "$columnNames['model_morph_key'])"
+      },
+      {
+        "method": "index",
+        "definition": "[$columnNames['model_morph_key'], 'model_type'], 'model_has_roles_model_id_model_type_index')"
+      },
+      {
+        "method": "foreign",
+        "definition": "$pivotRole)"
+      },
+      {
+        "method": "unsignedBigInteger",
+        "definition": "$columnNames['team_foreign_key'])"
+      },
+      {
+        "method": "index",
+        "definition": "$columnNames['team_foreign_key'], 'model_has_roles_team_foreign_key_index')"
+      },
+      {
+        "method": "primary",
+        "definition": "[$columnNames['team_foreign_key'], $pivotRole, $columnNames['model_morph_key'], 'model_type'],"
+      },
+      {
+        "method": "primary",
+        "definition": "[$pivotRole, $columnNames['model_morph_key'], 'model_type'],"
+      },
+      {
+        "method": "unsignedBigInteger",
+        "definition": "$pivotPermission)"
+      },
+      {
+        "method": "unsignedBigInteger",
+        "definition": "$pivotRole)"
+      },
+      {
+        "method": "foreign",
+        "definition": "$pivotPermission)"
+      },
+      {
+        "method": "foreign",
+        "definition": "$pivotRole)"
+      },
+      {
+        "method": "primary",
+        "definition": "[$pivotPermission, $pivotRole], 'role_has_permissions_permission_id_role_id_primary')"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_25_144409_add_phone_to_users_table.php",
+    "tables": [
+      "users",
+      "users"
+    ],
+    "columns": [
+      {
+        "method": "string",
+        "definition": "'phone', 16)->nullable()->unique()"
+      },
+      {
+        "method": "dropUnique",
+        "definition": "['phone'])"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "'phone')"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_25_194640_create_branches_table.php",
+    "tables": [
+      "branches"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'name', 150)"
+      },
+      {
+        "method": "string",
+        "definition": "'slug', 180)->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'phone', 20)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'whatsapp', 20)->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'address')->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'latitude', 10, 7)->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'longitude', 10, 7)->nullable()"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'accepts_orders')->default(true)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_25_195645_create_categories_table.php",
+    "tables": [
+      "categories"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'parent_id')"
+      },
+      {
+        "method": "string",
+        "definition": "'name', 150)"
+      },
+      {
+        "method": "string",
+        "definition": "'slug', 180)->unique()"
+      },
+      {
+        "method": "text",
+        "definition": "'description')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'image')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'sort_order')->default(0)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "softDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "["
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_25_195846_create_products_table.php",
+    "tables": [
+      "products"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'category_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'name')"
+      },
+      {
+        "method": "string",
+        "definition": "'slug')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'sku', 64)->nullable()->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'short_description')->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'description')->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'base_price', 10, 2)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_featured')->default(false)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_available')->default(true)"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'sort_order')->default(0)"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'preparation_time')->nullable()->comment('Preparation time in minutes')"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_25_200335_create_product_images_table.php",
+    "tables": [
+      "product_images"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'product_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'path', 2048)"
+      },
+      {
+        "method": "string",
+        "definition": "'alt_text')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'sort_order')->default(0)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_primary')->default(false)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_25_202143_create_option_groups_table.php",
+    "tables": [
+      "option_groups"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "string",
+        "definition": "'name')"
+      },
+      {
+        "method": "string",
+        "definition": "'type', 32)->default('single')"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_required')->default(false)"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'min_select')->default(0)"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'max_select')->default(1)"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'sort_order')->default(0)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_25_202229_create_option_values_table.php",
+    "tables": [
+      "option_values"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'option_group_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'name')"
+      },
+      {
+        "method": "decimal",
+        "definition": "'price_modifier', 10, 2)->default(0)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_default')->default(false)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'sort_order')->default(0)"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_25_205314_create_offers_table.php",
+    "tables": [
+      "offers"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_25_205327_create_offer_items_table.php",
+    "tables": [
+      "offer_items"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_26_104129_create_product_option_groups_table.php",
+    "tables": [
+      "product_option_groups"
+    ],
+    "columns": [
+      {
+        "method": "foreignId",
+        "definition": "'product_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'option_group_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "primary",
+        "definition": "['product_id', 'option_group_id'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_26_202603_add_branch_details_and_soft_deletes_to_branches_table.php",
+    "tables": [
+      "branches",
+      "branches"
+    ],
+    "columns": [
+      {
+        "method": "string",
+        "definition": "'city', 100)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'district', 100)->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'sort_order')->default(0)"
+      },
+      {
+        "method": "softDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['is_active', 'sort_order'])"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "['is_active', 'sort_order'])"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "['city', 'district', 'sort_order', 'deleted_at'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_26_205827_make_branch_contact_fields_nullable.php",
+    "tables": [
+      "branches",
+      "branches"
+    ],
+    "columns": [
+      {
+        "method": "string",
+        "definition": "'phone', 32)->nullable()->change()"
+      },
+      {
+        "method": "text",
+        "definition": "'address')->nullable()->change()"
+      },
+      {
+        "method": "string",
+        "definition": "'phone', 32)->nullable(false)->change()"
+      },
+      {
+        "method": "text",
+        "definition": "'address')->nullable(false)->change()"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_29_150008_complete_products_schema.php",
+    "tables": [
+      "products",
+      "products"
+    ],
+    "columns": [
+      {
+        "method": "string",
+        "definition": "'name', 180)->change()"
+      },
+      {
+        "method": "string",
+        "definition": "'slug', 200)->change()"
+      },
+      {
+        "method": "string",
+        "definition": "'sku', 100)->nullable()->change()"
+      },
+      {
+        "method": "string",
+        "definition": "'short_description', 500)->nullable()->change()"
+      },
+      {
+        "method": "softDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['is_active', 'deleted_at', 'sort_order', 'name'], 'products_public_menu_index')"
+      },
+      {
+        "method": "index",
+        "definition": "['category_id', 'is_active', 'deleted_at'], 'products_category_visibility_index')"
+      },
+      {
+        "method": "index",
+        "definition": "['is_featured', 'is_available'], 'products_menu_flags_index')"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "'products_public_menu_index')"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "'products_category_visibility_index')"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "'products_menu_flags_index')"
+      },
+      {
+        "method": "dropSoftDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "string",
+        "definition": "'name', 255)->change()"
+      },
+      {
+        "method": "string",
+        "definition": "'slug', 255)->change()"
+      },
+      {
+        "method": "string",
+        "definition": "'sku', 64)->nullable()->change()"
+      },
+      {
+        "method": "string",
+        "definition": "'short_description', 255)->nullable()->change()"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_29_170147_complete_product_images_schema.php",
+    "tables": [
+      "product_images",
+      "product_images",
+      "product_images"
+    ],
+    "columns": [
+      {
+        "method": "uuid",
+        "definition": "'uuid')->nullable()->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'disk')->default('public')"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->nullable(false)->change()"
+      },
+      {
+        "method": "index",
+        "definition": "['product_id', 'is_primary'], 'product_images_primary_index')"
+      },
+      {
+        "method": "index",
+        "definition": "['product_id', 'sort_order', 'id'], 'product_images_order_index')"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "'product_images_primary_index')"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "'product_images_order_index')"
+      },
+      {
+        "method": "dropUnique",
+        "definition": "'product_images_uuid_unique')"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "['uuid', 'disk'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_29_215059_complete_product_options_schema.php",
+    "tables": [
+      "option_groups",
+      "option_values",
+      "product_option_groups",
+      "product_option_groups",
+      "option_values",
+      "option_groups"
+    ],
+    "columns": [
+      {
+        "method": "uuid",
+        "definition": "'uuid')->nullable()->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'slug', 180)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'name', 150)->change()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "softDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->nullable(false)->change()"
+      },
+      {
+        "method": "string",
+        "definition": "'slug', 180)->nullable(false)->change()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'max_select')->nullable()->default(1)->change()"
+      },
+      {
+        "method": "unique",
+        "definition": "'slug')"
+      },
+      {
+        "method": "index",
+        "definition": "['is_active', 'deleted_at', 'sort_order'])"
+      },
+      {
+        "method": "unique",
+        "definition": "['option_group_id', 'slug'])"
+      },
+      {
+        "method": "index",
+        "definition": "['option_group_id', 'is_active', 'deleted_at', 'sort_order'], 'option_values_visibility_index')"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'sort_order')->default(0)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_required_override')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'min_select_override')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'max_select_override')->nullable()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "['sort_order', 'is_required_override', 'min_select_override', 'max_select_override', 'created_at', 'updated_at'])"
+      },
+      {
+        "method": "dropUnique",
+        "definition": "'option_values_option_group_id_slug_unique')"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "'option_values_visibility_index')"
+      },
+      {
+        "method": "dropUnique",
+        "definition": "'option_groups_slug_unique')"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "'option_groups_is_active_deleted_at_sort_order_index')"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'max_select')->nullable(false)->default(1)->change()"
+      },
+      {
+        "method": "dropUnique",
+        "definition": "$name.'_uuid_unique')"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "['uuid', 'slug', 'created_at', 'updated_at', 'deleted_at'])"
+      },
+      {
+        "method": "string",
+        "definition": "'name', 255)->change()"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_30_125524_create_branch_products_table.php",
+    "tables": [
+      "branch_products"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'branch_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'product_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'price_override', 10, 2)->nullable()"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_available')->default(true)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['branch_id', 'product_id'])"
+      },
+      {
+        "method": "index",
+        "definition": "['branch_id', 'is_available', 'id'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_30_141135_create_cart_tables.php",
+    "tables": [
+      "carts",
+      "cart_items",
+      "cart_item_options"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'token', 64)->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'user_id')->nullable()->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'branch_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'status', 20)->default('active')"
+      },
+      {
+        "method": "unsignedBigInteger",
+        "definition": "'active_user_id')->nullable()->storedAs(\"CASE WHEN status = 'active' THEN user_id ELSE NULL END\")"
+      },
+      {
+        "method": "unique",
+        "definition": "['active_user_id', 'branch_id'])"
+      },
+      {
+        "method": "decimal",
+        "definition": "'subtotal', 12, 2)->default(0)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'total', 12, 2)->default(0)"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'expires_at')->nullable()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['user_id', 'status', 'expires_at'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'cart_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'product_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'quantity')"
+      },
+      {
+        "method": "string",
+        "definition": "'configuration_hash', 64)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'base_price', 12, 2)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'options_total', 12, 2)->default(0)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'unit_price', 12, 2)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'line_total', 12, 2)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['cart_id', 'configuration_hash'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'cart_item_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'option_group_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'option_value_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'option_group_name')"
+      },
+      {
+        "method": "string",
+        "definition": "'option_value_name')"
+      },
+      {
+        "method": "decimal",
+        "definition": "'price_modifier', 12, 2)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['cart_item_id', 'option_value_id'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_30_174239_create_customer_addresses_table.php",
+    "tables": [
+      "customer_addresses"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'user_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'label', 100)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'recipient_name', 150)"
+      },
+      {
+        "method": "string",
+        "definition": "'phone', 20)"
+      },
+      {
+        "method": "string",
+        "definition": "'city', 100)"
+      },
+      {
+        "method": "string",
+        "definition": "'district', 100)"
+      },
+      {
+        "method": "string",
+        "definition": "'street', 200)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "$field, 50)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'landmark')->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'notes')->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'latitude', 10, 7)->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'longitude', 10, 7)->nullable()"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_default')->default(false)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "softDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "unsignedBigInteger",
+        "definition": "'default_user_id')->nullable()->storedAs('CASE WHEN is_default = 1 AND deleted_at IS NULL THEN user_id ELSE NULL END')"
+      },
+      {
+        "method": "unique",
+        "definition": "'default_user_id')"
+      },
+      {
+        "method": "index",
+        "definition": "['user_id', 'deleted_at'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_30_174240_create_delivery_zones_tables.php",
+    "tables": [
+      "delivery_zones",
+      "delivery_zone_districts"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'branch_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'name', 150)"
+      },
+      {
+        "method": "string",
+        "definition": "'type', 20)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'delivery_fee', 10, 2)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'minimum_order', 10, 2)->default(0)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'free_delivery_threshold', 10, 2)->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'estimated_min_minutes')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'estimated_max_minutes')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'priority')->default(0)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'center_latitude', 10, 7)->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'center_longitude', 10, 7)->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'radius_km', 8, 2)->nullable()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "softDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['branch_id', 'is_active', 'deleted_at', 'priority'], 'delivery_zones_matching_index')"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'delivery_zone_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'district_name', 100)"
+      },
+      {
+        "method": "string",
+        "definition": "'normalized_name', 100)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['delivery_zone_id', 'normalized_name'], 'delivery_zone_district_unique')"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_09_30_174241_add_delivery_support_to_branches_table.php",
+    "tables": [
+      "branches",
+      "branches"
+    ],
+    "columns": [
+      {
+        "method": "boolean",
+        "definition": "'supports_pickup')->default(true)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'supports_delivery')->default(true)"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "['supports_pickup', 'supports_delivery'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_01_143217_create_order_tables.php",
+    "tables": [
+      "orders",
+      "order_items",
+      "order_item_options",
+      "order_addresses"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'order_number')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'user_id')->nullable()->constrained()->nullOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'branch_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'cart_id')->nullable()->unique()->constrained()->nullOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'access_token', 64)->nullable()->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'type', 20)"
+      },
+      {
+        "method": "string",
+        "definition": "'status', 30)->default('pending')"
+      },
+      {
+        "method": "string",
+        "definition": "'payment_method', 20)"
+      },
+      {
+        "method": "string",
+        "definition": "'payment_status', 20)->default('pending')"
+      },
+      {
+        "method": "string",
+        "definition": "'customer_name', 150)"
+      },
+      {
+        "method": "string",
+        "definition": "'customer_phone', 20)"
+      },
+      {
+        "method": "string",
+        "definition": "'customer_email')->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'subtotal', 12, 2)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'delivery_fee', 12, 2)->default(0)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'discount_total', 12, 2)->default(0)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'tax_total', 12, 2)->default(0)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'total', 12, 2)"
+      },
+      {
+        "method": "string",
+        "definition": "'currency', 3)->default('SAR')"
+      },
+      {
+        "method": "text",
+        "definition": "'customer_notes')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'placed_at')"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['user_id', 'placed_at'])"
+      },
+      {
+        "method": "index",
+        "definition": "['branch_id', 'placed_at'])"
+      },
+      {
+        "method": "index",
+        "definition": "['status', 'placed_at'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'order_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'product_id')->nullable()->constrained()->nullOnDelete()"
+      },
+      {
+        "method": "uuid",
+        "definition": "'product_uuid')"
+      },
+      {
+        "method": "string",
+        "definition": "'product_name')"
+      },
+      {
+        "method": "string",
+        "definition": "'product_sku')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'quantity')"
+      },
+      {
+        "method": "decimal",
+        "definition": "$column, 12, 2)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'order_item_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "uuid",
+        "definition": "'option_group_uuid')"
+      },
+      {
+        "method": "string",
+        "definition": "'option_group_name')"
+      },
+      {
+        "method": "uuid",
+        "definition": "'option_value_uuid')"
+      },
+      {
+        "method": "string",
+        "definition": "'option_value_name')"
+      },
+      {
+        "method": "decimal",
+        "definition": "'price_modifier', 12, 2)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'order_id')->unique()->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'recipient_name', 150)"
+      },
+      {
+        "method": "string",
+        "definition": "'phone', 20)"
+      },
+      {
+        "method": "string",
+        "definition": "'city', 100)"
+      },
+      {
+        "method": "string",
+        "definition": "'district', 100)"
+      },
+      {
+        "method": "string",
+        "definition": "$column)->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'notes')->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'latitude', 10, 7)->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'longitude', 10, 7)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'delivery_zone_name')->nullable()"
+      },
+      {
+        "method": "uuid",
+        "definition": "'delivery_zone_uuid')->nullable()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_01_152843_add_order_lifecycle.php",
+    "tables": [
+      "orders",
+      "order_status_histories",
+      "orders"
+    ],
+    "columns": [
+      {
+        "method": "timestamp",
+        "definition": "$column)->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'cancellation_reason')->nullable()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'cancelled_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'order_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'from_status', 30)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'to_status', 30)"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'changed_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'source', 20)"
+      },
+      {
+        "method": "text",
+        "definition": "'note')->nullable()"
+      },
+      {
+        "method": "json",
+        "definition": "'metadata')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'created_at')"
+      },
+      {
+        "method": "index",
+        "definition": "['order_id', 'created_at', 'id'], 'order_history_timeline_index')"
+      },
+      {
+        "method": "dropConstrainedForeignId",
+        "definition": "'cancelled_by')"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "['confirmed_at', 'preparing_at', 'ready_at', 'out_for_delivery_at', 'completed_at', 'cancelled_at', 'cancellation_reason'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_01_210525_create_payment_domain_tables.php",
+    "tables": [
+      "payments",
+      "payment_transactions",
+      "payment_webhook_events"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'order_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'method', 30)"
+      },
+      {
+        "method": "string",
+        "definition": "'provider', 50)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'status', 30)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'amount', 12, 2)"
+      },
+      {
+        "method": "string",
+        "definition": "'currency', 3)->default('SAR')"
+      },
+      {
+        "method": "string",
+        "definition": "'provider_payment_id')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'provider_reference')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'idempotency_key', 64)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'failure_code')->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'failure_message')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'paid_at')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'failed_at')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'cancelled_at')->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'refunded_amount', 12, 2)->default(0)"
+      },
+      {
+        "method": "json",
+        "definition": "'metadata')->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'checkout_url')->nullable()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['order_id', 'idempotency_key'])"
+      },
+      {
+        "method": "unique",
+        "definition": "['provider', 'provider_payment_id'])"
+      },
+      {
+        "method": "unique",
+        "definition": "['provider', 'provider_reference'])"
+      },
+      {
+        "method": "index",
+        "definition": "['status', 'created_at'])"
+      },
+      {
+        "method": "index",
+        "definition": "['method', 'created_at'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'payment_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'type', 30)"
+      },
+      {
+        "method": "string",
+        "definition": "'status', 30)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'amount', 12, 2)"
+      },
+      {
+        "method": "string",
+        "definition": "'provider_transaction_id')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'provider', 50)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'provider_reference')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'request_reference')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'operation_key', 64)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'failure_code')->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'failure_message')->nullable()"
+      },
+      {
+        "method": "json",
+        "definition": "'metadata')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'processed_at')->nullable()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['payment_id', 'operation_key'])"
+      },
+      {
+        "method": "unique",
+        "definition": "['provider', 'provider_transaction_id'])"
+      },
+      {
+        "method": "index",
+        "definition": "['status', 'created_at'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'provider', 50)"
+      },
+      {
+        "method": "string",
+        "definition": "'provider_event_id')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'fingerprint', 64)"
+      },
+      {
+        "method": "string",
+        "definition": "'event_type')->nullable()"
+      },
+      {
+        "method": "boolean",
+        "definition": "'signature_valid')->default(false)"
+      },
+      {
+        "method": "string",
+        "definition": "'status', 30)"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'payment_id')->nullable()->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "json",
+        "definition": "'payload')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'processed_at')->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'failure_message')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'created_at')->useCurrent()"
+      },
+      {
+        "method": "unique",
+        "definition": "['provider', 'provider_event_id'])"
+      },
+      {
+        "method": "unique",
+        "definition": "['provider', 'fingerprint'])"
+      },
+      {
+        "method": "index",
+        "definition": "['status', 'created_at'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_01_220028_create_promotion_domain_tables.php",
+    "tables": [
+      "promotions",
+      "promotion_",
+      "coupons",
+      "carts",
+      "order_items",
+      "promotion_usages",
+      "order_promotions",
+      "order_items",
+      "carts"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'name', 180)"
+      },
+      {
+        "method": "string",
+        "definition": "'slug')->unique()"
+      },
+      {
+        "method": "text",
+        "definition": "'description')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'type')"
+      },
+      {
+        "method": "string",
+        "definition": "'application_type')"
+      },
+      {
+        "method": "string",
+        "definition": "'discount_type')"
+      },
+      {
+        "method": "decimal",
+        "definition": "'discount_value', 12, 2)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'maximum_discount', 12, 2)->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'minimum_subtotal', 12, 2)->default(0)"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'starts_at')->nullable()->index()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'ends_at')->nullable()->index()"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'priority')->default(0)->index()"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_stackable')->default(false)"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'usage_limit')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'usage_limit_per_user')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'used_count')->default(0)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "softDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['is_active', 'type', 'application_type'])"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'promotion_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "$target.'_id')->constrained($targets)->cascadeOnDelete()"
+      },
+      {
+        "method": "unique",
+        "definition": "['promotion_id', $target.'_id'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'promotion_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'code', 64)->unique()"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'usage_limit')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'usage_limit_per_user')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'used_count')->default(0)"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'starts_at')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'ends_at')->nullable()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "softDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['promotion_id', 'is_active'])"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'coupon_id')->nullable()->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'discount_total', 12, 2)->default(0)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'discount_total', 12, 2)->default(0)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'line_total_after_discount', 12, 2)->default(0)"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'promotion_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'coupon_id')->nullable()->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'order_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'user_id')->nullable()->constrained()->nullOnDelete()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'discount_amount', 12, 2)"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'used_at')->index()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['order_id', 'promotion_id'])"
+      },
+      {
+        "method": "index",
+        "definition": "['promotion_id', 'user_id'])"
+      },
+      {
+        "method": "index",
+        "definition": "['coupon_id', 'user_id'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'order_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "uuid",
+        "definition": "'promotion_uuid')"
+      },
+      {
+        "method": "string",
+        "definition": "'promotion_name', 180)"
+      },
+      {
+        "method": "string",
+        "definition": "'promotion_type')"
+      },
+      {
+        "method": "string",
+        "definition": "'discount_type')"
+      },
+      {
+        "method": "decimal",
+        "definition": "'discount_value', 12, 2)"
+      },
+      {
+        "method": "string",
+        "definition": "'coupon_code', 64)->nullable()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'discount_amount', 12, 2)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['order_id', 'promotion_uuid'])"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "['discount_total', 'line_total_after_discount'])"
+      },
+      {
+        "method": "dropConstrainedForeignId",
+        "definition": "'coupon_id')"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "'discount_total')"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_01_232406_create_outbound_notification_tables.php",
+    "tables": [
+      "outbound_notifications",
+      "notification_attempts"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'type', 50)"
+      },
+      {
+        "method": "string",
+        "definition": "'channel', 20)"
+      },
+      {
+        "method": "string",
+        "definition": "'status', 20)->default('pending')"
+      },
+      {
+        "method": "string",
+        "definition": "'recipient', 254)"
+      },
+      {
+        "method": "string",
+        "definition": "'recipient_name')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'subject')->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'content')"
+      },
+      {
+        "method": "string",
+        "definition": "'provider', 50)->nullable()->index()"
+      },
+      {
+        "method": "string",
+        "definition": "'provider_message_id')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'reference_type', 30)->nullable()"
+      },
+      {
+        "method": "uuid",
+        "definition": "'reference_uuid')->nullable()->index()"
+      },
+      {
+        "method": "string",
+        "definition": "'deduplication_key', 200)->nullable()->unique()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'attempts')->default(0)"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'max_attempts')->default(3)"
+      },
+      {
+        "method": "string",
+        "definition": "'last_error_code', 50)->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'last_error_message')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'sent_at')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'failed_at')->nullable()"
+      },
+      {
+        "method": "uuid",
+        "definition": "'processing_token')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'processing_started_at')->nullable()"
+      },
+      {
+        "method": "json",
+        "definition": "'metadata')->nullable()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['status', 'created_at'])"
+      },
+      {
+        "method": "index",
+        "definition": "['channel', 'created_at'])"
+      },
+      {
+        "method": "index",
+        "definition": "['type', 'created_at'])"
+      },
+      {
+        "method": "index",
+        "definition": "'created_at')"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'notification_id')->constrained('outbound_notifications')->restrictOnDelete()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'attempt_number')"
+      },
+      {
+        "method": "string",
+        "definition": "'status', 20)"
+      },
+      {
+        "method": "string",
+        "definition": "'provider', 50)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'provider_message_id')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'error_code', 50)->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'error_message')->nullable()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'started_at')"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'finished_at')->nullable()"
+      },
+      {
+        "method": "json",
+        "definition": "'metadata')->nullable()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['notification_id', 'attempt_number'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_02_103414_add_customer_fields_to_users_and_orders.php",
+    "tables": [
+      "users",
+      "orders",
+      "orders",
+      "users"
+    ],
+    "columns": [
+      {
+        "method": "timestamp",
+        "definition": "'phone_verified_at')->nullable()"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)->index()"
+      },
+      {
+        "method": "string",
+        "definition": "'phone_normalized', 16)->nullable()->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'email')->nullable()->change()"
+      },
+      {
+        "method": "string",
+        "definition": "'customer_phone_normalized', 16)->nullable()"
+      },
+      {
+        "method": "index",
+        "definition": "['customer_phone_normalized', 'user_id', 'placed_at'], 'orders_guest_phone_history_index')"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "'orders_guest_phone_history_index')"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "'customer_phone_normalized')"
+      },
+      {
+        "method": "dropUnique",
+        "definition": "['phone_normalized'])"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "['is_active'])"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "['phone_verified_at', 'is_active', 'phone_normalized'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_02_234540_add_category_snapshots_and_reporting_indexes.php",
+    "tables": [
+      "order_items",
+      "orders",
+      "payment_transactions",
+      "order_items",
+      "orders",
+      "payment_transactions"
+    ],
+    "columns": [
+      {
+        "method": "uuid",
+        "definition": "'category_uuid')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'category_name')->nullable()"
+      },
+      {
+        "method": "index",
+        "definition": "'placed_at', 'orders_report_placement_index')"
+      },
+      {
+        "method": "index",
+        "definition": "['status', 'type', 'processed_at'], 'transactions_collection_period_index')"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "['category_uuid', 'category_name'])"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "'orders_report_placement_index')"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "'transactions_collection_period_index')"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_03_002636_create_restaurant_settings_and_operational_schedules.php",
+    "tables": [
+      "restaurant_settings",
+      "setting_change_logs",
+      "branch_business_hours",
+      "branch_closures",
+      "orders",
+      "orders",
+      "orders",
+      "orders"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "string",
+        "definition": "'key')->unique()"
+      },
+      {
+        "method": "json",
+        "definition": "'value')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'type', 20)"
+      },
+      {
+        "method": "string",
+        "definition": "'group', 30)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_public')->default(false)"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'updated_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'setting_key')"
+      },
+      {
+        "method": "json",
+        "definition": "'old_value')->nullable()"
+      },
+      {
+        "method": "json",
+        "definition": "'new_value')->nullable()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'changed_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "timestamp",
+        "definition": "'created_at')"
+      },
+      {
+        "method": "index",
+        "definition": "['setting_key', 'created_at'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'branch_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "unsignedTinyInteger",
+        "definition": "'day_of_week')"
+      },
+      {
+        "method": "time",
+        "definition": "'opens_at')"
+      },
+      {
+        "method": "time",
+        "definition": "'closes_at')"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['branch_id', 'day_of_week'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'branch_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'starts_at')"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'ends_at')"
+      },
+      {
+        "method": "string",
+        "definition": "'reason', 1000)->nullable()"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'created_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['branch_id', 'is_active', 'starts_at', 'ends_at'], 'branch_closures_period_index')"
+      },
+      {
+        "method": "string",
+        "definition": "'order_timing', 20)->default('asap'))"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'scheduled_for')->nullable()->index())"
+      },
+      {
+        "method": "dropIndex",
+        "definition": "['scheduled_for']))"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "['order_timing', 'scheduled_for']))"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_03_012230_create_branch_inventory_domain.php",
+    "tables": [
+      "products",
+      "branch_inventories",
+      "stock_movements",
+      "stock_reservations",
+      "products"
+    ],
+    "columns": [
+      {
+        "method": "boolean",
+        "definition": "'tracks_inventory')->default(false))"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'branch_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'product_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'on_hand', 12, 3)->default(0)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'reserved', 12, 3)->default(0)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'low_stock_threshold', 12, 3)->nullable()"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_tracking')->default(true)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['branch_id', 'product_id'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'branch_inventory_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'type', 30)"
+      },
+      {
+        "method": "decimal",
+        "definition": "'quantity', 12, 3)"
+      },
+      {
+        "method": "decimal",
+        "definition": "$field, 12, 3)"
+      },
+      {
+        "method": "string",
+        "definition": "'reference_type', 40)->nullable()"
+      },
+      {
+        "method": "uuid",
+        "definition": "'reference_uuid')->nullable()->index()"
+      },
+      {
+        "method": "string",
+        "definition": "'operation_key', 100)->nullable()->unique()"
+      },
+      {
+        "method": "text",
+        "definition": "'reason')->nullable()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'created_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "json",
+        "definition": "'metadata')->nullable()"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'created_at')"
+      },
+      {
+        "method": "index",
+        "definition": "['branch_inventory_id', 'created_at'])"
+      },
+      {
+        "method": "index",
+        "definition": "['type', 'created_at'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'branch_inventory_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'order_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'order_item_id')->constrained()->restrictOnDelete()"
+      },
+      {
+        "method": "decimal",
+        "definition": "'quantity', 12, 3)"
+      },
+      {
+        "method": "string",
+        "definition": "'status', 20)"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'reserved_at')"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'consumed_at')->nullable()"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'released_at')->nullable()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['order_item_id', 'branch_inventory_id'])"
+      },
+      {
+        "method": "index",
+        "definition": "['order_id', 'status'])"
+      },
+      {
+        "method": "index",
+        "definition": "['branch_inventory_id', 'status'])"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "'tracks_inventory'))"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_03_021236_add_secure_guest_tracking_and_estimates_to_orders.php",
+    "tables": [
+      "orders",
+      "orders",
+      "orders",
+      "orders"
+    ],
+    "columns": [
+      {
+        "method": "char",
+        "definition": "$column, 64)->nullable() : $table->dateTime($column)->nullable()"
+      },
+      {
+        "method": "dropUnique",
+        "definition": "'orders_access_token_unique'))"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "'access_token'))"
+      },
+      {
+        "method": "string",
+        "definition": "'access_token', 64)->nullable()->unique()"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "['guest_access_token_hash', 'guest_access_token_expires_at', 'estimated_ready_at', 'estimated_delivery_from', 'estimated_delivery_to'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_03_024009_create_website_cms_tables.php",
+    "tables": [
+      "pages",
+      "page_sections",
+      "banners",
+      "gallery_items"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'key', 40)->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'title')"
+      },
+      {
+        "method": "string",
+        "definition": "'slug', 160)->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'status', 20)->default('draft')"
+      },
+      {
+        "method": "string",
+        "definition": "'meta_title', 100)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'meta_description', 320)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'canonical_url', 2048)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'og_image')->nullable()"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'published_at')->nullable()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'created_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'updated_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "softDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['status', 'published_at'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'page_id')->constrained()->cascadeOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'key', 50)"
+      },
+      {
+        "method": "string",
+        "definition": "'type', 30)"
+      },
+      {
+        "method": "string",
+        "definition": "'title')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'subtitle', 1000)->nullable()"
+      },
+      {
+        "method": "longText",
+        "definition": "'content')->nullable()"
+      },
+      {
+        "method": "json",
+        "definition": "'data')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'sort_order')->default(0)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "unique",
+        "definition": "['page_id', 'key'])"
+      },
+      {
+        "method": "index",
+        "definition": "['page_id', 'is_active', 'sort_order'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'placement', 40)"
+      },
+      {
+        "method": "string",
+        "definition": "'title')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'subtitle', 1000)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'image')"
+      },
+      {
+        "method": "string",
+        "definition": "'mobile_image')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'button_text', 100)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'button_url', 2048)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'secondary_button_text', 100)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'secondary_button_url', 2048)->nullable()"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'starts_at')->nullable()"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'ends_at')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'sort_order')->default(0)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'created_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'updated_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "softDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['placement', 'is_active', 'sort_order'])"
+      },
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "string",
+        "definition": "'title')->nullable()"
+      },
+      {
+        "method": "text",
+        "definition": "'description')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'image')"
+      },
+      {
+        "method": "string",
+        "definition": "'alt_text')->nullable()"
+      },
+      {
+        "method": "unsignedInteger",
+        "definition": "'sort_order')->default(0)"
+      },
+      {
+        "method": "boolean",
+        "definition": "'is_active')->default(true)"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'published_at')->nullable()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'created_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'updated_by')->nullable()->constrained('users')->nullOnDelete()"
+      },
+      {
+        "method": "timestamps",
+        "definition": ")"
+      },
+      {
+        "method": "softDeletes",
+        "definition": ")"
+      },
+      {
+        "method": "index",
+        "definition": "['is_active', 'published_at', 'sort_order'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_03_113819_create_admin_activity_logs_table.php",
+    "tables": [
+      "admin_activity_logs"
+    ],
+    "columns": [
+      {
+        "method": "id",
+        "definition": ")"
+      },
+      {
+        "method": "uuid",
+        "definition": "'uuid')->unique()"
+      },
+      {
+        "method": "foreignId",
+        "definition": "'user_id')->nullable()->constrained()->nullOnDelete()"
+      },
+      {
+        "method": "string",
+        "definition": "'action', 150)"
+      },
+      {
+        "method": "string",
+        "definition": "'subject_type', 80)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'subject_uuid', 80)->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'description')->nullable()"
+      },
+      {
+        "method": "json",
+        "definition": "'old_values')->nullable()"
+      },
+      {
+        "method": "json",
+        "definition": "'new_values')->nullable()"
+      },
+      {
+        "method": "string",
+        "definition": "'ip_hash', 64)->nullable()"
+      },
+      {
+        "method": "dateTime",
+        "definition": "'created_at')->useCurrent()"
+      },
+      {
+        "method": "index",
+        "definition": "['user_id', 'created_at'])"
+      },
+      {
+        "method": "index",
+        "definition": "['subject_type', 'subject_uuid'])"
+      },
+      {
+        "method": "index",
+        "definition": "['action', 'created_at'])"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_03_114343_make_staff_email_optional_on_users.php",
+    "tables": [
+      "users",
+      "users"
+    ],
+    "columns": [
+      {
+        "method": "string",
+        "definition": "'email')->nullable()->change())"
+      },
+      {
+        "method": "string",
+        "definition": "'email')->nullable(false)->change())"
+      }
+    ]
+  },
+  {
+    "file": "back-end/database/migrations/2026_10_03_121103_add_permission_customization_to_roles.php",
+    "tables": [
+      "roles",
+      "roles"
+    ],
+    "columns": [
+      {
+        "method": "boolean",
+        "definition": "'permissions_customized')->default(false)"
+      },
+      {
+        "method": "dropColumn",
+        "definition": "'permissions_customized')"
+      }
+    ]
+  }
+]

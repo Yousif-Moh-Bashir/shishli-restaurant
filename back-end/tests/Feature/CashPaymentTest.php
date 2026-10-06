@@ -20,18 +20,21 @@ class CashPaymentTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_cash_checkout_creates_one_pending_payment_from_trusted_order_total(): void
+    #[DataProvider('offlineMethods')]
+    public function test_cash_checkout_creates_one_pending_payment_from_trusted_order_total(string $method): void
     {
         $assignment = BranchProduct::factory()->create(['price_override' => '19.99']);
         $cart = $this->postJson('/api/v1/cart', ['branch_uuid' => $assignment->branch->uuid])->assertCreated();
         $this->withHeader('X-Cart-Token', $cart->json('data.token'));
         $this->postJson('/api/v1/cart/items', ['product_uuid' => $assignment->product->uuid, 'quantity' => 3])->assertCreated();
-        $payload = ['type' => 'pickup', 'payment_method' => 'cash', 'customer' => ['name' => 'Cash customer', 'phone' => '0501234567'],
+        $payload = ['type' => 'pickup', 'payment_method' => $method, 'customer' => ['name' => 'Cash customer', 'phone' => '0501234567'],
             'amount' => '1.00', 'payment_status' => 'paid'];
         $result = $this->postJson('/api/v1/checkout', $payload)->assertCreated()->assertJsonPath('data.payment.status', 'pending');
 
         $order = Order::where('uuid', $result->json('data.id'))->sole();
         $payment = $order->payments()->sole();
+        $this->assertSame($method, $order->payment_method->value);
+        $this->assertSame($method, $payment->method->value);
         $this->assertSame('59.97', $payment->amount);
         $this->assertSame('SAR', $payment->currency);
         $this->assertSame(PaymentStatus::Pending, $payment->status);
@@ -43,11 +46,11 @@ class CashPaymentTest extends TestCase
     }
 
     #[DataProvider('cashRoles')]
-    public function test_cash_collection_obeys_permissions_and_records_single_sale(string $role, bool $allowed): void
+    public function test_cash_collection_obeys_permissions_and_records_single_sale(string $role, bool $allowed, string $method = 'cash'): void
     {
         $this->freezeTime();
         $actor = $this->staff($role);
-        $payment = Payment::factory()->cash()->create();
+        $payment = Payment::factory()->cash()->create(['method' => $method]);
         $order = $payment->order;
         Event::fake([PaymentSucceeded::class]);
 
@@ -62,7 +65,7 @@ class CashPaymentTest extends TestCase
 
             return;
         }
-        $response->assertOk()->assertJsonPath('data.amount', '85.00')->assertJsonPath('data.status', 'paid');
+        $response->assertOk()->assertJsonPath('data.amount', '85.00')->assertJsonPath('data.status', 'paid')->assertJsonPath('data.method', $method);
         $this->assertSame(PaymentStatus::Paid, $order->fresh()->payment_status);
         $this->assertSame(OrderStatus::Pending, $order->fresh()->status);
         $this->assertSame(now()->toIso8601String(), $payment->fresh()->paid_at->toIso8601String());
@@ -78,8 +81,13 @@ class CashPaymentTest extends TestCase
 
     public static function cashRoles(): array
     {
-        return ['super admin' => ['super_admin', true], 'manager' => ['manager', true], 'cashier' => ['cashier', true],
+        return ['network cashier' => ['cashier', true, 'network'], 'network kitchen' => ['kitchen', false, 'network'], 'super admin' => ['super_admin', true], 'manager' => ['manager', true], 'cashier' => ['cashier', true],
             'kitchen' => ['kitchen', false], 'customer' => ['customer', false]];
+    }
+
+    public static function offlineMethods(): array
+    {
+        return [['cash'], ['network']];
     }
 
     public function test_guest_and_unprivileged_actor_cannot_collect_cash(): void

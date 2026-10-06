@@ -16,7 +16,7 @@ use Illuminate\Validation\ValidationException;
 
 class MenuService
 {
-    public function __construct(private ApplyProductFilters $filters) {}
+    public function __construct(private ApplyProductFilters $filters, private InventoryAvailabilityService $inventory, private ProductAvailabilityService $availability) {}
 
     public function branch(string $uuid): Branch
     {
@@ -35,15 +35,11 @@ class MenuService
             ->whereHas('product', fn (Builder $query): Builder => $this->filters->handle(
                 $query, array_filter(Arr::only($filters, ['category', 'search', 'featured']), fn (mixed $value): bool => $value !== null)
             ));
-        if (isset($filters['available'])) {
-            if ((bool) $filters['available']) {
-                $query->where('is_available', true)->whereHas('product', fn (Builder $product): Builder => $product->available());
-            } else {
-                $query->where(fn (Builder $query): Builder => $query->where('is_available', false)
-                    ->orWhereHas('product', fn (Builder $product): Builder => $product->where('is_available', false)));
-            }
-        }
         $assignments = $query->get()->each(fn (BranchProduct $assignment) => $assignment->setRelation('branch', $branch));
+        $this->inventory->load($branch, $assignments->pluck('product'));
+        if (isset($filters['available'])) {
+            $assignments = $assignments->filter(fn (BranchProduct $assignment): bool => $this->availability->isAvailable($assignment->product, $branch, $assignment) === (bool) $filters['available']);
+        }
 
         return $assignments->groupBy(fn (BranchProduct $assignment): int => $assignment->product->category_id)
             ->map(function (Collection $items): Category {
@@ -58,12 +54,15 @@ class MenuService
 
     public function product(Branch $branch, Product $product): BranchProduct
     {
-        return $this->query($branch)->where('product_id', $product->id)
+        $assignment = $this->query($branch)->where('product_id', $product->id)
             ->with([
                 'product.images',
                 'product.optionGroups' => fn (BelongsToMany $groups): BelongsToMany => $groups->where('option_groups.is_active', true),
                 'product.optionGroups.values' => fn (HasMany $values): HasMany => $values->where('is_active', true),
             ])->firstOrFail()->setRelation('branch', $branch);
+        $this->inventory->load($branch, collect([$assignment->product]));
+
+        return $assignment;
     }
 
     private function query(Branch $branch): Builder

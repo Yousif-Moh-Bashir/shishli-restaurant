@@ -21,6 +21,12 @@ class PaymentController extends Controller
     {
         $data = $request->validated();
         $query = Payment::query()->with('order');
+        if (isset($data['search'])) {
+            $term = '%'.str_replace(['!', '%', '_'], ['!!', '!%', '!_'], $data['search']).'%';
+            $query->where(function (Builder $q) use ($term): void {
+                $q->whereRaw("provider_reference LIKE ? ESCAPE '!'", [$term])->orWhereHas('order', fn (Builder $order) => $order->whereRaw("order_number LIKE ? ESCAPE '!'", [$term]));
+            });
+        }
         foreach (['status', 'method', 'provider'] as $field) {
             if (isset($data[$field])) {
                 $query->where($field, $data[$field]);
@@ -36,7 +42,7 @@ class PaymentController extends Controller
             $query->where('created_at', '<', Carbon::parse($data['date_to'])->addDay()->startOfDay());
         }
 
-        return ApiResponse::paginated(PaymentResource::collection($query->orderByDesc('id')
+        return ApiResponse::paginated(PaymentResource::collection($query->orderBy($data['sort'] ?? 'created_at', $data['direction'] ?? 'desc')->orderByDesc('id')
             ->paginate($request->integer('per_page', 15))->withQueryString()));
     }
 
@@ -47,7 +53,7 @@ class PaymentController extends Controller
 
     public function transactions(ListPaymentsRequest $request, Payment $payment): JsonResponse
     {
-        return ApiResponse::paginated(PaymentTransactionResource::collection($payment->transactions()->paginate($request->integer('per_page', 50))));
+        return ApiResponse::paginated(PaymentTransactionResource::collection($payment->transactions()->paginate($request->integer('per_page', 20))));
     }
 
     public function collect(Request $request, Order $order, CollectCashPaymentAction $collect): JsonResponse

@@ -1,0 +1,1441 @@
+{
+  "live": [
+    "Debounced search and clear filters still issue actual GET requests",
+    "Shared destructive confirmation cancels without sending a mutation",
+    "Kitchen role hides empty navigation groups and product route remains forbidden"
+  ],
+  "fixtures": [
+    "Product edit preserves all 13 payload fields; Laravel 422 stays attached to its input; no mutation reaches backend",
+    "Multipart image upload remains active inside Images tab; intercepted request receives field errors; no media written",
+    "Server pagination controls send page=2 and render returned metadata",
+    "Inventory action menu stays within viewport in native top layer; live stock list is empty",
+    "Notification detail route, message and attempt history checked at four widths with transport fixture because live list is empty"
+  ],
+  "tabs": [
+    {
+      "route": "settings",
+      "index": 0,
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "settings",
+      "index": 0,
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "settings",
+      "index": 0,
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "settings",
+      "index": 1,
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "settings",
+      "index": 1,
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "settings",
+      "index": 1,
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "cms",
+      "index": 0,
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "cms",
+      "index": 0,
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "cms",
+      "index": 0,
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "cms",
+      "index": 1,
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "cms",
+      "index": 1,
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "cms",
+      "index": 1,
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "cms",
+      "index": 2,
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "cms",
+      "index": 2,
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "cms",
+      "index": 2,
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "inventory",
+      "index": 0,
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "inventory",
+      "index": 0,
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "inventory",
+      "index": 0,
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "inventory",
+      "index": 1,
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "inventory",
+      "index": 1,
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "inventory",
+      "index": 1,
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "inventory",
+      "index": 2,
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "inventory",
+      "index": 2,
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "inventory",
+      "index": 2,
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "customers",
+      "index": 0,
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "customers",
+      "index": 0,
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "customers",
+      "index": 0,
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "customers",
+      "index": 1,
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "customers",
+      "index": 1,
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "customers",
+      "index": 1,
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=sales/trend&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=sales/trend&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=sales/trend&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=orders&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=orders&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=orders&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=branches&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=branches&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=branches&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=products&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=products&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=products&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=categories&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=categories&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=categories&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=payments&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=payments&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=payments&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=promotions&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=promotions&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=promotions&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=coupons&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=coupons&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=coupons&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=customers&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=customers&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=customers&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=delivery&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=delivery&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=delivery&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=order-statuses&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=order-statuses&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=order-statuses&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=cancellations&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=cancellations&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=cancellations&group_by=day&sort_by=quantity&per_page=20&page=1",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=inventory&low_stock=0&out_of_stock=0",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=inventory&low_stock=0&out_of_stock=0",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "reports",
+      "path": "/admin/reports?report=inventory&low_stock=0&out_of_stock=0",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "customer-details",
+      "label": "الملف",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "customer-details",
+      "label": "الطلبات",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "customer-details",
+      "label": "العناوين",
+      "width": 390,
+      "overflow": false
+    }
+  ],
+  "diagnostics": [],
+  "failures": [],
+  "fixtureErrors": [],
+  "networkFailures": [
+    {
+      "type": "XHR",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "type": "XHR",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "type": "XHR",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "type": "XHR",
+      "error": "net::ERR_ABORTED"
+    }
+  ],
+  "fixtureRequests": [
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products/74a4a099-87b7-4c3d-aa3d-c99cb3f48147",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products/74a4a099-87b7-4c3d-aa3d-c99cb3f48147",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/categories/tree",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d/products",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d/products",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products/74a4a099-87b7-4c3d-aa3d-c99cb3f48147",
+      "method": "PATCH",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products/74a4a099-87b7-4c3d-aa3d-c99cb3f48147/images",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products/74a4a099-87b7-4c3d-aa3d-c99cb3f48147/images",
+      "method": "POST",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "pagination"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "OPTIONS",
+      "mode": "pagination"
+    },
+    {
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "mode": "pagination"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "mode": "pagination"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "OPTIONS",
+      "mode": "pagination"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "mode": "pagination"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/promotions",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/promotions",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/settings",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d/business-hours",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d/closures",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d/business-hours",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches/1b13fb5a-857c-47df-b31a-477bea290d9d/closures",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/pages",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/pages",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/banners",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/banners",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/gallery",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/gallery",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/inventory",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/categories",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/inventory",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/categories",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/inventory/movements",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/inventory/movements",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/inventory",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/categories",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/inventory",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/customers",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/customers",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/guest-customers",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/guest-customers",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/sales/trend",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/sales/trend",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/sales/trend",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/orders",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/orders",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/products",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/products",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/categories",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/categories",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/payments",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/payments",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/promotions",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/promotions",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/coupons",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/coupons",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/customers",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/customers",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/delivery",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/delivery",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/order-statuses",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/order-statuses",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/cancellations",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/cancellations",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/inventory",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/bootstrap",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/reports/inventory",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/customers",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/customers",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/customers/01a1079f-f48d-719d-9e49-e0411a4d91d2",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/customers/01a1079f-f48d-719d-9e49-e0411a4d91d2",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/customers/01a1079f-f48d-719d-9e49-e0411a4d91d2/orders",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/customers/01a1079f-f48d-719d-9e49-e0411a4d91d2/orders",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/customers/01a1079f-f48d-719d-9e49-e0411a4d91d2/addresses",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/customers/01a1079f-f48d-719d-9e49-e0411a4d91d2/addresses",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "inventory"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "inventory"
+    },
+    {
+      "path": "/api/v1/admin/inventory",
+      "method": "OPTIONS",
+      "mode": "inventory"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "OPTIONS",
+      "mode": "inventory"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "OPTIONS",
+      "mode": "inventory"
+    },
+    {
+      "path": "/api/v1/admin/categories",
+      "method": "OPTIONS",
+      "mode": "inventory"
+    },
+    {
+      "path": "/api/v1/admin/inventory",
+      "method": "GET",
+      "mode": "inventory"
+    },
+    {
+      "path": "/api/v1/admin/branches",
+      "method": "GET",
+      "mode": "inventory"
+    },
+    {
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "mode": "inventory"
+    },
+    {
+      "path": "/api/v1/admin/categories",
+      "method": "GET",
+      "mode": "inventory"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/notifications/11111111-2222-4333-8444-555555555555",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/notifications/11111111-2222-4333-8444-555555555555",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/notifications/11111111-2222-4333-8444-555555555555/attempts",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/notifications/11111111-2222-4333-8444-555555555555/attempts",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/kitchen/orders",
+      "method": "OPTIONS",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/branches",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/kitchen/orders",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "method": "GET",
+      "mode": "none"
+    },
+    {
+      "path": "/api/v1/branches",
+      "method": "GET",
+      "mode": "none"
+    }
+  ]
+}

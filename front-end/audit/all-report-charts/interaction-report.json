@@ -1,0 +1,21 @@
+{
+  "checks": [
+    {
+      "key": "products",
+      "width": 1440,
+      "metrics": 5
+    },
+    {
+      "key": "products",
+      "width": 768,
+      "metrics": 5
+    },
+    {
+      "key": "products",
+      "width": 390,
+      "metrics": 5
+    }
+  ],
+  "failures": [],
+  "diagnostics": []
+}

@@ -1,0 +1,57 @@
+{
+  "browser": [
+    "Admin server filters/counts/pagination and snapshots, 500 has no demo fallback",
+    "Legacy card actions use server eligibility; confirmations pause polling, prevent duplicate submit and guard busy navigation; blocked actions hidden",
+    "Pickup lifecycle four operations, immutable history and post-operation server refetch",
+    "Delivery dispatch/completion uses separate endpoints",
+    "Busy operation prevents duplicate submit, no optimistic status",
+    "409 concurrent update and 422 invalid transition remain visible and refetch authoritative state",
+    "Kitchen actual permissions, redacted queue/details, operational actions, query state survives refresh",
+    "Owned tracking and customer cancellation, reason field 422, server-only terminal status",
+    "Guest POST body secret, session-only credential, header-authenticated refresh, no secret URL",
+    "Server timeline/ETA, delivery current status, terminal tracking polling stops (21-second observation)",
+    "20-second active polling; serial requests; visibility pause/resume and unmount cleanup (three 21-second observations)",
+    "429 manual refresh respects cooldown; expired/wrong access clears private data with generic error",
+    "Guest lookup 429 disables form retry and guards programmatic double submit"
+  ],
+  "responsive": [
+    "Admin list 390",
+    "Admin list 768",
+    "Admin list 1440",
+    "Order card confirmation 390",
+    "Order card confirmation 768",
+    "Order card confirmation 1440",
+    "Admin details 390",
+    "Admin details 768",
+    "Admin details 1440",
+    "Kitchen queue 390",
+    "Kitchen queue 768",
+    "Kitchen queue 1440",
+    "Customer tracking 390",
+    "Customer tracking 768",
+    "Customer tracking 1440",
+    "Guest tracking 390",
+    "Guest tracking 768",
+    "Guest tracking 1440"
+  ],
+  "live": [
+    {
+      "endpoint": "GET /admin/orders",
+      "status": 401
+    },
+    {
+      "endpoint": "GET /admin/kitchen/orders",
+      "status": 401
+    },
+    {
+      "endpoint": "GET /orders/00000050-1111-4111-8111-111111111111/tracking",
+      "status": 401
+    },
+    {
+      "endpoint": "POST /orders/track invalid credentials",
+      "status": 404
+    }
+  ],
+  "diagnostics": [],
+  "assetFailures": []
+}

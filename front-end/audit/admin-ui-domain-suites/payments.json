@@ -1,0 +1,55 @@
+{
+  "browser": [
+    "Server filters and pagination, actual list, 500 without demo fallback",
+    "Confirmed exact server amount, empty pending transaction history, duplicate-submit prevention, paid sale and transaction pagination",
+    "Network-after-commit and 409 reread paid state, no second collection or false failure status",
+    "Uncertain network-before-commit verifies latest payment before retry, only server confirms paid",
+    "Another staff member collecting before confirmation removes eligibility without POST",
+    "422 fields and 429 cooldown, unchanged payment and no retry spam",
+    "Custom payment-only permissions can collect from Payment Details without orders.view",
+    "Order Details available_actions collect_cash, payment updated while order status stays completed",
+    "Kitchen route/sidebar denial uses payments.view, not role guesses",
+    "Browser success query cannot mark processing payment paid; real failed state, no fake retry/refund/provider controls",
+    "20-second payment polling reads server-paid update then stops on terminal state (two 21-second observations)",
+    "Owned attempts and Order Success, changed attempt rereads authoritative order summary, foreign attempts 404 clear data",
+    "Checkout only audited working cash method, no card credentials or pretend gateway"
+  ],
+  "responsive": [
+    "Payments list 390",
+    "Payments list 768",
+    "Payments list 1440",
+    "Payment details 390",
+    "Payment details 768",
+    "Payment details 1440",
+    "Order payment section 390",
+    "Order payment section 768",
+    "Order payment section 1440",
+    "Customer payments 390",
+    "Customer payments 768",
+    "Customer payments 1440"
+  ],
+  "live": [
+    {
+      "endpoint": "GET /admin/payments",
+      "status": 401
+    },
+    {
+      "endpoint": "GET /admin/payments/00000070-1111-4111-8111-111111111111",
+      "status": 401
+    },
+    {
+      "endpoint": "GET /admin/payments/00000070-1111-4111-8111-111111111111/transactions",
+      "status": 401
+    },
+    {
+      "endpoint": "GET /orders/00000050-1111-4111-8111-111111111111/payments",
+      "status": 401
+    },
+    {
+      "endpoint": "POST /admin/orders/00000050-1111-4111-8111-111111111111/payments/cash/collect",
+      "status": 401
+    }
+  ],
+  "diagnostics": [],
+  "assetFailures": []
+}

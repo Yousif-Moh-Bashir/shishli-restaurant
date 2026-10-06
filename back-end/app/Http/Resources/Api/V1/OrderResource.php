@@ -11,11 +11,13 @@ class OrderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return ['id' => $this->uuid, 'order_number' => $this->order_number, 'type' => $this->type->value, 'status' => $this->status->value,
+            'order_timing' => $this->order_timing->value, 'scheduled_for' => $this->scheduled_for?->toISOString(),
             'payment' => ['method' => $this->payment_method->value, 'status' => $this->payment_status->value],
             'latest_payment' => new PaymentResource($this->whenLoaded('latestPayment')),
             'customer' => ['name' => $this->customer_name, 'phone' => $this->customer_phone, 'email' => $this->customer_email],
             'branch' => $this->whenLoaded('branch', fn (): array => ['id' => $this->branch->uuid, 'name' => $this->branch->name]),
             'items' => OrderItemResource::collection($this->whenLoaded('items')),
+            'promotions' => OrderPromotionResource::collection($this->whenLoaded('promotions')),
             'address' => new OrderAddressResource($this->whenLoaded('address')),
             'pricing' => ['subtotal' => $this->subtotal, 'delivery_fee' => $this->delivery_fee, 'discount_total' => $this->discount_total,
                 'tax_total' => $this->tax_total, 'total' => $this->total, 'currency' => $this->currency],

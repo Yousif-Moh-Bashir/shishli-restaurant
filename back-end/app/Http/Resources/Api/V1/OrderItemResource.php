@@ -11,6 +11,7 @@ class OrderItemResource extends JsonResource
     {
         return ['id' => $this->uuid, 'product' => ['id' => $this->product_uuid, 'name' => $this->product_name, 'sku' => $this->product_sku],
             'quantity' => $this->quantity, 'options' => OrderItemOptionResource::collection($this->whenLoaded('options')),
-            'pricing' => ['base_price' => $this->base_price, 'options_total' => $this->options_total, 'unit_price' => $this->unit_price, 'line_total' => $this->line_total]];
+            'pricing' => ['base_price' => $this->base_price, 'options_total' => $this->options_total, 'unit_price' => $this->unit_price, 'line_total' => $this->line_total,
+                'discount_total' => $this->discount_total, 'line_total_after_discount' => $this->line_total_after_discount]];
     }
 }

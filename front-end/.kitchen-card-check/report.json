@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "Short/full order number, stage styling, quantities, options, notes, correct action UUID and detail link, busy guard"
+  ],
+  "responsive": [
+    390,
+    768,
+    1440
+  ],
+  "diagnostics": []
+}

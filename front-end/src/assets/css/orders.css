@@ -1,0 +1,23 @@
+/* Legacy order pages are empty. Use existing Checkout cards and palette. */
+.order-number-display{min-width:0;display:grid;gap:4px}
+.order-number-label{font-size:11px;color:var(--muted)}
+.order-number-short{font-size:20px;line-height:1.4;letter-spacing:1px;color:var(--burgundy,var(--primary));justify-self:start}
+.order-number-full{font-size:11px;font-weight:400;max-width:100%}
+.order-number-full summary{cursor:pointer;color:var(--muted);padding-block:4px}
+.order-number-full>div{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding-block:8px}
+.order-number-full bdi{overflow-wrap:anywhere;min-width:0}
+.order-number-full small{display:block;color:var(--muted)}
+.order-details-layout{margin-top:25px}
+.order-center-link{justify-content:center}
+.order-facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 20px;margin:0 0 24px;font-size:14px}
+.order-facts dt{color:var(--muted)}
+.order-facts dd{margin:0;overflow-wrap:anywhere;color:var(--primary)}
+.order-tracking-form{max-width:640px;margin-inline:auto}
+.order-timeline{list-style:none;padding:0;margin:25px 0 0}
+.order-timeline li{position:relative;display:flex;align-items:flex-start;gap:14px;padding-bottom:24px;font-size:14px}
+.order-timeline li:not(:last-child):before{content:'';position:absolute;right:16px;top:34px;bottom:0;width:1px;background:var(--border)}
+.order-step-icon{display:grid;place-items:center;width:34px;height:34px;flex-shrink:0;border:1px solid var(--border);border-radius:50%;color:var(--muted);background:var(--cream)}
+.order-timeline time,.order-timeline small{display:block;color:var(--muted);font-size:12px}
+.order-step-current .order-step-icon,.order-step-completed .order-step-icon{color:var(--primary);border-color:var(--gold)}
+.order-step-cancelled .order-step-icon{color:var(--secondary);border-color:var(--secondary)}
+.order-step-upcoming{color:var(--muted)}

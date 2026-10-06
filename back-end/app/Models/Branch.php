@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class Branch extends Model
 {
+    public function inventories(): HasMany
+    {
+        return $this->hasMany(BranchInventory::class);
+    }
+
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
@@ -75,5 +80,15 @@ class Branch extends Model
     public function deliveryZones(): HasMany
     {
         return $this->hasMany(DeliveryZone::class);
+    }
+
+    public function businessHours(): HasMany
+    {
+        return $this->hasMany(BranchBusinessHour::class)->orderBy('day_of_week')->orderBy('opens_at');
+    }
+
+    public function closures(): HasMany
+    {
+        return $this->hasMany(BranchClosure::class)->orderBy('starts_at')->orderBy('id');
     }
 }

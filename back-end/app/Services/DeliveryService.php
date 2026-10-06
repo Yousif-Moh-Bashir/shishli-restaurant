@@ -15,20 +15,27 @@ class DeliveryService
 
     public function supportsOrderType(Branch $branch, OrderType $type): bool
     {
+        $settings = app(RestaurantSettingsService::class)->all();
+
         return ! $branch->trashed() && $branch->is_active && $branch->accepts_orders
+            && $settings['orders.enabled'] && $settings[$type->value.'.enabled']
             && ($type === OrderType::Pickup ? $branch->supports_pickup : $branch->supports_delivery);
     }
 
-    public function calculateDelivery(Branch $branch, DeliveryAddressData|CustomerAddress $address, string $subtotal): DeliveryQuote
+    public function calculateDelivery(Branch $branch, DeliveryAddressData|CustomerAddress $address, string $subtotal, ?string $subtotalAfterDiscount = null): DeliveryQuote
     {
         $subtotal = Money::decimal(Money::minor($subtotal));
-        if ($branch->trashed() || ! $branch->is_active || ! $branch->accepts_orders) {
+        $settings = app(RestaurantSettingsService::class)->all();
+        if ($branch->trashed() || ! $branch->is_active || ! $branch->accepts_orders || ! $settings['orders.enabled']) {
             return $this->unavailable($subtotal, DeliveryIssueCode::BranchNotAcceptingOrders);
         }
-        if (! $branch->supports_delivery) {
+        if (! $branch->supports_delivery || ! $settings['delivery.enabled']) {
             return $this->unavailable($subtotal, DeliveryIssueCode::DeliveryNotAvailable);
         }
         $address = $address instanceof CustomerAddress ? DeliveryAddressData::fromAddress($address) : $address;
+        if ($settings['delivery.require_coordinates'] && ($address->latitude === null || $address->longitude === null)) {
+            return $this->unavailable($subtotal, DeliveryIssueCode::AddressCoordinatesRequired);
+        }
         if (! $address->isValid()) {
             return $this->unavailable($subtotal, DeliveryIssueCode::InvalidAddress);
         }
@@ -38,16 +45,18 @@ class DeliveryService
             return $this->unavailable($subtotal, $resolved['issue']);
         }
         $minor = Money::minor($subtotal);
-        $minimum = Money::minor($zone->minimum_order);
+        // Zone minimum remains based on the pre-discount subtotal; free delivery uses actual food spend.
+        $minimum = max(Money::minor($zone->minimum_order), Money::minor($settings['orders.minimum_amount']));
         $met = $minor >= $minimum;
-        $free = $zone->free_delivery_threshold !== null && $minor >= Money::minor($zone->free_delivery_threshold);
+        $foodSubtotal = $subtotalAfterDiscount ?? $subtotal;
+        $free = $zone->free_delivery_threshold !== null && Money::minor($foodSubtotal) >= Money::minor($zone->free_delivery_threshold);
         $fee = $free ? '0.00' : $zone->delivery_fee;
 
         return new DeliveryQuote(
             isAvailable: $met, subtotal: $subtotal, deliveryFee: $fee,
-            estimatedTotal: $this->pricing->totalWithDelivery($subtotal, $fee),
+            estimatedTotal: $this->pricing->totalWithDelivery($foodSubtotal, $fee),
             zoneUuid: $zone->uuid, zoneName: $zone->name,
-            minimumOrder: $zone->minimum_order, minimumOrderMet: $met,
+            minimumOrder: Money::decimal($minimum), minimumOrderMet: $met,
             remainingAmount: Money::decimal(max(0, $minimum - $minor)), freeDeliveryApplied: $free,
             estimatedMinMinutes: $zone->estimated_min_minutes, estimatedMaxMinutes: $zone->estimated_max_minutes,
             distanceKm: $resolved['distance'], issueCode: $met ? null : DeliveryIssueCode::MinimumOrderNotMet,

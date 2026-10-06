@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Admin\AdminListRequest;
 use App\Http\Requests\Api\V1\Admin\StoreBranchRequest;
 use App\Http\Requests\Api\V1\Admin\UpdateBranchRequest;
-use App\Http\Resources\Api\V1\BranchResource;
+use App\Http\Resources\Api\V1\AdminBranchResource as BranchResource;
 use App\Http\Responses\ApiResponse;
 use App\Models\Branch;
+use App\Services\Admin\AdminListQuery;
 use Illuminate\Http\JsonResponse;
 
 class BranchController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(AdminListRequest $request, AdminListQuery $lists): JsonResponse
     {
-        $branches = Branch::query()->orderBy('sort_order')->orderBy('name')->orderBy('id')->paginate(20);
+        $branches = $lists->apply(Branch::query()->withCount(['products', 'deliveryZones']), $request->validated(), ['name', 'address', 'phone'], ['name', 'sort_order', 'created_at'], 'sort_order')->paginate($request->integer('per_page', 20))->withQueryString();
 
         return ApiResponse::paginated(BranchResource::collection($branches));
     }
@@ -28,7 +30,7 @@ class BranchController extends Controller
 
     public function show(Branch $branch): JsonResponse
     {
-        return ApiResponse::success(data: new BranchResource($branch));
+        return ApiResponse::success(data: new BranchResource($branch->load(['businessHours', 'closures'])->loadCount(['products', 'deliveryZones'])));
     }
 
     public function update(UpdateBranchRequest $request, Branch $branch): JsonResponse

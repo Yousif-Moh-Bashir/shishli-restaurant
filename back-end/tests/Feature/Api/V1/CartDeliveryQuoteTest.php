@@ -4,6 +4,7 @@ namespace Tests\Feature\Api\V1;
 
 use App\Models\Branch;
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\CustomerAddress;
 use App\Models\DeliveryZone;
 use App\Models\Product;
@@ -35,6 +36,11 @@ class CartDeliveryQuoteTest extends TestCase
     {
         $user = User::factory()->create();
         $cart = Cart::factory()->authenticated($user)->create(['subtotal' => '80.00', 'total' => '80.00']);
+        $product = Product::factory()->create(['base_price' => '80.00']);
+        $cart->branch->products()->attach($product);
+        CartItem::factory()->for($cart)->for($product)->create([
+            'quantity' => 1, 'base_price' => '80.00', 'options_total' => '0.00', 'unit_price' => '80.00', 'line_total' => '80.00',
+        ]);
         DeliveryZone::factory()->for($cart->branch)->create();
         $own = CustomerAddress::factory()->forUser($user)->create();
         $foreign = CustomerAddress::factory()->create();

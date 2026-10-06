@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\V1\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ListBranchProductsRequest extends FormRequest
 {
@@ -17,6 +18,7 @@ class ListBranchProductsRequest extends FormRequest
             'search' => ['nullable', 'string', 'max:150'],
             'category' => ['nullable', 'string', 'max:180'],
             'is_available' => ['sometimes', 'boolean'],
+            'available' => ['sometimes', 'boolean'], 'category_uuid' => ['sometimes', 'uuid'], 'sort' => ['sometimes', Rule::in(['product_name', 'price_override', 'is_available', 'created_at', 'updated_at'])], 'direction' => ['sometimes', Rule::in(['asc', 'desc'])],
             'page' => ['sometimes', 'integer', 'min:1', 'max:2147483647'],
             'per_page' => ['sometimes', 'integer', 'min:1', 'max:100'],
         ];

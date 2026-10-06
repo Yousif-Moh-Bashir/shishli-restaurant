@@ -16,10 +16,12 @@ class CheckoutController extends Controller
     {
         $order = $place->handle($resolver->resolve($request, forCheckout: true), $request->validated());
         $data = (new OrderResource($order))->resolve($request);
-        if ($order->user_id === null) {
-            $data['access_token'] = $order->access_token;
+        if ($order->user_id === null && $order->wasRecentlyCreated && $order->issuedGuestAccessToken !== null) {
+            $data['access_token'] = $order->issuedGuestAccessToken;
+            $data['tracking'] = ['order_number' => $order->order_number, 'token' => $order->issuedGuestAccessToken,
+                'expires_at' => $order->guest_access_token_expires_at?->toISOString()];
         }
 
-        return ApiResponse::success(data: $data, statusCode: $order->wasRecentlyCreated ? 201 : 200);
+        return ApiResponse::success(data: $data, statusCode: $order->wasRecentlyCreated ? 201 : 200)->header('Cache-Control', 'private, no-store');
     }
 }

@@ -11,11 +11,12 @@ use Illuminate\Validation\ValidationException;
 
 class CartStateService
 {
-    public function __construct(private OptionSelectionValidator $options, private ProductAvailabilityService $availability, private PricingService $pricing) {}
+    public function __construct(private OptionSelectionValidator $options, private ProductAvailabilityService $availability, private PricingService $pricing, private PromotionEngine $promotions, private InventoryAvailabilityService $inventory) {}
 
     public function acceptsOrders(Branch $branch): bool
     {
-        return ! $branch->trashed() && $branch->is_active && $branch->accepts_orders;
+        return ! $branch->trashed() && $branch->is_active && $branch->accepts_orders
+            && app(RestaurantSettingsService::class)->getBoolean('orders.enabled');
     }
 
     public function assertAcceptsOrders(Branch $branch): void
@@ -35,6 +36,8 @@ class CartStateService
             ->whereIn('product_id', $cart->items->pluck('product_id'))->get()->keyBy('product_id');
         $cart->issues = $this->acceptsOrders($cart->branch) ? [] : [CartIssueCode::BranchNotAcceptingOrders->issue()];
         $currentSubtotal = 0;
+        $this->inventory->load($cart->branch, $cart->items->pluck('product')->unique('id')->values());
+        $quantities = $cart->items->groupBy('product_id')->map(fn ($items) => $items->sum('quantity'));
         foreach ($cart->items as $item) {
             $item->issues = [];
             $item->trustedOptions = null;
@@ -43,11 +46,15 @@ class CartStateService
                 $item->issues[] = CartIssueCode::ProductNotInBranch->issue();
             }
             $product = $item->product;
-            if (! $this->availability->isAvailable($product, $cart->branch, $item->assignment)
+            if (! $this->availability->isOperationallyAvailable($product, $cart->branch, $item->assignment)
                 || ! $product->category?->is_active) {
                 if ($item->assignment !== null || $product->trashed() || ! $product->is_active || ! $product->is_available || ! $product->category?->is_active) {
                     $item->issues[] = CartIssueCode::ProductUnavailable->issue();
                 }
+            }
+            $stockIssue = $this->inventory->checkProductAvailability($cart->branch, $product, (int) $quantities[$item->product_id]);
+            if ($stockIssue !== null) {
+                $item->issues[] = ['code' => $stockIssue->value, 'message' => $stockIssue->message(), 'product_uuid' => $product->uuid];
             }
             try {
                 $item->trustedOptions = $this->options->validate($product, $this->selections($item));
@@ -71,6 +78,8 @@ class CartStateService
         } catch (ValidationException) {
             $cart->issues[] = CartIssueCode::PriceLimitExceeded->issue();
         }
+
+        $this->promotions->present($cart, $this->promotions->calculate($cart));
 
         return $cart;
     }

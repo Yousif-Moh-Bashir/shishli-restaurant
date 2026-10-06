@@ -20,7 +20,8 @@ class CreateCartAction
     {
         return DB::transaction(function () use ($branchUuid, $user): CreatedCartResult {
             if ($user !== null) {
-                User::whereKey($user->id)->lockForUpdate()->firstOrFail();
+                $user = User::whereKey($user->id)->lockForUpdate()->firstOrFail();
+                abort_unless($user->is_active, 401);
             }
             $branch = Branch::where('uuid', $branchUuid)->lockForUpdate()->first();
             if ($branch === null) {

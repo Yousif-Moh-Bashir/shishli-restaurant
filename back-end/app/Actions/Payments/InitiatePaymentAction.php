@@ -4,7 +4,6 @@ namespace App\Actions\Payments;
 
 use App\Data\Payments\CreatePaymentData;
 use App\Enums\OrderStatus;
-use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use App\Enums\PaymentTransactionStatus;
 use App\Enums\PaymentTransactionType;
@@ -53,7 +52,7 @@ class InitiatePaymentAction
             ])->exists()) {
                 throw new PaymentException('ORDER_ALREADY_PAID');
             }
-            if ($locked->payment_method === PaymentMethod::Cash) {
+            if ($locked->payment_method->isOffline()) {
                 throw new PaymentException('PAYMENT_METHOD_NOT_SUPPORTED');
             }
             $providerName = config('payments.default_provider');

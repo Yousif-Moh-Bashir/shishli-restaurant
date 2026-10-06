@@ -1,0 +1,24 @@
+<script setup>
+import {inject as injectAdminConfirmation} from 'vue'
+const {confirmAction}=injectAdminConfirmation('admin')
+import {useModalDraft} from '../../composables/useModalDraft'
+import {ref,reactive,watch} from 'vue'
+import {couponsApi} from '../../api/promotions.api'
+import {useServerList} from '../../composables/useServerList'
+import {useApiMutation} from '../../composables/useApiState'
+import {useAuthStore} from '../../stores/auth'
+import {utcInput,utcPayload} from '../../utils/formDates'
+import AdminModal from './AdminModal.vue'
+import DomainFields from './DomainFields.vue'
+import ApiFeedback from './catalog/ApiFeedback.vue'
+import ApiPagination from './catalog/ApiPagination.vue'
+defineEmits(['close'])
+const props=defineProps({promotion:Object}),auth=useAuthStore(),api={list:(...args)=>couponsApi(props.promotion.id).list(...args)},list=useServerList(api),mutation=useApiMutation(),open=ref(false),editing=ref(null),form=reactive({})
+const fields=[{key:'code',label:'كود الكوبون',required:true,max:64},{key:'starts_at',label:'البداية UTC',type:'datetime-local',step:1},{key:'ends_at',label:'النهاية UTC',type:'datetime-local',step:1},{key:'usage_limit',label:'حد الاستخدام الكلي (اختياري)',type:'number',min:1,max:4294967295,step:1},{key:'usage_limit_per_user',label:'حد الاستخدام لكل مستخدم (اختياري)',type:'number',min:1,max:4294967295,step:1},{key:'is_active',label:'مفعّل',type:'checkbox'}]
+function edit(row){editing.value=row;Object.assign(form,{code:row?.code||'',is_active:row?.is_active??true,usage_limit:row?.usage_limit??'',usage_limit_per_user:row?.usage_limit_per_user??'',starts_at:utcInput(row?.starts_at),ends_at:utcInput(row?.ends_at)});mutation.error.value=null;open.value=true}
+async function save(){const payload={...form,starts_at:utcPayload(form.starts_at,editing.value?.starts_at),ends_at:utcPayload(form.ends_at,editing.value?.ends_at),usage_limit:form.usage_limit||null,usage_limit_per_user:form.usage_limit_per_user||null};const result=await mutation.run(()=>editing.value?couponsApi(props.promotion.id).update(editing.value.id,payload):couponsApi(props.promotion.id).create(payload));if(result.ok){open.value=false;list.load()}}
+async function remove(row){if(!(await confirmAction('حذف الكوبون '+row.code+'؟')))return;const result=await mutation.run(()=>couponsApi(props.promotion.id).remove(row.id));if(result.ok)list.load()}
+watch(()=>props.promotion.id,()=>list.search(),{immediate:true})
+const beforeClose=useModalDraft(open,form,mutation.busy)
+</script>
+<template><section class="panel"><div class="panel-head"><h2>كوبونات {{ promotion.name }}</h2><button class="row-button" type="button" :disabled="mutation.busy.value" @click="$emit('close')">إغلاق الكوبونات</button><button v-if="auth.can('coupons.create')&&promotion.type==='coupon'" class="button" :disabled="mutation.busy.value" @click="edit(null)">إضافة كوبون</button></div><form class="toolbar" @submit.prevent="list.search"><input v-model="list.filters.search" aria-label="بحث الكوبونات" maxlength="150" placeholder="بحث الكود"><button class="row-button" :disabled="list.state.loading.value">بحث</button></form><ApiFeedback :loading="list.state.loading.value" :error="list.state.error.value" @retry="list.load"/><div v-if="list.state.data.value" class="table-wrap"><table v-admin-table><thead><tr><th>الكود</th><th>الحالة</th><th>الاستخدام</th><th>الإجراءات</th></tr></thead><tbody><tr v-for="row in list.state.data.value.data" :key="row.id"><td><div class="admin-cell-value"><bdi>{{ row.code }}</bdi></div></td><td><div class="admin-cell-value">{{ row.is_active?'مفعّل':'متوقف' }}</div></td><td><div class="admin-cell-value">{{ row.used_count }} / {{ row.usage_limit??'بدون حد' }}</div></td><td><div class="admin-cell-value"><div class="admin-row-actions"><button v-if="auth.can('coupons.update')" class="row-button" :disabled="mutation.busy.value" @click="edit(row)">تعديل</button><button v-if="auth.can('coupons.delete')" class="row-button danger" :disabled="mutation.busy.value" @click="remove(row)">حذف</button></div></div></td></tr></tbody></table><p v-if="!list.state.data.value.data.length" class="empty">لا توجد كوبونات لهذا العرض.</p></div><ApiPagination :meta="list.state.data.value?.meta" :links="list.state.data.value?.links" :busy="list.state.loading.value" @page="list.changePage"/><ApiFeedback v-if="!open" :error="mutation.error.value" @retry="mutation.error.value=null"/><AdminModal :before-close="beforeClose" v-model:open="open" :title="editing?'تعديل الكوبون':'إضافة كوبون'" :busy="mutation.busy.value" @submit="save"><DomainFields :fields="fields" :form="form" :errors="mutation.error.value?.errors" :disabled="mutation.busy.value"/><ApiFeedback :error="mutation.error.value" @retry="mutation.error.value=null"/><button class="button" :disabled="mutation.busy.value">حفظ الكوبون</button></AdminModal></section></template>

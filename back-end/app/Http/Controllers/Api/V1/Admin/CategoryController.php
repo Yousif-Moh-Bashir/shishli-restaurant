@@ -6,20 +6,27 @@ use App\Actions\Categories\CreateCategoryAction;
 use App\Actions\Categories\DeleteCategoryAction;
 use App\Actions\Categories\UpdateCategoryAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Admin\AdminListRequest;
 use App\Http\Requests\Api\V1\Admin\StoreCategoryRequest;
 use App\Http\Requests\Api\V1\Admin\UpdateCategoryRequest;
 use App\Http\Resources\Api\V1\CategoryResource;
 use App\Http\Responses\ApiResponse;
 use App\Models\Category;
+use App\Services\Admin\AdminListQuery;
+use App\Services\Admin\CategoryTreeService;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\JsonResponse;
 
 class CategoryController extends Controller
 {
-    public function index(): JsonResponse
+    public function tree(CategoryTreeService $tree): JsonResponse
     {
-        $categories = Category::with('parent')->withCount('products')
-            ->orderBy('sort_order')->orderBy('name')->orderBy('id')->paginate(20);
+        return ApiResponse::success(data: CategoryResource::collection($tree->get()));
+    }
+
+    public function index(AdminListRequest $request, AdminListQuery $lists): JsonResponse
+    {
+        $categories = $lists->apply(Category::with('parent')->withCount('products'), $request->validated(), ['name', 'slug'], ['name', 'sort_order', 'created_at'], 'sort_order')->paginate($request->integer('per_page', 20))->withQueryString();
 
         return ApiResponse::paginated(CategoryResource::collection($categories));
     }

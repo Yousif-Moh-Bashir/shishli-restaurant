@@ -1,0 +1,13 @@
+{
+  "responsive": [
+    390,
+    768,
+    1440
+  ],
+  "checks": [
+    "Autoplay advances without arrows, loops from end, and pause stops the timer",
+    "Home preview, keyboard navigation, Escape close, viewport containment",
+    "Published gallery transport fixture works when CMS page is missing; image opens"
+  ],
+  "diagnostics": []
+}

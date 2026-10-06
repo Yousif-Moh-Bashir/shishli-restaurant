@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-05",
+  "scope": "Local Laravel API and Chromium. Production providers, queues and MySQL opt-in concurrency are not certified.",
+  "backend": {
+    "tool": "phpunit",
+    "result": "passed",
+    "tests": 2008,
+    "passed": 2005,
+    "assertions": 10486,
+    "duration_ms": 961442,
+    "skipped": 3
+  },
+  "frontendBuild": {
+    "result": "passed",
+    "transformedModules": 281,
+    "warnings": 0,
+    "errors": 0
+  },
+  "adminBrowser": {
+    "pages": 26,
+    "responsiveChecks": 78,
+    "dialogs": 4,
+    "filters": 16,
+    "diagnostics": 0,
+    "httpFailures": 0
+  },
+  "domains": {
+    "checks": [
+      "promotion create through frontend",
+      "coupon create through frontend",
+      "promotion update API",
+      "CMS page save through frontend",
+      "public / 3 widths",
+      "public /about 3 widths",
+      "public /contact 3 widths",
+      "public /gallery 3 widths",
+      "public /offers 3 widths",
+      "public /menu 3 widths",
+      "public /branches 3 widths",
+      "public /missing-final-audit 3 widths",
+      "staff modal responsive",
+      "inventory modal responsive",
+      "admin customer scoped orders and addresses",
+      "staff profile save without token revocation",
+      "customer ownership endpoints and admin 403",
+      "customer frontend guard forbidden",
+      "customer frontend profile save and orders",
+      "kitchen real permissions",
+      "invalid credentials rejected with 401"
+    ],
+    "diagnostics": [],
+    "cleanupFailures": []
+  },
+  "guestCheckout": {
+    "checks": [
+      "real guest cart and product options",
+      "coupon evaluated by server with nonzero discount",
+      "coupon removal preserves server pricing",
+      "real Vue guest cart coupon apply and remove",
+      "real Vue cash checkout success",
+      "cash checkout and idempotent same-cart replay",
+      "historical order promotion snapshot",
+      "wrong guest credential and other customer receive 404",
+      "guest tracking returns masked customer summary",
+      "real Vue guest tracking and responsive cart / tracking",
+      "admin and kitchen read real test order"
+    ],
+    "cleanupFailures": []
+  },
+  "authAndMedia": {
+    "checks": [
+      "invalid login UI clears password and shows 401",
+      "valid customer login through UI",
+      "logout UI revokes actual token",
+      "gallery real UI image upload and served media",
+      "banners real UI image upload and served media"
+    ],
+    "diagnostics": [],
+    "cleanupFailures": []
+  },
+  "dependencyAudit": {
+    "npm": {
+      "vulnerabilities": 0,
+      "command": "npm audit --json --registry=https://registry.npmjs.org"
+    },
+    "composer": {
+      "advisories": 0,
+      "abandoned": 0,
+      "command": "composer audit --format=json"
+    },
+    "note": "Results from tools during this audit; dependency manifests were not changed afterward."
+  },
+  "backendIntegrity": {
+    "files": 618,
+    "changed": []
+  },
+  "interruptedBrowserCleanup": {
+    "recoveredCredentials": 2,
+    "revokedActiveCredentials": 1,
+    "temporaryMediaRemoved": {
+      "gallery": 1,
+      "banners": 0
+    },
+    "note": "The other credential had already been revoked. Dedicated test profile only."
+  }
+}

@@ -1,0 +1,20 @@
+.admin-layout .domain-checks{display:flex;gap:14px;flex-wrap:wrap}
+.admin-layout .permission-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;margin-block:24px}
+.admin-layout .permission-grid fieldset{padding:18px;border:1px solid var(--line);border-radius:9px;min-width:0}
+.admin-layout .permission-grid .check{margin-block:10px;overflow-wrap:anywhere}
+.admin-layout .module-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.admin-layout .module-tabs button{padding:10px 18px;border:1px solid var(--line);border-radius:8px;background:var(--cream);color:var(--primary)}
+.admin-layout .module-tabs button[aria-pressed=true]{background:var(--primary);color:white}
+.admin-layout .field-error{color:#b10e18}
+.admin-layout .cms-image{width:90px;height:65px;object-fit:cover;border-radius:8px}
+.admin-layout .field input[type=file]{max-width:100%}
+.admin-layout .domain-checks .check{min-width:0}
+.admin-layout .audit-item-form{border:1px solid var(--line);padding:14px;border-radius:8px;margin-block:14px}
+.admin-layout .panel .muted{line-height:1.8}
+.cms-text{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.9}
+.cms-gallery-photo{display:block;width:100%;aspect-ratio:1.5;object-fit:cover;border-radius:10px}
+.cms-secondary-banner{width:100%;max-height:360px;object-fit:cover;border-radius:10px}
+.cart-coupon{padding-block:18px;border-block:1px solid var(--border,#eadfd6);margin-block:18px}
+.cart-summary .cart-coupon{display:block;font-size:14px}
+.coupon-controls{display:flex;gap:10px;margin-top:8px}
+.coupon-controls input{min-width:0;flex:1;border:1px solid var(--border,#eadfd6);border-radius:7px;padding:10px;background:#fffaf5}

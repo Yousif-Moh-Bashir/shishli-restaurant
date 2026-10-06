@@ -30,6 +30,42 @@ Product soft deletes preserve images. Model `forceDelete()` cleans their files a
 database transaction commits; bulk SQL deletes bypass model events and must not be used
 for deleting products with media. Tests use `Storage::fake()` and do not need a storage link.
 
+## Outbound notifications
+
+Notification delivery uses the existing database queue and the dedicated `notifications` queue:
+
+```bash
+php artisan migrate
+php artisan queue:work database --queue=notifications --timeout=30 --tries=3
+```
+
+Set `NOTIFICATION_QUEUE_CONNECTION` only to a configured durable queue connection. Keep
+its reservation / visibility timeout above the 30-second job timeout (database defaults
+to 90 seconds). Sync, deferred, background, null and failover connections are rejected
+for outbound delivery, so external calls cannot run as part of checkout.
+
+Configure `config/outbound_notifications.php` before enabling a channel: choose its
+provider, register the provider class, and select notification types. Channels default
+to disabled; payment messages, preparing and completed messages also default to disabled.
+SMS and WhatsApp have no real provider configured. The Laravel email adapter uses the
+existing mail configuration and rejects log/array mailers as delivery providers.
+Do not store credentials in this configuration or commit them.
+
+Phone numbers must be international E.164 (`+...` or the explicit `00...` prefix).
+No country is guessed. Set `phone_country` to `SA` explicitly to normalize Saudi
+`05xxxxxxxx` numbers. WhatsApp requires real approved template names and language codes
+in `whatsapp_templates`; rendered content and parameters are snapshotted when queued.
+
+Automatic delivery has three attempts with configured backoff (30, 120, 600 seconds).
+Permanent errors stop immediately. An admin manual retry grants one extra attempt and
+preserves all prior logs. Interrupted workers with uncertain remote delivery are marked
+failed for review instead of automatically sending again. Provider adapters should pass
+the stable notification UUID as their remote idempotency key where supported; exactly-once
+remote delivery cannot be guaranteed by local locks alone.
+
+If queue insertion fails, the committed notification is marked failed and can be retried
+from the admin API after fixing the queue. No log retention cleanup runs automatically.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

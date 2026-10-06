@@ -17,6 +17,7 @@ class ListPaymentsRequest extends FormRequest
     public function rules(): array
     {
         return ['status' => ['sometimes', Rule::enum(PaymentStatus::class)], 'method' => ['sometimes', Rule::enum(PaymentMethod::class)],
+            'search' => ['sometimes', 'string', 'max:150'], 'sort' => ['sometimes', Rule::in(['created_at', 'amount', 'status', 'method'])], 'direction' => ['sometimes', Rule::in(['asc', 'desc'])],
             'provider' => ['sometimes', 'string', 'max:50'], 'order_number' => ['sometimes', 'string', 'max:255'],
             'date_from' => ['sometimes', 'date_format:Y-m-d'],
             'date_to' => ['sometimes', 'date_format:Y-m-d', Rule::when($this->filled('date_from'), ['after_or_equal:date_from'])],

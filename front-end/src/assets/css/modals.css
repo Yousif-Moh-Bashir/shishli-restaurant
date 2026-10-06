@@ -1,0 +1,4 @@
+/* Dialogs that scroll themselves retain space between their contents and rail.
+   Admin editors use a separate scrolling form with the same 16px inset. */
+dialog{padding-inline:25px;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:#b99295 var(--cream,#f8f5f1);overflow-y:auto;overscroll-behavior-y:contain}
+html:has(dialog[open]){overflow:hidden}

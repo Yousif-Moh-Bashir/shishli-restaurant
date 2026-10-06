@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\MenuRequest;
+use App\Http\Resources\Api\V1\BranchAvailabilityResource;
 use App\Http\Resources\Api\V1\BranchResource;
 use App\Http\Resources\Api\V1\MenuCategoryResource;
 use App\Http\Resources\Api\V1\MenuProductResource;
 use App\Http\Responses\ApiResponse;
 use App\Models\Product;
+use App\Services\BranchAvailabilityService;
 use App\Services\MenuService;
 use Illuminate\Http\JsonResponse;
 
@@ -21,6 +23,7 @@ class MenuController extends Controller
 
         return ApiResponse::success(data: [
             'branch' => new BranchResource($branch),
+            'availability' => new BranchAvailabilityResource(app(BranchAvailabilityService::class)->evaluate($branch)),
             'categories' => MenuCategoryResource::collection($menu->categories($branch, $filters)),
         ]);
     }

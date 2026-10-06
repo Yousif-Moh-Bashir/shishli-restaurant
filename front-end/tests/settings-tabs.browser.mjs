@@ -1,0 +1,19 @@
+import {browserClient} from './browser-client.mjs'
+import {writeFile,mkdir} from 'node:fs/promises'
+import {fileURLToPath} from 'node:url'
+const out=fileURLToPath(new URL('../.reports-check/settings-tabs/',import.meta.url)),origin=process.env.DESIGN_APP_URL||'http://127.0.0.1:5175',api='http://127.0.0.1:8000/api/v1';await mkdir(out,{recursive:true});let token,browser;const results=[]
+try{
+ const login=await(await fetch(api+'/login',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify({email:'super_admin@demo.shishli.local',password:'DemoTest123!'})})).json();token=login.data.token
+ browser=await browserClient(9295,out+'/run-'+Date.now());await browser.send('Page.addScriptToEvaluateOnNewDocument',{source:`localStorage.setItem('shishli_auth_token',${JSON.stringify(token)})`});await browser.go(origin,'/admin/settings');await browser.wait('document.querySelectorAll(".settings-tabs button").length>2');await browser.sleep(1000)
+ const tabs=await browser.evaluate('[...document.querySelectorAll(".settings-tabs button")].map(b=>b.textContent)')
+ for(const width of [1440,1024,768,390,360,320]){await browser.send('Emulation.setDeviceMetricsOverride',{width,height:1100,deviceScaleFactor:1,mobile:false});for(let i=0;i<tabs.length;i++){
+  await browser.evaluate(`document.querySelectorAll('.settings-tabs button')[${i}].click()`);await browser.sleep(750)
+  const layout=await browser.evaluate(`(()=>{const visible=e=>e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden';const panels=[...document.querySelectorAll('main section.panel')].filter(visible);const collisions=[];for(const grid of document.querySelectorAll('main .form-grid,main .weekly-hours,main .hours-period,main .settings-tabs')){if(!visible(grid))continue;const children=[...grid.children].filter(visible);for(let a=0;a<children.length;a++)for(let b=a+1;b<children.length;b++){const x=children[a].getBoundingClientRect(),y=children[b].getBoundingClientRect();if(Math.min(x.right,y.right)-Math.max(x.left,y.left)>2&&Math.min(x.bottom,y.bottom)-Math.max(x.top,y.top)>2)collisions.push({grid:grid.className,a,b})}}return {overflow:document.documentElement.scrollWidth>innerWidth+1,panels:panels.map(p=>p.querySelector('h2,h3')?.textContent),collisions}})()`)
+  results.push({width,tab:tabs[i],...layout});await writeFile(out+width+'-'+i+'.png',Buffer.from((await browser.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true})).data,'base64'))
+  if(tabs[i]==='تشغيل الفروع'){
+   await browser.click('.business-hours-panel .hours-day button','إضافة فترة');await browser.sleep(100);results.push({width,case:'added draft period',overflow:await browser.evaluate('document.documentElement.scrollWidth>innerWidth+1')});await browser.click('.business-hours-panel .form-actions button','تراجع')
+   await browser.click('.closures-panel > button','إضافة إغلاق مؤقت');await browser.wait('document.querySelector("dialog[open]")');const modal=await browser.evaluate('(()=>{const d=document.querySelector("dialog[open]"),r=d.getBoundingClientRect();return {outside:r.left<0||r.right>innerWidth||r.top<0||r.bottom>innerHeight,overflow:d.scrollWidth>d.clientWidth+1}})()');results.push({width,case:'closure modal',...modal});await writeFile(out+width+'-closure.png',Buffer.from((await browser.send('Page.captureScreenshot',{format:'png'})).data,'base64'));await browser.evaluate('document.querySelector("dialog[open] .icon-button").click()')
+  }
+ }}
+ await writeFile(out+'report.json',JSON.stringify({results,diagnostics:browser.diagnostics},null,2));console.log(JSON.stringify({results,diagnostics:browser.diagnostics}))
+}finally{browser?.close();if(token)await fetch(api+'/logout',{method:'POST',headers:{Accept:'application/json',Authorization:'Bearer '+token}})}

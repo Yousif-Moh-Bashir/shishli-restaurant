@@ -1,0 +1,22 @@
+/* Keep the original files intact. The Admin reset can override this layer
+   without changing selector precedence within the customer website. */
+@import './public-style.css' layer(site);
+@import './public-responsive.css' layer(site);
+@import './orders.css' layer(site);
+
+/* Address and delivery controls reuse the site's RTL form and card system. */
+:where(.site-layout) .address-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+:where(.site-layout) .address-fields .field{display:flex;flex-direction:column;gap:8px;min-width:0}
+:where(.site-layout) .address-fields input,:where(.site-layout) .address-fields textarea{width:100%;min-width:0;border:1px solid var(--border,#e5e1d9);border-radius:12px;padding:12px;font:inherit;background:#fff;color:inherit}
+:where(.site-layout) .address-fields .field-wide{grid-column:1/-1}
+:where(.site-layout) .address-card,:where(.site-layout) .address-editor{margin-block:16px}
+:where(.site-layout) .address-book .form-actions,:where(.site-layout) .checkout-panel .form-actions,:where(.site-layout) .order-type-options{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-block:16px}
+:where(.site-layout) .delivery-quote{margin-block:18px;padding:16px;border:1px solid var(--border,#e5e1d9);border-radius:16px}
+@media(max-width:600px){:where(.site-layout) .address-fields{grid-template-columns:1fr}:where(.site-layout) .address-book .dialog-heading{flex-wrap:wrap;gap:12px}:where(.site-layout) .address-card .form-actions{align-items:stretch}}
+:where(.site-layout) .checkout-panel>.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+:where(.site-layout) .checkout-panel>.form-grid .field{display:flex;flex-direction:column;gap:8px}
+:where(.site-layout) .checkout-panel>.form-grid input{width:100%;font:inherit;padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--cream)}
+:where(.site-layout) .address-fields{display:grid}
+:where(.site-layout) .address-fields .field-error{color:var(--primary);font-size:12px}
+:where(.site-layout) .address-book .badge{font-size:12px;padding:4px 8px;border-radius:8px;background:var(--cream);color:var(--primary)}
+@media(max-width:600px){:where(.site-layout) .checkout-panel>.form-grid{grid-template-columns:1fr}}

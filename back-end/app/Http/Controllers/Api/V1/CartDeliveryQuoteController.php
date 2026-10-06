@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\Cart\RepriceCartAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\CartDeliveryQuoteRequest;
 use App\Http\Resources\Api\V1\DeliveryQuoteResource;
@@ -13,9 +14,9 @@ use Illuminate\Http\JsonResponse;
 
 class CartDeliveryQuoteController extends Controller
 {
-    public function __invoke(CartDeliveryQuoteRequest $request, CartResolver $resolver, DeliveryService $delivery): JsonResponse
+    public function __invoke(CartDeliveryQuoteRequest $request, CartResolver $resolver, DeliveryService $delivery, RepriceCartAction $reprice): JsonResponse
     {
-        $cart = $resolver->resolve($request)->load('branch');
+        $cart = $reprice->handle($resolver->resolve($request));
         $data = $request->validated();
         if (isset($data['address_uuid'])) {
             abort_unless($request->user() !== null, 404);
@@ -25,6 +26,6 @@ class CartDeliveryQuoteController extends Controller
             $address = DeliveryAddressData::fromArray($data['address']);
         }
 
-        return ApiResponse::success(data: new DeliveryQuoteResource($delivery->calculateDelivery($cart->branch, $address, $cart->subtotal)));
+        return ApiResponse::success(data: new DeliveryQuoteResource($delivery->calculateDelivery($cart->branch, $address, $cart->subtotal, $cart->total)));
     }
 }

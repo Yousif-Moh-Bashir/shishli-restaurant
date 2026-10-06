@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "points": 7
+    },
+    {
+      "width": 1024,
+      "overflow": false,
+      "points": 7
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "points": 7
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "points": 7
+    },
+    {
+      "metric": "orders_count"
+    },
+    {
+      "metric": "completed_orders_count"
+    },
+    {
+      "metric": "average_order_value"
+    },
+    {
+      "metric": "completed_sales"
+    },
+    {
+      "state": "zero"
+    },
+    {
+      "state": "empty"
+    }
+  ],
+  "failures": [],
+  "diagnostics": []
+}

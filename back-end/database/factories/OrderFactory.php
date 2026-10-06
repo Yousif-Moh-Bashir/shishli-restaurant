@@ -26,6 +26,11 @@ class OrderFactory extends Factory
         return $this->state(['type' => OrderType::Pickup, 'delivery_fee' => '0.00']);
     }
 
+    public function guest(): static
+    {
+        return $this->state(['user_id' => null]);
+    }
+
     public function delivery(): static
     {
         return $this->state(['type' => OrderType::Delivery])->has(OrderAddressFactory::new(), 'address');

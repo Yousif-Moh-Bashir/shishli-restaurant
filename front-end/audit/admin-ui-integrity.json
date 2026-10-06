@@ -1,0 +1,29 @@
+﻿{
+    "checkedContractFiles":  508,
+    "changedContractFiles":  0,
+    "missingExistingModelBindings":  0,
+    "missingBindings":  [
+
+                        ],
+    "relocatedBindings":  [
+                              {
+                                  "file":  "front-end/src/views/admin\\ActivityLogsView.vue",
+                                  "binding":  "v-model=\"list.filters.action\""
+                              },
+                              {
+                                  "file":  "front-end/src/views/admin\\ActivityLogsView.vue",
+                                  "binding":  "v-model=\"list.filters.subject_type\""
+                              },
+                              {
+                                  "file":  "front-end/src/views/admin\\ActivityLogsView.vue",
+                                  "binding":  "v-model=\"list.filters.date_from\""
+                              },
+                              {
+                                  "file":  "front-end/src/views/admin\\ActivityLogsView.vue",
+                                  "binding":  "v-model=\"list.filters.date_to\""
+                              }
+                          ],
+    "missingUnmappedBindings":  0,
+    "relocation":  "Activity filters action, subject_type, date_from and date_to are rendered by DomainFields through activityFilters metadata, using the same list.filters object.",
+    "relocatedExistingModelBindings":  4
+}

@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
                 return 'cart:'.hash('sha256', $request->header('X-Cart-Token'));
             }
         }
-        if (in_array($name, ['checkout', 'coupons'], true) && $request->user()) {
+        if (in_array($name, ['checkout', 'coupons', 'admin-sensitive', 'admin-roles'], true) && $request->user()) {
             return 'user:'.$request->user()->getAuthIdentifier();
         }
 

@@ -1,0 +1,23 @@
+﻿<script setup>
+import OrderStatusBadge from '../orders/OrderStatusBadge.vue'
+import PaymentStatusBadge from '../payments/PaymentStatusBadge.vue'
+import { formatCurrency, formatDateTime } from '../../utils/formatters'
+import { getOrderTypeLabel, getPaymentMethodLabel, getPaymentStatusLabel } from '../../constants/orderStatus'
+defineProps({ order: { type: Object, required: true } })
+</script>
+<template>
+  <div class="checkout-layout order-details-layout">
+    <section class="checkout-panel">
+      <h2>تفاصيل الطلب</h2><strong class="order-number" dir="ltr">{{ order.order_number }}</strong>
+      <dl class="order-facts"><dt>الحالة</dt><dd><OrderStatusBadge :status="order.status"/></dd><dt>طريقة الاستلام</dt><dd>{{ getOrderTypeLabel(order.type) }}</dd><dt>وقت الطلب</dt><dd>{{ formatDateTime(order.placed_at) }}</dd><dt>توقيت الاستلام</dt><dd>{{ order.order_timing==='scheduled' ? formatDateTime(order.scheduled_for) : 'في أقرب وقت' }}</dd><dt>الفرع</dt><dd>{{ order.branch?.name }}</dd><dt>العميل</dt><dd>{{ order.customer?.name }}</dd><dt>الهاتف</dt><dd dir="ltr">{{ order.customer?.phone }}</dd><template v-if="order.customer?.email"><dt>البريد الإلكتروني</dt><dd>{{ order.customer.email }}</dd></template><dt>طريقة الدفع</dt><dd>{{ getPaymentMethodLabel(order.payment?.method) }}</dd><dt>حالة الدفع</dt><dd><PaymentStatusBadge :status="order.payment?.status"/></dd></dl><p v-if="order.payment?.method==='cash' &amp;&amp; order.payment?.status==='pending'">بانتظار التحصيل النقدي من المطعم.</p><p v-if="order.payment?.method==='card' &amp;&amp; order.payment?.status!=='paid'">الدفع الإلكتروني غير متاح حاليًا؛ تواصل مع المطعم بشأن الطلب.</p>
+      <section v-if="order.type==='delivery' && order.address" class="delivery-quote"><h3>عنوان التوصيل وقت الطلب</h3><p>{{ order.address.recipient_name }} · <span dir="ltr">{{ order.address.phone }}</span></p><p>{{ order.address.city }}، {{ order.address.district }}</p><p v-if="order.address.street">{{ order.address.street }}</p><p v-if="order.address.building_number">المبنى: {{ order.address.building_number }}</p><p v-if="order.address.floor">الطابق: {{ order.address.floor }}</p><p v-if="order.address.apartment">الشقة: {{ order.address.apartment }}</p><p v-if="order.address.landmark">{{ order.address.landmark }}</p><p v-if="order.address.notes">{{ order.address.notes }}</p><p v-if="order.address.delivery_zone_name">المنطقة: {{ order.address.delivery_zone_name }}</p><p v-if="order.address.location?.latitude!=null && order.address.location?.longitude!=null">الإحداثيات: <span dir="ltr">{{ order.address.location.latitude }}, {{ order.address.location.longitude }}</span></p></section>
+      <section v-if="order.notes"><h3>ملاحظات الطلب</h3><p class="order-text">{{ order.notes }}</p></section>
+    </section>
+    <aside class="checkout-panel checkout-summary"><h2>ملخص طلبك</h2><section v-if="order.promotions?.length" aria-label="الخصومات المحفوظة"><h3>العروض المطبقة وقت الطلب</h3><p v-for="promotion in order.promotions" :key="promotion.id">{{ promotion.name }} <bdi v-if="promotion.coupon_code">{{ promotion.coupon_code }}</bdi> · {{ formatCurrency(promotion.discount) }}</p></section>
+      <section v-for="item in order.items" :key="item.id" class="order-snapshot-item"><div class="checkout-item"><span>{{ item.product.name }} × {{ item.quantity }}</span><strong>{{ formatCurrency(item.pricing.line_total_after_discount) }}</strong></div><p v-if="item.product.sku">رمز المنتج: {{ item.product.sku }}</p><p>سعر الوحدة: {{ formatCurrency(item.pricing.unit_price) }}</p><p v-for="(option,index) in item.options" :key="index">{{ option.group.name }}: {{ option.value.name }} · {{ formatCurrency(option.price_modifier) }}</p><p v-if="item.pricing.discount_total!=='0.00'">خصم المنتج: {{ formatCurrency(item.pricing.discount_total) }}</p></section>
+      <div class="checkout-item"><span>إجمالي المنتجات</span><strong>{{ formatCurrency(order.pricing.subtotal) }}</strong></div><div class="checkout-item"><span>الخصم</span><strong>{{ formatCurrency(order.pricing.discount_total) }}</strong></div><div class="checkout-item"><span>رسوم التوصيل</span><strong>{{ formatCurrency(order.pricing.delivery_fee) }}</strong></div><div class="checkout-item"><span>الضريبة</span><strong>{{ formatCurrency(order.pricing.tax_total) }}</strong></div><div class="checkout-total"><span>الإجمالي</span><strong>{{ formatCurrency(order.pricing.total) }}</strong></div>
+    </aside>
+  </div>
+</template>
+<style scoped>.order-number{overflow-wrap:anywhere;display:block}.order-snapshot-item{padding-block:12px;border-bottom:1px solid var(--line)}.order-snapshot-item p{margin:4px 0}.order-text{white-space:pre-wrap;overflow-wrap:anywhere}.order-facts dd{overflow-wrap:anywhere}.checkout-panel{min-width:0}</style>
+

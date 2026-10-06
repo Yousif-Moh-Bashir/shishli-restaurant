@@ -29,7 +29,7 @@ class OrderStateMachine
     public function transition(OrderStatus $from, OrderStatus $to, OrderType $type): OrderStatus
     {
         if (! $this->canTransition($from, $to, $type)) {
-            throw ValidationException::withMessages(['status' => 'لا يمكن نقل الطلب من '.$from->value.' إلى '.$to->value.'.']);
+            throw ValidationException::withMessages(['status' => 'لا يمكن نقل الطلب من '.$from->value.' إلى '.$to->value.'.', 'code' => 'INVALID_ORDER_TRANSITION']);
         }
 
         return $to;

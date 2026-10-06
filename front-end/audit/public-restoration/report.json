@@ -1,0 +1,834 @@
+{
+  "pages": [
+    {
+      "route": "/",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/menu",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/menu",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/menu",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/menu",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/product/6860728f-be15-4f0f-a438-201326c20161",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/product/6860728f-be15-4f0f-a438-201326c20161",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/product/6860728f-be15-4f0f-a438-201326c20161",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/product/6860728f-be15-4f0f-a438-201326c20161",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/cart",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/cart",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/cart",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/cart",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/checkout",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/checkout",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/checkout",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/checkout",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/login",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/login",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/login",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/login",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/register",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/register",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/register",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/register",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/about",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/about",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/about",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/about",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/gallery",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/gallery",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/gallery",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/gallery",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/contact",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/contact",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/contact",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/contact",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/branches",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/branches",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/branches",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/branches",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/offers",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/offers",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/offers",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/offers",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/track-order",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/track-order",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/track-order",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/track-order",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "route": "/order-success",
+      "width": 1920,
+      "overflow": false
+    },
+    {
+      "route": "/order-success",
+      "width": 1440,
+      "overflow": false
+    },
+    {
+      "route": "/order-success",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "route": "/order-success",
+      "width": 390,
+      "overflow": false
+    }
+  ],
+  "visual": [
+    {
+      "width": 1920,
+      "original": {
+        "header": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 86
+        },
+        "hero": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "46px 0px 58px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "465px",
+          "height": 520.46875
+        },
+        "art": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "153.6% 330.323%",
+          "backgroundPosition": "0px 8.964%",
+          "minHeight": "0px",
+          "height": 520.46875
+        },
+        "h1": {
+          "fontSize": "104px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 158.1875
+        },
+        "h2": {
+          "fontSize": "36px",
+          "color": "rgb(237, 180, 84)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 54
+        },
+        "features": {
+          "fontSize": "16px",
+          "color": "rgb(41, 27, 29)",
+          "padding": "26px 0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 100.4375
+        },
+        "brand": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "contain",
+          "backgroundPosition": "50% 50%",
+          "minHeight": "auto",
+          "height": 77
+        }
+      },
+      "current": {
+        "header": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 86
+        },
+        "hero": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "46px 0px 58px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "465px",
+          "height": 520.46875
+        },
+        "art": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "153.6% 330.323%",
+          "backgroundPosition": "0px 8.964%",
+          "minHeight": "0px",
+          "height": 520.46875
+        },
+        "h1": {
+          "fontSize": "104px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 158.1875
+        },
+        "h2": {
+          "fontSize": "36px",
+          "color": "rgb(237, 180, 84)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 54
+        },
+        "features": {
+          "fontSize": "16px",
+          "color": "rgb(41, 27, 29)",
+          "padding": "26px 0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 100.4375
+        },
+        "brand": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "contain",
+          "backgroundPosition": "50% 50%",
+          "minHeight": "auto",
+          "height": 77
+        }
+      },
+      "equal": true
+    },
+    {
+      "width": 1440,
+      "original": {
+        "header": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 86
+        },
+        "hero": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "46px 0px 58px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "465px",
+          "height": 516.625
+        },
+        "art": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "153.6% 330.323%",
+          "backgroundPosition": "0px 8.964%",
+          "minHeight": "0px",
+          "height": 516.625
+        },
+        "h1": {
+          "fontSize": "100.8px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 154.34375
+        },
+        "h2": {
+          "fontSize": "36px",
+          "color": "rgb(237, 180, 84)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 54
+        },
+        "features": {
+          "fontSize": "16px",
+          "color": "rgb(41, 27, 29)",
+          "padding": "26px 0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 100.4375
+        },
+        "brand": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "contain",
+          "backgroundPosition": "50% 50%",
+          "minHeight": "auto",
+          "height": 77
+        }
+      },
+      "current": {
+        "header": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 86
+        },
+        "hero": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "46px 0px 58px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "465px",
+          "height": 516.625
+        },
+        "art": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "153.6% 330.323%",
+          "backgroundPosition": "0px 8.964%",
+          "minHeight": "0px",
+          "height": 516.625
+        },
+        "h1": {
+          "fontSize": "100.8px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 154.34375
+        },
+        "h2": {
+          "fontSize": "36px",
+          "color": "rgb(237, 180, 84)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 54
+        },
+        "features": {
+          "fontSize": "16px",
+          "color": "rgb(41, 27, 29)",
+          "padding": "26px 0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 100.4375
+        },
+        "brand": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "contain",
+          "backgroundPosition": "50% 50%",
+          "minHeight": "auto",
+          "height": 77
+        }
+      },
+      "equal": true
+    },
+    {
+      "width": 768,
+      "original": {
+        "header": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 86
+        },
+        "hero": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "46px 0px 58px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "460px",
+          "height": 460
+        },
+        "art": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "153.6% 330.323%",
+          "backgroundPosition": "0px 8.964%",
+          "minHeight": "0px",
+          "height": 460
+        },
+        "h1": {
+          "fontSize": "64px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 110.1875
+        },
+        "h2": {
+          "fontSize": "24px",
+          "color": "rgb(237, 180, 84)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 36
+        },
+        "features": {
+          "fontSize": "16px",
+          "color": "rgb(41, 27, 29)",
+          "padding": "26px 0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 95.796875
+        },
+        "brand": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "contain",
+          "backgroundPosition": "50% 50%",
+          "minHeight": "auto",
+          "height": 77
+        }
+      },
+      "current": {
+        "header": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 86
+        },
+        "hero": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "46px 0px 58px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "460px",
+          "height": 460
+        },
+        "art": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "153.6% 330.323%",
+          "backgroundPosition": "0px 8.964%",
+          "minHeight": "0px",
+          "height": 460
+        },
+        "h1": {
+          "fontSize": "64px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 110.1875
+        },
+        "h2": {
+          "fontSize": "24px",
+          "color": "rgb(237, 180, 84)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 36
+        },
+        "features": {
+          "fontSize": "16px",
+          "color": "rgb(41, 27, 29)",
+          "padding": "26px 0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 95.796875
+        },
+        "brand": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "contain",
+          "backgroundPosition": "50% 50%",
+          "minHeight": "auto",
+          "height": 77
+        }
+      },
+      "equal": true
+    },
+    {
+      "width": 390,
+      "original": {
+        "header": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 76
+        },
+        "hero": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "35px 0px 48px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "435px",
+          "height": 498.953125
+        },
+        "art": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto 330.323%",
+          "backgroundPosition": "20% 8.964%",
+          "minHeight": "0px",
+          "height": 498.953125
+        },
+        "h1": {
+          "fontSize": "75px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 117.390625
+        },
+        "h2": {
+          "fontSize": "27px",
+          "color": "rgb(237, 180, 84)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 40.5
+        },
+        "features": {
+          "fontSize": "16px",
+          "color": "rgb(41, 27, 29)",
+          "padding": "23px 0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 149.28125
+        },
+        "brand": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "contain",
+          "backgroundPosition": "50% 50%",
+          "minHeight": "auto",
+          "height": 66
+        }
+      },
+      "current": {
+        "header": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 76
+        },
+        "hero": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "35px 0px 48px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "435px",
+          "height": 498.953125
+        },
+        "art": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto 330.323%",
+          "backgroundPosition": "20% 8.964%",
+          "minHeight": "0px",
+          "height": 498.953125
+        },
+        "h1": {
+          "fontSize": "75px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 117.390625
+        },
+        "h2": {
+          "fontSize": "27px",
+          "color": "rgb(237, 180, 84)",
+          "padding": "0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 40.5
+        },
+        "features": {
+          "fontSize": "16px",
+          "color": "rgb(41, 27, 29)",
+          "padding": "23px 0px",
+          "backgroundSize": "auto",
+          "backgroundPosition": "0% 0%",
+          "minHeight": "0px",
+          "height": 149.28125
+        },
+        "brand": {
+          "fontSize": "16px",
+          "color": "rgb(255, 255, 255)",
+          "padding": "0px",
+          "backgroundSize": "contain",
+          "backgroundPosition": "50% 50%",
+          "minHeight": "auto",
+          "height": 66
+        }
+      },
+      "equal": true
+    }
+  ],
+  "boundaries": [
+    "cms-error",
+    "products-error",
+    "gallery-error",
+    "operations-error",
+    "override",
+    "hours",
+    "hours24"
+  ],
+  "diagnostics": [],
+  "assetFailures": [],
+  "failures": []
+}

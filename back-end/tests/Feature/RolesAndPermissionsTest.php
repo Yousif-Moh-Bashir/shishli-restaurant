@@ -42,6 +42,21 @@ class RolesAndPermissionsTest extends TestCase
     {
         return [
             'administrator' => ['super_admin', [
+                'staff.view', 'staff.create', 'staff.update', 'staff.activate', 'staff.deactivate', 'roles.view', 'roles.update_permissions', 'activity_logs.view',
+                'cms.pages.view', 'cms.pages.update',
+                'cms.banners.view', 'cms.banners.create', 'cms.banners.update', 'cms.banners.delete',
+                'cms.gallery.view', 'cms.gallery.create', 'cms.gallery.update', 'cms.gallery.delete',
+                'inventory.view', 'inventory.create', 'inventory.receive', 'inventory.adjust', 'inventory.waste', 'inventory.movements.view',
+                'settings.view', 'settings.update', 'settings.audit.view',
+                'branches.hours.view', 'branches.hours.update',
+                'branches.closures.view', 'branches.closures.create', 'branches.closures.update', 'branches.closures.delete',
+                'dashboard.view', 'reports.orders.view', 'reports.sales.view', 'reports.branches.view',
+                'reports.products.view', 'reports.payments.view', 'reports.promotions.view',
+                'reports.customers.view', 'reports.delivery.view', 'reports.export',
+                'customers.activate', 'customers.deactivate',
+                'notifications.view', 'notifications.retry',
+                'promotions.view', 'promotions.create', 'promotions.update', 'promotions.delete',
+                'coupons.view', 'coupons.create', 'coupons.update', 'coupons.delete',
                 'payments.view', 'payments.collect_cash',
                 'delivery_zones.view', 'delivery_zones.create', 'delivery_zones.update', 'delivery_zones.delete',
                 'branches.products.manage',
@@ -54,6 +69,21 @@ class RolesAndPermissionsTest extends TestCase
                 'options.view', 'options.create', 'options.update', 'options.delete',
             ]],
             'manager' => ['manager', [
+                'staff.view', 'staff.create', 'staff.update', 'staff.activate', 'staff.deactivate', 'roles.view',
+                'cms.pages.view', 'cms.pages.update',
+                'cms.banners.view', 'cms.banners.create', 'cms.banners.update', 'cms.banners.delete',
+                'cms.gallery.view', 'cms.gallery.create', 'cms.gallery.update', 'cms.gallery.delete',
+                'inventory.view', 'inventory.create', 'inventory.receive', 'inventory.adjust', 'inventory.waste', 'inventory.movements.view',
+                'settings.view', 'settings.audit.view',
+                'branches.hours.view', 'branches.hours.update',
+                'branches.closures.view', 'branches.closures.create', 'branches.closures.update', 'branches.closures.delete',
+                'dashboard.view', 'reports.orders.view', 'reports.sales.view', 'reports.branches.view',
+                'reports.products.view', 'reports.payments.view', 'reports.promotions.view',
+                'reports.customers.view', 'reports.delivery.view', 'reports.export',
+                'customers.activate', 'customers.deactivate',
+                'notifications.view', 'notifications.retry',
+                'promotions.view', 'promotions.create', 'promotions.update', 'promotions.delete',
+                'coupons.view', 'coupons.create', 'coupons.update', 'coupons.delete',
                 'payments.view', 'payments.collect_cash',
                 'delivery_zones.view', 'delivery_zones.create', 'delivery_zones.update', 'delivery_zones.delete',
                 'branches.products.manage',
@@ -65,7 +95,7 @@ class RolesAndPermissionsTest extends TestCase
                 'categories.view', 'categories.create', 'categories.update', 'categories.delete',
                 'options.view', 'options.create', 'options.update', 'options.delete',
             ]],
-            'cashier' => ['cashier', ['orders.view', 'orders.create', 'orders.confirm', 'orders.complete', 'products.view', 'customers.view', 'payments.view', 'payments.collect_cash']],
+            'cashier' => ['cashier', ['dashboard.view', 'reports.orders.view', 'orders.view', 'orders.create', 'orders.confirm', 'orders.complete', 'products.view', 'customers.view', 'payments.view', 'payments.collect_cash']],
             'kitchen' => ['kitchen', ['orders.view', 'orders.update_status', 'orders.start_preparing', 'orders.mark_ready']],
             'customer' => ['customer', []],
         ];
@@ -80,7 +110,7 @@ class RolesAndPermissionsTest extends TestCase
         $this->seed(RolesAndPermissionsSeeder::class);
 
         $this->assertDatabaseCount('roles', 5);
-        $this->assertDatabaseCount('permissions', 37);
+        $this->assertDatabaseCount('permissions', 92);
         $this->assertDatabaseCount('model_has_roles', 1);
         $this->assertSame(['cashier'], $user->fresh()->getRoleNames()->all());
         $this->assertDatabaseHas('model_has_roles', ['model_id' => $user->id, 'model_type' => User::class]);

@@ -2,10 +2,11 @@
 
 namespace App\Actions\Orders;
 
+use App\Actions\Inventory\ConsumeOrderStockAction;
+use App\Actions\Inventory\ReleaseOrderStockAction;
 use App\Actions\Payments\SyncOrderPaymentStatusAction;
 use App\Enums\OrderStatus;
 use App\Enums\OrderStatusSource;
-use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use App\Events\OrderStatusChanged;
 use App\Exceptions\PaymentException;
@@ -22,7 +23,8 @@ class TransitionOrderStatusAction
 {
     public function __construct(private OrderStateMachine $machine, private OrderOperationAuthorization $authorization,
         private OrderPaymentPolicy $paymentPolicy, private SyncOrderPaymentStatusAction $syncPayments,
-        private PaymentStateMachine $paymentMachine) {}
+        private PaymentStateMachine $paymentMachine, private ConsumeOrderStockAction $consumeStock,
+        private ReleaseOrderStockAction $releaseStock) {}
 
     public function handle(Order $order, OrderStatus $target, ?User $actor, OrderStatusSource $source, ?string $note = null, ?string $guestToken = null): Order
     {
@@ -46,9 +48,14 @@ class TransitionOrderStatusAction
             } else {
                 Validator::make(['note' => $note], ['note' => ['nullable', 'string', 'max:1000']])->validate();
             }
+            if ($target === OrderStatus::Preparing) {
+                $this->consumeStock->handle($locked, $actor);
+            } elseif ($target === OrderStatus::Cancelled) {
+                $this->releaseStock->handle($locked, $actor);
+            }
             $locked->save();
-            if ($target === OrderStatus::Cancelled && $locked->payment_method === PaymentMethod::Cash) {
-                foreach ($locked->payments()->where('method', PaymentMethod::Cash)->where('status', PaymentStatus::Pending)->lockForUpdate()->get() as $payment) {
+            if ($target === OrderStatus::Cancelled && $locked->payment_method->isOffline()) {
+                foreach ($locked->payments()->where('method', $locked->payment_method)->where('status', PaymentStatus::Pending)->lockForUpdate()->get() as $payment) {
                     $payment->status = $this->paymentMachine->transition($payment->status, PaymentStatus::Cancelled);
                     $payment->cancelled_at = now();
                     $payment->save();

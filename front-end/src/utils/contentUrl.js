@@ -1,0 +1,1 @@
+export function safeContentUrl(value){if(typeof value!=='string'||!value||/[\u0000-\u0020\\]/.test(value))return null;if(value.startsWith('/')&&!value.startsWith('//'))return value;try{const url=new URL(value);return ['https:','http:'].includes(url.protocol)&&!url.username&&!url.password?url.href:null}catch{return null}}

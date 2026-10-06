@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "Order number, quantities, option snapshots, customer notes, timeline confirmation, schedule and operation slot preserved",
+    "Missing optional notes, schedule and confirmation omit sections without fake values; isolated fixtures"
+  ],
+  "responsive": [
+    390,
+    768,
+    1440
+  ],
+  "diagnostics": []
+}

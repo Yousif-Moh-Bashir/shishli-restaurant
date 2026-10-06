@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'admin-sensitive' => ['per_minute' => 30],
+    'admin-roles' => ['per_minute' => 20],
+    'order-tracking' => ['per_minute' => 60],
     'delivery-quote' => ['per_minute' => 120],
     'cart' => ['per_minute' => 120, 'ip_per_minute' => 300],
     'cart-create' => ['per_minute' => 30],

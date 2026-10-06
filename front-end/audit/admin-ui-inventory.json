@@ -1,0 +1,1368 @@
+﻿[
+    {
+        "file":  "front-end/src/components/payments\\PaymentSummary.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/payments\\PaymentStatusBadge.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/payments\\CustomerPayments.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"state.load(true)\"",
+                        "@click=\"state.load()\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/payments\\CashCollection.vue",
+        "permissions":  [
+                            "auth.can(\u0027payments.collect_cash\u0027)\u0026\u0026orderId.value\u0026\u0026(props.order?props.order.available_actions?.incl",
+                            "auth.can(\u0027payments.collect_cash\u0027)||!allowed){notice.value=\u0027تغيرت حالة التحصيل. أعدنا تحميل الحالة "
+                        ],
+        "actions":  [
+                        "@click=\"open\"",
+                        "@submit.prevent=\"submit\"",
+                        "@click=\"close\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/components/admin\\AdminSectionHeading.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\AdminModal.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"close\"",
+                        "@submit.prevent=\"emit(\u0027submit\u0027)\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/components/admin\\AdminIcon.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\AdminHeader.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"emit(\u0027toggle-sidebar\u0027)\"",
+                        "@click=\"logout\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\AdminFilterExtras.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\CouponsPanel.vue",
+        "permissions":  [
+                            "auth.can(\u0027coupons.create\u0027)\u0026\u0026promotion.type===\u0027coupon\u0027\" class=\"button\" :disabled=\"mutation.busy.val",
+                            "auth.can(\u0027coupons.update\u0027)\" class=\"row-button\" :disabled=\"mutation.busy.value\" @click=\"edit(row)\"\u003e",
+                            "auth.can(\u0027coupons.delete\u0027)\" class=\"row-button danger\" :disabled=\"mutation.busy.value\" @click=\"remo"
+                        ],
+        "actions":  [
+                        "@click=\"edit(null)\"",
+                        "@submit.prevent=\"list.search\"",
+                        "@click=\"edit(row)\"",
+                        "@click=\"remove(row)\"",
+                        "@submit=\"save\""
+                    ],
+        "fields":  [
+                       "v-model=\"list.filters.search\""
+                   ],
+        "tables":  1,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/components/reports\\ReportTable.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"emit(\u0027branch\u0027, row.branch_uuid)\"",
+                        "@click=\"emit(\u0027page\u0027,meta.current_page - 1)\"",
+                        "@click=\"emit(\u0027page\u0027,meta.current_page + 1)\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  1,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/reports\\ReportMetrics.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/reports\\ReportFilters.vue",
+        "permissions":  [
+                            "auth.can(\u0027products.view\u0027) ? await productsApi.list({ search: productSearch.value, per_page: 100 },",
+                            "auth.can(\u0027categories.view\u0027) ? await categoriesApi.tree() : await categoriesApi.publicList()",
+                            "auth.can(\u0027products.view\u0027)\"\u003e\u003clabel\u003eبحث قائمة المنتجات\u003cinput v-model=\"productSearch\" type=\"search\" p"
+                        ],
+        "actions":  [
+                        "@submit.prevent=\"emit(\u0027apply\u0027, { ...draft, page: 1 })\"",
+                        "@click=\"loadCatalog\""
+                    ],
+        "fields":  [
+                       "v-model=\"draft.date_from\"",
+                       "v-model=\"draft.date_to\"",
+                       "v-model=\"draft.branch_uuid\"",
+                       "v-model=\"draft.order_type\"",
+                       "v-model=\"draft.order_status\"",
+                       "v-model=\"draft.payment_method\"",
+                       "v-model=\"draft.group_by\"",
+                       "v-model=\"draft.sort_by\"",
+                       "v-model.number=\"draft.per_page\"",
+                       "v-model=\"draft.category_uuid\"",
+                       "v-model=\"productSearch\"",
+                       "v-model=\"draft.product_uuid\"",
+                       "v-model=\"draft.search\"",
+                       "v-model=\"draft.low_stock\"",
+                       "v-model=\"draft.out_of_stock\""
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/reports\\ReportChart.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\AdminSidebar.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"emit(\u0027navigate\u0027)\"",
+                        "@click=\"emit(\u0027navigate\u0027)\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\StockReturn.vue",
+        "permissions":  [
+                            "auth.can(\u0027inventory.adjust\u0027)\" class=\"panel\"\u003e\u003ch2\u003eإرجاع مخزون الطلب\u003c/h2\u003e\u003cp class=\"muted\"\u003eعملية يدوية"
+                        ],
+        "actions":  [
+                        "@submit.prevent=\"submit\""
+                    ],
+        "fields":  [
+                       "v-model=\"reason\""
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\PromotionEditor.vue",
+        "permissions":  [
+                            "auth.can(key===\u0027branches\u0027?\u0027branches.view\u0027:key===\u0027products\u0027?\u0027products.view\u0027:\u0027categories.view\u0027)\" :ap"
+                        ],
+        "actions":  [
+                        "@submit=\"save\"",
+                        "@click=\"select(key,item,false)\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/components/admin\\DomainFilters.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"form[picker.key]=\u0027\u0027\""
+                    ],
+        "fields":  [
+                       "v-model=\"form[picker.key]\""
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\DomainFields.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+                       "v-model=\"form[field.key]\"",
+                       "v-model=\"form[field.key]\"",
+                       "v-model=\"form[field.key]\"",
+                       "v-model=\"form[field.key]\"",
+                       "v-model=\"form[field.key]\""
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/notifications\\RelatedNotifications.vue",
+        "permissions":  [
+                            "auth.can(\u0027notifications.view\u0027))void state.run(signal=\u003enotificationsApi.list({reference_uuid:props.",
+                            "auth.can(\u0027notifications.view\u0027)\" class=\"panel related-notifications\"\u003e\u003cdiv class=\"panel-head\"\u003e\u003ch2\u003eال"
+                        ],
+        "actions":  [
+                        "@click=\"load(page)\"",
+                        "@click=\"load(page)\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/notifications\\NotificationRetry.vue",
+        "permissions":  [
+                            "auth.can(\u0027notifications.retry\u0027)\u0026\u0026props.notification?.status===\u0027failed\u0027)",
+                            "auth.can(\u0027notifications.retry\u0027)){notice.value=\u0027تغيرت حالة الإشعار. حدّثنا الحالة الحالية دون طلب م"
+                        ],
+        "actions":  [
+                        "@click=\"open\"",
+                        "@submit.prevent=\"submit\"",
+                        "@click=\"close\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/components/notifications\\NotificationBadge.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\operations\\SettingsAudit.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"load(page)\"",
+                        "@submit.prevent=\"load()\"",
+                        "@click=\"filters.user_uuid=\u0027\u0027;load()\"",
+                        "@click=\"resetFilters\"",
+                        "@click=\"filters.user_uuid=row.changed_by;load()\""
+                    ],
+        "fields":  [
+                       "v-model=\"filters.key\"",
+                       "v-model.number=\"filters.per_page\"",
+                       "v-model=\"filters.date_from\"",
+                       "v-model=\"filters.date_to\""
+                   ],
+        "tables":  1,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\operations\\ClosuresPanel.vue",
+        "permissions":  [
+                            "auth.can(\u0027branches.closures.create\u0027)\" class=\"button\" :disabled=\"saving\" @click=\"edit()\"\u003eإضافة إغلا",
+                            "auth.can(\u0027branches.closures.update\u0027)\" class=\"row-button\" :disabled=\"saving\" @click=\"edit(row)\"\u003eتعد",
+                            "auth.can(\u0027branches.closures.delete\u0027)\" class=\"row-button danger\" :disabled=\"saving\" @click=\"mutatio"
+                        ],
+        "actions":  [
+                        "@click=\"edit()\"",
+                        "@click=\"edit(row)\"",
+                        "@click=\"mutation.error.value=null;deleting=row\"",
+                        "@submit=\"save\"",
+                        "@submit=\"remove\""
+                    ],
+        "fields":  [
+                       "v-model=\"form[key]\"",
+                       "v-model=\"form.reason\"",
+                       "v-model=\"form.is_active\""
+                   ],
+        "tables":  1,
+        "modals":  2
+    },
+    {
+        "file":  "front-end/src/components/admin\\operations\\BusinessHoursPanel.vue",
+        "permissions":  [
+                            "auth.can(\u0027branches.hours.update\u0027)\"\u003e\u003cdiv class=\"weekly-hours\"\u003e\u003carticle v-for=\"(label,day) in weekda",
+                            "auth.can(\u0027branches.hours.update\u0027)\" class=\"row-button\" type=\"button\" :disabled=\"hours.length\u003e=100\" ",
+                            "auth.can(\u0027branches.hours.update\u0027)\" class=\"button\" :disabled=\"saving||!dirty\"\u003eحفظ الأسبوع\u003c/button\u003e\u003c"
+                        ],
+        "actions":  [
+                        "@submit.prevent=\"requestSave\"",
+                        "@click=\"hours.splice(index,1)\"",
+                        "@click=\"hours.push({day_of_week:Number(day),opens_at:\u0027\u0027,closes_at:\u0027\u0027})\"",
+                        "@click=\"reset\"",
+                        "@click=\"load\"",
+                        "@submit=\"save\""
+                    ],
+        "fields":  [
+                       "v-model=\"row.opens_at\"",
+                       "v-model=\"row.closes_at\""
+                   ],
+        "tables":  0,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/components/admin\\operations\\BranchOperations.vue",
+        "permissions":  [
+                            "auth.can(\u0027branches.view\u0027)\u0026\u0026JSON.stringify(form)!==baseline.value)",
+                            "auth.can(\u0027branches.view\u0027)?state.data.value?.availability:state.data.value)",
+                            "auth.can(\u0027branches.view\u0027)?branchesApi.show(id):operationsApi.status(id,signal));if(id!==selected.v",
+                            "auth.can(\u0027branches.view\u0027)){const snapshot=Object.fromEntries(Object.keys(form).map(key=\u003e[key,resul",
+                            "auth.can(\u0027branches.view\u0027)\" @submit.prevent=\"confirmation=true\"\u003e\u003cfieldset class=\"settings-fields\" :",
+                            "auth.can(\u0027branches.update\u0027)\"\u003e\u003ch3 class=\"branch-controls-title\"\u003eخدمات الفرع\u003c/h3\u003e\u003cdiv class=\"form-gr",
+                            "auth.can(\u0027branches.update\u0027)\" class=\"button\" :disabled=\"saving||!dirty\"\u003eحفظ تشغيل الفرع\u003c/button\u003e\u003cbu",
+                            "auth.can(\u0027branches.hours.view\u0027)\" :key=\"selected+\u0027-hours\u0027\" :branch=\"selected\" @updated=\"updated\" @d",
+                            "auth.can(\u0027branches.closures.view\u0027)\" :key=\"selected+\u0027-closures\u0027\" :branch=\"selected\" @updated=\"updat"
+                        ],
+        "actions":  [
+                        "@click=\"load\"",
+                        "@submit.prevent=\"confirmation=true\"",
+                        "@click=\"reset\"",
+                        "@submit=\"save\""
+                    ],
+        "fields":  [
+                       "v-model=\"selected\"",
+                       "v-model=\"form[key]\""
+                   ],
+        "tables":  0,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/components/admin\\catalog\\ApiPagination.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"$emit(\u0027page\u0027, meta.current_page - 1)\"",
+                        "@click=\"$emit(\u0027page\u0027, meta.current_page + 1)\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\catalog\\ApiFeedback.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"$emit(\u0027retry\u0027)\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\catalog\\BranchProductsPanel.vue",
+        "permissions":  [
+                            "auth.can(\u0027branches.products.manage\u0027)\u0026\u0026auth.can(\u0027products.view\u0027)\"\u003e\u003cbutton class=\"row-button\" :disab",
+                            "auth.can(\u0027branches.products.manage\u0027)\"\u003e\u003cbutton class=\"row-button\" :disabled=\"mutation.busy.value\" @"
+                        ],
+        "actions":  [
+                        "@click=\"edit()\"",
+                        "@click=\"showForm=false;bulkOpen=true;bulkIds=[];Object.assign(form,initialForm(catalogFields.branchProduct))\"",
+                        "@click=\"edit(item)\"",
+                        "@click=\"detach(item)\"",
+                        "@submit.prevent=\"submit\"",
+                        "@click=\"showForm=false\"",
+                        "@submit.prevent=\"bulk\"",
+                        "@click=\"bulkOpen=false\""
+                    ],
+        "fields":  [
+                       "v-model=\"search\"",
+                       "v-model=\"available\"",
+                       "v-model=\"sort\"",
+                       "v-model=\"direction\"",
+                       "v-model=\"selected\""
+                   ],
+        "tables":  1,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\catalog\\CatalogEditor.vue",
+        "permissions":  [
+                            "auth.can(\u0027categories.view\u0027)?categoriesApi.tree():categoriesApi.publicList())).filter(category=\u003ecat"
+                        ],
+        "actions":  [
+                        "@submit=\"submit\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/layouts\\SiteLayout.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"backdropClose\" aria-labelledby=\"cart-title\"",
+                        "@click=\"closeDialog\" aria-label=\"إغلاق السلة\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/components/admin\\catalog\\CatalogFields.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+                       "v-model=\"form[field.key]\"",
+                       "v-model=\"form[field.key]\"",
+                       "v-model=\"form[field.key]\"",
+                       "v-model=\"form[field.key]\"",
+                       "v-model=\"form[field.key]\""
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\catalog\\CatalogList.vue",
+        "permissions":  [
+                            "permission:\u0027products\u0027,detail:\u0027/admin/products/\u0027},",
+                            "permission:\u0027categories\u0027},",
+                            "permission:\u0027branches\u0027,detail:\u0027/admin/branches/\u0027},",
+                            "permission:\u0027options\u0027,detail:\u0027/admin/product-options/\u0027},",
+                            "auth.can(\u0027categories.view\u0027))return",
+                            "auth.can(\u0027categories.view\u0027)\" v-model=\"filters.category_uuid\" aria-label=\"التصنيف\"\u003e\u003coption value=\"\"",
+                            "auth.can(config.permission+\u0027.create\u0027)\" class=\"button\" :disabled=\"mutation.busy.value\" @click=\"open",
+                            "auth.can(\u0027products.update\u0027)\u0026\u0026selected.length\" class=\"toolbar product-bulk\"\u003e\u003cselect v-model=\"bulkAc",
+                            "auth.can(\u0027products.update\u0027)\"\u003e\u003cspan class=\"selection-label\"\u003eتحديد\u003c/span\u003e\u003c/th\u003e\u003cth\u003eالمنتج\u003c/th\u003e\u003cth\u003eالت",
+                            "auth.can(\u0027products.update\u0027)\"\u003e\u003cinput v-model=\"selected\" type=\"checkbox\" :value=\"item.id\" :aria-labe",
+                            "auth.can(\u0027products.update\u0027)\" class=\"row-button\" :disabled=\"mutation.busy.value\" @click=\"open(item)",
+                            "auth.can(\u0027products.delete\u0027)\" class=\"row-button danger\" :disabled=\"mutation.busy.value\" @click=\"ope",
+                            "auth.can(config.permission+\u0027.update\u0027)\" class=\"row-button\" :disabled=\"mutation.busy.value\" @click=\"",
+                            "auth.can(config.permission+\u0027.delete\u0027)\" class=\"row-button danger\" :disabled=\"mutation.busy.value\" @"
+                        ],
+        "actions":  [
+                        "@click=\"advancedOpen=!advancedOpen\"",
+                        "@click=\"open()\"",
+                        "@click=\"bulk\"",
+                        "@click=\"open(item)\"",
+                        "@click=\"open(item,\u0027delete\u0027)\"",
+                        "@click=\"open(item)\"",
+                        "@click=\"open(item,\u0027delete\u0027)\""
+                    ],
+        "fields":  [
+                       "v-model=\"filters.search\"",
+                       "v-model=\"filters.active\"",
+                       "v-model=\"filters.category_uuid\"",
+                       "v-model=\"filters.type\"",
+                       "v-model=\"filters.sort\"",
+                       "v-model=\"filters.direction\"",
+                       "v-model.number=\"filters.per_page\"",
+                       "v-model=\"filters[key]\"",
+                       "v-model=\"filters.sort\"",
+                       "v-model=\"filters.direction\"",
+                       "v-model.number=\"filters.per_page\"",
+                       "v-model=\"bulkAction\"",
+                       "v-model=\"selected\""
+                   ],
+        "tables":  2,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/layouts\\AdminLayout.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\catalog\\ProductBranchesPanel.vue",
+        "permissions":  [
+                            "auth.can(\u0027branches.view\u0027))load()},{immediate:true})",
+                            "auth.can(\u0027branches.view\u0027)\" class=\"form-note\"\u003eعرض الفروع يحتاج صلاحية branches.view.\u003c/p\u003e\u003ctemplate v",
+                            "auth.can(\u0027branches.products.manage\u0027)\"\u003e\u003cbutton class=\"row-button\" :disabled=\"mutation.busy.value\" @"
+                        ],
+        "actions":  [
+                        "@click=\"edit(branch)\"",
+                        "@click=\"detach(branch)\"",
+                        "@submit.prevent=\"submit\"",
+                        "@click=\"editing=null\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  1,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\catalog\\ProductImage.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\catalog\\RemotePicker.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+                       "v-model=\"search\""
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\catalog\\ProductOptionsPanel.vue",
+        "permissions":  [
+                            "auth.can(\u0027products.update\u0027)\"\u003e\u003cbutton class=\"row-button\" :disabled=\"mutation.busy.value\" @click=\"ed",
+                            "auth.can(\u0027products.update\u0027)\u0026\u0026auth.can(\u0027options.view\u0027)\" class=\"row-button\" :disabled=\"mutation.busy",
+                            "auth.can(\u0027products.update\u0027)\u0026\u0026!auth.can(\u0027options.view\u0027)\" class=\"form-note\"\u003eعرض المجموعات المتاحة لل"
+                        ],
+        "actions":  [
+                        "@click=\"edit(group)\"",
+                        "@click=\"detach(group)\"",
+                        "@click=\"edit()\"",
+                        "@submit.prevent=\"submit\"",
+                        "@click=\"showForm=false\""
+                    ],
+        "fields":  [
+                       "v-model=\"selected\""
+                   ],
+        "tables":  1,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/admin\\catalog\\ProductImagesPanel.vue",
+        "permissions":  [
+                            "auth.can(\u0027products.update\u0027)\" class=\"catalog-actions\"\u003e\u003cbutton class=\"row-button\" :disabled=\"mutatio",
+                            "auth.can(\u0027products.update\u0027)\" @submit.prevent=\"act(()=\u003eproductImagesApi.upload(product.id,files,alt"
+                        ],
+        "actions":  [
+                        "@click=\"act(()=",
+                        "@click=\"move(index,-1)\"",
+                        "@click=\"move(index,1)\"",
+                        "@click=\"remove(image)\"",
+                        "@submit.prevent=\"act(()="
+                    ],
+        "fields":  [
+                       "v-model=\"alt\"",
+                       "v-model=\"primary\""
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/orders\\OrderTrackingPanel.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"reload\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/orders\\OrderTimeline.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/orders\\OrderStatusBadge.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/orders\\OrderNumber.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"copyNumber\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/orders\\KitchenSnapshot.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/orders\\CustomerOrderCancel.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+                        "@click=\"open\"",
+                        "@submit.prevent=\"submit\"",
+                        "@click=\"close\""
+                    ],
+        "fields":  [
+                       "v-model=\"reason\""
+                   ],
+        "tables":  0,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/components/orders\\AdminOrdersBoard.vue",
+        "permissions":  [
+                            "auth.can(orderOperations[action].permission))}",
+                            "auth.can(\u0027orders.view\u0027),paused:()=\u003eactiveOrder.value!==null})",
+                            "auth.can(\u0027orders.view\u0027))void state.load()},{immediate:true})"
+                        ],
+        "actions":  [
+                        "@click=\"state.load(true)\"",
+                        "@submit.prevent=\"load()\"",
+                        "@click=\"state.load()\"",
+                        "@click=\"filters.status=filters.status===status?\u0027\u0027:status;load()\""
+                    ],
+        "fields":  [
+                       "v-model=\"filters.search\"",
+                       "v-model=\"filters.status\"",
+                       "v-model=\"filters.branch\"",
+                       "v-model=\"filters.type\"",
+                       "v-model=\"filters.payment_status\"",
+                       "v-model=\"filters.payment_method\"",
+                       "v-model=\"filters.order_number\"",
+                       "v-model=\"filters.date_from\"",
+                       "v-model=\"filters.date_to\"",
+                       "v-model=\"filters.sort\"",
+                       "v-model=\"filters.direction\""
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/components/orders\\AdminOrderOperations.vue",
+        "permissions":  [
+                            "auth.can(orderOperations[action].permission)))",
+                            "auth.can(orderOperations[action].permission)){notice.value=\u0027تغيرت صلاحية العملية أو حالة الطلب. تم"
+                        ],
+        "actions":  [
+                        "@click=\"open(action)\"",
+                        "@submit.prevent=\"submit\"",
+                        "@click=\"close\""
+                    ],
+        "fields":  [
+                       "v-model=\"text\""
+                   ],
+        "tables":  0,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/views/admin\\CategoriesView.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\BranchesView.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\BranchDetailsView.vue",
+        "permissions":  [
+                            "auth.can(\u0027branches.update\u0027)\" class=\"button\" @click=\"editorOpen=true\"\u003eتعديل الفرع\u003c/button\u003e\u003c/section",
+                            "auth.can(\u0027delivery_zones.view\u0027)\" class=\"panel\"\u003e\u003cAdminSectionHeading icon=\"truck\"\u003eمناطق التوصيل\u003c/Ad",
+                            "auth.can(\u0027branches.hours.view\u0027)||auth.can(\u0027branches.closures.view\u0027)||auth.can(\u0027branches.view\u0027)\" :b"
+                        ],
+        "actions":  [
+                        "@click=\"editorOpen=true\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\ActivityLogsView.vue",
+        "permissions":  [
+                            "permissions\u0027,\u0027password_changed\u0027,\u0027status\u0027,\u0027sort_order\u0027,\u0027title\u0027,\u0027key\u0027].includes(key)).map(([key,v])=\u003ek",
+                            "auth.can(\u0027staff.view\u0027)?[{key:\u0027user_uuid\u0027,label:\u0027الموظف\u0027,api:staffApi}]:[])"
+                        ],
+        "actions":  [
+                        "@submit.prevent=\"list.search\""
+                    ],
+        "fields":  [
+                       "v-model=\"list.filters.search\"",
+                       "v-model=\"list.filters.action\"",
+                       "v-model=\"list.filters.subject_type\"",
+                       "v-model=\"list.filters.date_from\"",
+                       "v-model=\"list.filters.date_to\""
+                   ],
+        "tables":  1,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\CustomerManagementView.vue",
+        "permissions":  [
+                            "auth.can(row.is_active?\u0027customers.deactivate\u0027:\u0027customers.activate\u0027)\" class=\"row-button\" :disabled=",
+                            "auth.can(\u0027orders.view\u0027)\" :to=\"\u0027/admin/orders/\u0027+row.id\"\u003e\u003cbdi\u003e{{ row.order_number }}\u003c/bdi\u003e\u003c/RouterLi"
+                        ],
+        "actions":  [
+                        "@click=\"tab=\u0027customers\u0027\"",
+                        "@click=\"tab=\u0027guests\u0027\"",
+                        "@submit.prevent=\"list().search\"",
+                        "@click=\"select(row)\"",
+                        "@click=\"active(row)\"",
+                        "@click=\"detailTab=value\"",
+                        "@submit.prevent=\"detailPage=1;loadDetail()\""
+                    ],
+        "fields":  [
+                       "v-model=\"customers.filters.search\"",
+                       "v-model=\"guests.filters.phone\"",
+                       "v-model=\"customers.filters.active\""
+                   ],
+        "tables":  3,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\CmsView.vue",
+        "permissions":  [
+                            "auth.can(\u0027cms.\u0027+k+\u0027.view\u0027))),api={list:(...args)=\u003ecmsAdminApi(tab.value).list(...args)},list=useSe",
+                            "auth.can(\u0027cms.\u0027+tab+\u0027.create\u0027)\" class=\"button\" :disabled=\"mutation.busy.value||detail.loading.valu",
+                            "auth.can(\u0027cms.\u0027+k+\u0027.view\u0027))\" :key=\"kind\" :aria-pressed=\"tab===kind\" :disabled=\"mutation.busy.value",
+                            "auth.can(\u0027cms.\u0027+tab+\u0027.update\u0027)\" class=\"row-button\" :disabled=\"mutation.busy.value||detail.loading.",
+                            "auth.can(\u0027cms.\u0027+tab+\u0027.update\u0027)\" class=\"row-button\" :disabled=\"!index||mutation.busy.value\" aria-la",
+                            "auth.can(\u0027cms.\u0027+tab+\u0027.update\u0027)\" class=\"row-button\" :disabled=\"index===list.state.data.value.data.l",
+                            "auth.can(\u0027cms.\u0027+tab+\u0027.delete\u0027)\" class=\"row-button danger\" :disabled=\"mutation.busy.value||detail.l",
+                            "auth.can(\u0027cms.pages.update\u0027)\" class=\"row-button\" :disabled=\"mutation.busy.value||detail.loading.va"
+                        ],
+        "actions":  [
+                        "@click=\"edit()\"",
+                        "@click=\"tab=kind\"",
+                        "@submit.prevent=\"list.search\"",
+                        "@click=\"edit(row)\"",
+                        "@click=\"showSections(row)\"",
+                        "@click=\"move(index,-1)\"",
+                        "@click=\"move(index,1)\"",
+                        "@click=\"remove(row)\"",
+                        "@click=\"edit(null,row)\"",
+                        "@submit=\"save\"",
+                        "@click=\"items.splice(index,1)\"",
+                        "@click=\"items.push({title:\u0027\u0027,description:\u0027\u0027})\""
+                    ],
+        "fields":  [
+                       "v-model=\"list.filters.search\"",
+                       "v-model=\"item.title\"",
+                       "v-model=\"item.description\""
+                   ],
+        "tables":  2,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/views/admin\\DashboardView.vue",
+        "permissions":  [
+                            "auth.can(\u0027reports.sales.view\u0027) ? trend.run(signal =\u003e reportsApi.get(\u0027sales/trend\u0027, { ...query, ...",
+                            "auth.can(\u0027orders.view\u0027) ? recent.run(signal =\u003e adminOrdersApi.list({ ...period, branch: query.bran",
+                            "auth.can(\u0027orders.view\u0027)\" class=\"panel overview-orders\"\u003e",
+                            "auth.can(\u0027reports.orders.view\u0027)\" class=\"button secondary\" to=\"/admin/reports?report=order-statuses",
+                            "auth.can(\u0027reports.sales.view\u0027)\" class=\"panel overview-sales\"\u003e\u003cdiv class=\"panel-head\"\u003e\u003cdiv\u003e\u003ch2\u003eمبيع"
+                        ],
+        "actions":  [
+                        "@click=\"load\"",
+                        "@click=\"contextState.load\"",
+                        "@click=\"load\"",
+                        "@click=\"load\"",
+                        "@click=\"load\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  3,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\DeliveryZonesView.vue",
+        "permissions":  [
+                            "auth.can(\u0027branches.view\u0027)){let current=1,last=1,all=[];do{const result=await branchesApi.list({pag",
+                            "auth.can(\u0027delivery_zones.create\u0027)\u0026\u0026branch\" class=\"button\" :disabled=\"mutation.busy.value\" @click=\"",
+                            "auth.can(\u0027delivery_zones.update\u0027)?\u0027تعديل / تفاصيل\u0027:\u0027عرض التفاصيل\u0027 }}\u003c/button\u003e\u003cbutton v-if=\"auth.ca",
+                            "auth.can(\u0027delivery_zones.delete\u0027)\" class=\"row-button danger\" :disabled=\"mutation.busy.value\" @clic",
+                            "auth.can(\u0027delivery_zones.update\u0027))\"/\u003e\u003clabel v-if=\"form.type===\u0027district\u0027\" class=\"field\"\u003eالأحياء (ح",
+                            "auth.can(\u0027delivery_zones.update\u0027))\" required/\u003e\u003csmall v-for=\"(messages,key) in mutation.error.value",
+                            "auth.can(\u0027delivery_zones.update\u0027))\"/\u003e\u003cp class=\"form-note\"\u003eالمطابقة بالأحياء تستخدم أسماء المدينة و",
+                            "auth.can(\u0027delivery_zones.update\u0027):auth.can(\u0027delivery_zones.create\u0027)\" class=\"button\" :disabled=\"mut"
+                        ],
+        "actions":  [
+                        "@click=\"edit()\"",
+                        "@click=\"edit(item)\"",
+                        "@click=\"toggle(item)\"",
+                        "@click=\"deleting=item;confirmation.showModal()\"",
+                        "@submit.prevent=\"save\"",
+                        "@click=\"showForm=false\"",
+                        "@click=\"remove\"",
+                        "@click=\"confirmation.close()\""
+                    ],
+        "fields":  [
+                       "v-model=\"branch\"",
+                       "v-model=\"districtText\""
+                   ],
+        "tables":  1,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/views/admin\\StaffView.vue",
+        "permissions":  [
+                            "permissions:null}))).filter(r=\u003er.name!==\u0027customer\u0027\u0026\u0026(auth.hasRole(\u0027super_admin\u0027)||r.name!==\u0027super_ad",
+                            "permissions||r.permissions.every(p=\u003eauth.can(p))))).map(r=\u003e({value:r.name,label:r.name})))",
+                            "permissions.every(p=\u003eauth.can(p))}",
+                            "auth.can(\u0027roles.view\u0027))roles.run(signal=\u003erolesApi.list(signal))",
+                            "auth.can(\u0027staff.create\u0027)\" class=\"button\" :disabled=\"mutation.busy.value||detail.loading.value||rol",
+                            "auth.can(\u0027roles.view\u0027)\u0026\u0026roles.run(signal=\u003erolesApi.list(signal))\"/\u003e\u003cdiv v-if=\"list.state.data.valu",
+                            "auth.can(\u0027staff.update\u0027)\u0026\u0026allowedTarget(row)\" class=\"row-button\" :disabled=\"mutation.busy.value||d",
+                            "auth.can(row.is_active?\u0027staff.deactivate\u0027:\u0027staff.activate\u0027)\u0026\u0026allowedTarget(row)\u0026\u0026(!row.is_active||",
+                            "auth.can(\u0027roles.view\u0027)\" class=\"form-note\"\u003eلا تتوفر تفاصيل صلاحيات الأدوار لهذا الحساب؛ يتحقق الخاد"
+                        ],
+        "actions":  [
+                        "@click=\"edit(null)\"",
+                        "@submit.prevent=\"list.search\"",
+                        "@click=\"edit(row)\"",
+                        "@click=\"activate(row)\"",
+                        "@submit=\"save\""
+                    ],
+        "fields":  [
+                       "v-model=\"list.filters.search\"",
+                       "v-model=\"list.filters.active\"",
+                       "v-model=\"list.filters.role\""
+                   ],
+        "tables":  1,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/views/admin\\SettingsView.vue",
+        "permissions":  [
+                            "auth.can(\u0027settings.view\u0027)?\u0027general\u0027:operationPermissions.some(permission=\u003eauth.can(permission))?\u0027b",
+                            "permission=\u003eauth.can(permission)))",
+                            "auth.can(\u0027settings.view\u0027))return;const result=await state.run(signal=\u003esettingsApi.list(signal));if",
+                            "auth.can(\u0027settings.update\u0027))return;pendingBody.value=Object.fromEntries(Object.entries(changed.val",
+                            "auth.can(\u0027settings.view\u0027)\" class=\"button secondary\" :disabled=\"saving||state.loading.value\" @click",
+                            "auth.can(\u0027settings.audit.view\u0027)\" class=\"row-button\" role=\"tab\" :aria-selected=\"tab===\u0027audit\u0027\" :dis",
+                            "auth.can(\u0027settings.update\u0027)\"\u003e\u003cdiv class=\"form-grid\"\u003e\u003clabel v-for=\"row in rows\" :key=\"row.key\" clas",
+                            "auth.can(\u0027settings.update\u0027)\" class=\"form-note\"\u003eصلاحيتك تسمح بالعرض فقط.\u003c/p\u003e\u003cdiv class=\"form-action",
+                            "auth.can(\u0027settings.update\u0027)\" class=\"button settings-save\" type=\"submit\" :disabled=\"saving||!dirty\"",
+                            "auth.can(\u0027settings.audit.view\u0027)\"/\u003e"
+                        ],
+        "actions":  [
+                        "@click=\"(!dirty||confirm(\u0027تجاهل التغييرات وإعادة التحميل؟\u0027))\u0026\u0026load()\"",
+                        "@click=\"tab=key\"",
+                        "@click=\"tab=\u0027branches\u0027\"",
+                        "@click=\"tab=\u0027audit\u0027\"",
+                        "@submit.prevent=\"requestSave\"",
+                        "@click=\"reset\"",
+                        "@submit=\"save\""
+                    ],
+        "fields":  [
+                       "v-model=\"form[row.key]\"",
+                       "v-model=\"form[row.key]\"",
+                       "v-model=\"form[row.key]\""
+                   ],
+        "tables":  0,
+        "modals":  1
+    },
+    {
+        "file":  "front-end/src/views/admin\\RolesView.vue",
+        "permissions":  [
+                            "permissions=ref([])",
+                            "auth.can(\u0027roles.update_permissions\u0027)\u0026\u0026![\u0027super_admin\u0027,\u0027customer\u0027].includes(selected.value))",
+                            "permissions(signal)}));if(value)choose(selected.value||value.roles[0]?.name)}",
+                            "permissions.value].sort())!==JSON.stringify([...(role.value?.permissions||[])].sort()))",
+                            "permissions.value=[...(role.value?.permissions||[])]}",
+                            "permissions.value));if(result.ok){notify(\u0027تم تحديث صلاحيات الدور.\u0027);await load();await auth.fetchMe(",
+                            "permission-grid\"\u003e\u003cfieldset v-for=\"(names,group) in state.data.value.groups\" :key=\"group\"\u003e\u003clegend\u003e{{ ",
+                            "permissions\" type=\"checkbox\" :value=\"name\" :disabled=\"!editable||mutation.busy.value\"\u003e\u003cbdi\u003e{{ name }"
+                        ],
+        "actions":  [
+                        "@submit.prevent=\"save\""
+                    ],
+        "fields":  [
+                       "v-model=\"permissions\""
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\ReportsView.vue",
+        "permissions":  [
+                            "auth.can(report.permission)))",
+                            "auth.can(definition.value.permission))",
+                            "auth.can(\u0027reports.export\u0027) || !state.data.value) return",
+                            "auth.can(\u0027reports.export\u0027)\" class=\"button\" :disabled=\"exportBusy\" @click=\"download\"\u003e\u003cAdminIcon nam"
+                        ],
+        "actions":  [
+                        "@click=\"load\"",
+                        "@click=\"contextState.load\"",
+                        "@click=\"load\"",
+                        "@click=\"download\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\PromotionsView.vue",
+        "permissions":  [
+                            "auth.can(\u0027branches.view\u0027)?[{key:\u0027branch_uuid\u0027,label:\u0027الفرع\u0027,api:branchesApi}]:[])",
+                            "auth.can(\u0027promotions.create\u0027)\" class=\"button\" :disabled=\"mutation.busy.value||detail.loading.value",
+                            "auth.can(\u0027promotions.update\u0027)\" class=\"row-button\" :disabled=\"mutation.busy.value||detail.loading.v",
+                            "auth.can(\u0027coupons.view\u0027)\" class=\"row-button\" :disabled=\"mutation.busy.value\" @click=\"selected=row\"",
+                            "auth.can(\u0027promotions.delete\u0027)\" class=\"row-button danger\" :disabled=\"mutation.busy.value\" @click=\"r",
+                            "auth.can(\u0027coupons.view\u0027)\" :promotion=\"selected\"/\u003e\u003cPromotionEditor v-model:open=\"open\" :record=\"edi"
+                        ],
+        "actions":  [
+                        "@click=\"edit()\"",
+                        "@submit.prevent=\"list.search\"",
+                        "@click=\"edit(row)\"",
+                        "@click=\"selected=row\"",
+                        "@click=\"remove(row)\""
+                    ],
+        "fields":  [
+                       "v-model=\"list.filters.search\"",
+                       "v-model=\"list.filters.status\"",
+                       "v-model=\"list.filters.type\""
+                   ],
+        "tables":  1,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\ProductsView.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\ProductOptionsView.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\ProductDetailsView.vue",
+        "permissions":  [
+                            "auth.can(\u0027products.update\u0027)\" class=\"button\" @click=\"editorOpen=true\"\u003e\u003cAdminIcon name=\"pencil\"/\u003e تع"
+                        ],
+        "actions":  [
+                        "@click=\"editorOpen=true\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\PaymentsView.vue",
+        "permissions":  [
+                            "auth.can(\u0027payments.view\u0027)})",
+                            "auth.can(\u0027payments.view\u0027))void state.load()},{immediate:true})",
+                            "auth.can(\u0027orders.view\u0027)\u0026\u0026payment.order\" class=\"row-button\" :to=\"\u0027/admin/orders/\u0027+payment.order.id\""
+                        ],
+        "actions":  [
+                        "@click=\"state.load(true)\"",
+                        "@submit.prevent=\"load()\"",
+                        "@click=\"state.load()\""
+                    ],
+        "fields":  [
+                       "v-model=\"filters.search\"",
+                       "v-model=\"filters.status\"",
+                       "v-model=\"filters.method\"",
+                       "v-model=\"filters.provider\"",
+                       "v-model=\"filters.order_number\"",
+                       "v-model=\"filters.date_from\"",
+                       "v-model=\"filters.date_to\"",
+                       "v-model=\"filters.sort\"",
+                       "v-model=\"filters.direction\""
+                   ],
+        "tables":  1,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\PaymentDetailsView.vue",
+        "permissions":  [
+                            "auth.can(\u0027payments.view\u0027)\u0026\u0026(!state.data.value||isPaymentPending(state.data.value.payment.status)),",
+                            "auth.can(\u0027payments.view\u0027))void state.load()},{immediate:true})",
+                            "auth.can(\u0027orders.view\u0027)\u0026\u0026data.payment.order\" class=\"row-button\" :to=\"\u0027/admin/orders/\u0027+data.payment",
+                            "auth.can(\u0027notifications.view\u0027)\" :reference-id=\"data.payment.id\"/\u003e\u003c/template\u003e\u003c/main\u003e\u003c/template\u003e"
+                        ],
+        "actions":  [
+                        "@click=\"reload\"",
+                        "@click=\"reload\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\OrdersView.vue",
+        "permissions":  [
+
+                        ],
+        "actions":  [
+
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\OrderDetailsView.vue",
+        "permissions":  [
+                            "auth.can(\u0027orders.view\u0027)\u0026\u0026(!isTerminalOrder(state.data.value?.order?.status)||!kitchen.value\u0026\u0026isPay",
+                            "auth.can(\u0027orders.view\u0027))void state.load()},{immediate:true})",
+                            "auth.can(\u0027payments.view\u0027)\" :payment=\"data.order.latest_payment\" staff/\u003e\u003cRouterLink v-if=\"data.orde",
+                            "auth.can(\u0027payments.view\u0027)\" class=\"row-button\" :to=\"\u0027/admin/payments/\u0027+data.order.latest_payment.id",
+                            "auth.can(\u0027notifications.view\u0027)\" :reference-id=\"data.order.id\"/\u003e\u003c/template\u003e\u003c/main\u003e\u003c/template\u003e"
+                        ],
+        "actions":  [
+                        "@click=\"reload\"",
+                        "@click=\"state.load()\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\OptionGroupDetailsView.vue",
+        "permissions":  [
+                            "auth.can(\u0027options.update\u0027)\" class=\"button\" @click=\"editorOpen=true\"\u003eتعديل المجموعة\u003c/button\u003e\u003c/secti",
+                            "auth.can(\u0027options.create\u0027)\" class=\"row-button\" :disabled=\"mutation.busy.value\" @click=\"edit()\"\u003e\u003cAd",
+                            "auth.can(\u0027options.update\u0027)\" class=\"row-button\" :disabled=\"mutation.busy.value\" @click=\"edit(value)",
+                            "auth.can(\u0027options.delete\u0027)\" class=\"row-button danger\" :disabled=\"mutation.busy.value\" @click=\"remo"
+                        ],
+        "actions":  [
+                        "@click=\"editorOpen=true\"",
+                        "@click=\"edit()\"",
+                        "@click=\"edit(value)\"",
+                        "@click=\"remove(value)\"",
+                        "@submit.prevent=\"submit\"",
+                        "@click=\"valueForm=false\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  1,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\NotificationsView.vue",
+        "permissions":  [
+                            "auth.can(\u0027notifications.view\u0027))void state.run(signal=\u003enotificationsApi.list({...applied,page,per_p"
+                        ],
+        "actions":  [
+                        "@click=\"load\"",
+                        "@submit.prevent=\"apply()\"",
+                        "@click=\"filters.reference_uuid=\u0027\u0027;apply()\"",
+                        "@click=\"load\""
+                    ],
+        "fields":  [
+                       "v-model=\"filters.search\"",
+                       "v-model=\"filters.status\"",
+                       "v-model=\"filters.channel\"",
+                       "v-model=\"filters.type\"",
+                       "v-model=\"filters.provider\"",
+                       "v-model=\"filters.date_from\"",
+                       "v-model=\"filters.date_to\"",
+                       "v-model=\"filters.sort\"",
+                       "v-model=\"filters.direction\""
+                   ],
+        "tables":  1,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\NotificationDetailsView.vue",
+        "permissions":  [
+                            "auth.can(\u0027notifications.view\u0027)\u0026\u0026(!state.data.value||notificationPending(state.data.value.notificat",
+                            "auth.can(\u0027notifications.view\u0027))void state.load()},{immediate:true})",
+                            "auth.can(\u0027orders.view\u0027)\" class=\"row-button\" :to=\"\u0027/admin/orders/\u0027+data.notification.reference.id\"\u003e",
+                            "auth.can(\u0027payments.view\u0027)\" class=\"row-button\" :to=\"\u0027/admin/payments/\u0027+data.notification.reference."
+                        ],
+        "actions":  [
+                        "@click=\"reload\"",
+                        "@click=\"reload\""
+                    ],
+        "fields":  [
+
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\KitchenView.vue",
+        "permissions":  [
+                            "auth.can(\u0027orders.view\u0027),paused:()=\u003eactive.value||focusLoading.value})",
+                            "auth.can(\u0027orders.view\u0027))void state.load()},{immediate:true})",
+                            "auth.can(\u0027orders.view\u0027))void state.load()},{immediate:true})"
+                        ],
+        "actions":  [
+                        "@click=\"state.load(true)\"",
+                        "@submit.prevent=\"load()\"",
+                        "@click=\"state.load()\"",
+                        "@click=\"focus(order.id)\"",
+                        "@click=\"focused=null;focusError=null\""
+                    ],
+        "fields":  [
+                       "v-model=\"filters.status\"",
+                       "v-model=\"filters.branch\"",
+                       "v-model=\"filters.type\""
+                   ],
+        "tables":  0,
+        "modals":  0
+    },
+    {
+        "file":  "front-end/src/views/admin\\InventoryView.vue",
+        "permissions":  [
+                            "auth.can(\u0027inventory.view\u0027)?\u0027stock\u0027:\u0027movements\u0027),list=useServerList(inventoryApi,{low_stock:\u0027\u0027,out_",
+                            "auth.can(r[3])).map(([key,label,api])=\u003e({key,label,api})))",
+                            "auth.can(\u0027inventory.create\u0027)\" class=\"button\" :disabled=\"uncertain||mutation.busy.value||detail.loa",
+                            "auth.can(\u0027inventory.view\u0027)\" :aria-pressed=\"tab===\u0027stock\u0027\" @click=\"tab=\u0027stock\u0027\"\u003eالكميات\u003c/button\u003e\u003cbu",
+                            "auth.can(\u0027inventory.movements.view\u0027)\" :aria-pressed=\"tab===\u0027movements\u0027\" @click=\"history=null;tab=\u0027",
+                            "auth.can(\u0027inventory.view\u0027)\" :aria-pressed=\"tab===\u0027report\u0027\" @click=\"tab=\u0027report\u0027\"\u003eتقرير المخزون\u003c/bu",
+                            "auth.can(\u0027inventory.movements.view\u0027)\"\u003eاطلب من موظف مخوّل مراجعة السجل قبل محاولة العملية مجددًا.\u003c/",
+                            "auth.can(\u0027inventory.movements.view\u0027)\" :disabled=\"movements.state.loading.value\" @click=\"reconcile\"",
+                            "auth.can(\u0027inventory.movements.view\u0027)\" class=\"row-button\" @click=\"showHistory(row)\"\u003eسجل الحركات\u003c/bu",
+                            "permission] in [[\u0027configure\u0027,\u0027inventory.adjust\u0027],[\u0027receive\u0027,\u0027inventory.receive\u0027],[\u0027adjust\u0027,\u0027inventor",
+                            "auth.can(permission)\" class=\"row-button\" :disabled=\"mutation.busy.value||uncertain||detail.loading",
+                            "auth.can(\u0027branches.view\u0027)\" v-model=\"form.branch_uuid\" :api=\"branchesApi\" label=\"الفرع\" :disabled=\"",
+                            "auth.can(\u0027products.view\u0027)\" v-model=\"form.product_uuid\" :api=\"productsApi\" label=\"المنتج المتتبع لل"
+                        ],
+        "actions":  [
+                        "@click=\"edit(\u0027create\u0027)\"",
+                        "@click=\"tab=\u0027stock\u0027\"",
+                        "@click=\"history=null;tab=\u0027movements\u0027;movements.search()\"",
+                        "@click=\"tab=\u0027report\u0027\"",
+                        "@click=\"reconcile\"",
+                        "@submit.prevent=\"list.search\"",
+                        "@click=\"showHistory(row)\"",
+                        "@click=\"edit(op,row)\"",
+                        "@submit.prevent=\"movements.search\"",
+                        "@submit.prevent=\"load\"",
+                        "@submit=\"save\""
+                    ],
+        "fields":  [
+                       "v-model=\"list.filters.search\"",
+                       "v-model=\"list.filters.low_stock\"",
+                       "v-model=\"list.filters.out_of_stock\"",
+                       "v-model=\"movements.filters.type\"",
+                       "v-model=\"movements.filters.date_from\"",
+                       "v-model=\"movements.filters.date_to\"",
+                       "v-model=\"form.branch_uuid\"",
+                       "v-model=\"form.product_uuid\""
+                   ],
+        "tables":  2,
+        "modals":  1
+    }
+]

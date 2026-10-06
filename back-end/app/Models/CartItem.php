@@ -21,6 +21,10 @@ class CartItem extends Model
 
     public array $issues = [];
 
+    public string $discountTotal = '0.00';
+
+    public ?string $lineTotalAfterDiscount = null;
+
     public ?Collection $trustedOptions = null;
 
     public ?BranchProduct $assignment = null;

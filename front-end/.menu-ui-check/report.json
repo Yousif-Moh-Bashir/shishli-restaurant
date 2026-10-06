@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "Server price preserved, unavailable button disabled, search/category params, reset and empty recovery",
+    "API error retry recovers without fake products; read-only transport fixtures"
+  ],
+  "responsive": [
+    390,
+    768,
+    1440
+  ],
+  "diagnostics": []
+}

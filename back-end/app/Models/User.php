@@ -3,12 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Services\Notifications\PhoneNormalizer;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -18,6 +20,25 @@ use Spatie\Permission\Traits\HasRoles;
 #[Hidden(['id', 'password', 'remember_token'])]
 class User extends Authenticatable
 {
+    protected $attributes = ['is_active' => true];
+
+    protected static function booted(): void
+    {
+        static::saving(function (User $user): void {
+            if (! $user->exists || $user->isDirty('phone') || $user->phone_normalized === null) {
+                $user->phone_normalized = $user->phone === null ? null : app(PhoneNormalizer::class)->normalize($user->phone, config('outbound_notifications.phone_country'));
+                if ($user->exists && $user->isDirty('phone')) {
+                    $user->phone_verified_at = null;
+                }
+            }
+        });
+    }
+
+    public function defaultAddress(): HasOne
+    {
+        return $this->hasOne(CustomerAddress::class)->where('is_default', true);
+    }
+
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
@@ -60,6 +81,8 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'phone_verified_at' => 'datetime',
+            'is_active' => 'boolean',
             'password' => 'hashed',
         ];
     }

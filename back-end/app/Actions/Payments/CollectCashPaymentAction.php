@@ -3,7 +3,6 @@
 namespace App\Actions\Payments;
 
 use App\Enums\OrderStatus;
-use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use App\Exceptions\PaymentException;
 use App\Models\Order;
@@ -23,20 +22,20 @@ class CollectCashPaymentAction
 
         return DB::transaction(function () use ($order, $actor): Payment {
             $locked = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
-            if ($locked->payment_method !== PaymentMethod::Cash) {
+            if (! $locked->payment_method->isOffline()) {
                 throw new PaymentException('NOT_A_CASH_ORDER');
             }
             if ($locked->status === OrderStatus::Cancelled) {
                 throw new PaymentException('ORDER_CANCELLED');
             }
-            $paid = $locked->payments()->where('method', PaymentMethod::Cash)->where('status', PaymentStatus::Paid)->lockForUpdate()->first();
+            $paid = $locked->payments()->where('method', $locked->payment_method)->where('status', PaymentStatus::Paid)->lockForUpdate()->first();
             if ($paid !== null) {
                 return $paid;
             }
             if ($locked->payment_status === PaymentStatus::Paid) {
                 throw new PaymentException('ORDER_ALREADY_PAID');
             }
-            $payment = $locked->payments()->where('method', PaymentMethod::Cash)->whereNull('provider')
+            $payment = $locked->payments()->where('method', $locked->payment_method)->whereNull('provider')
                 ->where('status', PaymentStatus::Pending)->lockForUpdate()->first();
             if ($payment === null) {
                 throw new PaymentException('CASH_PAYMENT_NOT_FOUND');

@@ -1,0 +1,20 @@
+{
+  "live": [
+    "Live branches unavailable or empty; no live mutations performed"
+  ],
+  "fixtures": [
+    "Add sends UUID/quantity/grouped value UUIDs only; options replacement supports empty selection",
+    "Rapid quantity requests serialize; server quantity wins",
+    "Network failure preserves token/data and is not empty",
+    "Refresh server total and blocking issues respected",
+    "Login preserves guest token; logout restores guest context",
+    "404 token recovery creates once; no token parsing",
+    "Public route regression and guest admin guard smoke checked; live business data unavailable"
+  ],
+  "diagnostics": [],
+  "responsive": [
+    390,
+    768,
+    1440
+  ]
+}

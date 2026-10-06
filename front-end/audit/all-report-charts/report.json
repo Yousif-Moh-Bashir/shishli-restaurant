@@ -1,0 +1,201 @@
+{
+  "checks": [
+    {
+      "key": "sales/trend",
+      "width": 1440,
+      "metrics": 4
+    },
+    {
+      "key": "sales/trend",
+      "width": 768,
+      "metrics": 4
+    },
+    {
+      "key": "sales/trend",
+      "width": 390,
+      "metrics": 4
+    },
+    {
+      "key": "orders",
+      "width": 1440,
+      "metrics": 2
+    },
+    {
+      "key": "orders",
+      "width": 768,
+      "metrics": 2
+    },
+    {
+      "key": "orders",
+      "width": 390,
+      "metrics": 2
+    },
+    {
+      "key": "branches",
+      "width": 1440,
+      "metrics": 7
+    },
+    {
+      "key": "branches",
+      "width": 768,
+      "metrics": 7
+    },
+    {
+      "key": "branches",
+      "width": 390,
+      "metrics": 7
+    },
+    {
+      "key": "products",
+      "width": 1440,
+      "metrics": 5
+    },
+    {
+      "key": "products",
+      "width": 768,
+      "metrics": 5
+    },
+    {
+      "key": "products",
+      "width": 390,
+      "metrics": 5
+    },
+    {
+      "key": "categories",
+      "width": 1440,
+      "metrics": 5
+    },
+    {
+      "key": "categories",
+      "width": 768,
+      "metrics": 5
+    },
+    {
+      "key": "categories",
+      "width": 390,
+      "metrics": 5
+    },
+    {
+      "key": "payments",
+      "width": 1440,
+      "metrics": 3
+    },
+    {
+      "key": "payments",
+      "width": 768,
+      "metrics": 3
+    },
+    {
+      "key": "payments",
+      "width": 390,
+      "metrics": 3
+    },
+    {
+      "key": "promotions",
+      "width": 1440,
+      "metrics": 5
+    },
+    {
+      "key": "promotions",
+      "width": 768,
+      "metrics": 5
+    },
+    {
+      "key": "promotions",
+      "width": 390,
+      "metrics": 5
+    },
+    {
+      "key": "coupons",
+      "width": 1440,
+      "metrics": 3
+    },
+    {
+      "key": "coupons",
+      "width": 768,
+      "metrics": 3
+    },
+    {
+      "key": "coupons",
+      "width": 390,
+      "metrics": 3
+    },
+    {
+      "key": "customers",
+      "width": 1440,
+      "metrics": 3
+    },
+    {
+      "key": "customers",
+      "width": 768,
+      "metrics": 3
+    },
+    {
+      "key": "customers",
+      "width": 390,
+      "metrics": 3
+    },
+    {
+      "key": "delivery",
+      "width": 1440,
+      "metrics": 2
+    },
+    {
+      "key": "delivery",
+      "width": 768,
+      "metrics": 2
+    },
+    {
+      "key": "delivery",
+      "width": 390,
+      "metrics": 2
+    },
+    {
+      "key": "order-statuses",
+      "width": 1440,
+      "metrics": 1
+    },
+    {
+      "key": "order-statuses",
+      "width": 768,
+      "metrics": 1
+    },
+    {
+      "key": "order-statuses",
+      "width": 390,
+      "metrics": 1
+    },
+    {
+      "key": "cancellations",
+      "width": 1440,
+      "metrics": 2
+    },
+    {
+      "key": "cancellations",
+      "width": 768,
+      "metrics": 2
+    },
+    {
+      "key": "cancellations",
+      "width": 390,
+      "metrics": 2
+    },
+    {
+      "key": "inventory",
+      "width": 1440,
+      "metrics": 0
+    },
+    {
+      "key": "inventory",
+      "width": 768,
+      "metrics": 0
+    },
+    {
+      "key": "inventory",
+      "width": 390,
+      "metrics": 0
+    }
+  ],
+  "failures": [],
+  "diagnostics": []
+}

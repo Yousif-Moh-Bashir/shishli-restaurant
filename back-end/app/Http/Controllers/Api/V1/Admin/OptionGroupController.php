@@ -12,25 +12,21 @@ use App\Http\Requests\Api\V1\Admin\UpdateOptionGroupRequest;
 use App\Http\Resources\Api\V1\OptionGroupResource;
 use App\Http\Responses\ApiResponse;
 use App\Models\OptionGroup;
-use Illuminate\Database\Eloquent\Builder;
+use App\Services\Admin\AdminListQuery;
 use Illuminate\Http\JsonResponse;
 
 class OptionGroupController extends Controller
 {
-    public function index(ListOptionGroupsRequest $request): JsonResponse
+    public function index(ListOptionGroupsRequest $request, AdminListQuery $lists): JsonResponse
     {
         $filters = $request->validated();
         $query = OptionGroup::query();
-        if (isset($filters['search'])) {
-            $query->where(fn (Builder $query): Builder => $query->where('name', 'like', '%'.$filters['search'].'%')
-                ->orWhere('slug', 'like', '%'.$filters['search'].'%'));
-        }
-        foreach (['type', 'is_active'] as $field) {
+        foreach (['type'] as $field) {
             if (array_key_exists($field, $filters)) {
                 $query->where($field, $filters[$field]);
             }
         }
-        $groups = $query->orderBy('sort_order')->orderBy('name')->orderBy('id')
+        $groups = $lists->apply($query, $filters, ['name', 'slug'], ['name', 'sort_order', 'created_at'], 'sort_order')
             ->paginate((int) ($filters['per_page'] ?? 20))->appends($filters);
 
         return ApiResponse::paginated(OptionGroupResource::collection($groups));

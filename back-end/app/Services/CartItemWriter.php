@@ -15,13 +15,14 @@ class CartItemWriter
         private ProductAvailabilityService $availability,
         private OptionSelectionValidator $options,
         private PricingService $pricing,
+        private InventoryAvailabilityService $inventory,
     ) {}
 
     public function product(Cart $cart, string $uuid): array
     {
         $product = Product::where('uuid', $uuid)->with(['category', 'optionGroups.values'])->first();
         $assignment = $product === null ? null : BranchProduct::where('branch_id', $cart->branch_id)->where('product_id', $product->id)->first();
-        if ($product === null || ! $product->category?->is_active || ! $this->availability->isAvailable($product, $cart->branch, $assignment)) {
+        if ($product === null || ! $product->category?->is_active || ! $this->availability->isOperationallyAvailable($product, $cart->branch, $assignment)) {
             throw ValidationException::withMessages(['product_uuid' => 'المنتج غير متوفر حاليًا في هذا الفرع.']);
         }
 
@@ -37,6 +38,9 @@ class CartItemWriter
             $quantity += $target->quantity;
         }
         $price = $this->pricing->calculate($product, $cart->branch, $assignment, $values, $quantity);
+        $others = $cart->items()->where('product_id', $product->id)
+            ->whereNotIn('id', array_filter([$target?->id, $source?->id]))->sum('quantity');
+        $this->inventory->assertAvailable($cart->branch, $product, (int) $others + $quantity);
         if ($target === null && $source === null && $cart->items()->count() >= 100) {
             throw ValidationException::withMessages(['cart' => 'لا يمكن أن تتجاوز السلة 100 صنف مختلف.']);
         }

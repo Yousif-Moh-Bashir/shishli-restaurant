@@ -8,7 +8,7 @@ use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\CancelOrderRequest;
 use App\Http\Requests\Api\V1\OrderOperationRequest;
-use App\Http\Resources\Api\V1\OrderResource;
+use App\Http\Resources\Api\V1\AdminOrderResource as OrderResource;
 use App\Http\Responses\ApiResponse;
 use App\Models\Order;
 use App\Services\OrderOperationAuthorization;

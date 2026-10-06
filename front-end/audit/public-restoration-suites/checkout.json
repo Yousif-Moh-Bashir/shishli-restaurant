@@ -1,0 +1,38 @@
+{
+  "live": [
+    {
+      "endpoint": "GET /branches",
+      "status": 200
+    }
+  ],
+  "browser": [
+    "Guest pickup, double click, mutation lock, server order, cart conversion, guest header and success refresh without new cart",
+    "Guest delivery manual address, quote, final server fee, escaped notes and immutable product/option/address rendering",
+    "Authenticated saved-address delivery, Bearer and exact cart UUID, owned order list pagination and detail snapshots",
+    "Authenticated pickup and scheduled ISO8601 UTC payload",
+    "422 contact field errors, structured product unavailability, preserved cart, no fabricated success",
+    "Final delivery rejection after eligible quote, visible backend issue, preserved cart",
+    "Manual address field 422 and unavailable address/cart 404 have no success fallback",
+    "429 leaves cart intact, exposes centralized error and disables retries for server Retry-After",
+    "Price changes use final OrderResource total, no client money/status/identity snapshots submitted",
+    "Network loss after commit: authenticated same-cart retry returns original order",
+    "Guest uncertain checkout survives refresh without new cart; replay missing one-time secret shows explicit access limitation",
+    "UUID alone cannot open guest order; customer orders route requires verified session"
+  ],
+  "responsive": [
+    "Order success 390",
+    "Order success 768",
+    "Order success 1440",
+    "Customer orders 390",
+    "Customer orders 768",
+    "Customer orders 1440",
+    "Customer details 390",
+    "Customer details 768",
+    "Customer details 1440",
+    "Checkout 390",
+    "Checkout 768",
+    "Checkout 1440"
+  ],
+  "diagnostics": [],
+  "assetFailures": []
+}

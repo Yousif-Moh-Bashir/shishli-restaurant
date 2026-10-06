@@ -1,0 +1,1 @@
+<template><main id="main" class="container section-space"><h1>الصفحة غير موجودة</h1><p>تحقق من الرابط أو عد إلى الرئيسية.</p><RouterLink class="button button-primary" to="/">الرئيسية</RouterLink></main></template>

@@ -24,6 +24,7 @@ class StoreProductRequest extends FormRequest
             'base_price' => ['required', 'numeric', 'min:0', 'max:99999999.99', 'decimal:0,2'],
             'is_active' => ['sometimes', 'boolean'],
             'is_available' => ['sometimes', 'boolean'],
+            'tracks_inventory' => ['sometimes', 'boolean'],
             'is_featured' => ['sometimes', 'boolean'],
             'sort_order' => ['sometimes', 'integer', 'min:0', 'max:2147483647'],
             'preparation_time' => ['nullable', 'integer', 'min:0', 'max:1440'],

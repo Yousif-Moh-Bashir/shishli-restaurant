@@ -1,0 +1,2034 @@
+﻿[
+    {
+        "file":  "back-end/routes\\web.php",
+        "hash":  "248C7EEEB43BB61EE4FB6603E52B44843C64F72A841D671BCD41871AAB23F970"
+    },
+    {
+        "file":  "back-end/routes\\console.php",
+        "hash":  "9ADCCC33E7DD400683E434774077C7FDB2F299C5712CEDF16A43FDF56F2850FA"
+    },
+    {
+        "file":  "back-end/routes\\api.php",
+        "hash":  "A4537D1C98B8DB45BAF5D7C1E602EE78137198F2230643BD93AE79CE4402EF80"
+    },
+    {
+        "file":  "back-end/app\\Services\\CmsWriteService.php",
+        "hash":  "03B07E79E99515137418C1AF80C4E6BD4B4E14B30E06FD68B76249969029B608"
+    },
+    {
+        "file":  "back-end/app\\Services\\CmsSectionDefinition.php",
+        "hash":  "DE0C96F974F9F86FD799F01413594EE1F4FEDE28B07E70AAB2C40DE8281724CC"
+    },
+    {
+        "file":  "back-end/app\\Services\\CmsContentService.php",
+        "hash":  "259516306C3EA857B6554945A73A3DC7AB573718B9EAE7306CB5FC430E29F3AF"
+    },
+    {
+        "file":  "back-end/app\\Services\\CartStateService.php",
+        "hash":  "7278DAA5EB5B4AE136F774F6241716ECC0F7F073965C9341EFD453EE8D1D97B5"
+    },
+    {
+        "file":  "back-end/app\\Services\\CartResolver.php",
+        "hash":  "D0BDA4196481FE2725AB0A0BCAD47183D10D7E73E1EB57F3201E786A26802977"
+    },
+    {
+        "file":  "back-end/app\\Services\\CartMutation.php",
+        "hash":  "E0E16765A6F82A3AA5711811FEAE3C3BBBAAD66C5D3CA82F53CF48F9FD13DAC3"
+    },
+    {
+        "file":  "back-end/app\\Services\\CartItemWriter.php",
+        "hash":  "9EB55619F72D0601DC2F80A605F02A4D0415BC40BEEF47863BAD96F99338EFCD"
+    },
+    {
+        "file":  "back-end/app\\Services\\CartDiscountResult.php",
+        "hash":  "562109ABA589DFD46B9BDFFB03F652571A7FD49019CDD79244EFA280C9971A45"
+    },
+    {
+        "file":  "back-end/app\\Services\\BusinessHoursOverlapValidator.php",
+        "hash":  "C1D615A2927862D4B4FCC7BC90CB97D1C21419FFF3FF51029E38059BB92DF7FB"
+    },
+    {
+        "file":  "back-end/app\\Services\\BranchScheduleService.php",
+        "hash":  "92B1175368B5AECE842EE06A93D9397BE3ECBB7C088F3832C008A61C1634A076"
+    },
+    {
+        "file":  "back-end/app\\Services\\BranchAvailabilityService.php",
+        "hash":  "B541E7C3F7986D17B8DAC1334E4DDD87219440CCBDB9F490DE4CFDFBB0534FD3"
+    },
+    {
+        "file":  "back-end/app\\Services\\BranchAvailabilityData.php",
+        "hash":  "0F68B2CD348E5B6D6740A0E433D08CA729F204972223B2CC44E904D688C7D394"
+    },
+    {
+        "file":  "back-end/app\\Services\\StockQuantity.php",
+        "hash":  "C4CE7089ACFF2FDE76696D5F18DE5FF395A5A05E8F1B2BE047697CCFFE719932"
+    },
+    {
+        "file":  "back-end/app\\Services\\RestaurantSettingsService.php",
+        "hash":  "F9D2608FFA6CEE28BB1D7BAD368D9644360CBC6E6AF6D961C6FC3E72B5065E06"
+    },
+    {
+        "file":  "back-end/app\\Services\\RestaurantSettingDefinition.php",
+        "hash":  "BA5BC08B381B6FE983639926F4A4228BBF356673576CA0C9986A32B4F73ECD0B"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\SalesReportService.php",
+        "hash":  "B1BD58188A431F6C7BA93B4F24AED4CE8A3D5072B1FDEC78972D38731DB0C314"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\ReportService.php",
+        "hash":  "B53C4C2EF09A7937B521CF273BCAFFE2AEBD69B89B403A109A3B473CCCAA5099"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\ReportQuery.php",
+        "hash":  "33C883EB747FE28E284A418EF71B323EC9E9EDA020160DA2FF8209356FEAF5E1"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\ReportMath.php",
+        "hash":  "5DEB5D419F31D4E4E266B60D70AE24C60291D1A83397764971C637E508022E85"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\ReportFilterData.php",
+        "hash":  "7CC06D33DEC1B0A76B817B8A5AF58178E0C497DD4054C7B97550331146491635"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\PaymentReportService.php",
+        "hash":  "7EF0F172C136A7672BE8E680464C31A9C3E9235BA3A5E622292AB58AB1F9C60D"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\OperationsReportService.php",
+        "hash":  "9E3D7E335B62F38E4F7A2C3CE56CC1EFC220C3C5238F022453942523F07B0C97"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\InventoryReportService.php",
+        "hash":  "DB432B8DF28B6245EBFADAA3522CC99C14E8E4B0E85950BB40B20BB83A6B5B07"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\DashboardService.php",
+        "hash":  "C8F13B2064EA681BE8E39DF32648C191451E616F61EA71A799FC4ADA6ACE9CEC"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\CsvReportExporter.php",
+        "hash":  "5458A4ABBCB0A768017706BD29ECD02FE6A2C0E8DA89D312F0DFE360034BFB87"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\CatalogReportService.php",
+        "hash":  "D382582EE09CD2B35A744F4E5058F11868BF5252D206818FA474AD76B7046531"
+    },
+    {
+        "file":  "back-end/app\\Services\\Reports\\AudienceReportService.php",
+        "hash":  "679883A170141C4BCEDDE33B8841463F538FB317DC1CFAC0199F0B8993F379C5"
+    },
+    {
+        "file":  "back-end/app\\Services\\PromotionResult.php",
+        "hash":  "F75AF8BE33F925422027A621779CDB1062C4A0F153D9B6457B26235BEF6C491F"
+    },
+    {
+        "file":  "back-end/app\\Services\\PromotionEngine.php",
+        "hash":  "C72A120D3E5C4179D34D7764CF39DEBC79C74B0881C41E4F5DD6D1340B80A29B"
+    },
+    {
+        "file":  "back-end/app\\Services\\PromotionEligibilityService.php",
+        "hash":  "7E0222AEDB5B4205D970441A48F11BA12AE8BF137770AE2DB7EB38A20EF3E51C"
+    },
+    {
+        "file":  "back-end/app\\Services\\PromotionConfigurationValidator.php",
+        "hash":  "1C8095819B0D7D85DB8ECEFE172F1457FB90CC02A84CB582530E1025F0CD1A91"
+    },
+    {
+        "file":  "back-end/app\\Services\\ProductPriceResult.php",
+        "hash":  "A7D7ADD146E5CB10AB9646CFACC65DE8E20B6B5AE8DC80D88F4862A2B5096712"
+    },
+    {
+        "file":  "back-end/app\\Services\\ProductAvailabilityService.php",
+        "hash":  "877057788BE82FA8A29531309376416745CDB0A82918218CAF10B9A3F1688057"
+    },
+    {
+        "file":  "back-end/app\\Services\\PricingService.php",
+        "hash":  "E68515B5017B3F2C4FCAE21306DE79823CC05F8A0E841B4BC56D888021292ACE"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\StaffService.php",
+        "hash":  "910AE43B512B63A0E0DCCF73C918063A651618DE468A23C9574CF3C9F4AFF697"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\RolePermissionService.php",
+        "hash":  "CED2B005BD3AB1465E69D553CDAFB7CF880A788A953C4C30D2BCB7B74493B08F"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\CategoryTreeService.php",
+        "hash":  "C5E34D99DD7232293D3AF31CE9CEF1C464D393F087365EC485783BF75D2D799D"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\AdminProductFilters.php",
+        "hash":  "30D4B162C5632A5B92B5BF6FD01060D6BB39B169C6AAF21C6C83CB53FD29A2AA"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\AdminOrderQuery.php",
+        "hash":  "2A8957575A9897CF5B917090D9B3F2EEE125069DFF61C46066CF124992DC32D7"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\AdminOrderFilters.php",
+        "hash":  "AB18090AFD6DEBCDC523FBD648304FA2031617DC7B72FF8A8C04B00C6B293DC6"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\AdminOrderActions.php",
+        "hash":  "085F17504426605360439E5FF5A64769E693D8F87F622D0B4A934D3F01BF1265"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\AdminNavigationService.php",
+        "hash":  "E8690EE4B82151391703DD9F8BA6088BF9150FC4227B1B78E7C5A08D158BDF94"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\AdminListQuery.php",
+        "hash":  "444BB1B9C89BA8F0820696930BB9577646F3447FA6E1783C3AA3F5093E56B842"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\AdminCustomerFilters.php",
+        "hash":  "B7669895A55DB1DD02D84744F8503807803E608E309B08D642CB25D9148AB753"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\AdminBootstrapService.php",
+        "hash":  "DE977BB910B1B6623223E182E1B5DD1FF892E1F2F1ECB97D2ADAE4D871430109"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\AdminActivityService.php",
+        "hash":  "9297B06A327409CC788C76F35EB231FCC2EED2F1DD20AB0BE08D17ED7275BF5F"
+    },
+    {
+        "file":  "back-end/app\\Services\\Admin\\AdminAccessService.php",
+        "hash":  "66E7709C53041476E145F54E18496AEED3215FBA020C75294C60E8C26F531BE8"
+    },
+    {
+        "file":  "back-end/app\\Services\\AddressNormalizer.php",
+        "hash":  "4BCC3DD4D60C410725798485CF34CD35119B1F19547CF13F1C3F7F6368EE9CB0"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Settings\\UpdateRestaurantSettingsAction.php",
+        "hash":  "16A18C09C3C88BA8AC1E6BDDBE44C01F0CEFACE89146EB34F1BED127BD5B8BB5"
+    },
+    {
+        "file":  "back-end/app\\Services\\Payments\\PaymentStatusWriter.php",
+        "hash":  "5AE44C5325CCD508F1398E96D2B049340B1C163E19A74CDCA6828EFEDBD3B753"
+    },
+    {
+        "file":  "back-end/app\\Services\\Payments\\PaymentStateMachine.php",
+        "hash":  "E774F9D230E791C467B42DA51ACA278B5BB70F3C4FECECC5699299A600F2614C"
+    },
+    {
+        "file":  "back-end/app\\Services\\Payments\\PaymentProviderManager.php",
+        "hash":  "45AB7E55C6A2799BF4AB1B36968315FEC120ABDDD25207F9C3231BF504F8F46B"
+    },
+    {
+        "file":  "back-end/app\\Services\\Payments\\PaymentPresentation.php",
+        "hash":  "BF1639E8461D726A209E79F6F1E975311CA3AEEB843BA35F709EDB217FC78BE9"
+    },
+    {
+        "file":  "back-end/app\\Services\\Payments\\OrderPaymentPolicy.php",
+        "hash":  "FF02B1B782644C28290DBFDA2ECBBF5AD346A20BECE9A20E06D72C4BE2F0C993"
+    },
+    {
+        "file":  "back-end/app\\Services\\OrderTrackingService.php",
+        "hash":  "EF06E764D2DE89013DFD402749FE46CE1675298FFB36C60860558E7BE136389D"
+    },
+    {
+        "file":  "back-end/app\\Services\\OrderTrackingData.php",
+        "hash":  "A3EB1D8CE52CC97C00C6080AA429A9EFF71D69EBBEBEAC5D572D4A0953447E7A"
+    },
+    {
+        "file":  "back-end/app\\Services\\OrderTrackingAccessService.php",
+        "hash":  "47B181CB0CB353DA8DF6B5BC4503086561DA21EEEA4005C467B2D3D67804F4FC"
+    },
+    {
+        "file":  "back-end/app\\Services\\OrderTimingService.php",
+        "hash":  "551659308A9F0AC19B3320EB59AE1ACFD8236B85C3F49C3AC00D0EA65841FE4A"
+    },
+    {
+        "file":  "back-end/app\\Services\\OrderStatusPresenter.php",
+        "hash":  "D831A046AF89F3CBD838587713043DBD0AB72597A6B90722A48C3D16CDCA4A1E"
+    },
+    {
+        "file":  "back-end/app\\Services\\OrderStateMachine.php",
+        "hash":  "64A8550D3F9DDD2C1DD918DDA178E989738AFF7CEB2CA29F046492198D1D8684"
+    },
+    {
+        "file":  "back-end/app\\Services\\OrderOperationAuthorization.php",
+        "hash":  "7F80A7820C2E2D1815ECDFA656A770788DBA947748FC199F98194A18FF79CE65"
+    },
+    {
+        "file":  "back-end/app\\Services\\OrderNumberGenerator.php",
+        "hash":  "275914979ACD0EC3FC5723059BEF92A1D9353F234217A948A85D14D2E8A6B433"
+    },
+    {
+        "file":  "back-end/app\\Services\\OrderEstimateService.php",
+        "hash":  "443F04D9D044FA9B10080ADBD20CC4AD95E3BE7E208DB9D7F2CD43A5D4EC8082"
+    },
+    {
+        "file":  "back-end/app\\Services\\OptionSelectionValidator.php",
+        "hash":  "E96FA0A65BF2DD0E57E9FF634A5A67296D0803C1E39B665FE7AADE41634921D3"
+    },
+    {
+        "file":  "back-end/app\\Services\\OptionSelectionException.php",
+        "hash":  "528DEECD8D4C77A6CF0937E41628FADFBDE7BB298992D2076F98F505644DCC7E"
+    },
+    {
+        "file":  "back-end/app\\Services\\OptionConfiguration.php",
+        "hash":  "9346BCB63D60DCB140A7B18E76D452816416BF7E1EBE049400D49417ED3EF635"
+    },
+    {
+        "file":  "back-end/app\\Console\\Commands\\NormalizeOrderPhones.php",
+        "hash":  "287B6B028C3A9CBD259A8EC6EA789F5A31F656BCDCB0E479CE23D86190ADD1DA"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Promotions\\UpdatePromotionAction.php",
+        "hash":  "D307A153364DE01E53546DEBE63AB1D9726A9710F3D738692CDBF1E54D467E5B"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Promotions\\SaveCouponAction.php",
+        "hash":  "B143BAC6BD69BDD66B4A722990D018E76E2407FAA4F7C53AB09B5CE593E9DBAF"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Promotions\\DeletePromotionAction.php",
+        "hash":  "2B39130B0EBE2551B8570B945053F8A3F571BAC266C5AC56A78D745110333C54"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Promotions\\CreatePromotionAction.php",
+        "hash":  "E97302B4553B8AEC8769FCAB2105C76976778C0E8609378C4784B2D4313798F3"
+    },
+    {
+        "file":  "back-end/app\\Rules\\SafeContentUrl.php",
+        "hash":  "06A545310450265811CA64B834805BF08A55F5C895FFD1BDFC94F97D2248D97B"
+    },
+    {
+        "file":  "back-end/app\\Rules\\PlainText.php",
+        "hash":  "26404390F8A98A1E27219A2DA4D2CCA0DA8DA1129549AB19EB8895C002528749"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\WhatsAppMessageData.php",
+        "hash":  "C1B954D2A5D519C134FC6D88C208E7EDA82F6EEB7B34D7BD35804A92278F298E"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\SmsMessageData.php",
+        "hash":  "D7462B72B7F748864BC0933D76FD1FD6EEAFEF98FEB708300B1AC9F794719658"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\RenderedNotification.php",
+        "hash":  "00DB0218E18045D17FF2B1CF4D5B23F586AC99311D9FB330724B09466B1F6F79"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\PhoneNormalizer.php",
+        "hash":  "E3910E0F00DDFB75B5266F83966482AFED6682BF39EDFA468508B6AEC8AA98F0"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\NotificationTemplateRenderer.php",
+        "hash":  "7DAFF99EDF8B008F9D8A3FE2DD94E6DC2F0B024E30248CFF17B92C2B3D71FB74"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\NotificationService.php",
+        "hash":  "751142F0F580DEF39BBBBBF7148B852282AF692C42B5FF82F7FE10E10A15093C"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\NotificationRecipientResolver.php",
+        "hash":  "0B7CA2129533142F872373CF914AC25321AFADF8B0F2D8B27E51FDDB859A1BF7"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\NotificationProviderResult.php",
+        "hash":  "4106CF3E3736D515E2446146F4164705DFD97B46985346A27257F3857E74F453"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\NotificationProviderManager.php",
+        "hash":  "F7ED72AF7F68CCC509F4D8936C640A18404739B347AEEEFBB97F76F9843A9BC1"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\NotificationLogSanitizer.php",
+        "hash":  "E727C72E3A535A7F83B9636840011196C4DAA83F5EE7E7E193EF6AA40424A0A7"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\NotificationDispatcher.php",
+        "hash":  "90F99E2921268935A5ACB8CA58C582EC58CFEA5CEE32ECA02289A3FC4515C091"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\NotificationContext.php",
+        "hash":  "EA69E1BB604CA94CEB16103399E77553D91E31E9D66A088702A53133ADA7932E"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\NotificationChannelResolver.php",
+        "hash":  "E14BF6F8366C3744FEA60056A4744B04FD6883C54EAE652BCB034B9E2387F655"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\LaravelEmailProvider.php",
+        "hash":  "F7B918ADB82B8C2FCBF3C68A24052688FF7A5F8A51BB53562C331A083A3F463D"
+    },
+    {
+        "file":  "back-end/app\\Services\\Notifications\\EmailMessageData.php",
+        "hash":  "C69A53345991228C165C38D9A2EE670A0532A3F4BC75F2DAC9FAE3FB2E0DA4C4"
+    },
+    {
+        "file":  "back-end/app\\Services\\Money.php",
+        "hash":  "F63F8E91394004C08893A2216672A80AAF32C0A955CF9F76A9B97C79A3196911"
+    },
+    {
+        "file":  "back-end/app\\Services\\MenuService.php",
+        "hash":  "840030FCA09E7DEA2EB673C13C1B1BC653A798514DF947C4B938EA3948695315"
+    },
+    {
+        "file":  "back-end/app\\Services\\MediaService.php",
+        "hash":  "20CBE801AE2ADDFC222186D5123CA10A1144FAFE6524EB7AD900C0C230C93527"
+    },
+    {
+        "file":  "back-end/app\\Services\\InventoryService.php",
+        "hash":  "173BDA94C75A9898F74DCC9C7DE029B6D4B2665D7347450ABD3F235D325CF127"
+    },
+    {
+        "file":  "back-end/app\\Providers\\AppServiceProvider.php",
+        "hash":  "9CB85E849690752C7152D153AAD372CC07BD6998736E15336DCC29F658F3E455"
+    },
+    {
+        "file":  "back-end/app\\Services\\InventoryQueryService.php",
+        "hash":  "0BFE91CE450D55FDFAFF06DA5AF0C7D79E0421D0568AFD9EBAE31C283DED382F"
+    },
+    {
+        "file":  "back-end/app\\Services\\InventoryAvailabilityService.php",
+        "hash":  "CE9EAEC928DA66684D5CA50DC15D9BDC0AB4B2B199DA14723E78C0113502189E"
+    },
+    {
+        "file":  "back-end/app\\Services\\HomePageService.php",
+        "hash":  "BCF829CCDE38B45144D9A5A032F7557DC7DC839F2D323269F9D7CE8E911AE390"
+    },
+    {
+        "file":  "back-end/app\\Services\\GuestOrderAccess.php",
+        "hash":  "E927DB3C13E5BE622F5F838F745BD5188E200BB39DDB294AA3899C141F8C9014"
+    },
+    {
+        "file":  "back-end/app\\Services\\GeoService.php",
+        "hash":  "DA7C3666F29FDC16307C6B2841A5549BF7E8DD95298B556D02024EDB03CF12B2"
+    },
+    {
+        "file":  "back-end/app\\Services\\DiscountResult.php",
+        "hash":  "881534E679D3FBA60970C09134179B9BCB6453D8B014C6064F38AEF2235D04F3"
+    },
+    {
+        "file":  "back-end/app\\Services\\DiscountCalculator.php",
+        "hash":  "82887B4A37E36DED8F5973B5CD8B27AFA5D10EF108FFA9D9CBC169142E18560C"
+    },
+    {
+        "file":  "back-end/app\\Services\\DiscountAllocationService.php",
+        "hash":  "920906149EB781949A40789BFB162C9B2ED715DDA66164E280EEC89ECCB071F6"
+    },
+    {
+        "file":  "back-end/app\\Services\\DeliveryZoneWriter.php",
+        "hash":  "83C35C34DA75E065AD11A956A4782C1D75659BC19EAD6117E31E93771262C6E2"
+    },
+    {
+        "file":  "back-end/app\\Services\\DeliveryService.php",
+        "hash":  "C971D858A88259D6A8E4D89E31AFF5071C0A8E5A7BE196F2E4501BEF7661BFAD"
+    },
+    {
+        "file":  "back-end/app\\Services\\DeliveryQuote.php",
+        "hash":  "927F48995CDC49A34ECD0C985403276B8780D5FBAE6D85BA5AA943FDFD36BEAA"
+    },
+    {
+        "file":  "back-end/app\\Services\\DeliveryAddressData.php",
+        "hash":  "02B19C199DAF53E868C4EAA099300AB4A149CB1B99457942484E5334A0269624"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Inventory\\ReturnOrderStockAction.php",
+        "hash":  "A84E41E686949C9639729679C94DEE2F37187C1DE182A35FBBF3776FA5EE74AB"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Inventory\\ReserveOrderStockAction.php",
+        "hash":  "D39A0873817E8DBDF2EFE08286BDFBDE25DD26BA2E07328FB4752E14DC682E81"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Inventory\\ReleaseOrderStockAction.php",
+        "hash":  "E86DB435593C9E51011E799C3C499FB980B970F90C4A77A1F061E88C1C2A75FB"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Inventory\\ReceiveStockAction.php",
+        "hash":  "85AF788691BA4EF0FF86C330D3060F7435C4DC02AEA3072F93D258A02242E4C7"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Inventory\\InitializeInventoryAction.php",
+        "hash":  "C71B8BC2F7CCCC6D1361285C5DD3FE2C947AD551E4F96CB1B5CEB681E793BC62"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Inventory\\ConsumeOrderStockAction.php",
+        "hash":  "DD4726DDEA1B11415FCF1C685159CEE7B14C5315221A6C542B2AEBC289D8F01C"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Inventory\\ConfigureInventoryAction.php",
+        "hash":  "2B0FBE46AEEAC6CCFEC3193DD4D8BEF813C5A581B3214249D0D6398B58DCF227"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Inventory\\AdjustStockAction.php",
+        "hash":  "1F444CC9A792BD316875328170840A78BF5D60CCD8480487D0BEA1A45DAFAE16"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Products\\UploadProductImagesAction.php",
+        "hash":  "B2BE17C12CD7A06504F4427A6BCBBBA608793337C5D5F9885CC1801088875349"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Products\\UpdateProductAction.php",
+        "hash":  "AFF4A230CE221DAA3173A8BA74B3387CA2F3E72435B5F6DEB279B5107C4061C4"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Products\\SetPrimaryProductImageAction.php",
+        "hash":  "C788B0C633BC02A7224B245D4F9A9908D7D92591D93EC7A26D021E73447B0823"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Products\\ReorderProductImagesAction.php",
+        "hash":  "405AF83F1A83E4AF45D92BB3905F55ED178783CD3D3C7279AB082C34F69DCEE2"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Products\\ListProductsAction.php",
+        "hash":  "9E5CE6B7416AF9902BAB58A06F44911A073C5A241142B9C686C4FDDF57EFC7F7"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Products\\ListAdminProductsAction.php",
+        "hash":  "ADCB776BD8D6E8545DBDFEAFCEAB1FED0F5258A0CF4E1741E51347F5C5D7C78B"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Products\\DeleteProductImageAction.php",
+        "hash":  "BFCDC7D004EC5CF84335452393DA18E174984206DA62690D1F56DD3F7EA8B497"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Products\\CreateProductAction.php",
+        "hash":  "EF5E3F97C86EB32C9374E4D574F585115D9671CD7BBFB571271AAE3AF7189C09"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Products\\BulkProductUpdateAction.php",
+        "hash":  "3180611D8DD2C92B496DE5E9D0858640DDF0F861D1B1351D67C03F88D304F40C"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Products\\ApplyProductFilters.php",
+        "hash":  "B6A4D7F92EC5123DA4D8D396F8574B8BA106BCE9A6AF18A9FA0CFA1B8700A023"
+    },
+    {
+        "file":  "back-end/app\\Services\\Customers\\GuestCustomerQuery.php",
+        "hash":  "4CF3BE30B8DDB2DFA26AD4E549CF6A0327ADF0CF9FAEC5E05DFE931417D9CBD2"
+    },
+    {
+        "file":  "back-end/app\\Services\\Customers\\CustomerStatisticsService.php",
+        "hash":  "5A2D68DA31A3CD52F55BD005077274ABFFBD661F181F7580C4D8F27B790076FD"
+    },
+    {
+        "file":  "back-end/app\\Services\\Customers\\CustomerStatisticsData.php",
+        "hash":  "7EC436F8848EDBACED2D0DD7ACFB85CC062A27D8CF96C8D8806070EB7139F7AC"
+    },
+    {
+        "file":  "back-end/app\\Services\\Customers\\CustomerOrderQuery.php",
+        "hash":  "CAB908FBACF5E08E89690607EA1C947A9B01CD999032FBC91EEFAAC5FC831EF8"
+    },
+    {
+        "file":  "back-end/app\\Services\\Customers\\CustomerLookupService.php",
+        "hash":  "959D15CFB35B1277AF4A73C7DCF6F619F3E8DA7667D1699FC14DC5446B2573C0"
+    },
+    {
+        "file":  "back-end/app\\Services\\CustomerAddressWriter.php",
+        "hash":  "41181B102D7F5E96465B0C802292D66CAB3C9307C282926B30444162315D25AA"
+    },
+    {
+        "file":  "back-end/app\\Services\\CreatedCartResult.php",
+        "hash":  "6386E9F55C095E8EB93974FA2455FD9F36C4A6D1F4D300A616041F857DE4A8D0"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Delivery\\UpdateDeliveryZoneAction.php",
+        "hash":  "7D0CC3EF45527CC10EAF373F6A9B03F565A35BF932DB1C5A16F1F7092074D994"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Delivery\\DeleteDeliveryZoneAction.php",
+        "hash":  "592ECDD324031D19595EA41B089CD8F81016797365ECEB738A2D266C17228F11"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Delivery\\CreateDeliveryZoneAction.php",
+        "hash":  "1ED3DCB5829B8BF9BD432DB988041A31E2C76A1E70233D3578151ED2337F15C7"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Payments\\SyncOrderPaymentStatusAction.php",
+        "hash":  "BACF93002CBE2979D5B5C3A518D166A2FA88090C90E3B0E9D881F46D9AA8BBD1"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Payments\\InitiatePaymentAction.php",
+        "hash":  "43AEEB9EABC93437FBF99E0512E818B45CB3EA855DBF47F0A95F965B5D64153E"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Payments\\HandlePaymentWebhookAction.php",
+        "hash":  "2E2158BE855106D97BCD3A49C989DCB53DD4AF8C3517216DD1A005CC3277202E"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Payments\\CollectCashPaymentAction.php",
+        "hash":  "66D71FDB07243B5FBB1DC65415F9E40E5F9834693C485F1D9497622780B0C360"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Branches\\UpdateBranchProductAction.php",
+        "hash":  "71DE6F606345E1623D8411F5BC2C5950E5CD779D343DD5724E93D414A2E37B34"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Branches\\ReplaceBusinessHoursAction.php",
+        "hash":  "EE33847962518833812A0DF5B3048D0421AB69F1039B7F7DD54B4E2493F1CD74"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Branches\\ManageBranchClosureAction.php",
+        "hash":  "F63AEBF3CABEB7C3F8E7AB77D38BCA4364EF97C40269D3E0C1F110CC103E3A5C"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Branches\\ListBranchProductsAction.php",
+        "hash":  "9818A25164A7AEA40B99C0C6FCDCAD5AB103184E34C22E031F0BDBB9AC3BF09C"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Branches\\DetachBranchProductAction.php",
+        "hash":  "368A717F99D3EFC25724D10569BFB2B5FD464C4AB1379D7227E322547A8E5013"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Branches\\BulkUpsertBranchProductsAction.php",
+        "hash":  "610ECA0FC860E1B5A9D8735D85E623DF471D755F9A91D5E91E5BE8FED00419AC"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Branches\\AttachBranchProductAction.php",
+        "hash":  "30941E672E56C2D7B769D6BC17789D87FA2219E77C9F97C20818BDB74BEBA69E"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Customers\\UpdateCustomerProfileAction.php",
+        "hash":  "E4ECCA686A13B4AFC4B32C4DDB5BF12BE2473A8B8EA61BF2013A74A54D80E3CF"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Customers\\DeactivateCustomerAction.php",
+        "hash":  "8DFAF0A8AB815B578CAAC4D2353AD023FE923D665BA5E1D70CD0F943EBFAD0CA"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Customers\\ClaimGuestOrdersAction.php",
+        "hash":  "E6F91CC95F222E9C0C13D7420C0616653154AC1AF0010BF90DC20D0CBAE0FAA6"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Customers\\ActivateCustomerAction.php",
+        "hash":  "E7CDC90F983D2C06AD2B1606D4513D337750CAF1AC3E8A33C43C989C684C6459"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Orders\\TransitionOrderStatusAction.php",
+        "hash":  "2BA121541E8C09A48B5E75EA72ACFF3081F1F5AE74D5BD7FEDDB016947A527BF"
+    },
+    {
+        "file":  "front-end/src/stores\\publicSettings.js",
+        "hash":  "D6FE649AAD9407E99A8ED285D5D1B34E8CDD155423D9FCB77D15CEC18405394F"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Orders\\PlaceOrderAction.php",
+        "hash":  "4E48B86DBC58BA6EAE7425BA954C86DE0A7DF7FC6F714FA5031E024753D4C542"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Orders\\CancelOrderAction.php",
+        "hash":  "29E544827FA15A2CE51D72BF9045827BA684084D84925C6EAE0E8546923E28E6"
+    },
+    {
+        "file":  "front-end/src/stores\\operations.js",
+        "hash":  "848C7815D03F1F1A457FF95240129659B28F284B51498D55F0BB9B4D53CFB621"
+    },
+    {
+        "file":  "front-end/src/stores\\cart.js",
+        "hash":  "D14EAD85CDD962A9BC444774D9DB2938A177CD2DE78A53B19C6B249BBF13E810"
+    },
+    {
+        "file":  "front-end/src/stores\\branch.js",
+        "hash":  "C72A2F84056CF11BDBDC330CB1E8FED80DE0C305CEAA2E6FAB1A686668EEEAE0"
+    },
+    {
+        "file":  "front-end/src/stores\\auth.js",
+        "hash":  "7A26EFEB106EA9B225BF3FBE9B545A10AEE49973C374E60541B9BA72E829DAE0"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Auth\\RegisterUserAction.php",
+        "hash":  "6ACB183147B220D38D81871F9D120759321FC148CBF03C07813CA10CE9165AC0"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Auth\\LogoutUserAction.php",
+        "hash":  "1CCC73C1B0382EA984863495494BEE62BEE47404D30DE36361F0F7BA2A001D5A"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Auth\\LoginUserAction.php",
+        "hash":  "42EC1AD4C11C67D46293F6A85D4CF2E7BFCD03CC5F2C66E4C62633939B014008"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Categories\\UpdateCategoryAction.php",
+        "hash":  "BCA4E5EBBA3A2730E114468299DF1A82097BE8D78167F96A6D24383EF974DB24"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Categories\\DeleteCategoryAction.php",
+        "hash":  "058034F6DD3B4C9A03E4CD9E5C6E8414C178A7C12D94604972E0C991DD143E50"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Categories\\CreateCategoryAction.php",
+        "hash":  "F7491F214F5857C5C45A64052E47017D755939E9D31A872648498C029E9B1957"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Addresses\\UpdateCustomerAddressAction.php",
+        "hash":  "9117C7E17CAF047D436CC7119924F08DF45DCB5517773062F1E72107AC6D131C"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Addresses\\SetDefaultCustomerAddressAction.php",
+        "hash":  "2D2D3E8BF8B63B66D7E9FE72A148AD98E7B16F378894A723C7D7D5457AA3D497"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Addresses\\DeleteCustomerAddressAction.php",
+        "hash":  "D6D6A6DD99553348F6AD32F315F53E34339B5EB56C5AC11F9BCE4CFC5D32198F"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Addresses\\CreateCustomerAddressAction.php",
+        "hash":  "ECEDAAA49A5B1655669FC81D30F46A960654BDDB5F969A7DDDBA6BADA1CC9723"
+    },
+    {
+        "file":  "front-end/src/api\\checkout.api.js",
+        "hash":  "F9D41746C1CD274DBE6970D9D315DF91935E7A9DD228E425DC5419012907E43C"
+    },
+    {
+        "file":  "front-end/src/api\\categories.api.js",
+        "hash":  "900EB6D9F452282488B9B951554972CB93B18786683C4632363F6ECE56025846"
+    },
+    {
+        "file":  "front-end/src/api\\catalogTransport.js",
+        "hash":  "1356C2C763FFE289958501093795CC5EEB97CD3595FC8DC1E9D055C732B4F5D6"
+    },
+    {
+        "file":  "front-end/src/api\\cart.api.js",
+        "hash":  "AAF9FA85C63BF0C02D5157CFC7E10E157DF0A84E38BF88408A2380958CB29A1A"
+    },
+    {
+        "file":  "front-end/src/api\\businessHours.api.js",
+        "hash":  "DE52686671A4B64954A5E1028BD8424AA5F4107C9CC501567F0138107957FF87"
+    },
+    {
+        "file":  "front-end/src/api\\branches.api.js",
+        "hash":  "345A51228E811102EE8115F4843A21E024974030782A33417321DDF7B9E0DE5D"
+    },
+    {
+        "file":  "front-end/src/api\\auth.api.js",
+        "hash":  "61917ACEFF28D6132F006BAC4A9EE78FFCA97F91DC688FD6480C3C3BFB8DBF3C"
+    },
+    {
+        "file":  "front-end/src/api\\adminOperations.api.js",
+        "hash":  "97C7BB381F362A6E6CAD64C022D5EB2510B57D0645A88062F0B25DCC0417B825"
+    },
+    {
+        "file":  "front-end/src/api\\addresses.api.js",
+        "hash":  "9500CE0D05683E8F3E4AD6BFE2D0EDF9D2FB20EB7D1EA5D4E437372636CD4685"
+    },
+    {
+        "file":  "front-end/src/api\\http.js",
+        "hash":  "AB0871804C5FC3E8FAAAD13F0CD6B24E02BCD721362314A6C5C743E204B56E66"
+    },
+    {
+        "file":  "front-end/src/api\\delivery.api.js",
+        "hash":  "B5D508A85606A1D283FEDCBA77B604CD8D12667FDD0990913C3A3561FED75496"
+    },
+    {
+        "file":  "front-end/src/api\\dashboard.api.js",
+        "hash":  "B727A28651C4551930582F44BC5DE3F652FC2AF6CC4AD3F2532579448F7EB30C"
+    },
+    {
+        "file":  "front-end/src/api\\customers.api.js",
+        "hash":  "4EB57936991FE2D40CB9D6EB275EA5A91D410FEB657F5B3590261B62068EA072"
+    },
+    {
+        "file":  "front-end/src/api\\cms.api.js",
+        "hash":  "A011EBCEA9D1494CC87A5D8C08DC4214962351B7963C225E249EFA805FFE3B0E"
+    },
+    {
+        "file":  "front-end/src/api\\notifications.api.js",
+        "hash":  "C6933D279989347C6EC73AE54831E09412E7615DA1E61F43EB20855BAE77709B"
+    },
+    {
+        "file":  "front-end/src/api\\inventory.api.js",
+        "hash":  "BC45824E8A96AFA66F4A9690446E33C83E6879ACB04727579ED0F62A5280F3B6"
+    },
+    {
+        "file":  "front-end/src/api\\operations.api.js",
+        "hash":  "C607B7D4ECAE19137C0074FA17FAD9946DCDB9FE00387482B65C70B2AAC64563"
+    },
+    {
+        "file":  "front-end/src/api\\payments.api.js",
+        "hash":  "D99AF8970434C7916E524825CC4D3F9A707A1E28EB11F7B5B655B7CCE02BF708"
+    },
+    {
+        "file":  "front-end/src/api\\orders.api.js",
+        "hash":  "CB9F6C7B70A2650C82D6CA3412C2F5AA48F73207C1E396B7D277C961D8C8E0BE"
+    },
+    {
+        "file":  "front-end/src/api\\productOptions.api.js",
+        "hash":  "EED9C9266967EAF067AC06EC22B6974BDCCB1356581E10452D0F6EB884F775C7"
+    },
+    {
+        "file":  "front-end/src/api\\productImages.api.js",
+        "hash":  "6AD9D56E02D89D1A731473E9C13F8F87256F94B3394CE89B4C52163D90958A79"
+    },
+    {
+        "file":  "front-end/src/api\\products.api.js",
+        "hash":  "D11C854945EC2C7E8659EE9F957F40311F40D4492941CF02925B25D387BB92C1"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Cart\\ChangeCartBranchAction.php",
+        "hash":  "8D9E717808C3B405DF1DE9988D2F04119E49C4ECB482711623DCC1F535631898"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Cart\\ApplyCouponAction.php",
+        "hash":  "5961C9E166633607BBC7735CE76123A5CE3D1C5D7238E22125559D7A53269E89"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Cart\\AddCartItemAction.php",
+        "hash":  "41271FCE0FB54CD5EFB3AC875A39EF2A64D3CBCD07B115D8F1C696833FD2DFF8"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Cart\\CreateCartAction.php",
+        "hash":  "351962D87D51DB4C34D7D788D45B53467D584F658360F3B8113BD7FCD9CDE104"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Cart\\ClearCartAction.php",
+        "hash":  "85A09DB73C842F871941895DB5D4BF71C0EE75618216786C371491AB7E05AA8D"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Cart\\RecalculateCartTotalsAction.php",
+        "hash":  "F89F929CD74A7A637DB9671F72A2E703C86186F9C410C2378A34431A349D9C55"
+    },
+    {
+        "file":  "back-end/app\\Events\\StockRecovered.php",
+        "hash":  "3F343D09AD14D72434F55332DBE7CC44C0A2CFC291BCDA62B61C8B23FC8C85C0"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Cart\\RemoveCartItemAction.php",
+        "hash":  "5DB528C841481990813C4E66A169FCD7BB7EF9D28FDE9C10AF5F2DAFB1B60815"
+    },
+    {
+        "file":  "back-end/app\\Events\\StockLevelChanged.php",
+        "hash":  "C6BAB61F7A336E088A7A049550FE14D9B4A58F20A244EA2319ADE45247C1F7C3"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Options\\CreateOptionGroupAction.php",
+        "hash":  "74BAD51CF77BB5B6EB47ED3F9F44BCFD3235EDD4339D7930A8F52AFF98369B3A"
+    },
+    {
+        "file":  "back-end/app\\Events\\PaymentSucceeded.php",
+        "hash":  "C64D00E003261BDA4EDA08B6439A1BC0226D41FFDCECE0D8707D0B778155F51D"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Options\\AttachProductOptionGroupAction.php",
+        "hash":  "50D3792D58B3A04F3D72D8474582E968C79A31D191F3C153898C19930EA6034D"
+    },
+    {
+        "file":  "back-end/app\\Events\\PaymentFailed.php",
+        "hash":  "0A0E455AEFF76C7CF8B4B75516ACA2055D9116CDFDA51E7715E69827EEE06AA4"
+    },
+    {
+        "file":  "back-end/app\\Events\\OrderStatusChanged.php",
+        "hash":  "D64AA21A53B17D9E1C358F35D59D99D9CDC9F013F6A0DED8AE8F53DB172E4398"
+    },
+    {
+        "file":  "back-end/app\\Events\\OrderPlaced.php",
+        "hash":  "7F182A5ADF02D4E58D2E97F53B6E31F0F54F1E2C1889107C4E8463745587BBF2"
+    },
+    {
+        "file":  "back-end/app\\Events\\LowStockDetected.php",
+        "hash":  "1ABC491282FAB0E9E05515D6DF9CA3E50C619BEBC95626B078DAEFAC8EC07491"
+    },
+    {
+        "file":  "front-end/src/api\\settings.api.js",
+        "hash":  "96F09C095C9C2B8BD3EF4CF2A5D5EFB2D90043545FD1CB4C5F52D3BA2A19C152"
+    },
+    {
+        "file":  "front-end/src/api\\reports.api.js",
+        "hash":  "5279AE36497AD9A0B852919EB34882E70DD5DF40E6956E57C2619DA4DA060FCB"
+    },
+    {
+        "file":  "front-end/src/api\\promotions.api.js",
+        "hash":  "0FE9A06733A865496714B5F0977E8B113678396878E5993516608013C912CFBC"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Cart\\UpdateCartItemQuantityAction.php",
+        "hash":  "AB3C51EAB27F9E6059BDF599143AED2AC1664A02D73495F6790F6DA3FFE4E31F"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Cart\\UpdateCartItemOptionsAction.php",
+        "hash":  "4648040F58BF465905D16A16FED4136244E7E93E66248A230FBB929D2C988AFC"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Cart\\RepriceCartAction.php",
+        "hash":  "54490229FC716B06FC5B973E2E9DD5A5D3377075F80EBA945223887FEBFC7ADE"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Cart\\RemoveCouponAction.php",
+        "hash":  "5805BA7AEB9028DD84AB372C43D380E35143959E1B00A0AA45C7FD60613C5C41"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Options\\DeleteOptionValueAction.php",
+        "hash":  "DCD724C672A6D382C90FD81ABD3E1CDE55778E51F3E32AAF39E613800C178520"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Options\\DeleteOptionGroupAction.php",
+        "hash":  "45EAD01299F61A39143718DE71A04147C1D4A44DDAEA0F61208468E0FCF0023D"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Options\\CreateOptionValueAction.php",
+        "hash":  "77C945E320D5D3F9FEFDD0592F368E2A2C2FCC63691C6E1E7046D9377F522C39"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Options\\UpdateOptionGroupAction.php",
+        "hash":  "53621F290B0EBD9BF51531DDF9CD89C03A29DB7247EF35E258B93F99504DDEE8"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Options\\DetachProductOptionGroupAction.php",
+        "hash":  "C6846D15DE70BB85A40070B8653165907A48D05BD991BE938A6BA52D278A7DF3"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Options\\UpdateOptionValueAction.php",
+        "hash":  "9B162B3093070A0801E8BF02BAA407E016891CFAB639D925CF1622E74E65896F"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Options\\UpdateProductOptionGroupAction.php",
+        "hash":  "2B4272B8AA12DBDC6273666C47E732139C510EB2CDD071B449D2B790EACA9399"
+    },
+    {
+        "file":  "back-end/app\\Models\\CartItem.php",
+        "hash":  "C825991DD9A13C66A5ECF5BBCA4B9344FD28C9E442F2A12ABB62B73E61196524"
+    },
+    {
+        "file":  "back-end/app\\Models\\Cart.php",
+        "hash":  "1463D24217249CD1CD797DE36B1E3B3AACB0E237E9C9D654F5C45B2E4C81FE10"
+    },
+    {
+        "file":  "back-end/app\\Models\\BranchProduct.php",
+        "hash":  "6AE19C884468F7CDA343438347E888EF6B6E41A2A03AFB0F64717E7B03DE9D1C"
+    },
+    {
+        "file":  "back-end/app\\Models\\BranchInventory.php",
+        "hash":  "3A8CAC9D1B746387582B33E201B58559CF43A5C7B740BE727A57649418B92F94"
+    },
+    {
+        "file":  "back-end/app\\Models\\BranchClosure.php",
+        "hash":  "E5F3891AEC23A5577CCB5042AC2228328A0C149F1738A19C9120CB9D32D32D49"
+    },
+    {
+        "file":  "back-end/app\\Models\\BranchBusinessHour.php",
+        "hash":  "A1A6779C992CCECA8F0F54401B157F31A4561119D622771329AADA6FB372DFAB"
+    },
+    {
+        "file":  "back-end/app\\Models\\Branch.php",
+        "hash":  "3CE6A4FF1574E1EF4E90D71BDC39CFD0374DB51DB481165639E993CB82850435"
+    },
+    {
+        "file":  "back-end/app\\Models\\Banner.php",
+        "hash":  "63449C530685DEFCAE7D03E6F73B83DED79CC6F6EB008A122767EC3E5F35E2AC"
+    },
+    {
+        "file":  "back-end/app\\Models\\AdminActivityLog.php",
+        "hash":  "833EDB248C444C61F696CD0A8868F3A89E03E0C2E07187390792E2FD2FAA6BC2"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Notifications\\SendNotificationAction.php",
+        "hash":  "B6B518790AAF8706A5DDE3D6B287E9630099A4AF52F8C0F111488124B06F2CDC"
+    },
+    {
+        "file":  "back-end/app\\Actions\\Notifications\\RetryNotificationAction.php",
+        "hash":  "5643F52C283AB9CF9BC5EB00D4403D59574F158787B1FBB63FFA079729EA328C"
+    },
+    {
+        "file":  "back-end/app\\Models\\Order.php",
+        "hash":  "6D72E8A306C4C355542C502E82323452123B97C854B8211F32480C38E3E9C70D"
+    },
+    {
+        "file":  "back-end/app\\Enums\\BannerPlacement.php",
+        "hash":  "ABB25E75B78E142B169E81A09F56723406B7F582A5422686F1D7B9AF31B05DD7"
+    },
+    {
+        "file":  "back-end/app\\Models\\OptionValue.php",
+        "hash":  "714DFB2ED75959D2C955FDEC7CE7B12538C1962DE41D8D6DE6D01D2FE1A21897"
+    },
+    {
+        "file":  "back-end/app\\Models\\OptionGroup.php",
+        "hash":  "548651A8F51089BAD5D94FE45A0F4886725E9FE13A10236D92CC3F6FA105893C"
+    },
+    {
+        "file":  "back-end/app\\Models\\OfferItem.php",
+        "hash":  "AFFF2B5DE173F9D2ECE8921137517219225B2E0091035458F7A57A46211F8DD9"
+    },
+    {
+        "file":  "back-end/app\\Models\\Offer.php",
+        "hash":  "2876A299FDFFD4DB8CBEC97172673E015058205B5878649FBBF18DC5A59B670C"
+    },
+    {
+        "file":  "back-end/app\\Models\\NotificationAttempt.php",
+        "hash":  "B470C333494518B4773861A6696A0E074133D55E2D4BA4BBEAF5F0CFD61626C8"
+    },
+    {
+        "file":  "back-end/app\\Models\\GalleryItem.php",
+        "hash":  "D95A37920E3B3E4F129526B32EBAA98C620F7CFDAB7E8359DA5E215044E14922"
+    },
+    {
+        "file":  "back-end/app\\Models\\DeliveryZoneDistrict.php",
+        "hash":  "73BA3C7A1A0D8D7506AE56B81178B894B98894686F5071C4F721895D1B30BB69"
+    },
+    {
+        "file":  "back-end/app\\Models\\DeliveryZone.php",
+        "hash":  "CE1AEC808D57C5526D4CD85935ED6D16E8A4607BCD0DAFC6375278831B6EAAE7"
+    },
+    {
+        "file":  "back-end/app\\Models\\CustomerAddress.php",
+        "hash":  "92E31C894599BD33441D865C09A0C6DB462050CF79F623EAC8E133DB21C8EF42"
+    },
+    {
+        "file":  "back-end/app\\Models\\Coupon.php",
+        "hash":  "281BB5526F6102D643E371B64D9C09BB743E88B48978FD011169B3B30C824FDE"
+    },
+    {
+        "file":  "back-end/app\\Models\\Category.php",
+        "hash":  "512B52A2B93E9E053C703E8B8BC3584F72A857D7410826DEFD655E4531126320"
+    },
+    {
+        "file":  "back-end/app\\Models\\CartItemOption.php",
+        "hash":  "10180B59D9C3F4692608D9D6988BB259EB16988B742AF0AB204D93B136871839"
+    },
+    {
+        "file":  "back-end/app\\Models\\PageSection.php",
+        "hash":  "29E155B25ED2F20EC546ED70EFB4C55861749BAC83CB86D3DC8D19901E7CAE80"
+    },
+    {
+        "file":  "back-end/app\\Models\\Page.php",
+        "hash":  "F0479AE3ADF436480D1B10909CF03D935CD0FD0F683FBC283A8C42087B8CE945"
+    },
+    {
+        "file":  "back-end/app\\Models\\OutboundNotification.php",
+        "hash":  "0DF0CA14B76248126EEA8F812043BC895CF8A1A2D50029081A969B0E41E9E5BC"
+    },
+    {
+        "file":  "back-end/app\\Models\\OrderStatusHistory.php",
+        "hash":  "116589C0A5117290423EA0675924339F1FA02A544D7B5FB85CCA4C082664C915"
+    },
+    {
+        "file":  "back-end/app\\Models\\OrderPromotion.php",
+        "hash":  "D995CB31281F5C06D104CB4A32B0AFD70C8340699A372F3753E2E382A73E2B7E"
+    },
+    {
+        "file":  "back-end/app\\Models\\OrderItemOption.php",
+        "hash":  "B0E53F59D8E2F77C4F52C5845BEDF80FF0CA45D5EBD9F57B402A33F5188929BA"
+    },
+    {
+        "file":  "back-end/app\\Models\\OrderItem.php",
+        "hash":  "DA40CD9B6DB2B269AE628F0F10D0C8C112EC47CB54E96D346A0C7AA816FE43E3"
+    },
+    {
+        "file":  "back-end/app\\Models\\OrderAddress.php",
+        "hash":  "837A34844C4627F69E5F7B5D4165D87A366F98EE81577232D3DCF9AFBE57260C"
+    },
+    {
+        "file":  "back-end/app\\Models\\Product.php",
+        "hash":  "FFEF0D2F9A62452686CB1CC84C231C8E4E718AE6FDFE129D8C36280DE80B331D"
+    },
+    {
+        "file":  "back-end/app\\Models\\PaymentWebhookEvent.php",
+        "hash":  "A59671EE30EBF298FD5743E60D4363F80F6A727832B8AD0BF76B0CD1B82A29AF"
+    },
+    {
+        "file":  "back-end/app\\Models\\PaymentTransaction.php",
+        "hash":  "568FE4B056095EF0F56424C103DD4368875FAA80B31AF8EB952F3A66855C4638"
+    },
+    {
+        "file":  "back-end/app\\Models\\Payment.php",
+        "hash":  "14ECED41727779B913CB4AB1AD38F8E1D5DA994561610CC65E0131352C0DF1CF"
+    },
+    {
+        "file":  "back-end/app\\Models\\Promotion.php",
+        "hash":  "F0A573A80EB915C0FB9551F108309A1EB2951E08709C8ABE8849059C7D9DB590"
+    },
+    {
+        "file":  "back-end/app\\Models\\ProductImage.php",
+        "hash":  "27DB9F813CAF5CC20A98A07BFF2DAB443878C7A66AA08B9C74E255E66134A217"
+    },
+    {
+        "file":  "back-end/app\\Models\\PromotionUsage.php",
+        "hash":  "636396A136492C11A5282347FE0B4D28B291A5AC546ABDF6EFBD72A3177FE4B8"
+    },
+    {
+        "file":  "back-end/app\\Models\\User.php",
+        "hash":  "34DDF5F684579AC34750C0893ED8A37C1F38677ECDDA3817130C92B4BA27D4E1"
+    },
+    {
+        "file":  "back-end/app\\Models\\StockReservation.php",
+        "hash":  "58F90369B8927D33A82AE064E953C2D4DD58B355D4377580C4DD99B3B251AD76"
+    },
+    {
+        "file":  "back-end/app\\Models\\StockMovement.php",
+        "hash":  "531FED0342514910F8712F32F7E64AE0D0A45B8C2FB828A29194147E09F0A2CE"
+    },
+    {
+        "file":  "back-end/app\\Models\\SettingChangeLog.php",
+        "hash":  "8470682087FBF6DE47EB0171990C63DF670FDE545CDBFCD3D68B23D3933BB733"
+    },
+    {
+        "file":  "back-end/app\\Models\\RestaurantSetting.php",
+        "hash":  "F725A91A6C7E16CD7F9A21221D10B78AEAD4C7DA78287B3C420A509BB099C002"
+    },
+    {
+        "file":  "back-end/app\\Listeners\\QueueOrderPlacedNotifications.php",
+        "hash":  "36E0723312222DF7D7C1AB6B472596CBE735669EF83E1A6F0B1AADB3DF8EE674"
+    },
+    {
+        "file":  "back-end/app\\Listeners\\DetectStockThresholdCrossing.php",
+        "hash":  "FFCA415857AA4D80887406F20EE998CB73733F189F8443F60F49EB9308510923"
+    },
+    {
+        "file":  "back-end/app\\Listeners\\QueuePaymentSucceededNotifications.php",
+        "hash":  "E0D51EE58D5EC71E31B3071B847AF9B40250A3F2CAA7E222488C5519F727F66E"
+    },
+    {
+        "file":  "back-end/app\\Listeners\\QueuePaymentFailedNotifications.php",
+        "hash":  "7D0112EEECAB0FEDD7A76B49E8BD763B698836E02EDC278E47D19CF4FA69C058"
+    },
+    {
+        "file":  "back-end/app\\Contracts\\Payments\\PaymentProviderInterface.php",
+        "hash":  "1712F0F69E17DB2FE8BB35E4BD4C03752646C7B9F57E72301F5155C31FCBDFD8"
+    },
+    {
+        "file":  "back-end/app\\Listeners\\QueueOrderStatusChangedNotifications.php",
+        "hash":  "E7B6E4D81003C480053F5DC4A32654C43A4AAB6D920852BEB2BF160FCBC29174"
+    },
+    {
+        "file":  "back-end/app\\Data\\Payments\\WebhookPaymentData.php",
+        "hash":  "58249D83917CE8E55DB02D4179DC934A00D00E1F52F5CFEBF1D2918AE2DB327B"
+    },
+    {
+        "file":  "back-end/app\\Data\\Payments\\PaymentProviderResult.php",
+        "hash":  "667527870F1C0351684BC1EA1CFA74FA90B202DA97507164D3C56748DCB9AC39"
+    },
+    {
+        "file":  "back-end/app\\Data\\Payments\\CreatePaymentData.php",
+        "hash":  "B1B049C432F530001573E42DC77AF3D72937724C16D2240A52C59CE63363008A"
+    },
+    {
+        "file":  "back-end/app\\Enums\\CartIssueCode.php",
+        "hash":  "BB6DDCDE6DC574C88D47D3E9F72620537646E21F775D4CD795A922D89E3B345A"
+    },
+    {
+        "file":  "back-end/app\\Enums\\BranchAvailabilityIssueCode.php",
+        "hash":  "B705A42BD2F979B7AA0C6B456C7F4D6134CE294FB6165A174034A9A6E9ABEF25"
+    },
+    {
+        "file":  "back-end/app\\Enums\\CartStatus.php",
+        "hash":  "7440A9CF981F5DA59CB3941AA4FDF3C53A7ED1C87CD7039A70D5997646217812"
+    },
+    {
+        "file":  "back-end/app\\Enums\\DayOfWeek.php",
+        "hash":  "8DD148D2B3201715DDB5670390E306B00D72246997210C2B2A5A93177F15A93D"
+    },
+    {
+        "file":  "back-end/app\\Contracts\\Notifications\\WhatsAppProviderInterface.php",
+        "hash":  "81EF283361A3B9FB505AFC946E887AB551E41866DE7064091F6240A99CD009B7"
+    },
+    {
+        "file":  "back-end/app\\Jobs\\SendNotificationJob.php",
+        "hash":  "70177584673B9FFD84D6DCB6A96AC04295E660480D223AAE5446798C72150ADF"
+    },
+    {
+        "file":  "back-end/app\\Contracts\\Notifications\\SmsProviderInterface.php",
+        "hash":  "1C1DE5BA4A51B248D8A96BB9EA1B5A804BC99063021315EE905AEE651F15C9DD"
+    },
+    {
+        "file":  "back-end/app\\Contracts\\Notifications\\EmailProviderInterface.php",
+        "hash":  "D22259F088494BF1483A284E8F7264F6B932E58BCDBBEF0EFD34711E67F50626"
+    },
+    {
+        "file":  "back-end/app\\Enums\\InventoryIssueCode.php",
+        "hash":  "781B823912960B395CD69D0B9579688A4BD61644309F907EAF009B87920A02E8"
+    },
+    {
+        "file":  "back-end/app\\Enums\\DiscountType.php",
+        "hash":  "1481FCB5E2B0BABFDED18AF9D4D3ACB6711B04EFEE89B7F46373F976BBF9F8C8"
+    },
+    {
+        "file":  "back-end/app\\Enums\\NotificationErrorCode.php",
+        "hash":  "791C2D392F1373102B97F21F0207831A676D9D3E3FFA9E081FC904179030A0EA"
+    },
+    {
+        "file":  "back-end/app\\Enums\\DeliveryZoneType.php",
+        "hash":  "423196BCCAC0D84A3C66BCA5482E2DE75055319A9F064EA5243276552B2ABBB4"
+    },
+    {
+        "file":  "back-end/app\\Enums\\DeliveryIssueCode.php",
+        "hash":  "93FEFF8A135513EEF7EA5E5ABB500538E9BE59F8E0C5294B75637E3C70C30967"
+    },
+    {
+        "file":  "back-end/app\\Enums\\NotificationChannel.php",
+        "hash":  "F66C0FAB994AC1ABC886C18E3ECD0150AC7BD3E6B9AC277B2956E90F518A124B"
+    },
+    {
+        "file":  "back-end/app\\Enums\\NotificationStatus.php",
+        "hash":  "3ED56D8E352693B66F1321F2EBC188BD459F340EC00B8E4E7AAB7437A6732A45"
+    },
+    {
+        "file":  "back-end/app\\Enums\\NotificationType.php",
+        "hash":  "44B1B6DCEC0CB2A38C5CD6B00BCEBAD659AA083DD4B408A872A12F19CED1B332"
+    },
+    {
+        "file":  "back-end/app\\Exceptions\\PaymentException.php",
+        "hash":  "1BFD6EDE5C651C96828F3BEE46EBBB881EE5AC9CB74927B6F70CDC52FCB4A5E4"
+    },
+    {
+        "file":  "back-end/app\\Exceptions\\NotificationDeliveryException.php",
+        "hash":  "8EE0E4F7184A1ACB7D90B47B3C36218EA2A1D19B13C9FD0F6107D84D28202C90"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Controller.php",
+        "hash":  "25D1C1EF8E6CC8A376553FAACFBA2B07D9DFAEE9BDBB84F14F77517580E9DEB1"
+    },
+    {
+        "file":  "back-end/app\\Http\\Responses\\ApiResponse.php",
+        "hash":  "29840E600274BDE1AE8BC319AB295DBAE77DFAB98034A054E33F7AF80ADA353D"
+    },
+    {
+        "file":  "back-end/app\\Enums\\OrderStatusSource.php",
+        "hash":  "806EAC63E8A86B79336B605135B53CADB10A8762BB7DFEFDAF46E67698D5FC9D"
+    },
+    {
+        "file":  "back-end/app\\Enums\\OrderStatus.php",
+        "hash":  "38B218393B146A54074C1D8BF56800900BE021A426225592DF09690A0417D886"
+    },
+    {
+        "file":  "back-end/app\\Enums\\OptionGroupType.php",
+        "hash":  "874A94A2117DAFEC0572B0C13A4A0D7BE1444B7EFEE131CFA01077F558894134"
+    },
+    {
+        "file":  "back-end/app\\Enums\\OrderTiming.php",
+        "hash":  "25FFF5BFDA13317FCF9EB07BE461B8435A7B81C36088620F67C9B6F3C5EA0423"
+    },
+    {
+        "file":  "back-end/app\\Enums\\OrderType.php",
+        "hash":  "C8D04154DCB12738195B032DA9E675386D255AED863A28168419F6C2EBC70A9D"
+    },
+    {
+        "file":  "back-end/app\\Http\\Middleware\\RequestId.php",
+        "hash":  "98C41E4F08F710CD7E6C1D88F893B0D48AB799CCF5D681A3294110E5BBB93757"
+    },
+    {
+        "file":  "back-end/app\\Http\\Middleware\\RecordAdminActivity.php",
+        "hash":  "4FDE10D550D8C6966B79D674FB1F48E14541705759AC7048A162A073E0966FC8"
+    },
+    {
+        "file":  "back-end/app\\Http\\Middleware\\OptionalCartAuthentication.php",
+        "hash":  "E31C08538DEA0835596B7EEDC170A2F014A4DF379B4FFA8ACDDA3237BBD477C8"
+    },
+    {
+        "file":  "back-end/app\\Http\\Middleware\\EnsureUserIsActive.php",
+        "hash":  "51A655ABDD826540416A9283B90625E8ADB2C40C6E46FCC31529AC83E85BA354"
+    },
+    {
+        "file":  "back-end/app\\Http\\Middleware\\EnsureAdminAccess.php",
+        "hash":  "0F6BD1D2D44512FFC1F73473EF01BC4D7525DFCDF61ED58A53BA514C586DBDF8"
+    },
+    {
+        "file":  "back-end/app\\Enums\\PaymentTransactionType.php",
+        "hash":  "5422BE4236BA30B659B67C5F2D1E0C7C5DAD7A3653575907B664FD47419AD4A3"
+    },
+    {
+        "file":  "back-end/app\\Enums\\PaymentTransactionStatus.php",
+        "hash":  "01F2BC3B2D80FE8EA7E82524DF9D78D2F357606A113B8A0544860FCB559341FC"
+    },
+    {
+        "file":  "back-end/app\\Enums\\PaymentStatus.php",
+        "hash":  "FDE9957D7E1466A5DFEF84547D5860E66B1AA242AFA0EA2B99BD358A305253AA"
+    },
+    {
+        "file":  "back-end/app\\Enums\\PaymentMethod.php",
+        "hash":  "1C819AB48E9DA5AA4FFE8B4337B9FAE4E7DC6E0466492B92021DB1C9CC2D6745"
+    },
+    {
+        "file":  "back-end/app\\Enums\\PageStatus.php",
+        "hash":  "2E3BDA571376E8349E0F86BF12DE172DAA5E0E7411CDE691D5DB6D85DF5CAA30"
+    },
+    {
+        "file":  "back-end/app\\Enums\\PageSectionType.php",
+        "hash":  "BF169EFC2FDC5CC43A7F841F83747B5988B99E90338231DC13759A0362E49BEF"
+    },
+    {
+        "file":  "back-end/app\\Enums\\PromotionType.php",
+        "hash":  "B8469C535A587CDAE1DC9CF7B2C50A4DE7D8C4A5ABAC593C6F2708FBFB1A0F6D"
+    },
+    {
+        "file":  "back-end/app\\Enums\\PromotionIssueCode.php",
+        "hash":  "78D9CD999456A76B1A522C8F5539126271DAFAA9F44EB3998251589D33C8374F"
+    },
+    {
+        "file":  "back-end/app\\Enums\\PromotionApplicationType.php",
+        "hash":  "0EBBF92B6EBB950C08956BB4033331A637AC24C384FD8596BA5A73EDE9A04EB5"
+    },
+    {
+        "file":  "back-end/app\\Enums\\StockMovementType.php",
+        "hash":  "41DF4867773A8F1764447B423DA4CF466F1CF1971BAA17E96653CCD782EB8ADA"
+    },
+    {
+        "file":  "back-end/app\\Enums\\SettingType.php",
+        "hash":  "35DE3C024DA86640EBC6EEEC7190E2B6A12D4A30F392B5F9EB2988FCF47CC414"
+    },
+    {
+        "file":  "back-end/app\\Enums\\StockReservationStatus.php",
+        "hash":  "E6CE3CE5FA9192CF3EB83F871EF14625A96718BE97E90A14CB77611C0152D9A5"
+    },
+    {
+        "file":  "back-end/app\\Enums\\WebhookEventStatus.php",
+        "hash":  "C393EEF31F16D3B0CE67722972A42DE76E757492E9019DA3EBACDC5C42BF9BB4"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\PublicConfigurationController.php",
+        "hash":  "815A37070493A4A72844F395ACBFACDFACC1ED270DC05713FDC69D666159BC30"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\PromotionController.php",
+        "hash":  "744AC2932F19D6887A3CE049E33EDFA60CC91E9F215D1CA4EDA5E9A88F4F2544"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\ProductController.php",
+        "hash":  "DBB16B15BED28A3B4048B625321D86594EC394AA23CFF014A2D1BE982ECD1793"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\PaymentWebhookController.php",
+        "hash":  "D50D37BE8EB18CF833388D53E3C85F23005436F77065E9696C0854E5A7EB8958"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\OrderTrackingController.php",
+        "hash":  "A133C41E88E3D726D02DC1970B9DE2BA7788DEE20D9CA04A84E47C191AD351C2"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\OrderPaymentController.php",
+        "hash":  "58D318DB55B2FF9D8F72E255626E6D84D1CD8A8B707EEC48830B393D2C863E73"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\OrderController.php",
+        "hash":  "DB7E35281C24FF981F1139F6E5DE8B158A3EEAF7E550B9EE0F1BBD2FC239F333"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\OrderCancellationController.php",
+        "hash":  "2D0DDF16A7F775004B049FBCB99BEF1054FC7E05A769239FDA2360BE86DEF5F8"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\MenuController.php",
+        "hash":  "85E4CADA002393C481A6DB0E3347F24CBBE8ED4198A418C4814165D23AC7F376"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\KitchenOrderController.php",
+        "hash":  "B5393004F37195F201852AAFE053A99D081C6DAD0E69CE4BF409FEAE2BC3C5FC"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\HealthController.php",
+        "hash":  "B0B6B0C722F61FDB483AF7543D01EA48FD109BB78482D11893B930F8F95DA4FB"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\GuestOrderController.php",
+        "hash":  "B3F4E833D56FC08C1057E095FC3AC63464C760C2B8E0B2DA2206EEA76AF527E8"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\DeliveryQuoteController.php",
+        "hash":  "7E5223010517535F1A5BDCCF24238DDBCE59797F505EB70932F1AA6E599337A3"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\CustomerProfileController.php",
+        "hash":  "A40386B5B725EB8C6A92DB061C4DBD2BB2A90A7BF6007FE12FB1972FF8411842"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\CustomerAddressController.php",
+        "hash":  "CAD6AA1C5DC0BC0CB282FAB181246F5445026A588FD3EDD9C5A8D3594DE9202F"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\CmsController.php",
+        "hash":  "D94C1D67EC4BC24691D4055A43BCDAACD74BD88DB6773F9EF588364030C62B8A"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\CheckoutController.php",
+        "hash":  "9BA8D53D742668A823F97948ABF62FD0AAECA93327932B8D153226E3ACB0E8DB"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\CategoryController.php",
+        "hash":  "E7E6A3534C2A70A5A96D2D554AE4FA69C7866F5D051D7AD17D48761274F452F5"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\CartItemController.php",
+        "hash":  "49FFDF4F16BEC3018EB3DDCFB08EBC2CD8469DC933D9F49F339EF5F8AD4A0D7C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\CartDeliveryQuoteController.php",
+        "hash":  "BF9CE3BA7F187BC0DA0831340F4DB432EFFC964C7F353B338164ED14560EFBB1"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\CartCouponController.php",
+        "hash":  "0124FE106D1AE024532CEAAB345F85560B173418DAA10FF1F91DF802D01DF997"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\CartController.php",
+        "hash":  "B5E61CF4C222B6E93FE93C6120A3036F44DF01D0D79E6D24044E86DBC835FFBC"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\BranchStatusController.php",
+        "hash":  "40CC6606AAE2444373C176A752593684361EBF2BCE7E4EEFBB633C8F67E1942D"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\BranchController.php",
+        "hash":  "DB5789DAF57F90254852BB47CB7C1DF4D948F95C5BAA2190F4B63097C494F007"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\BranchBusinessHoursController.php",
+        "hash":  "278572A2E7AA8853B484B0DC53BC26E6F0D9833584B24DF22CD930406FAEDFA1"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\UpdateCustomerProfileRequest.php",
+        "hash":  "3B455CEB6969C8CCC10C0E1BA54F880BF87E91048FAB54F1A53FB0EFA63DCBA1"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\UpdateCustomerAddressRequest.php",
+        "hash":  "EEE35CEA90E42A833BC966DFC977904D879EBF9C87B9FC818E205D763B823880"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\UpdateCartItemQuantityRequest.php",
+        "hash":  "693D101A6976A32DE415DB8EC36EF54FFDC11FEBDC579C34799719CEBA1934CE"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\UpdateCartItemOptionsRequest.php",
+        "hash":  "778B82EE431BBDBE9C3115B712D37222AC92CE344A050E2CF77F1B0AE107B259"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\TrackOrderRequest.php",
+        "hash":  "03DC483F7EFB5E60330B3D275BF1A9837502E87BEEA461769885E4F25D536BF7"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\StoreCustomerAddressRequest.php",
+        "hash":  "89FB58BAEAF7070D8483BDA898A852BFE72832CA5B59B67BFD234409BC3D286C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\PromotionRequest.php",
+        "hash":  "A095CDDCF117C1C47FF0DBBFD9AF02B2BBAF8DF186D6CECC468C0971A8BE8AD6"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\OrderOperationRequest.php",
+        "hash":  "709481B0426A70AD326126BA0E7A9736A3F69542046F3D401CCA2243B0AABCA2"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\MenuRequest.php",
+        "hash":  "93DF6EA5BCA4D4DA01B8914EBCC136AFF18DA8503EBA1BA31087219FC83B280C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\ListProductsRequest.php",
+        "hash":  "4A7E788B65995C35F75EE694CF2E54BFA8DDB8359A9B0237FA0E7C5FA42BEB93"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\ListPaymentsRequest.php",
+        "hash":  "D64DBDA357CE0235F86AE054BE60B7CF8F482F9CA40098C55E36DEE140159683"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\ListOrdersRequest.php",
+        "hash":  "B9E4852211EB630D53773559FED57789D71EB2DF9EC682AC23A3E70AC16E09D0"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\KitchenOrdersRequest.php",
+        "hash":  "9FD498F7D5FD125A681F400F0F8F75FE1593E541B91A200A9D8655FCC584BE11"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\InitiatePaymentRequest.php",
+        "hash":  "799FCEE6E66E2D7A43F83DA3C7E9890472FB3B048917C09ABFA78C10BEA404B6"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\DeliveryQuoteRequest.php",
+        "hash":  "C7B25A82C067B48BCE87802D257871E0473E99BAD524FDDB5BCE9F263BA34D3F"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CreateCartRequest.php",
+        "hash":  "B381D9E51BD51926F8540A7C13A7D3003349ADA8663B3EAC2003CB520B88945E"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CouponRequest.php",
+        "hash":  "D1AD7977428D3D715525A9D9E27BBCBC42D741E0B9800D61459C8D270854CCD5"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CmsSectionUpdateRequest.php",
+        "hash":  "0A7FB96FCA51568D88EAB85CAED5B22481650D285A6FF3DAD50DF051DA91CC0E"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CmsRequest.php",
+        "hash":  "89B6D578E3BB9FD7D94AC752979D5838BF2F1AF905B5020D3FC31D3EF110C786"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CmsReorderRequest.php",
+        "hash":  "EF20829249E194ADB1066151B8434F0A8A904F36298C0074D7092557BF77412E"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CmsPublicRequest.php",
+        "hash":  "C39DC584EC56A2A6AE83F14850EEFCE8170465A571D5E65A4C02FB9CE66D8032"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CmsPageUpdateRequest.php",
+        "hash":  "E270D308E8F0EC31D46A4DFB01338AC5B5647DA5B6DE376BAC978A0BEE50D9A2"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CmsGalleryRequest.php",
+        "hash":  "F8E7D40BDCA13710A289AFE4FA87C6119B6F7E7588C35A2BAC893AB0DDF2A5A0"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CmsBannerRequest.php",
+        "hash":  "95B5B73D27CB99ED270A67C3A99711ED49150562C5EF38D7FA7E8EE03D44C73C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\ClaimGuestOrdersRequest.php",
+        "hash":  "DBA97F3BDB696964421498B94648666FE5C27A9DB6A5A174FC9306DF5D610F61"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CheckoutRequest.php",
+        "hash":  "15538629304FACC6A63BDE19181904094408408B7984CAC6266916A54B0CA8BD"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CartDeliveryQuoteRequest.php",
+        "hash":  "82E2F63F20D7E965E9D84798C64BF3216DAC3AA0A8A04AA2EC4FD5CC1A79EF4A"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\CancelOrderRequest.php",
+        "hash":  "A63618F424AAC7F1FE31ED466B12EB17B56FD06887616927670459FC3599A796"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Auth\\RegisterController.php",
+        "hash":  "DEBE83AB96B944E1106C6BB72CC12B198240B95234F52AC31EF75DEEF6071728"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Auth\\ProfileController.php",
+        "hash":  "022FEF3D84E69B15F41F5C9146315E16BCD79B316E8B8F1AEF3EB3C10CA17341"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Auth\\LogoutController.php",
+        "hash":  "A5A3620257D83802999124BD337D4CA2261A0C4A2A85977218D1923000A30FF6"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Auth\\LoginController.php",
+        "hash":  "01063D8926649D1C1187E9F1138BB87C1263FA598C6CE1F0881709E6BF1DE137"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\UserResource.php",
+        "hash":  "29DF8636A8DFA8C47FBDBE2BC3C73FADEA638097C628EE17319AB19658A64B9D"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\StockReservationResource.php",
+        "hash":  "143F824B1C6570051B1F3B2F04619A17D73A1AC6E9456F164F70CA7D876F811B"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\StockMovementResource.php",
+        "hash":  "E896EFE6935F7C38728981301E6AFE7CBC402E51C0D931F2CCFE899293DF8FAE"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\SettingChangeLogResource.php",
+        "hash":  "D59A29F8B910F7EC9366914551D68C63B0E83CAC147D7EE4B610C747D6DCB3BF"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\RestaurantSettingResource.php",
+        "hash":  "F59E45464E0BE1B08D55FE732889B0A6556E0B2CD87945B8CEB5BEC0557B743D"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\PublicPromotionResource.php",
+        "hash":  "9115784A4F91E8DEA5E935639D7E7512FA547A231A32C0612A8C0675302108E4"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\PublicConfigurationResource.php",
+        "hash":  "C6198575E42C103764F11D02333E9EA350BF2C80D244B796318C4DA945458F6F"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\PromotionResource.php",
+        "hash":  "389335E3D8D2BCB72E560C03A1F22B9A8DA680DE54D5F9B00B4DC48E6A65FBA9"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\ProductResource.php",
+        "hash":  "3D5067FB63819B87E0CA3F571F768C1AF5FE6ABD848DC09701981D3BED41C1B6"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\ProductOptionGroupResource.php",
+        "hash":  "E410F9DAF57443807E5959EBF8A66D3D35C68A8A4C45B4CC72F3C05FFD7C72C6"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\ProductImageResource.php",
+        "hash":  "492C19F8EC023A2855A120BEB7D1A92846F82ACE7CC79D183C2454407576FBAA"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\PaymentTransactionResource.php",
+        "hash":  "60C3E179E792B3146F55CC77424C4BC296F0AF19A6CF35B8B1049EC641AADA36"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\PaymentResource.php",
+        "hash":  "5A4A570E2EB9684888E75B6910BDA52ABC63933FE3C69DC365B5782455BA19E3"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\PageSectionResource.php",
+        "hash":  "760D1164F91086198376E34A72DCC8BBABACEA604608CAB2365CFF577027F711"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\PageResource.php",
+        "hash":  "C091EF0877245DE26A69E5BF2B91753545514857774C89ECAF9EEAFA73934AF2"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\OutboundNotificationResource.php",
+        "hash":  "09333A378C7C73688A1E6A44DE90E3C17BB025F253AA4AE3F9BFDD11F9C5E686"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\OrderTrackingTimelineResource.php",
+        "hash":  "940A2DD921BA078A8D43F789A437934AC718097BD8FC4E20950A94E3CCE47C41"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\OrderTrackingResource.php",
+        "hash":  "B1E73832267DBDFD8106C903E1540D19763C5AB28785DE1B22D5CCD509AE8642"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\OrderStatusHistoryResource.php",
+        "hash":  "DA78B20306EEBFA3EFD2D6D3A4954C410664767F00F661D1E32A8B1911A74F74"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\OrderResource.php",
+        "hash":  "51E474732EDE39CDDE41511B6844BE8D3FBCB1F1E6A8071F7FE3D9F4208E9FE2"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\OrderPromotionResource.php",
+        "hash":  "C30940653287E39416B6C66BB4237034FA3BBE31B204CCD83CBCA35761F712AD"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\OrderItemResource.php",
+        "hash":  "D29E18F0B73D781C0084CC039FF4F819D530FC219768C350FCB943A4B251B8CE"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\OrderItemOptionResource.php",
+        "hash":  "14BA5701486CF59AC371190A67C2600A1F0A94E5F7858E396AE6C6D2E38BEDEF"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\OrderAddressResource.php",
+        "hash":  "FE9B63AE95975BBFD665F0F2306D475499400208A02098664BB23169A9B8DFF7"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\OptionValueResource.php",
+        "hash":  "490387F7CF6283731F2D516A3585F82CAF28B16917DE0C3EB922B3870F43E50C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\OptionGroupResource.php",
+        "hash":  "F5630DA5BBF4F101CA31D952707690C866DD42A0AC0D92D534CBC6C641F9B010"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\NotificationAttemptResource.php",
+        "hash":  "8F7A672BD8B19179B3A2D7ADCB5851E88210AE4B5428A04C40ABA4064E4DC260"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\MenuProductResource.php",
+        "hash":  "800AD4A09FCA5A4583B9E5A02950B33B5C83959527A0F5DC0AEA0D4EE09B8632"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\MenuCategoryResource.php",
+        "hash":  "6FFBBF46A0E7F68ED085294404CBCFD6EF1B5431339BED91B83E4C464410E002"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\KitchenOrderResource.php",
+        "hash":  "92A1DB6BAC28E0DD4111C6B23AB91DC087D693731B5C014647797E0A34BDB6F6"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\GuestCustomerSummaryResource.php",
+        "hash":  "FFC2E1A8AB2DB392EBA12FD7CF84671CD5FEA6B91244C90979D2C534E6265014"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\GalleryItemResource.php",
+        "hash":  "30A765D9C3D6F79868EEABFA6783210750EEF8EF542736E99DACFED568968FDE"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\DeliveryZoneResource.php",
+        "hash":  "86F4DC46FA726EF63D5A20A9A4C5B35B06DB77F5E8AABD22B47F99439693BAA0"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\DeliveryQuoteResource.php",
+        "hash":  "DD8A396A3A095D77DB00C74C5E970884587BF52ED430A1BD20A9CA10C47BCEE4"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\CustomerProfileResource.php",
+        "hash":  "36C5C7C48CBBD7AA52347178B9FE25302A97486EFB450A150B4AE1A7E9904A84"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\CustomerAddressResource.php",
+        "hash":  "BCC29F54A7B9D5D13206DED6998C7B2C3F70F70596F1AE2DADA0B403BA0B2C18"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\CouponResource.php",
+        "hash":  "AE3496BD4A345DCDBFE9B883D3C8AE5A91EB12772C61EEEB3411D95BE05894AC"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\CategoryResource.php",
+        "hash":  "DA21F2CA70ADB93010105D684C0E6C522FC31E17D81F9F90D097CFA4D482AE58"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\CartResource.php",
+        "hash":  "0E31635C4EEDB76540A7A71D2CE37C0C9172A8CA99EB965AF4313CA4D8F0B96C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\CartItemResource.php",
+        "hash":  "9C906A94F659130E1C7BF6190A46BB46429C0ADBBE1A8FE10772C219784FBB7D"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\CartItemOptionResource.php",
+        "hash":  "D9529C97926BEC598ADE5C4A566CF0880C05069B1054DF3118782DC81F93D70B"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\BranchResource.php",
+        "hash":  "E34FF6905D8648CB173EFB1506E45C07129C67A13342ECE1C4D55812AB5063EF"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\BranchProductResource.php",
+        "hash":  "83014140C7E15EDCE52EAA07875839D9CE3131052E91380DE43ECEEFE7B6058D"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\BranchInventoryResource.php",
+        "hash":  "95BD08043C10858A30D381C8FBB06AE7A5B82B97BFD2E392EDF6DAA16D142B87"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\BranchClosureResource.php",
+        "hash":  "F070A4274A1F5F89DE5D80A6C222FACFA61C39E13792628403511C4A49A6B089"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\BranchBusinessHoursResource.php",
+        "hash":  "2E15A80EA1900DE28D4B7965F6026939EEBEDE4545DB37B084E487CDE5FD126C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\BranchAvailabilityResource.php",
+        "hash":  "2E01E0A1FBD27F6E2EBF2918406DBFF6A1CFD5530E59BE4E577CEE1AD4679DC3"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\BannerResource.php",
+        "hash":  "39624DAD5D6043F8BF3727976DF9AD59B838BE801CBD865D44F91A4662D7BD40"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\AdminProfileResource.php",
+        "hash":  "FD542AD8A48E611375E130437B5503FBE76A287BB2670056F501345BE767BE06"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\AdminOrderResource.php",
+        "hash":  "93D997CB7958633DDB62AC95D63A21C4C9B15FBA7CA92236F4781888CC7C0288"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\AdminCustomerSummaryResource.php",
+        "hash":  "C4E9FEA41B362A2D7573C25C20BD866B8DD09F97FBAF639550421BF2B3D6FA12"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\AdminCustomerResource.php",
+        "hash":  "508DB6B53588B5105D3A0258524D64AB657BBC90D52B7D3F5B367F8E12D3A2BC"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\AdminBranchResource.php",
+        "hash":  "24B7A6F0CF0E80C97CD3D58E9787D6C6EF413AA57C2C071EDD66B71BEA7DE96F"
+    },
+    {
+        "file":  "back-end/app\\Http\\Resources\\Api\\V1\\AdminActivityLogResource.php",
+        "hash":  "4D8B8768042AE792B5455EC93B80E43A73C334B27661D95A4B9C2CCA2C7F1329"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Auth\\RegisterRequest.php",
+        "hash":  "90115CD25F072D9DC7220576DD84BE7DE27EE7B28126C74CB33BFD12AA396F51"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Auth\\LoginRequest.php",
+        "hash":  "D8595997BFC11C12BEE795ACB98F2BAEB7C0AFE5AE65E5D6BBCF627C227D551A"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\ApplyCouponRequest.php",
+        "hash":  "CC9855E7722EF128351B24C60D33977390B2389EE9DBCA22BCBB0EB56CDF4926"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\AddCartItemRequest.php",
+        "hash":  "872D743E52B7159B7A1546B8F63A05BCACEE5DD847BB462F8207F60DD7434EEA"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\StaffController.php",
+        "hash":  "A240D07676136637E8FD791730D56FBB3736B9D7B0522CC94833BCE4FF7F17C7"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\RoleController.php",
+        "hash":  "3789278F48C2939C67E0ABF5D6F83FFA94DB4AD80C48E1D5FDEF7228D3AFA0FD"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\RestaurantSettingsController.php",
+        "hash":  "DB1888628DB5CC300136855272DC6F4E7C41B96C42A5D62054ABD2EBC10895AE"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php",
+        "hash":  "56B8ABCD24165660940CF57E31D53BE878729797B040594F3C649EB6DCFE2F3F"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\PromotionController.php",
+        "hash":  "190C9FDB1C4ED091DFCC81099ED4D117163EBB51FEB8EA2ACA80F851E0719DC8"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\ProductOptionGroupController.php",
+        "hash":  "81CAC32D2D7263EC6851B414D2AAA6204841C56DCA2BE274015139CA4399E48B"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\ProductImageController.php",
+        "hash":  "61C93829728060A07752A0A8EF90202CB1EF1D0A30812E06D51C1B69EFA9CBE9"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\ProductController.php",
+        "hash":  "A9F3CA063A5BD7AD2D2BCC926FF26647202C6A24B728AA91CCF9DDBD7D6454BA"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\PaymentController.php",
+        "hash":  "6F8EB4160019B0C4E2743F7EE58CE96DEE6B3ADEA790970C5AB29411E3256251"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController.php",
+        "hash":  "BE6B4140759C33345A17F2F67518776DD939F90033A5B465C5F4F0B2EE22CFBB"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\OrderHistoryController.php",
+        "hash":  "0EE326AD3A15A3B994AC14701309703722DB6004FCD57F08CBBFB6FBD302D24B"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\OrderController.php",
+        "hash":  "77E125C86BE09D42ACEF5866ED260F02A55A2833DCDB575571028B7F1413F4A1"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\OptionValueController.php",
+        "hash":  "36A593CE05726835F87EB5D01A120CD229BF04153D29BCBF29212B97C8BAA628"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\OptionGroupController.php",
+        "hash":  "DA285569568A9B8579823F6D8719DBEEEA2644A008DEB45484C72D57CFC08FF5"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\NotificationController.php",
+        "hash":  "67B34CE526CD9BF6230D417A4D4FD4C338E8B65CBE2FE9848FB6F8D5585587AE"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php",
+        "hash":  "59FA8EFF13662DDA73CAA9C5470B5668F2D42B9B9DBBDC284ABC9908A0BB9FBF"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\GuestCustomerController.php",
+        "hash":  "28C5711C1390CE9B3876DED9D38B0FF915C136EA288F6DF46439D55A85D8E18C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\DeliveryZoneController.php",
+        "hash":  "37D05086DFE0979587413718C044AE373A311D668C9E505D6376EEB8DD5190B7"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\DashboardController.php",
+        "hash":  "18B291E19788B3D9319C9D06A389BE061F426BE2470EABF1FD906F1F2F992727"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController.php",
+        "hash":  "44183BE50A940C2EA0C57B1E807B061154BD81307E6018ED24912586C88EAEB4"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\CouponController.php",
+        "hash":  "F34461767834550E455C805DF69BAA22C9835C73D6D961938A750126965C3F6F"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\CmsPageController.php",
+        "hash":  "404142F883558B901B02AAE4CDEE36EC2161CA434D2945E18B3B89024DA5663E"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController.php",
+        "hash":  "CA93F50F15385CF7D2AC6E8ACE2B927622FFB435B1B7D8E6EB0667EB62A6F04A"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController.php",
+        "hash":  "FDCD54F062FD00B7EE9BF6D8ABB395E5C8FFEA451A29F2B1D7507F2475BE03EB"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController.php",
+        "hash":  "950A98F1A751B3C7D61DC6F7DC8B6D128F5F5AE9C6480ABF6AE9425EA1421D27"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\BranchProductController.php",
+        "hash":  "C4C9B94254133DE967230784A42298543D7715BD86650AA2D5C48ABC69E36E57"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\BranchController.php",
+        "hash":  "E58D84EA42829BABA4BD0BFCE031B70AEC690CBB0EF423EA98714C4AE8548D94"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\BranchClosureController.php",
+        "hash":  "F94FCE898F4BA27830108CB07A20CA693131FD7AC09AAEC0AF54F56CD30B7AD6"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\BranchBusinessHoursController.php",
+        "hash":  "6FDB9EA8C019AAF7C89EACC4ACB4431DDCE6BA7E3D3DB2A911ABC6E1E0E23E9B"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\AdminSessionController.php",
+        "hash":  "3867E7D8F345211A09C2C3CA0FFC820C056DA5655B29B603B07F4E566539B781"
+    },
+    {
+        "file":  "back-end/app\\Http\\Controllers\\Api\\V1\\Admin\\ActivityLogController.php",
+        "hash":  "351FB528A72A6F2B2B06594AE8364613616D342078A580BEA66D08D36C3741D8"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\ReorderProductImagesRequest.php",
+        "hash":  "FD35126B6F7D5A1FE6023C3F2F82FD270FB9635358A04B3864E1ACBF2C011190"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\PromotionFilterRequest.php",
+        "hash":  "BDC5E71E77C3636A1AC1CE8E44A02C31D0002547042E15F7360DBA1241D676CB"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\ListProductsRequest.php",
+        "hash":  "DB7E0B2D32B1F3BDE1EA9C2F54CED6D0D15E55428BAAC1084B47F4168586DE82"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\ListOptionGroupsRequest.php",
+        "hash":  "D7B6D06A35FA27C374ECBDEE7AB5A8007C2104050C2C997D31D5127EA1BD95CF"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\ListNotificationsRequest.php",
+        "hash":  "AC174BE59586F00BB88BB638C56547EAAB49F8A6854FA8126EF821D2F9FC3F59"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\ListGuestCustomersRequest.php",
+        "hash":  "A517A503D768DF15A4C95C83E2896F9EA4858A8E2089AEE224B9EEC46EC9F288"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\ListCustomersRequest.php",
+        "hash":  "CA88D84BE979D41FAE5BAC0A58BEB9DE98C3D614DC94B15B4C56254D113A5CE6"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\ListBranchProductsRequest.php",
+        "hash":  "57242A11E4E6B5EC1D61466CDF3492BA9679F2DD9A9DD5312DDAE2046A4FC2AF"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\InventoryFilterRequest.php",
+        "hash":  "E787872DECFE1773698829C409B5B9583C78091BF0DFEBCA09160451E9920E00"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\BulkProductStatusRequest.php",
+        "hash":  "1AB29E6FBA9269D10FB5A32D86716FABEB9DD03E5F52F5246413275CD020DD01"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\BulkBranchProductsRequest.php",
+        "hash":  "71E525C0F523E3E0E97CA051F915280CDFE375621FCEDB8642388846E41E81DB"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\AttachProductOptionGroupRequest.php",
+        "hash":  "77223F3246B545CBF28E3B74F7C78EA0C6DE28CB7F88D6331646EFBAEE91622C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\AttachBranchProductRequest.php",
+        "hash":  "37E71CBE2F34ED75EDE0218ADEE0C3602FC3E0DEBF8F58D69EE80DCA9566100B"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\AdminOrdersRequest.php",
+        "hash":  "E7A8EAB1303D86C8872614ADE51BE40FF69A196D6921F9433F624E316AB95AEB"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\AdminListRequest.php",
+        "hash":  "498099D9BE0581293D1B3C1BAF2829B7D37232F7F1E5E948304DFBEC7839813B"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StoreBranchClosureRequest.php",
+        "hash":  "25A4CC9C2EBA5E5B887A8DF5D2C33D54A87EB75EDDEFAF3E6B5A86A6EC72512C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StockMutationRequest.php",
+        "hash":  "99BBA46AC8278AE79BD337D90C8C04793163AFE4E9AF04620839F114A788A906"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StockMovementFilterRequest.php",
+        "hash":  "6EE2091643B793E7E0731EF4065007003E57A1551DE522FD42B1535052A257ED"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StaffRequest.php",
+        "hash":  "38A7B09368BB525C4D83B747C41FFC695A2AE919BC4D148EA2346327B56B9E34"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\SettingAuditRequest.php",
+        "hash":  "908BAEEF7202E0419AC8F6D48602B321C05372A71CDF03F6EDD93B9E2CFC360C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\RolePermissionsRequest.php",
+        "hash":  "539C0F46BFF5A824511CE7F153D786A6C6308FF3A56600113FA5E8391B5D3D80"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest.php",
+        "hash":  "CABB1D864BBF24AD5D2FAC7ECE4F84E5B975AFFFF6CA31B6183024490AE4A7A3"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\ReplaceBusinessHoursRequest.php",
+        "hash":  "E3CBFCDAFE1422838A5EA6FFD45F9731F3B96E199EE1C4468716593F395A162E"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StoreOptionValueRequest.php",
+        "hash":  "02009DCD672DE97AF12F10AC11E66D77147EB6E6EA6F741D5C82499253EE9FA3"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StoreOptionGroupRequest.php",
+        "hash":  "FB89520C2FF645DA196E51BF11A798263C1E1250C62B9EDF354961C5341739D0"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StoreInventoryRequest.php",
+        "hash":  "84E5CEF54D49583DC999EB30629F66105A0BDE15EC4B42F847BBF5DD3C1DE277"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StoreDeliveryZoneRequest.php",
+        "hash":  "E2355918B9EDBA754ED8BEF7C1E61A0D30D89034E3F6C35997C257AF40A3466C"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StoreCategoryRequest.php",
+        "hash":  "E96AE88A0D16F1DEE8FF8BD2BB588F99EFC779A45656B37FD08615161E8316A8"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StoreBranchRequest.php",
+        "hash":  "B606E54CC511C347F45D31BB9CD1FA397CF33D13DA5A5754B35E3ED2CE276A20"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StorePromotionRequest.php",
+        "hash":  "EC89DE61F112FA93A7566693387852421BEE478DAAD0AD1AF25710E5903500C7"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StoreProductRequest.php",
+        "hash":  "E69AE6CBF0D1C848CEC6F26F8C46B5B0278401C29E672E7BFBF910D92B21E19A"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\StoreProductImageRequest.php",
+        "hash":  "97E3C9036844BBDD6AB9474B94D27407D29F952139CB9492055E15A079118457"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdateBranchClosureRequest.php",
+        "hash":  "7FFB5EB0D004BB8EFB41377B4FDD9FBAEBDDEF924449413F643C94F2B3A96C43"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdateBranchProductRequest.php",
+        "hash":  "760E6B59829B5AC522C1F7933F0778E171170D29E95CD7AC8D592593E106EF67"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdateBranchRequest.php",
+        "hash":  "4A3F17A1145D1ED8AB1DD38BE7B867429622F5A424A94E9DA4374A8E4F0BC4C5"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdateSettingsRequest.php",
+        "hash":  "152B90349919FB1CE0125EEF3BC228D3344A56E424E310661F59DA2B233A3EA6"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdatePromotionRequest.php",
+        "hash":  "D85863E6464542EA866EB1A54EE033717DE70BA4FFA8E318FB384B057846F35A"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdateProductRequest.php",
+        "hash":  "536FA071AFE9676004C2D73E2F6086646C574224F188AE969D26A3A749087EF6"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdateProductOptionGroupRequest.php",
+        "hash":  "6BC199F793150E76B71F443CD7609BA1049D291F06619199DE52D6E87C6461DA"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdateOptionValueRequest.php",
+        "hash":  "7DD06D2E4EFA5C7B549D45085AE8D1811B5FA395D572E2BA3D652295BF977374"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdateOptionGroupRequest.php",
+        "hash":  "E8394F49F555078A945B2E0EC7225D28EC7BE9F08C596CE61A1CA77824C1815D"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdateInventoryRequest.php",
+        "hash":  "2ACE00B3C77B207691B794B1AB00315471140FD339C30F4EE82112CEDBF18718"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdateDeliveryZoneRequest.php",
+        "hash":  "5CEC6083E5D3E9731504DCEFB1AD6E4D1F23D1C80B589D30875E69CF85BC5C50"
+    },
+    {
+        "file":  "back-end/app\\Http\\Requests\\Api\\V1\\Admin\\UpdateCategoryRequest.php",
+        "hash":  "F59B333FD1181562DBCF95B7D8BE86F173C5B42E680E9D0CA80BA5890F82D164"
+    }
+]

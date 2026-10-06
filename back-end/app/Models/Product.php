@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-#[Fillable(['category_id', 'name', 'slug', 'sku', 'short_description', 'description', 'base_price', 'is_active', 'is_featured', 'is_available', 'sort_order', 'preparation_time'])]
+#[Fillable(['category_id', 'name', 'slug', 'sku', 'short_description', 'description', 'base_price', 'is_active', 'is_featured', 'is_available', 'tracks_inventory', 'sort_order', 'preparation_time'])]
 #[Hidden(['id', 'category_id', 'deleted_at'])]
 class Product extends Model
 {
@@ -27,6 +27,13 @@ class Product extends Model
 
     /** @var list<array{disk: string, path: string}> */
     protected array $mediaPendingDeletion = [];
+
+    public ?int $inventoryBranchId = null;
+
+    public function inventories(): HasMany
+    {
+        return $this->hasMany(BranchInventory::class);
+    }
 
     public function newUniqueId(): string
     {
@@ -154,6 +161,7 @@ class Product extends Model
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
             'is_available' => 'boolean',
+            'tracks_inventory' => 'boolean',
             'sort_order' => 'integer',
             'preparation_time' => 'integer',
         ];

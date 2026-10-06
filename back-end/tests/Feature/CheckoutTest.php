@@ -39,11 +39,14 @@ class CheckoutTest extends TestCase
             ->assertJsonPath('data.items.0.options.0.value.id', $value->uuid);
         $this->assertSame(CartStatus::Converted, $cart->fresh()->status);
         $this->assertDatabaseCount('orders', 1);
+        $this->assertSame('SH-0001', $response->json('data.order_number'));
+        Event::assertDispatched(OrderPlaced::class, fn (OrderPlaced $event): bool => $event->order->order_number === 'SH-0001');
         $this->assertDatabaseCount('order_addresses', 0);
         $this->assertSame(64, strlen($response->json('data.access_token')));
         $this->postJson('/api/v1/checkout', $this->payload())->assertOk()
             ->assertJsonPath('data.id', $response->json('data.id'))
-            ->assertJsonPath('data.access_token', $response->json('data.access_token'));
+            ->assertJsonPath('data.order_number', 'SH-0001')
+            ->assertJsonMissingPath('data.access_token')->assertJsonMissingPath('data.tracking');
         $this->assertDatabaseCount('orders', 1);
         Event::assertDispatchedTimes(OrderPlaced::class, 1);
         $this->getJson('/api/v1/cart')->assertNotFound();
@@ -207,6 +210,7 @@ class CheckoutTest extends TestCase
             ->assertJsonPath('data.items.0.options.0.value.name', 'Current large');
         $original = $response->json('data');
         unset($original['access_token']);
+        unset($original['tracking']);
         $assignment->product->update(['name' => 'Changed', 'base_price' => '100.00']);
         $group->update(['name' => 'Changed']);
         $value->update(['name' => 'Changed', 'price_modifier' => '100.00']);
@@ -309,11 +313,32 @@ class CheckoutTest extends TestCase
         return [
             [['type' => 'invalid'], 'type'], [['customer' => ['name' => '']], 'customer.name'],
             [['customer' => ['phone' => '']], 'customer.phone'], [['customer' => ['email' => 'invalid']], 'customer.email'],
+            [['customer' => ['name' => '   ']], 'customer.name'],
+            [['customer' => ['name' => 'A']], 'customer.name'],
+            [['customer' => ['phone' => '12345678901234567890']], 'customer.phone'],
+            [['customer' => ['phone' => '055123456']], 'customer.phone'],
+            [['customer' => ['phone' => '1234567890']], 'customer.phone'],
+            [['customer' => ['phone' => 'abcdefghij']], 'customer.phone'],
             [['payment_method' => 'bitcoin'], 'payment_method'], [['notes' => str_repeat('a', 1001)], 'notes'],
             [['type' => 'delivery'], 'address'],
             [['type' => 'delivery', 'address' => ['city' => 'Riyadh']], 'address.recipient_name'],
             [['type' => 'delivery', 'address_uuid' => 'bad'], 'address_uuid'],
         ];
+    }
+
+    #[DataProvider('validSaudiMobiles')]
+    public function test_checkout_accepts_valid_saudi_mobile_formats(string $phone): void
+    {
+        $this->cart();
+        $payload = $this->payload();
+        $payload['customer']['phone'] = $phone;
+        $this->postJson('/api/v1/checkout', $payload)->assertCreated()->assertJsonPath('data.customer.phone', $phone);
+        $this->assertDatabaseHas('orders', ['customer_phone' => $phone]);
+    }
+
+    public static function validSaudiMobiles(): array
+    {
+        return [['0551234567'], ['966551234567'], ['+966551234567']];
     }
 
     public function test_delivery_rejects_both_address_sources(): void
@@ -329,6 +354,21 @@ class CheckoutTest extends TestCase
         $this->withoutHeader('X-Cart-Token')->postJson('/api/v1/checkout', $this->payload())->assertUnauthorized();
         $this->withHeader('X-Cart-Token', str_repeat('x', 64))->postJson('/api/v1/checkout', $this->payload())->assertNotFound();
         $this->assertDatabaseCount('orders', 0);
+    }
+
+    public function test_checkout_assigns_short_distinct_numbers_with_frozen_time(): void
+    {
+        $this->freezeTime();
+        $this->cart();
+        $this->postJson('/api/v1/checkout', $this->payload())->assertCreated()
+            ->assertJsonPath('data.order_number', 'SH-0001');
+
+        $this->cart();
+        $this->postJson('/api/v1/checkout', $this->payload())->assertCreated()
+            ->assertJsonPath('data.order_number', 'SH-0002');
+
+        $this->assertDatabaseHas('orders', ['order_number' => 'SH-0001']);
+        $this->assertDatabaseHas('orders', ['order_number' => 'SH-0002']);
     }
 
     public function test_order_numbers_are_unique_even_with_frozen_time(): void
