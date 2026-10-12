@@ -12,6 +12,8 @@ class CustomerAddress extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public const MAX_SAVED_ADDRESSES = 3;
+
     protected $fillable = ['label', 'recipient_name', 'phone', 'city', 'district', 'street', 'building_number', 'floor', 'apartment', 'landmark', 'notes', 'latitude', 'longitude', 'is_default'];
 
     protected $hidden = ['id', 'user_id', 'default_user_id', 'deleted_at'];

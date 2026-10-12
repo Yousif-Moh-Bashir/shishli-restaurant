@@ -96,6 +96,43 @@ class CustomerAddressTest extends TestCase
         $this->patchJson($url, ['longitude' => 46])->assertUnprocessable();
     }
 
+    public function test_three_address_limit_allows_updates_and_replacement_after_deletion(): void
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user, 'sanctum');
+        $ids = [];
+        for ($index = 0; $index < 3; $index++) {
+            $ids[] = $this->postJson('/api/v1/addresses', $this->payload())->assertCreated()->json('data.id');
+        }
+
+        $this->postJson('/api/v1/addresses', $this->payload() + ['is_default' => true])
+            ->assertUnprocessable()->assertJsonValidationErrors('addresses');
+        $this->assertSame(3, $user->addresses()->count());
+        $this->assertSame($ids[0], $user->addresses()->where('is_default', true)->first()->uuid);
+        $this->patchJson('/api/v1/addresses/'.$ids[1], ['label' => 'Updated address'])->assertOk();
+        $this->patchJson('/api/v1/addresses/'.$ids[1].'/default')->assertOk();
+        $this->deleteJson('/api/v1/addresses/'.$ids[0])->assertOk();
+        $this->postJson('/api/v1/addresses', $this->payload())->assertCreated();
+        $this->assertSame(3, $user->addresses()->count());
+        $this->getJson('/api/v1/addresses')->assertOk()->assertJsonCount(3, 'data')
+            ->assertJsonMissingPath('meta')->assertJsonMissingPath('links');
+
+        $this->actingAs(User::factory()->create(), 'sanctum')
+            ->postJson('/api/v1/addresses', $this->payload())->assertCreated();
+    }
+
+    public function test_existing_excess_addresses_remain_visible_and_editable_without_pagination(): void
+    {
+        $user = User::factory()->create();
+        $addresses = CustomerAddress::factory()->forUser($user)->count(21)->create();
+        $this->actingAs($user, 'sanctum');
+        $this->getJson('/api/v1/addresses')->assertOk()->assertJsonCount(21, 'data')->assertJsonMissingPath('meta');
+        $this->patchJson('/api/v1/addresses/'.$addresses->first()->uuid, ['label' => 'Updated legacy address'])->assertOk();
+        $this->postJson('/api/v1/addresses', $this->payload())->assertUnprocessable()->assertJsonValidationErrors('addresses');
+        $this->deleteJson('/api/v1/addresses/'.$addresses->first()->uuid)->assertOk();
+        $this->assertSame(20, $user->addresses()->count());
+    }
+
     private function payload(): array
     {
         return ['recipient_name' => 'عميل', 'phone' => '0501234567', 'city' => 'الرياض', 'district' => 'المصيف'];

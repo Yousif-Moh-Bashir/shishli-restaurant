@@ -1,0 +1,13 @@
+{
+  "result": "passed",
+  "transport": "Real Laravel image resource and production Vue page; one synthetic image association added after timing, no live database access",
+  "url_path": "/storage/products/6860728f-be15-4f0f-a438-201326c20161/9ee31999-b995-4133-b8e0-caa690675be9.png.webp",
+  "contract_keys": [
+    "id",
+    "url",
+    "alt_text",
+    "sort_order",
+    "is_primary"
+  ],
+  "diagnostics": []
+}

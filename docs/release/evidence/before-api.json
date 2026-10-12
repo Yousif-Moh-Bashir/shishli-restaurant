@@ -1,0 +1,408 @@
+{
+  "stage": "before",
+  "repetitions": 7,
+  "engine": "MySQL protocol / MariaDB",
+  "throttling": "none; sequential localhost HTTP requests",
+  "endpoints": [
+    {
+      "path": "/home?branch=:branch",
+      "samples": [
+        {
+          "ms": 356.3182,
+          "bytes": 9146,
+          "serverTiming": "app;dur=313.79, boot;dur=154.73, db;dur=50.49, queries;desc=\"17\""
+        },
+        {
+          "ms": 262.99789999999996,
+          "bytes": 9146,
+          "serverTiming": "app;dur=255.48, boot;dur=145.87, db;dur=15.84, queries;desc=\"17\""
+        },
+        {
+          "ms": 231.30810000000008,
+          "bytes": 9146,
+          "serverTiming": "app;dur=224.85, boot;dur=122.78, db;dur=11.57, queries;desc=\"17\""
+        },
+        {
+          "ms": 266.28359999999986,
+          "bytes": 9146,
+          "serverTiming": "app;dur=259.88, boot;dur=137.86, db;dur=35.22, queries;desc=\"17\""
+        },
+        {
+          "ms": 215.94450000000006,
+          "bytes": 9146,
+          "serverTiming": "app;dur=210.25, boot;dur=115.97, db;dur=9.94, queries;desc=\"17\""
+        },
+        {
+          "ms": 232.4511,
+          "bytes": 9146,
+          "serverTiming": "app;dur=226.23, boot;dur=117.86, db;dur=23.86, queries;desc=\"17\""
+        },
+        {
+          "ms": 226.13380000000006,
+          "bytes": 9146,
+          "serverTiming": "app;dur=220.13, boot;dur=115.40, db;dur=13.13, queries;desc=\"17\""
+        }
+      ]
+    },
+    {
+      "path": "/menu?branch=:branch",
+      "samples": [
+        {
+          "ms": 223.5482999999997,
+          "bytes": 6299,
+          "serverTiming": "app;dur=218.25, boot;dur=121.60, db;dur=25.16, queries;desc=\"9\""
+        },
+        {
+          "ms": 261.3285000000001,
+          "bytes": 6299,
+          "serverTiming": "app;dur=255.73, boot;dur=115.27, db;dur=8.75, queries;desc=\"9\""
+        },
+        {
+          "ms": 222.95270000000028,
+          "bytes": 6299,
+          "serverTiming": "app;dur=217.35, boot;dur=116.23, db;dur=29.55, queries;desc=\"9\""
+        },
+        {
+          "ms": 216.90650000000005,
+          "bytes": 6299,
+          "serverTiming": "app;dur=211.36, boot;dur=116.90, db;dur=21.16, queries;desc=\"9\""
+        },
+        {
+          "ms": 195.11670000000004,
+          "bytes": 6299,
+          "serverTiming": "app;dur=189.86, boot;dur=114.87, db;dur=6.43, queries;desc=\"9\""
+        },
+        {
+          "ms": 229.45479999999998,
+          "bytes": 6299,
+          "serverTiming": "app;dur=222.61, boot;dur=117.54, db;dur=27.34, queries;desc=\"9\""
+        },
+        {
+          "ms": 215.1255000000001,
+          "bytes": 6299,
+          "serverTiming": "app;dur=209.01, boot;dur=127.32, db;dur=7.62, queries;desc=\"9\""
+        }
+      ]
+    },
+    {
+      "path": "/menu/products/:product?branch=:branch",
+      "samples": [
+        {
+          "ms": 210.90009999999984,
+          "bytes": 1067,
+          "serverTiming": "app;dur=204.69, boot;dur=112.99, db;dur=25.05, queries;desc=\"9\""
+        },
+        {
+          "ms": 189.04279999999972,
+          "bytes": 1067,
+          "serverTiming": "app;dur=182.94, boot;dur=115.68, db;dur=5.22, queries;desc=\"9\""
+        },
+        {
+          "ms": 188.14429999999993,
+          "bytes": 1067,
+          "serverTiming": "app;dur=183.07, boot;dur=114.37, db;dur=6.28, queries;desc=\"9\""
+        },
+        {
+          "ms": 198.18210000000045,
+          "bytes": 1067,
+          "serverTiming": "app;dur=192.96, boot;dur=117.78, db;dur=12.77, queries;desc=\"9\""
+        },
+        {
+          "ms": 202.6269000000002,
+          "bytes": 1067,
+          "serverTiming": "app;dur=197.69, boot;dur=113.56, db;dur=18.03, queries;desc=\"9\""
+        },
+        {
+          "ms": 202.38300000000072,
+          "bytes": 1067,
+          "serverTiming": "app;dur=196.41, boot;dur=120.38, db;dur=7.51, queries;desc=\"9\""
+        },
+        {
+          "ms": 200.71609999999964,
+          "bytes": 1067,
+          "serverTiming": "app;dur=195.61, boot;dur=124.64, db;dur=5.90, queries;desc=\"9\""
+        }
+      ]
+    },
+    {
+      "path": "/branches",
+      "samples": [
+        {
+          "ms": 183.95919999999933,
+          "bytes": 729,
+          "serverTiming": "app;dur=178.70, boot;dur=119.26, db;dur=14.61, queries;desc=\"1\""
+        },
+        {
+          "ms": 184.99429999999938,
+          "bytes": 729,
+          "serverTiming": "app;dur=179.95, boot;dur=115.11, db;dur=23.44, queries;desc=\"1\""
+        },
+        {
+          "ms": 180.41390000000047,
+          "bytes": 729,
+          "serverTiming": "app;dur=174.81, boot;dur=114.84, db;dur=18.79, queries;desc=\"1\""
+        },
+        {
+          "ms": 199.48779999999988,
+          "bytes": 729,
+          "serverTiming": "app;dur=194.60, boot;dur=129.23, db;dur=22.65, queries;desc=\"1\""
+        },
+        {
+          "ms": 228.69840000000022,
+          "bytes": 729,
+          "serverTiming": "app;dur=223.53, boot;dur=125.30, db;dur=2.91, queries;desc=\"1\""
+        },
+        {
+          "ms": 170.96219999999994,
+          "bytes": 729,
+          "serverTiming": "app;dur=165.89, boot;dur=119.99, db;dur=2.06, queries;desc=\"1\""
+        },
+        {
+          "ms": 166.38450000000012,
+          "bytes": 729,
+          "serverTiming": "app;dur=161.47, boot;dur=119.06, db;dur=2.03, queries;desc=\"1\""
+        }
+      ]
+    },
+    {
+      "path": "/cart",
+      "samples": [
+        {
+          "ms": 249.41679999999997,
+          "bytes": 1127,
+          "serverTiming": "app;dur=244.14, boot;dur=114.66, db;dur=40.39, queries;desc=\"17\""
+        },
+        {
+          "ms": 236.52219999999943,
+          "bytes": 1127,
+          "serverTiming": "app;dur=230.59, boot;dur=116.49, db;dur=37.94, queries;desc=\"17\""
+        },
+        {
+          "ms": 222.1857,
+          "bytes": 1127,
+          "serverTiming": "app;dur=216.77, boot;dur=115.66, db;dur=23.53, queries;desc=\"16\""
+        },
+        {
+          "ms": 206.63750000000073,
+          "bytes": 1127,
+          "serverTiming": "app;dur=201.11, boot;dur=117.81, db;dur=10.20, queries;desc=\"16\""
+        },
+        {
+          "ms": 232.14959999999974,
+          "bytes": 1127,
+          "serverTiming": "app;dur=225.75, boot;dur=123.31, db;dur=25.98, queries;desc=\"16\""
+        },
+        {
+          "ms": 234.82290000000012,
+          "bytes": 1127,
+          "serverTiming": "app;dur=229.88, boot;dur=125.18, db;dur=24.98, queries;desc=\"17\""
+        },
+        {
+          "ms": 230.4409000000005,
+          "bytes": 1127,
+          "serverTiming": "app;dur=225.38, boot;dur=126.55, db;dur=21.10, queries;desc=\"16\""
+        }
+      ]
+    },
+    {
+      "path": "/addresses",
+      "samples": [
+        {
+          "ms": 213.60939999999937,
+          "bytes": 578,
+          "serverTiming": "app;dur=207.81, boot;dur=114.15, db;dur=16.43, queries;desc=\"3\""
+        },
+        {
+          "ms": 185.29370000000017,
+          "bytes": 578,
+          "serverTiming": "app;dur=180.35, boot;dur=113.28, db;dur=16.45, queries;desc=\"3\""
+        },
+        {
+          "ms": 187.55349999999999,
+          "bytes": 578,
+          "serverTiming": "app;dur=181.58, boot;dur=116.41, db;dur=15.55, queries;desc=\"3\""
+        },
+        {
+          "ms": 205.40680000000066,
+          "bytes": 578,
+          "serverTiming": "app;dur=200.03, boot;dur=115.89, db;dur=29.78, queries;desc=\"4\""
+        },
+        {
+          "ms": 189.14999999999964,
+          "bytes": 578,
+          "serverTiming": "app;dur=183.78, boot;dur=123.56, db;dur=9.67, queries;desc=\"3\""
+        },
+        {
+          "ms": 183.4360000000015,
+          "bytes": 578,
+          "serverTiming": "app;dur=177.90, boot;dur=123.66, db;dur=2.86, queries;desc=\"3\""
+        },
+        {
+          "ms": 184.6911,
+          "bytes": 578,
+          "serverTiming": "app;dur=179.85, boot;dur=117.39, db;dur=11.48, queries;desc=\"3\""
+        }
+      ]
+    },
+    {
+      "path": "/orders/:order/tracking",
+      "samples": [
+        {
+          "ms": 214.26070000000072,
+          "bytes": 2406,
+          "serverTiming": "app;dur=209.47, boot;dur=114.60, db;dur=36.48, queries;desc=\"8\""
+        },
+        {
+          "ms": 202.2452000000012,
+          "bytes": 2406,
+          "serverTiming": "app;dur=197.32, boot;dur=116.89, db;dur=21.39, queries;desc=\"9\""
+        },
+        {
+          "ms": 244.0004000000008,
+          "bytes": 2406,
+          "serverTiming": "app;dur=237.80, boot;dur=165.84, db;dur=16.68, queries;desc=\"8\""
+        },
+        {
+          "ms": 201.32200000000012,
+          "bytes": 2406,
+          "serverTiming": "app;dur=195.39, boot;dur=134.38, db;dur=6.20, queries;desc=\"8\""
+        },
+        {
+          "ms": 215.47090000000026,
+          "bytes": 2406,
+          "serverTiming": "app;dur=210.05, boot;dur=125.18, db;dur=26.98, queries;desc=\"8\""
+        },
+        {
+          "ms": 201.6224000000002,
+          "bytes": 2406,
+          "serverTiming": "app;dur=196.22, boot;dur=118.62, db;dur=20.84, queries;desc=\"8\""
+        },
+        {
+          "ms": 203.86019999999917,
+          "bytes": 2406,
+          "serverTiming": "app;dur=198.06, boot;dur=118.58, db;dur=19.85, queries;desc=\"9\""
+        }
+      ]
+    },
+    {
+      "path": "/admin/dashboard",
+      "samples": [
+        {
+          "ms": 241.86889999999948,
+          "bytes": 3228,
+          "serverTiming": "app;dur=236.61, boot;dur=123.44, db;dur=14.32, queries;desc=\"15\""
+        },
+        {
+          "ms": 233.11470000000008,
+          "bytes": 3228,
+          "serverTiming": "app;dur=227.88, boot;dur=115.27, db;dur=13.92, queries;desc=\"14\""
+        },
+        {
+          "ms": 229.45530000000144,
+          "bytes": 3228,
+          "serverTiming": "app;dur=224.19, boot;dur=111.36, db;dur=18.36, queries;desc=\"14\""
+        },
+        {
+          "ms": 254.21620000000075,
+          "bytes": 3228,
+          "serverTiming": "app;dur=249.11, boot;dur=122.20, db;dur=25.77, queries;desc=\"15\""
+        },
+        {
+          "ms": 232.08650000000125,
+          "bytes": 3228,
+          "serverTiming": "app;dur=225.20, boot;dur=119.65, db;dur=10.77, queries;desc=\"14\""
+        },
+        {
+          "ms": 260.9254999999994,
+          "bytes": 3228,
+          "serverTiming": "app;dur=255.40, boot;dur=122.74, db;dur=25.14, queries;desc=\"14\""
+        },
+        {
+          "ms": 250.97490000000107,
+          "bytes": 3228,
+          "serverTiming": "app;dur=245.97, boot;dur=118.32, db;dur=32.93, queries;desc=\"14\""
+        }
+      ]
+    },
+    {
+      "path": "/admin/orders",
+      "samples": [
+        {
+          "ms": 282.3633000000009,
+          "bytes": 8876,
+          "serverTiming": "app;dur=277.19, boot;dur=121.72, db;dur=31.97, queries;desc=\"14\""
+        },
+        {
+          "ms": 272.54320000000007,
+          "bytes": 8876,
+          "serverTiming": "app;dur=267.21, boot;dur=119.21, db;dur=27.46, queries;desc=\"13\""
+        },
+        {
+          "ms": 287.479800000001,
+          "bytes": 8876,
+          "serverTiming": "app;dur=282.33, boot;dur=128.83, db;dur=34.13, queries;desc=\"13\""
+        },
+        {
+          "ms": 263.14680000000044,
+          "bytes": 8876,
+          "serverTiming": "app;dur=256.73, boot;dur=118.35, db;dur=22.50, queries;desc=\"13\""
+        },
+        {
+          "ms": 339.4498000000003,
+          "bytes": 8876,
+          "serverTiming": "app;dur=332.66, boot;dur=114.72, db;dur=17.07, queries;desc=\"14\""
+        },
+        {
+          "ms": 356.78380000000107,
+          "bytes": 8876,
+          "serverTiming": "app;dur=350.25, boot;dur=189.69, db;dur=22.88, queries;desc=\"13\""
+        },
+        {
+          "ms": 284.498599999999,
+          "bytes": 8876,
+          "serverTiming": "app;dur=279.64, boot;dur=135.97, db;dur=24.76, queries;desc=\"13\""
+        }
+      ]
+    },
+    {
+      "path": "/driver/orders",
+      "samples": [
+        {
+          "ms": 260.6321000000007,
+          "bytes": 1469,
+          "serverTiming": "app;dur=255.61, boot;dur=116.92, db;dur=34.25, queries;desc=\"15\""
+        },
+        {
+          "ms": 266.0009000000009,
+          "bytes": 1469,
+          "serverTiming": "app;dur=261.13, boot;dur=115.85, db;dur=39.69, queries;desc=\"14\""
+        },
+        {
+          "ms": 231.94910000000164,
+          "bytes": 1469,
+          "serverTiming": "app;dur=226.33, boot;dur=114.84, db;dur=11.60, queries;desc=\"14\""
+        },
+        {
+          "ms": 225.60310000000027,
+          "bytes": 1469,
+          "serverTiming": "app;dur=220.85, boot;dur=113.50, db;dur=10.22, queries;desc=\"14\""
+        },
+        {
+          "ms": 261.5452000000005,
+          "bytes": 1469,
+          "serverTiming": "app;dur=255.55, boot;dur=126.39, db;dur=22.50, queries;desc=\"15\""
+        },
+        {
+          "ms": 239.53240000000005,
+          "bytes": 1469,
+          "serverTiming": "app;dur=234.48, boot;dur=118.77, db;dur=17.67, queries;desc=\"14\""
+        },
+        {
+          "ms": 252.3822999999993,
+          "bytes": 1469,
+          "serverTiming": "app;dur=247.43, boot;dur=116.67, db;dur=26.70, queries;desc=\"14\""
+        }
+      ]
+    }
+  ]
+}

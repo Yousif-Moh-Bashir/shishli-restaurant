@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use App\Enums\OrderStatus;
 use App\Enums\PromotionIssueCode;
 use App\Enums\PromotionType;
 use App\Models\Cart;
 use App\Models\Coupon;
+use App\Models\Order;
 use App\Models\Promotion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -44,6 +46,9 @@ class PromotionEngine
             $query->lockForUpdate();
         }
         $promotions = $query->orderBy('id')->get();
+        $hasPreviousOrder = $cart->user_id !== null && $promotions->contains(fn (Promotion $promotion): bool => $promotion->first_order_only)
+            ? Order::where('user_id', $cart->user_id)->where('status', '!=', OrderStatus::Cancelled)->exists()
+            : null;
         if ($coupon !== null && $lock) {
             $coupon = Coupon::withTrashed()->whereKey($coupon->id)->lockForUpdate()->first();
             $cart->setRelation('coupon', $coupon);
@@ -68,7 +73,7 @@ class PromotionEngine
 
                 continue;
             }
-            $issue = $this->eligibility->evaluate($promotion, $cart, $subtotal, $selected);
+            $issue = $this->eligibility->evaluate($promotion, $cart, $subtotal, $selected, $hasPreviousOrder);
             if ($issue !== null) {
                 if ($selected !== null) {
                     $rejected = $issue;

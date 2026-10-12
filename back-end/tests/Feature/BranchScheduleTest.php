@@ -49,6 +49,37 @@ class BranchScheduleTest extends TestCase
         $this->assertNull(app(BranchScheduleService::class)->nextOpeningTime($branch));
     }
 
+    #[DataProvider('businessDayTimes')]
+    public function test_business_day_continues_until_overnight_closing(string $time, string $date): void
+    {
+        $branch = Branch::factory()->withoutBusinessHours()->create();
+        $hours = [];
+        for ($day = 1; $day <= 7; $day++) {
+            $hours[] = ['day_of_week' => $day, 'opens_at' => '12:00', 'closes_at' => '02:00'];
+        }
+        app(ReplaceBusinessHoursAction::class)->handle($branch, $hours);
+        $this->travelTo(CarbonImmutable::parse($time, 'Asia/Riyadh'));
+        $window = app(BranchScheduleService::class)->businessDayWindow($branch);
+        $this->assertSame($date, $window['date']);
+        $this->assertSame(CarbonImmutable::parse($date.' 02:00', 'Asia/Riyadh')->utc()->toISOString(), $window['start']->toISOString());
+        $this->assertSame(CarbonImmutable::parse($date.' 02:00', 'Asia/Riyadh')->addDay()->utc()->toISOString(), $window['end']->toISOString());
+    }
+
+    public static function businessDayTimes(): array
+    {
+        return [['2026-10-06 01:59:59', '2026-10-05'], ['2026-10-06 02:00:00', '2026-10-06'],
+            ['2026-10-06 12:00:00', '2026-10-06'], ['2026-10-05 00:30:00', '2026-10-04']];
+    }
+
+    public function test_business_day_without_overnight_schedule_uses_restaurant_midnight(): void
+    {
+        $this->travelTo(CarbonImmutable::parse('2026-10-06 00:30', 'Asia/Riyadh'));
+        $window = app(BranchScheduleService::class)->businessDayWindow(null);
+        $this->assertSame('2026-10-06', $window['date']);
+        $this->assertSame('2026-10-05T21:00:00.000000Z', $window['start']->toISOString());
+        $this->assertSame('2026-10-06T21:00:00.000000Z', $window['end']->toISOString());
+    }
+
     public function test_next_opening_and_current_period_are_utc(): void
     {
         $branch = $this->schedule();
@@ -150,7 +181,18 @@ class BranchScheduleTest extends TestCase
         $this->putJson('/api/v1/admin/branches/'.$branch->uuid.'/business-hours', ['hours' => [
             ['day_of_week' => 7, 'opens_at' => '18:00', 'closes_at' => '03:00'],
             ['day_of_week' => 1, 'opens_at' => '02:00', 'closes_at' => '12:00'],
-        ]])->assertUnprocessable();
+        ]])->assertUnprocessable()->assertJsonValidationErrors('hours.1');
+        $this->assertSame(2, $branch->businessHours()->count());
+    }
+
+    public function test_missing_opening_time_returns_actionable_arabic_field_error(): void
+    {
+        $branch = $this->schedule();
+        $this->admin();
+        $response = $this->putJson('/api/v1/admin/branches/'.$branch->uuid.'/business-hours', ['hours' => [
+            ['day_of_week' => 1, 'opens_at' => '', 'closes_at' => '22:00'],
+        ]])->assertUnprocessable()->assertJsonValidationErrors('hours.0.opens_at');
+        $this->assertSame('أدخل وقت الفتح.', $response->json('errors')['hours.0.opens_at'][0]);
         $this->assertSame(2, $branch->businessHours()->count());
     }
 

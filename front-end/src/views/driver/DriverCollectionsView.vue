@@ -1,0 +1,12 @@
+<script setup>
+import { ref, watch } from 'vue'
+import { driversApi } from '../../api/drivers.api'
+import { useOrderPolling } from '../../composables/useOrderPolling'
+import { driverTime, driverError } from '../../constants/driverDelivery'
+import { formatCurrency } from '../../utils/formatters'
+const settled = ref('0'), page = ref(1)
+const state = useOrderPolling(signal => driversApi.collections({ settled: settled.value, page: page.value }, signal), { normalizeError: driverError })
+watch([settled, page], () => { state.reset(); void state.load() })
+void state.load()
+</script>
+<template><main id="main" class="driver-main"><h1>تحصيلاتي</h1><p class="driver-muted">المبالغ التي استلمتها نقدًا لصالح المطعم، وحالة تسليمها للكاشير.</p><div class="driver-toolbar"><select v-model="settled" aria-label="حالة التسوية" @change="page=1"><option value="0">غير المسواة</option><option value="1">المسواة</option><option value="">كل التحصيلات</option></select><button class="driver-link" :disabled="state.refreshing.value" @click="state.load()">تحديث</button></div><p v-if="state.loading.value" role="status">جارٍ تحميل التحصيلات…</p><div v-if="state.error.value" class="driver-error" role="alert">{{ state.error.value.message }}<button class="driver-link" @click="state.load()">إعادة المحاولة</button></div><article v-for="item in state.data.value?.data || []" :key="item.id" class="driver-card"><div class="driver-card-head"><h2>طلب <bdi>#{{ item.order.order_number }}</bdi></h2><span class="driver-badge" :class="{ready:item.settled_at}">{{ item.settled_at?'تمت التسوية':'عهدة نقدية' }}</span></div><dl><div><dt>المبلغ المحصل</dt><dd>{{ formatCurrency(item.amount) }}</dd></div><div><dt>وقت التحصيل</dt><dd>{{ driverTime(item.collected_at) }}</dd></div><div v-if="item.settled_at"><dt>وقت التسوية</dt><dd>{{ driverTime(item.settled_at) }}</dd></div><div v-if="item.settlement"><dt>الكاشير المستلم</dt><dd>{{ item.settlement.cashier }}</dd></div></dl><p v-if="item.settlement?.reason" class="driver-muted">{{ item.settlement.reason }}</p></article><p v-if="state.data.value && !state.data.value.data.length" class="driver-empty">لا توجد تحصيلات في هذه القائمة.</p><div v-if="state.data.value?.meta?.last_page>1" class="driver-pager"><button class="driver-button secondary" :disabled="page<=1" @click="page--">السابق</button><span>{{ page }} / {{ state.data.value.meta.last_page }}</span><button class="driver-button secondary" :disabled="page>=state.data.value.meta.last_page" @click="page++">التالي</button></div></main></template>

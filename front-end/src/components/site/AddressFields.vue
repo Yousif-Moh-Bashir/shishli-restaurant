@@ -1,16 +1,17 @@
 <script setup>
-import {ref,watch,onBeforeUnmount} from 'vue'
-import {addressFields} from '../../constants/addressFields'
-const props=defineProps({form:Object,errors:{type:Object,default:()=>({})},disabled:Boolean,saved:{type:Boolean,default:true},prefix:{type:String,default:''}})
-const locating=ref(false),locationMessage=ref('');let revision=0
-const errorFor=key=>props.errors[props.prefix+key]||props.errors[key]
-watch(()=>props.form,()=>{if(locating.value){revision++;locating.value=false;locationMessage.value='تغيرت بيانات العنوان؛ اطلب تحديد الموقع مجددًا عند الحاجة.'}},{deep:true,flush:'sync'})
-function locate(){
-  if(locating.value||props.disabled)return
-  if(!window.isSecureContext||!navigator.geolocation){locationMessage.value='تحديد الموقع غير متاح. أدخل الإحداثيات يدويًا أو استخدم عنوان الحي.';return}
-  const current=++revision;locating.value=true;locationMessage.value='جارٍ تحديد الموقع بناءً على طلبك…'
-  navigator.geolocation.getCurrentPosition(position=>{if(current!==revision)return;locating.value=false;if(props.disabled)return;props.form.latitude=position.coords.latitude;props.form.longitude=position.coords.longitude;locationMessage.value='تم تحديد الموقع. راجع بيانات العنوان قبل الحفظ أو التحقق.'},()=>{if(current!==revision)return;locating.value=false;locationMessage.value='تعذر تحديد الموقع أو لم يُسمح به. إدخال العنوان يدويًا متاح.'},{enableHighAccuracy:true,timeout:12000,maximumAge:0})
-}
-onBeforeUnmount(()=>revision++)
+import { addressFields } from '../../constants/addressFields'
+import PhoneInput from '../common/PhoneInput.vue'
+import CheckoutAddress from './CheckoutAddress.vue'
+const props = defineProps({ form: Object, errors: { type: Object, default: () => ({}) }, disabled: Boolean, saved: { type: Boolean, default: true }, prefix: { type: String, default: '' }, center: Object })
+const errorFor = key => props.errors[props.prefix + key] || props.errors[key]
+const identityFields = addressFields.filter(field => ['recipient_name', 'phone', 'label'].includes(field.key))
 </script>
-<template><div class="form-grid address-fields"><label v-for="field in addressFields.filter(f=>saved||f.key!=='label')" :key="field.key" class="field" :class="{'field-wide':field.type==='textarea'}"><span>{{ field.label }}{{ field.required?' *':'' }}</span><textarea v-if="field.type==='textarea'" v-model="form[field.key]" :name="field.key" :aria-invalid="!!errorFor(field.key)" :maxlength="field.max" :disabled="disabled" rows="3"/><input v-else v-model="form[field.key]" :name="field.key" :aria-invalid="!!errorFor(field.key)" :type="field.type" :maxlength="field.max" :required="field.required" :disabled="disabled" :autocomplete="field.key==='phone'?'tel':field.key==='recipient_name'?'name':'off'"><small v-if="errorFor(field.key)" class="field-error" role="alert">{{ errorFor(field.key).join(' ') }}</small></label><label class="field">خط العرض (اختياري)<input v-model="form.latitude" name="latitude" :aria-invalid="!!errorFor('latitude')" type="number" step="any" min="-90" max="90" :disabled="disabled"><small v-if="errorFor('latitude')" class="field-error" role="alert">{{ errorFor('latitude').join(' ') }}</small></label><label class="field">خط الطول (اختياري)<input v-model="form.longitude" name="longitude" :aria-invalid="!!errorFor('longitude')" type="number" step="any" min="-180" max="180" :disabled="disabled"><small v-if="errorFor('longitude')" class="field-error" role="alert">{{ errorFor('longitude').join(' ') }}</small></label><div class="field-wide"><button class="text-button" type="button" :disabled="disabled||locating" @click="locate">{{ locating?'جارٍ تحديد الموقع…':'استخدام موقعي الحالي' }}</button><button class="text-button" type="button" :disabled="disabled||locating" @click="form.latitude='';form.longitude=''">مسح الإحداثيات</button><p role="status">{{ locationMessage }}</p><p class="catalog-note">أدخل الإحداثيات معًا عند استخدامها. بعض مناطق التوصيل تتطلبها.</p></div><label v-if="saved" class="check"><input v-model="form.is_default" name="is_default" type="checkbox" :disabled="disabled">العنوان الافتراضي</label></div></template>
+<template>
+  <div class="address-editor-fields">
+    <div class="form-grid address-fields">
+      <label v-for="field in identityFields.filter(field => saved || field.key !== 'label')" :key="field.key" class="field"><span>{{ field.label }}{{ field.required ? ' *' : '' }}</span><PhoneInput v-if="field.key==='phone'" v-model="form[field.key]" :name="field.key" :required="field.required" :disabled="disabled" :aria-invalid="!!errorFor(field.key)"/><input v-else v-model="form[field.key]" :name="field.key" :type="field.type" :placeholder="field.key === 'label' ? 'مثال: المنزل أو العمل' : undefined" :required="field.required" :maxlength="field.max" :disabled="disabled" :aria-invalid="!!errorFor(field.key)" :autocomplete="field.key === 'phone' ? 'tel' : field.key === 'recipient_name' ? 'name' : 'off'"><small v-if="field.key === 'label'">اسم يساعدك على تمييز العنوان، مثل: المنزل أو العمل.</small><small v-if="errorFor(field.key)" class="field-error">{{ errorFor(field.key).join(' ') }}</small></label>
+    </div>
+    <CheckoutAddress :form="form" :errors="errors" :disabled="disabled" :center="center" :checkout="false"/>
+    <label v-if="saved" class="check"><input v-model="form.is_default" name="is_default" type="checkbox" :disabled="disabled">العنوان الافتراضي</label>
+  </div>
+</template>

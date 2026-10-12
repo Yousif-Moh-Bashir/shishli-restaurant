@@ -5,6 +5,7 @@ import { useCartStore } from '../../stores/cart'
 import { formatCurrency } from '../../utils/formatters'
 import SiteIcon from './SiteIcon.vue'
 import CartCoupon from './CartCoupon.vue'
+import RegistrationOffer from './RegistrationOffer.vue'
 defineProps({ totalId: { type: String, default: 'cart-total' } })
 defineEmits(['continue'])
 const cart = useCartStore()
@@ -14,6 +15,7 @@ const cart = useCartStore()
     <div class="cart-summary-heading"><span class="cart-summary-icon"><SiteIcon name="shopping-bag"/></span><div><h3 class="cart-summary-title">ملخص الطلب</h3><p v-if="cart.itemsCount">{{ cart.itemsCount }} قطعة في سلتك</p></div></div>
     <AppSkeleton v-if="cart.isLoading&&!cart.cart" variant="list" :rows="3" label="جارٍ تحميل إجماليات السلة…"/>
     <template v-if="cart.cart && cart.itemsCount">
+      <RegistrationOffer placement="cart"/>
       <div class="cart-summary-line"><span>إجمالي المنتجات</span><strong>{{ formatCurrency(cart.subtotal) }}</strong></div>
       <div v-if="Number(cart.discount)>0" class="cart-summary-line cart-discount"><span>الخصم</span><strong>− {{ formatCurrency(cart.discount) }}</strong></div>
       <details class="cart-summary-coupon" :open="!!cart.cart.coupon"><summary><span>{{ cart.cart.coupon?'كوبون الخصم المطبق':'لديك كود خصم؟' }}</span><span aria-hidden="true">+</span></summary><CartCoupon/></details>

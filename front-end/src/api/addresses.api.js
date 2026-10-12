@@ -1,8 +1,7 @@
 ﻿import { http, unwrap } from './http'
-import { page } from './catalogTransport'
 const path = id => '/addresses/' + encodeURIComponent(id)
 export const addressesApi = {
-  list: (params, signal) => http.get('/addresses', { params: { page: params?.page || 1 }, signal }).then(page),
+  list: signal => http.get('/addresses', { signal }).then(unwrap),
   show: id => http.get(path(id)).then(unwrap),
   create: body => http.post('/addresses', body).then(unwrap),
   update: (id, body) => http.patch(path(id), body).then(unwrap),

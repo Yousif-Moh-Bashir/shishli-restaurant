@@ -24,7 +24,7 @@ class RoleController extends Controller
 
     public function update(RolePermissionsRequest $request, string $role, RolePermissionService $roles): JsonResponse
     {
-        abort_unless(in_array($role, [...AdminAccessService::STAFF_ROLES, 'customer'], true), 404);
+        abort_unless(in_array($role, [...AdminAccessService::STAFF_ROLES, 'customer', 'driver'], true), 404);
         $model = Role::where('name', $role)->where('guard_name', 'web')->firstOrFail();
 
         return ApiResponse::success($roles->update($request->user(), $model, $request->validated('permissions')));

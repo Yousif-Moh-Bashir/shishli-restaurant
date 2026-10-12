@@ -50,6 +50,7 @@ class RegisterControllerTest extends TestCase
                 'name' => 'New user',
                 'email' => 'new@example.com',
                 'phone' => null,
+                'is_driver' => false,
                 'email_verified_at' => null,
                 'created_at' => $user->created_at->toISOString(),
                 'updated_at' => $user->updated_at->toISOString(),

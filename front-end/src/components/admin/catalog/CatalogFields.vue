@@ -1,5 +1,6 @@
 <script setup>
 import {computed} from 'vue'
+import PhoneInput from '../../common/PhoneInput.vue'
 const props=defineProps({ fields: Array, form: Object, errors: {type:Object,default:()=>({})}, categories: {type:Array,default:()=>[]}, disabled: Boolean, sections:Array })
 const groups=computed(()=>{
  if(!props.sections?.length)return [{title:'',fields:props.fields}]
@@ -13,6 +14,7 @@ const groups=computed(()=>{
 <select v-if="field.type==='category'" v-model="form[field.key]" :name="field.key" :required="field.required" :disabled="disabled" :aria-invalid="errors[field.key]?.length?true:undefined"><option value="">{{ field.required ? 'اختر التصنيف' : 'بدون قسم أب' }}</option><option v-for="category in categories" :key="category.id" :value="category.id">{{ category.label || category.name }}</option></select>
 <select v-else-if="field.type==='select'" v-model="form[field.key]" :name="field.key" :required="field.required" :disabled="disabled" :aria-invalid="errors[field.key]?.length?true:undefined"><option v-for="[value,label] in field.choices" :key="value" :value="value">{{ label }}</option></select>
 <textarea v-else-if="field.type==='textarea'" v-model="form[field.key]" :name="field.key" :maxlength="field.max" :disabled="disabled" :aria-invalid="errors[field.key]?.length?true:undefined" rows="3"></textarea>
+<PhoneInput v-else-if="['phone','whatsapp'].includes(field.key)" v-model="form[field.key]" :name="field.key" :required="field.required" :disabled="disabled" :aria-invalid="errors[field.key]?.length?true:undefined"/>
 <input v-else v-model="form[field.key]" :name="field.key" :type="field.type" :dir="field.dir||(['slug','sku','phone','whatsapp','email','latitude','longitude','center_latitude','center_longitude'].includes(field.key)?'ltr':undefined)" :maxlength="field.type==='text'?field.max:undefined" :min="field.min" :max="field.type==='number'?field.max:undefined" :step="field.step" :pattern="field.pattern" :required="field.required" :disabled="disabled" :aria-invalid="errors[field.key]?.length?true:undefined">
 </template><small v-if="errors[field.key]" class="field-error" role="alert">{{ errors[field.key].join(' ') }}</small>
 </label></div></component></div></template>

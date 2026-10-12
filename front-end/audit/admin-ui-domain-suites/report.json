@@ -1,29 +1,29 @@
 [
-  {
-    "suite": "lifecycle",
-    "exit": 0,
-    "browser": 13,
-    "responsive": 18,
-    "live": 4,
-    "diagnostics": 0,
-    "assetFailures": 0
-  },
-  {
-    "suite": "payments",
-    "exit": 0,
-    "browser": 13,
-    "responsive": 12,
-    "live": 5,
-    "diagnostics": 0,
-    "assetFailures": 0
-  },
-  {
-    "suite": "notifications",
-    "exit": 0,
-    "browser": 9,
-    "responsive": 15,
-    "live": 4,
-    "diagnostics": 0,
-    "assetFailures": 0
-  }
+    {
+        "suite":  "lifecycle",
+        "exit":  0,
+        "browser":  13,
+        "responsive":  18,
+        "live":  4,
+        "diagnostics":  0,
+        "assetFailures":  0
+    },
+    {
+        "suite":  "payments",
+        "exit":  0,
+        "browser":  13,
+        "responsive":  12,
+        "live":  5,
+        "diagnostics":  0,
+        "assetFailures":  0
+    },
+    {
+        "suite":  "notifications",
+        "exit":  0,
+        "browser":  9,
+        "responsive":  15,
+        "live":  4,
+        "diagnostics":  0,
+        "assetFailures":  0
+    }
 ]

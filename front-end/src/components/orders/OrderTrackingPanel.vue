@@ -4,7 +4,7 @@ import { ref,watch,computed } from 'vue'
 import { useAuthStore } from '../../stores/auth'
 import { useOrderPolling } from '../../composables/useOrderPolling'
 import { ordersApi } from '../../api/orders.api'
-import { readOrderAccess,orderAccessIsPersistent } from '../../utils/orderAccess'
+import { readOrderAccess,orderAccessIsPersistent,saveOrderAccess } from '../../utils/orderAccess'
 import { isTerminalOrder,getOrderTypeLabel,getPaymentMethodLabel,getPaymentStatusLabel,getTrackingErrorMessage } from '../../constants/orderStatus'
 import { formatDateTime,formatCurrency } from '../../utils/formatters'
 import OrderTimeline from './OrderTimeline.vue'
@@ -20,7 +20,7 @@ const state=useOrderPolling(async signal=>{
  const token=props.customerOnly?null:readOrderAccess(id)
  credential=token||''
  let value
- if(token){if(!guestNumber){const original=await ordersApi.guest(id,token,signal);if(signal.aborted)throw {code:'ERR_CANCELED'};guestNumber=original.order_number}value=await ordersApi.trackGuest({order_number:guestNumber,token},signal)}
+ if(token){if(!guestNumber){const original=await ordersApi.guest(id,token,signal);if(signal.aborted)throw {code:'ERR_CANCELED'};guestNumber=original.order_number;saveOrderAccess(id,token,{number:original.order_number,placedAt:original.placed_at})}value=await ordersApi.trackGuest({order_number:guestNumber,token},signal)}
  else {
  if(!auth.isAuthenticated)throw {response:{status:404}}
  value=await ordersApi.tracking(id,signal)

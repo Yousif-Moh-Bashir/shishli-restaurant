@@ -10,7 +10,7 @@ import {useAuthStore} from '../../stores/auth'
 import ApiFeedback from '../../components/admin/catalog/ApiFeedback.vue'
 import {useUnsavedForm} from '../../composables/useUnsavedForm'
 const auth=useAuthStore(),{notify}=inject('admin'),state=useApiState(),mutation=useApiMutation(),selected=ref(''),permissions=ref([])
-const role=computed(()=>state.data.value?.roles.find(r=>r.name===selected.value)),editable=computed(()=>auth.hasRole('super_admin')&&auth.can('roles.update_permissions')&&!['super_admin','customer'].includes(selected.value))
+const role=computed(()=>state.data.value?.roles.find(r=>r.name===selected.value)),editable=computed(()=>auth.hasRole('super_admin')&&auth.can('roles.update_permissions')&&!['super_admin','customer','driver'].includes(selected.value))
 async function load(){const value=await state.run(async signal=>({roles:await rolesApi.list(signal),groups:await rolesApi.permissions(signal)}));if(value)choose(selected.value||value.roles[0]?.name)}
 const dirty=computed(()=>JSON.stringify([...permissions.value].sort())!==JSON.stringify([...(role.value?.permissions||[])].sort()))
 useUnsavedForm(dirty,mutation.busy)

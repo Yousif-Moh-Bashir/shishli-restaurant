@@ -3,7 +3,8 @@ import assert from 'node:assert/strict'
 import {mkdir,writeFile} from 'node:fs/promises'
 import {fileURLToPath} from 'node:url'
 import {browserClient} from './browser-client.mjs'
-const origin=process.env.DESIGN_APP_URL||'http://127.0.0.1:5175',api='http://127.0.0.1:8000/api/v1',out=fileURLToPath(new URL('../.reports-check/final-auth-media/',import.meta.url)),checks=[],cleanup=[],failures=[]
+const origin=process.env.DESIGN_APP_URL||'http://127.0.0.1:5175',api=process.env.DESIGN_API_URL,out=fileURLToPath(new URL('../.reports-check/final-auth-media/',import.meta.url)),checks=[],cleanup=[],failures=[]
+assert.equal(new URL(api).port,'8017','This mutation suite requires the isolated QA API on port 8017')
 await mkdir(out,{recursive:true});let browser,token
 async function request(path,method='GET',body){const r=await fetch(api+path,{method,headers:{Accept:'application/json',...(token?{Authorization:'Bearer '+token}:{}),...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(20000)});const data=await r.json();assert.ok(r.ok,path+' '+JSON.stringify(data.errors||data.message));return data.data}
 try{

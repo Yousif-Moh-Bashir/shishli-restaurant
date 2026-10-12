@@ -1,0 +1,850 @@
+{
+  "scope": "Final production build / relative API base",
+  "assets": [
+    {
+      "name": "ActivityLogsView-sP5vUK-i.js",
+      "bytes": 3848,
+      "gzip_bytes": 1822
+    },
+    {
+      "name": "AddressBook-BMOE-eGC.css",
+      "bytes": 7662,
+      "gzip_bytes": 1475
+    },
+    {
+      "name": "AddressBook-DE8sQlxD.js",
+      "bytes": 23093,
+      "gzip_bytes": 8244
+    },
+    {
+      "name": "AddressesView-CYvvGiIw.css",
+      "bytes": 1593,
+      "gzip_bytes": 550
+    },
+    {
+      "name": "AddressesView-K4RkgxiF.js",
+      "bytes": 1301,
+      "gzip_bytes": 723
+    },
+    {
+      "name": "AdminDriverAssignment-8c4xHiOa.js",
+      "bytes": 4139,
+      "gzip_bytes": 1881
+    },
+    {
+      "name": "AdminDriverAssignment-DEIyI68X.css",
+      "bytes": 807,
+      "gzip_bytes": 318
+    },
+    {
+      "name": "AdminFilterExtras-B-qtn14G.js",
+      "bytes": 642,
+      "gzip_bytes": 473
+    },
+    {
+      "name": "AdminFilterSummary-DyKDErf5.js",
+      "bytes": 823,
+      "gzip_bytes": 538
+    },
+    {
+      "name": "AdminIcon-JPnjJZbD.js",
+      "bytes": 4819,
+      "gzip_bytes": 2031
+    },
+    {
+      "name": "AdminLayout-4dZG9Asa.js",
+      "bytes": 11523,
+      "gzip_bytes": 4983
+    },
+    {
+      "name": "AdminLayout-JzIduCNh.css",
+      "bytes": 56140,
+      "gzip_bytes": 9924
+    },
+    {
+      "name": "AdminModal-Civd7nST.js",
+      "bytes": 1354,
+      "gzip_bytes": 785
+    },
+    {
+      "name": "adminOperations.api-Dn1ofaZs.js",
+      "bytes": 570,
+      "gzip_bytes": 299
+    },
+    {
+      "name": "AdminOrderOperations-CzRVaKkt.css",
+      "bytes": 134,
+      "gzip_bytes": 111
+    },
+    {
+      "name": "AdminOrderOperations-zZF6roaG.js",
+      "bytes": 5376,
+      "gzip_bytes": 2553
+    },
+    {
+      "name": "AdminOrderPeriodFilter-BAc9HgEg.js",
+      "bytes": 1943,
+      "gzip_bytes": 1013
+    },
+    {
+      "name": "AdminOrderPeriodFilter-CO85CG_q.css",
+      "bytes": 875,
+      "gzip_bytes": 397
+    },
+    {
+      "name": "AdminPageHeader-CihIZFXR.js",
+      "bytes": 291,
+      "gzip_bytes": 234
+    },
+    {
+      "name": "adminPresentation-Bp7fyXBQ.js",
+      "bytes": 844,
+      "gzip_bytes": 479
+    },
+    {
+      "name": "AdminSectionHeading-Cdja-0Wh.js",
+      "bytes": 532,
+      "gzip_bytes": 358
+    },
+    {
+      "name": "AdminTabs-Bo75Hk4n.js",
+      "bytes": 1339,
+      "gzip_bytes": 738
+    },
+    {
+      "name": "apiError-BrwkAuV_.js",
+      "bytes": 53197,
+      "gzip_bytes": 20013
+    },
+    {
+      "name": "ApiFeedback-zzwakEvT.js",
+      "bytes": 1447,
+      "gzip_bytes": 811
+    },
+    {
+      "name": "ApiPagination-D-Wiz5A7.js",
+      "bytes": 871,
+      "gzip_bytes": 509
+    },
+    {
+      "name": "auth-DSsSL2dn.js",
+      "bytes": 9120,
+      "gzip_bytes": 4105
+    },
+    {
+      "name": "BranchDetailsView-Cq-Xm3F8.js",
+      "bytes": 11903,
+      "gzip_bytes": 4313
+    },
+    {
+      "name": "branches.api-CmjSFjMn.js",
+      "bytes": 581,
+      "gzip_bytes": 305
+    },
+    {
+      "name": "BranchesView-DlRbg9T-.js",
+      "bytes": 215,
+      "gzip_bytes": 190
+    },
+    {
+      "name": "branchLocations-CPf0HT0S.js",
+      "bytes": 321,
+      "gzip_bytes": 272
+    },
+    {
+      "name": "BranchOperations-gXDyoRiv.js",
+      "bytes": 21058,
+      "gzip_bytes": 6829
+    },
+    {
+      "name": "BranchSelector-B4Q-K23g.js",
+      "bytes": 3801,
+      "gzip_bytes": 1842
+    },
+    {
+      "name": "CartView-C64KlL0j.js",
+      "bytes": 1352,
+      "gzip_bytes": 854
+    },
+    {
+      "name": "CatalogEditor-BKdZG1VH.js",
+      "bytes": 8734,
+      "gzip_bytes": 3690
+    },
+    {
+      "name": "CatalogFields-DRfZGLnz.js",
+      "bytes": 3930,
+      "gzip_bytes": 1421
+    },
+    {
+      "name": "CatalogList-C6ejDbnC.css",
+      "bytes": 6207,
+      "gzip_bytes": 1409
+    },
+    {
+      "name": "CatalogList-DHCOk8As.js",
+      "bytes": 23520,
+      "gzip_bytes": 7307
+    },
+    {
+      "name": "categories.api-C-C0Liwr.js",
+      "bytes": 313,
+      "gzip_bytes": 241
+    },
+    {
+      "name": "CategoriesView-8xuJJgFD.js",
+      "bytes": 219,
+      "gzip_bytes": 190
+    },
+    {
+      "name": "CheckoutView-CTcnBI9o.js",
+      "bytes": 30588,
+      "gzip_bytes": 9935
+    },
+    {
+      "name": "CheckoutView-VUDvHOiT.css",
+      "bytes": 7218,
+      "gzip_bytes": 1523
+    },
+    {
+      "name": "cms.api-DHzPxzMG.js",
+      "bytes": 1584,
+      "gzip_bytes": 758
+    },
+    {
+      "name": "CmsPageView-Bsku5ZVv.js",
+      "bytes": 6834,
+      "gzip_bytes": 2584
+    },
+    {
+      "name": "CmsPageView-CRBziO47.css",
+      "bytes": 153,
+      "gzip_bytes": 112
+    },
+    {
+      "name": "CmsView-luVWJ18g.js",
+      "bytes": 14339,
+      "gzip_bytes": 4977
+    },
+    {
+      "name": "contentUrl-DILEBc2I.js",
+      "bytes": 271,
+      "gzip_bytes": 214
+    },
+    {
+      "name": "CustomerManagementView-C-EZx6vg.js",
+      "bytes": 9243,
+      "gzip_bytes": 3348
+    },
+    {
+      "name": "CustomerOrdersView-DP2QWlc_.js",
+      "bytes": 5582,
+      "gzip_bytes": 2407
+    },
+    {
+      "name": "CustomerOrdersView-DuiqG4id.css",
+      "bytes": 6662,
+      "gzip_bytes": 1425
+    },
+    {
+      "name": "CustomerOrderView-AEgFN0kp.js",
+      "bytes": 1789,
+      "gzip_bytes": 1013
+    },
+    {
+      "name": "CustomerPayments-CcuQ2xrp.css",
+      "bytes": 205,
+      "gzip_bytes": 156
+    },
+    {
+      "name": "CustomerPayments-DdWpvKyB.js",
+      "bytes": 3583,
+      "gzip_bytes": 1944
+    },
+    {
+      "name": "customers.api-C9jlXSOM.js",
+      "bytes": 710,
+      "gzip_bytes": 327
+    },
+    {
+      "name": "DashboardView-DMNfhs0o.js",
+      "bytes": 12158,
+      "gzip_bytes": 4143
+    },
+    {
+      "name": "DashboardView-WB5oEUXD.css",
+      "bytes": 2683,
+      "gzip_bytes": 752
+    },
+    {
+      "name": "DeliveryDestinationMap-BfADgSrf.js",
+      "bytes": 2433,
+      "gzip_bytes": 1299
+    },
+    {
+      "name": "DeliveryDestinationMap-C2zqVpMx.css",
+      "bytes": 268,
+      "gzip_bytes": 200
+    },
+    {
+      "name": "DeliveryZonesView-CGbPio1O.js",
+      "bytes": 13736,
+      "gzip_bytes": 5119
+    },
+    {
+      "name": "devtools-CN5uWJaH-C5x5kDrT.js",
+      "bytes": 5690,
+      "gzip_bytes": 2564
+    },
+    {
+      "name": "DomainFields-CPnCvRyp.js",
+      "bytes": 5087,
+      "gzip_bytes": 1721
+    },
+    {
+      "name": "domainFilters-CAp1p5bB.js",
+      "bytes": 3497,
+      "gzip_bytes": 1692
+    },
+    {
+      "name": "DriverCollectionsView-ZmNPR52d.js",
+      "bytes": 3186,
+      "gzip_bytes": 1448
+    },
+    {
+      "name": "driverDelivery-DCplW53H.js",
+      "bytes": 1710,
+      "gzip_bytes": 877
+    },
+    {
+      "name": "DriverLayout-CxFExnmF.css",
+      "bytes": 6244,
+      "gzip_bytes": 1770
+    },
+    {
+      "name": "DriverLayout-JEqZF25o.js",
+      "bytes": 2940,
+      "gzip_bytes": 1395
+    },
+    {
+      "name": "DriverOrdersView-Bhbe1Zox.js",
+      "bytes": 5860,
+      "gzip_bytes": 2324
+    },
+    {
+      "name": "DriverOrderView-3vxGlybS.js",
+      "bytes": 10754,
+      "gzip_bytes": 4011
+    },
+    {
+      "name": "drivers.api-CDsuUbf0.js",
+      "bytes": 1097,
+      "gzip_bytes": 421
+    },
+    {
+      "name": "DriversView-Bhi2JkX2.js",
+      "bytes": 12208,
+      "gzip_bytes": 4486
+    },
+    {
+      "name": "DriversView-DuQpn4iW.css",
+      "bytes": 2905,
+      "gzip_bytes": 821
+    },
+    {
+      "name": "ForbiddenView-CO3g5nB6.js",
+      "bytes": 570,
+      "gzip_bytes": 431
+    },
+    {
+      "name": "formDates-CIofYjeK.js",
+      "bytes": 137,
+      "gzip_bytes": 131
+    },
+    {
+      "name": "HomeView-B_Uc8r6p.js",
+      "bytes": 11930,
+      "gzip_bytes": 4618
+    },
+    {
+      "name": "index-Bya3KsYc.js",
+      "bytes": 100380,
+      "gzip_bytes": 32372
+    },
+    {
+      "name": "index-CyCwNkjV.css",
+      "bytes": 101019,
+      "gzip_bytes": 17062
+    },
+    {
+      "name": "inventory.api-CieHCZ-b.js",
+      "bytes": 497,
+      "gzip_bytes": 282
+    },
+    {
+      "name": "InventoryView-nJNswwY7.js",
+      "bytes": 15080,
+      "gzip_bytes": 5137
+    },
+    {
+      "name": "KitchenSnapshot-D_MMun91.css",
+      "bytes": 396,
+      "gzip_bytes": 212
+    },
+    {
+      "name": "KitchenSnapshot-kIXQYoRb.js",
+      "bytes": 893,
+      "gzip_bytes": 572
+    },
+    {
+      "name": "KitchenView-CpsFQPBy.css",
+      "bytes": 7295,
+      "gzip_bytes": 1524
+    },
+    {
+      "name": "KitchenView-SHA1nPD0.js",
+      "bytes": 10730,
+      "gzip_bytes": 4283
+    },
+    {
+      "name": "leaflet-src-D6yJ2DYL.js",
+      "bytes": 148742,
+      "gzip_bytes": 43063
+    },
+    {
+      "name": "leaflet-vh-t_kPv.css",
+      "bytes": 15095,
+      "gzip_bytes": 6371
+    },
+    {
+      "name": "location-Csieu1Sg.js",
+      "bytes": 180,
+      "gzip_bytes": 135
+    },
+    {
+      "name": "LoginView-CUi6ftj7.js",
+      "bytes": 4560,
+      "gzip_bytes": 2124
+    },
+    {
+      "name": "MapLocationPicker-CWlxoOUb.js",
+      "bytes": 3928,
+      "gzip_bytes": 2041
+    },
+    {
+      "name": "MapLocationPicker-DSD46aXV.css",
+      "bytes": 1044,
+      "gzip_bytes": 472
+    },
+    {
+      "name": "MenuView-Chlf1eC1.js",
+      "bytes": 6776,
+      "gzip_bytes": 2740
+    },
+    {
+      "name": "NotFoundView-CMECBbXO.js",
+      "bytes": 569,
+      "gzip_bytes": 432
+    },
+    {
+      "name": "NotificationBadge-WgqgCRit.js",
+      "bytes": 1557,
+      "gzip_bytes": 848
+    },
+    {
+      "name": "NotificationDetailsView-Dqw7CzNA.css",
+      "bytes": 61,
+      "gzip_bytes": 81
+    },
+    {
+      "name": "NotificationDetailsView-EiIcyBx0.js",
+      "bytes": 10819,
+      "gzip_bytes": 4045
+    },
+    {
+      "name": "NotificationsView-Qsu4kelD.js",
+      "bytes": 7038,
+      "gzip_bytes": 2746
+    },
+    {
+      "name": "operations-BOHpXwys.js",
+      "bytes": 665,
+      "gzip_bytes": 410
+    },
+    {
+      "name": "operations.api-Dkakd2n4.js",
+      "bytes": 170,
+      "gzip_bytes": 163
+    },
+    {
+      "name": "OptionGroupDetailsView-0iZ9pc9e.js",
+      "bytes": 5599,
+      "gzip_bytes": 2378
+    },
+    {
+      "name": "OrderDetailsView-D8wOSfR0.js",
+      "bytes": 10551,
+      "gzip_bytes": 4130
+    },
+    {
+      "name": "OrderDetailsView-DL2pa33X.css",
+      "bytes": 6339,
+      "gzip_bytes": 1454
+    },
+    {
+      "name": "OrderLifecycleSummary-Bk8yfk4u.css",
+      "bytes": 1432,
+      "gzip_bytes": 529
+    },
+    {
+      "name": "OrderLifecycleSummary-BpBD6CcU.js",
+      "bytes": 3890,
+      "gzip_bytes": 1550
+    },
+    {
+      "name": "orders.api-CiMgwcGT.js",
+      "bytes": 1256,
+      "gzip_bytes": 541
+    },
+    {
+      "name": "OrderSnapshot-CVB4_HCc.js",
+      "bytes": 5630,
+      "gzip_bytes": 2044
+    },
+    {
+      "name": "OrderSnapshot-C_HYcPo1.css",
+      "bytes": 389,
+      "gzip_bytes": 212
+    },
+    {
+      "name": "orderStatus-B2lNJNq6.js",
+      "bytes": 838,
+      "gzip_bytes": 534
+    },
+    {
+      "name": "OrderStatusBadge-D4PZ0Ul6.js",
+      "bytes": 382,
+      "gzip_bytes": 272
+    },
+    {
+      "name": "OrderSuccessView-CIEUwrlE.css",
+      "bytes": 3917,
+      "gzip_bytes": 985
+    },
+    {
+      "name": "OrderSuccessView-DxNk3ShW.js",
+      "bytes": 3068,
+      "gzip_bytes": 1532
+    },
+    {
+      "name": "OrdersView-BblTRBnT.css",
+      "bytes": 700,
+      "gzip_bytes": 286
+    },
+    {
+      "name": "OrdersView-BJuj157b.js",
+      "bytes": 9939,
+      "gzip_bytes": 3922
+    },
+    {
+      "name": "OrderTimeline-BDOgt7q8.js",
+      "bytes": 1994,
+      "gzip_bytes": 1118
+    },
+    {
+      "name": "OrderTimeline-CD2_KDxk.css",
+      "bytes": 74,
+      "gzip_bytes": 90
+    },
+    {
+      "name": "OrderTrackingPanel-CktqvqNM.css",
+      "bytes": 7013,
+      "gzip_bytes": 1559
+    },
+    {
+      "name": "OrderTrackingPanel-UE3FNaC8.js",
+      "bytes": 10211,
+      "gzip_bytes": 4128
+    },
+    {
+      "name": "PaymentDetailsView-DA9b2XMT.css",
+      "bytes": 754,
+      "gzip_bytes": 335
+    },
+    {
+      "name": "PaymentDetailsView-KJMwDInT.js",
+      "bytes": 4974,
+      "gzip_bytes": 2341
+    },
+    {
+      "name": "payments.api-Dv_ucFQe.js",
+      "bytes": 838,
+      "gzip_bytes": 433
+    },
+    {
+      "name": "paymentStatus-CHHFUR5v.js",
+      "bytes": 1081,
+      "gzip_bytes": 614
+    },
+    {
+      "name": "PaymentSummary-BQGcBtQI.js",
+      "bytes": 2456,
+      "gzip_bytes": 1046
+    },
+    {
+      "name": "PaymentSummary-C26o_AA3.css",
+      "bytes": 160,
+      "gzip_bytes": 116
+    },
+    {
+      "name": "PaymentsView-DRCXNuhM.js",
+      "bytes": 7093,
+      "gzip_bytes": 2806
+    },
+    {
+      "name": "PhoneInput-D8WAYsbI.js",
+      "bytes": 703,
+      "gzip_bytes": 468
+    },
+    {
+      "name": "ProductCard-CWykQOuJ.js",
+      "bytes": 2438,
+      "gzip_bytes": 1266
+    },
+    {
+      "name": "ProductDetailsView-BEUraJwc.css",
+      "bytes": 3374,
+      "gzip_bytes": 963
+    },
+    {
+      "name": "ProductDetailsView-DY2RhKlg.js",
+      "bytes": 20526,
+      "gzip_bytes": 6843
+    },
+    {
+      "name": "ProductImage-DucOjwz6.js",
+      "bytes": 640,
+      "gzip_bytes": 447
+    },
+    {
+      "name": "productOptions.api-CFfO4_0y.js",
+      "bytes": 610,
+      "gzip_bytes": 279
+    },
+    {
+      "name": "ProductOptionsView-BSexx1HU.js",
+      "bytes": 219,
+      "gzip_bytes": 195
+    },
+    {
+      "name": "products.api-CBc927EX.js",
+      "bytes": 416,
+      "gzip_bytes": 272
+    },
+    {
+      "name": "ProductsView-DwUJrurb.js",
+      "bytes": 215,
+      "gzip_bytes": 189
+    },
+    {
+      "name": "ProductView-CYwNALa6.js",
+      "bytes": 7755,
+      "gzip_bytes": 3429
+    },
+    {
+      "name": "ProfileView-CFdFKrb9.css",
+      "bytes": 7020,
+      "gzip_bytes": 1478
+    },
+    {
+      "name": "ProfileView-GOmM5N6S.js",
+      "bytes": 8398,
+      "gzip_bytes": 3094
+    },
+    {
+      "name": "promotions.api-D5cX3Iml.js",
+      "bytes": 279,
+      "gzip_bytes": 211
+    },
+    {
+      "name": "PromotionsView-vltZQnt4.js",
+      "bytes": 19488,
+      "gzip_bytes": 6294
+    },
+    {
+      "name": "PublicBranchesView-D2ENm68z.js",
+      "bytes": 4643,
+      "gzip_bytes": 2070
+    },
+    {
+      "name": "PublicBranchesView-tJNVMBuX.css",
+      "bytes": 2272,
+      "gzip_bytes": 733
+    },
+    {
+      "name": "PublicOffersView-BvIATpYj.js",
+      "bytes": 1386,
+      "gzip_bytes": 780
+    },
+    {
+      "name": "RegisterView-BBMXcsns.js",
+      "bytes": 6674,
+      "gzip_bytes": 2509
+    },
+    {
+      "name": "RelatedNotifications-BMLortBc.js",
+      "bytes": 6703,
+      "gzip_bytes": 2880
+    },
+    {
+      "name": "RelatedNotifications-KLHN4MpU.css",
+      "bytes": 389,
+      "gzip_bytes": 219
+    },
+    {
+      "name": "RemotePicker-ysF3PkGg.js",
+      "bytes": 1846,
+      "gzip_bytes": 983
+    },
+    {
+      "name": "reports-8CHD31Yh.js",
+      "bytes": 13097,
+      "gzip_bytes": 4814
+    },
+    {
+      "name": "reports-Bl47CsX0.css",
+      "bytes": 5665,
+      "gzip_bytes": 1435
+    },
+    {
+      "name": "ReportsView-LMFEadyS.js",
+      "bytes": 15826,
+      "gzip_bytes": 6103
+    },
+    {
+      "name": "restaurant-reference-Cw54yNaR.webp",
+      "bytes": 239762,
+      "gzip_bytes": null
+    },
+    {
+      "name": "RolesView-BruKZd-W.js",
+      "bytes": 3009,
+      "gzip_bytes": 1546
+    },
+    {
+      "name": "rolldown-runtime-hePW80VL.js",
+      "bytes": 716,
+      "gzip_bytes": 428
+    },
+    {
+      "name": "runtime-core.esm-bundler-fqhrJnP0.js",
+      "bytes": 60368,
+      "gzip_bytes": 23396
+    },
+    {
+      "name": "SavedGuestOrders-BOxlp8cA.js",
+      "bytes": 3090,
+      "gzip_bytes": 1366
+    },
+    {
+      "name": "SavedGuestOrders-DbTCCZRh.css",
+      "bytes": 5486,
+      "gzip_bytes": 1166
+    },
+    {
+      "name": "settings.api-D5RFbbrs.js",
+      "bytes": 400,
+      "gzip_bytes": 221
+    },
+    {
+      "name": "SettingsView-F1GrfdzY.js",
+      "bytes": 12752,
+      "gzip_bytes": 4634
+    },
+    {
+      "name": "shishli-logo-I0Uuq2TS.webp",
+      "bytes": 39350,
+      "gzip_bytes": null
+    },
+    {
+      "name": "SiteGallery-BwQj2WYh.js",
+      "bytes": 7546,
+      "gzip_bytes": 3083
+    },
+    {
+      "name": "SiteIcon-Df35uBvT.js",
+      "bytes": 2407,
+      "gzip_bytes": 1159
+    },
+    {
+      "name": "SiteOffers-C3EwF7DJ.js",
+      "bytes": 1763,
+      "gzip_bytes": 982
+    },
+    {
+      "name": "StaffView-DFtIRnn6.js",
+      "bytes": 8059,
+      "gzip_bytes": 3352
+    },
+    {
+      "name": "TrackOrderView-BEl0y78e.js",
+      "bytes": 3699,
+      "gzip_bytes": 1945
+    },
+    {
+      "name": "TrackOrderView-BtWLR5Oh.css",
+      "bytes": 1035,
+      "gzip_bytes": 399
+    },
+    {
+      "name": "useApi-BPuI6ZR9-B4ZupS0Z.js",
+      "bytes": 864,
+      "gzip_bytes": 478
+    },
+    {
+      "name": "useAuthForm-BceS0y2m.js",
+      "bytes": 3046,
+      "gzip_bytes": 1495
+    },
+    {
+      "name": "useCartFeedback-LnRrkkKr.js",
+      "bytes": 1529,
+      "gzip_bytes": 812
+    },
+    {
+      "name": "useModalDraft-De6YehYp.js",
+      "bytes": 501,
+      "gzip_bytes": 399
+    },
+    {
+      "name": "useOrderBranches-nCEe1iks.js",
+      "bytes": 601,
+      "gzip_bytes": 391
+    },
+    {
+      "name": "useOrderPolling-DEOBFJ3t.js",
+      "bytes": 1646,
+      "gzip_bytes": 850
+    },
+    {
+      "name": "useServerList-wtqyqxbw.js",
+      "bytes": 382,
+      "gzip_bytes": 263
+    },
+    {
+      "name": "useUnsavedForm-C8B9vo-q.js",
+      "bytes": 551,
+      "gzip_bytes": 407
+    },
+    {
+      "name": "vue-router-iD-32ApH.js",
+      "bytes": 17354,
+      "gzip_bytes": 7088
+    },
+    {
+      "name": "_plugin-vue_export-helper-BDNMzG2s.js",
+      "bytes": 84,
+      "gzip_bytes": 99
+    }
+  ]
+}

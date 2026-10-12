@@ -1,0 +1,7 @@
+{
+    "schema": "shishli_release_test_49de4072a3b40742",
+    "connection_verified": true,
+    "engine": "10.4.25-MariaDB",
+    "ephemeral_schema_removed": true,
+    "test_exit_code": 0
+}

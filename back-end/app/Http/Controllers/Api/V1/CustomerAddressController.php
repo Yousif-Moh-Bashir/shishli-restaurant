@@ -19,7 +19,7 @@ class CustomerAddressController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        return ApiResponse::paginated(CustomerAddressResource::collection($request->user()->addresses()->orderByDesc('is_default')->orderByDesc('id')->paginate(20)));
+        return ApiResponse::success(data: CustomerAddressResource::collection($request->user()->addresses()->orderByDesc('is_default')->orderByDesc('id')->get()));
     }
 
     public function store(StoreCustomerAddressRequest $request, CreateCustomerAddressAction $action): JsonResponse

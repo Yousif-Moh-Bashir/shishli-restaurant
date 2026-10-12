@@ -2,7 +2,7 @@
 import {ref,useId} from 'vue'
 import {useCartStore} from '../../stores/cart'
 const cart=useCartStore(),code=ref(''),notice=ref(''),id=useId()
-async function apply(){const result=await cart.applyCoupon(code.value);notice.value=result.ok?'تم تطبيق الكوبون وفق تقييم الخادم.':result.message}
+async function apply(){const result=await cart.applyCoupon(code.value);notice.value=result.ok?'تم تطبيق الكوبون.':result.message}
 async function remove(){const result=await cart.removeCoupon();notice.value=result.ok?'تمت إزالة الكوبون.':result.message}
 </script>
 <template><div class="cart-coupon"><p v-if="cart.cart?.coupon" class="coupon-applied">الكوبون: <bdi>{{ cart.cart.coupon.code }}</bdi> <button class="text-button" type="button" :disabled="cart.isMutating||cart.checkoutBusy||!!cart.pendingCheckout" @click="remove">إزالة الكوبون</button></p><form v-else @submit.prevent="apply"><label :for="id">كود الكوبون</label><div class="coupon-controls"><input :id="id" v-model="code" required maxlength="64" autocomplete="off" dir="ltr" spellcheck="false" placeholder="أدخل كود الخصم" :disabled="cart.isMutating||!!cart.pendingCheckout"><button class="button button-primary" :disabled="cart.isMutating||cart.isLoading||cart.checkoutBusy||!!cart.pendingCheckout">تطبيق</button></div></form><p v-if="notice" class="coupon-notice" role="status">{{ notice }}</p><p v-for="promotion in cart.cart?.promotions||[]" :key="promotion.promotion_uuid||promotion.id||promotion.name" class="muted">{{ promotion.name }}</p></div></template>

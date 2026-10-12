@@ -3,9 +3,9 @@
 namespace App\Http\Resources\Api\V1;
 
 use App\Models\ProductImage;
+use App\Services\MediaService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
 /** @mixin ProductImage */
 class ProductImageResource extends JsonResource
@@ -17,7 +17,7 @@ class ProductImageResource extends JsonResource
     {
         return [
             'id' => $this->uuid,
-            'url' => Storage::disk($this->disk)->url($this->path),
+            'url' => app(MediaService::class)->url($this->path, $this->disk),
             'alt_text' => $this->alt_text,
             'sort_order' => $this->sort_order,
             'is_primary' => $this->is_primary,

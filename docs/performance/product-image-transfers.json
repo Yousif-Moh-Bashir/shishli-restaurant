@@ -1,0 +1,41 @@
+{
+  "protocol": "One isolated static-file browser image-viewer request per original/variant; same 390x844, CPU4x, 1.6Mbps/750Kbps/100ms; no Laravel or customer database. Transfer comparison, not Product page LCP.",
+  "results": [
+    {
+      "stage": "original",
+      "path": "products/6860728f-be15-4f0f-a438-201326c20161/9ee31999-b995-4133-b8e0-caa690675be9.png",
+      "transfer_bytes": 2845081,
+      "request_ms": 16258.067
+    },
+    {
+      "stage": "optimized",
+      "path": "products/6860728f-be15-4f0f-a438-201326c20161/9ee31999-b995-4133-b8e0-caa690675be9.png.webp",
+      "transfer_bytes": 383025,
+      "request_ms": 2110.650099999999
+    },
+    {
+      "stage": "original",
+      "path": "products/925f4306-9fb6-4618-9c9e-d8f35d94dfbd/87b5496d-79f8-430c-a2c0-8bf0a09d17de.png",
+      "transfer_bytes": 2803572,
+      "request_ms": 14770.1688
+    },
+    {
+      "stage": "optimized",
+      "path": "products/925f4306-9fb6-4618-9c9e-d8f35d94dfbd/87b5496d-79f8-430c-a2c0-8bf0a09d17de.png.webp",
+      "transfer_bytes": 295851,
+      "request_ms": 1633.6267000000007
+    },
+    {
+      "stage": "original",
+      "path": "products/ff8c973d-9f10-4869-9b50-7a562778ca21/71cade94-048f-4546-895a-fb7725410d3b.png",
+      "transfer_bytes": 2767721,
+      "request_ms": 14346.029999999999
+    },
+    {
+      "stage": "optimized",
+      "path": "products/ff8c973d-9f10-4869-9b50-7a562778ca21/71cade94-048f-4546-895a-fb7725410d3b.png.webp",
+      "transfer_bytes": 306785,
+      "request_ms": 1705.9294999999984
+    }
+  ]
+}

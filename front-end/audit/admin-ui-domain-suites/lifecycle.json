@@ -8,7 +8,7 @@
     "409 concurrent update and 422 invalid transition remain visible and refetch authoritative state",
     "Kitchen actual permissions, redacted queue/details, operational actions, query state survives refresh",
     "Owned tracking and customer cancellation, reason field 422, server-only terminal status",
-    "Guest POST body secret, session-only credential, header-authenticated refresh, no secret URL",
+    "Guest POST body secret, durable local credential with tab fallback, header-authenticated refresh, no secret URL",
     "Server timeline/ETA, delivery current status, terminal tracking polling stops (21-second observation)",
     "20-second active polling; serial requests; visibility pause/resume and unmount cleanup (three 21-second observations)",
     "429 manual refresh respects cooldown; expired/wrong access clears private data with generic error",

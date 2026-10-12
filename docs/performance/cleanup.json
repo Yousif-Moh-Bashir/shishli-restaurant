@@ -1,0 +1,5 @@
+{
+    "isolated_mysql_schema_removed": true,
+    "isolated_sqlite_file_removed": true,
+    "private_token_manifests_removed": true
+}

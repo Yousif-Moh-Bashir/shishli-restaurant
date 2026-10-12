@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-11",
+  "result": "passed",
+  "scope": "Local Phase 1 audit, no production or container execution",
+  "tests": [
+    {
+      "suite": "laravel-targeted",
+      "tests": 282,
+      "assertions": 2687,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "laravel-operations",
+      "tests": 237,
+      "assertions": 2094,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "regression",
+      "tests": 9,
+      "assertions": 44,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "mysql-functional",
+      "tests": 202,
+      "assertions": 1298,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "suite": "mysql-concurrency",
+      "tests": 5,
+      "assertions": 68,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    }
+  ],
+  "build": {
+    "result": "passed",
+    "modules": 349,
+    "vite": "8.3.2",
+    "api_base": "/api/v1"
+  },
+  "frontend_logic": {
+    "result": "passed",
+    "suites": [
+      "order-polling",
+      "order-access",
+      "checkout-location",
+      "phone (2 tests)"
+    ]
+  },
+  "pint": {
+    "result": "passed",
+    "scope": "Only PHP files changed by this phase"
+  },
+  "isolated_config_and_route_caches": {
+    "built": true,
+    "cleared": true,
+    "normal_caches_changed": false
+  },
+  "journey": {
+    "result": "passed",
+    "pages": 18,
+    "viewport_checks": 210,
+    "checks": [
+      "Home reuses existing products/gallery, searches with one real API request and reuses initial products after clearing search",
+      "Product options/quantity and add-to-cart through UI",
+      "Saved coordinate address, real delivery quote, cash checkout, duplicate-click guard and admin visibility",
+      "Real kitchen transitions, ready driver queue, privacy, accept, pickup, on-way, cash and delivered read-only details",
+      "Admin completion/payment verification, driver collections and cashier settlement"
+    ]
+  },
+  "report_reconciliation": {
+    "result": "passed",
+    "checks": [
+      "Current delivered cash journey order appears in the actual filtered orders report",
+      "Report total equals immutable admin order total"
+    ]
+  },
+  "performance": {
+    "browser_samples": 32,
+    "api_samples": 140,
+    "browser_repetitions_per_page_per_stage_per_mode": 1,
+    "field_inp_measured": false
+  },
+  "servers": [
+    {
+      "port": 8019,
+      "reachable": false
+    },
+    {
+      "port": 5179,
+      "reachable": false
+    },
+    {
+      "port": 4179,
+      "reachable": false
+    },
+    {
+      "port": 9451,
+      "reachable": false
+    },
+    {
+      "port": 9391,
+      "reachable": false
+    }
+  ],
+  "cleanup": {
+    "isolated_mysql_schema_removed": true,
+    "private_token_manifest_removed": true,
+    "current_restaurant_database_modified": false,
+    "existing_uploaded_media_modified": false,
+    "sqlite_fixture_created_or_removed": false
+  },
+  "docker": {
+    "client_installed": true,
+    "engine_available": false,
+    "containers_tested": false
+  },
+  "full_laravel_suite_rerun": false,
+  "oracle_mysql_verified": false,
+  "deployment_performed": false
+}

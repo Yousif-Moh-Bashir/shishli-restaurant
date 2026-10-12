@@ -9,7 +9,7 @@ try{const r=await fetch('http://127.0.0.1:8000/api/v1/branches',{signal:AbortSig
 const browser=spawn(process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe',['--headless=new','--disable-gpu','--disable-extensions','--no-first-run','--remote-debugging-port=9243',`--user-data-dir=${output}/profile`,'about:blank'],{windowsHide:true,stdio:'ignore'})
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));let socket
 const id=n=>`${String(n).padStart(8,'0')}-1111-4111-8111-111111111111`
-const branch={id:id(1),name:'فرع الاختبار',is_active:true,accepts_orders:true,supports_pickup:true,supports_delivery:true,location:{city:'مدينة الاختبار',district:'حي الاختبار',address:'عنوان الفرع'}}
+const branch={id:id(1),name:'فرع الاختبار',is_active:true,accepts_orders:true,supports_pickup:true,supports_delivery:true,location:{city:'مدينة الاختبار',district:'حي الاختبار',address:'عنوان الفرع',latitude:28.38,longitude:36.56}}
 const availability=()=>({is_active:true,is_open:true,accepts_orders:branch.accepts_orders,pickup:{available:branch.supports_pickup&&branch.accepts_orders},delivery:{available:branch.supports_delivery&&branch.accepts_orders},reason:branch.accepts_orders?null:{code:'BRANCH_NOT_ACCEPTING_ORDERS',message:'الفرع لا يستقبل الطلبات'}})
 const cart=()=>({id:id(2),branch:{id:branch.id,name:branch.name},status:'active',items:[{id:id(3),product:{id:id(4),name:'وجبة اختبار',primary_image:null},quantity:1,options:[],pricing:{base_price:'80.00',options_total:'0.00',unit_price:'80.00',line_total:'80.00',line_total_after_discount:'80.00',discount_total:'0.00'},is_available:true,issues:[]}],summary:{items_count:1,quantity_total:1,subtotal:'80.00',discount_total:'0.00',total:'80.00'},availability:availability(),can_checkout:branch.accepts_orders,issues:[]})
 let addresses=[],zones=[],authMode=false,permissions=[],quoteMode='eligible',holdQuote,quoteCalls=0,geoCalls=0
@@ -27,6 +27,7 @@ try{
  if(m.method==='Runtime.consoleAPICalled'&&['warning','error'].includes(m.params.type))report.diagnostics.push(m.params.args.map(a=>a.value??a.description).join(' '))
  if(m.method==='Network.responseReceived'&&m.params.response.status>=400&&!m.params.response.url.includes('/api/'))report.assetFailures.push({url:m.params.response.url,status:m.params.response.status})
  if(m.method!=='Fetch.requestPaused')return
+ if(m.params.request.url.includes('tile.openstreetmap.org')){await send('Fetch.fulfillRequest',{requestId:m.params.requestId,responseCode:200,responseHeaders:[{name:'Content-Type',value:'image/png'}],body:'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jG1kAAAAASUVORK5CYII='});return}
  const {requestId,request}=m.params,path=new URL(request.url).pathname,method=request.method
  if(method==='OPTIONS'){await fulfill(requestId,200,{});return}
  const body=request.postData?JSON.parse(request.postData):{}
@@ -63,29 +64,32 @@ try{
  })
  const evaluate=async expression=>{const r=await send('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description||r.exceptionDetails.text);return r.result.value}
  const waitFor=async expression=>{for(let i=0;i<160;i++){if(await evaluate(`Boolean(${expression})`))return;await sleep(100)}console.log(JSON.stringify({requests,diagnostics:report.diagnostics,state:await evaluate('({cartError:cart.error,busy:cart.isMutating,quoteError:document.querySelector("main")?.__vueParentComponent?.setupState.quoteError})')}));throw Error('Timeout '+expression)}
- const navigate=async path=>{await send('Page.navigate',{url:'http://127.0.0.1:5173'+path});await waitFor("document.querySelector('#app')?.__vue_app__");await evaluate("Promise.all([import('/src/stores/cart.js'),import('/src/stores/auth.js'),import('/src/stores/branch.js')]).then(([c,a,b])=>{window.cart=c.useCartStore();window.auth=a.useAuthStore();window.branch=b.useBranchStore();window.router=document.querySelector('#app').__vue_app__.config.globalProperties.$router;return cart.initializeCart()})");await waitFor('!cart.isLoading')}
+ const navigate=async path=>{await send('Page.navigate',{url:(process.env.PUBLIC_UI_ORIGIN||'http://127.0.0.1:5173')+path});await waitFor("document.querySelector('#app')?.__vue_app__");await evaluate("Promise.all([import('/src/stores/cart.js'),import('/src/stores/auth.js'),import('/src/stores/branch.js')]).then(([c,a,b])=>{window.cart=c.useCartStore();window.auth=a.useAuthStore();window.branch=b.useBranchStore();window.router=document.querySelector('#app').__vue_app__.config.globalProperties.$router;return cart.initializeCart()})");await waitFor('!cart.isLoading')}
  const input=(name,value)=>evaluate(`(()=>{const el=document.querySelector('[name='+${JSON.stringify(name)}+']');if(!el)throw Error('Missing input');el.value=${JSON.stringify(value)};el.dispatchEvent(new Event('input',{bubbles:true}));return true})()`)
- const click=async text=>{await evaluate(`(()=>{const el=[...document.querySelectorAll('button')].find(b=>b.textContent.includes(${JSON.stringify(text)}));if(!el)throw Error('Missing button');if(el.disabled)throw Error('Disabled button');el.click();return true})()`);await sleep(100)}
- await send('Page.enable');await send('Runtime.enable');await send('Network.enable');await send('Fetch.enable',{patterns:[{urlPattern:'*:8000/api/*',requestStage:'Request'}]})
+ const click=async text=>{await waitFor(`[...document.querySelectorAll("button")].some(b=>b.textContent.includes(${JSON.stringify(text)})&&!b.matches(":disabled"))`);await evaluate(`(()=>{const el=[...document.querySelectorAll('button')].find(b=>b.textContent.includes(${JSON.stringify(text)}));if(!el)throw Error('Missing button');if(el.disabled)throw Error('Disabled button');el.click();return true})()`);await sleep(100)}
+ await send('Page.enable');await send('Runtime.enable');await send('Network.enable');await send('Fetch.enable',{patterns:[{urlPattern:'*:8000/api/*',requestStage:'Request'},{urlPattern:'*://tile.openstreetmap.org/*',requestStage:'Request'}]})
+ const verifyAddress=async()=>{if(await evaluate('Boolean(document.querySelector(".location-confirm"))'))await click('تأكيد هذا الموقع');else await click('التحقق من إمكانية التوصيل')}
  const init=await send('Page.addScriptToEvaluateOnNewDocument',{source:`localStorage.clear();localStorage.setItem('shishli.selectedBranch',${JSON.stringify(branch.id)});localStorage.setItem('shishli_cart_token','g'.repeat(64));window.__geoCalls=0;Object.defineProperty(navigator,'geolocation',{value:{getCurrentPosition(){window.__geoCalls++}}})`})
  await navigate('/checkout');await send('Page.removeScriptToEvaluateOnNewDocument',{identifier:init.identifier})
  assert.equal(await evaluate("Boolean(document.querySelector('[name=city]'))"),false)
+ await waitFor("document.querySelector('[value=delivery]')")
  await evaluate("document.querySelector('[value=delivery]').click()")
+ await click('كتابة العنوان يدويًا')
  await waitFor("document.querySelector('[name=city]')")
  assert.equal(await evaluate('window.__geoCalls'),0)
- for(const [name,value] of [['recipient_name','مستلم اختبار'],['phone','0500000000'],['city','مدينة الاختبار'],['district','حي الاختبار']])await input(name,value)
- await click('التحقق من إمكانية التوصيل');await waitFor("document.querySelector('.delivery-quote')")
+ for(const [name,value] of [['customer_name','مستلم اختبار'],['customer_phone','0500000000'],['city','مدينة الاختبار'],['district','حي الاختبار']])await input(name,value)
+ await verifyAddress();await waitFor("document.querySelector('.delivery-quote')")
  assert.ok(await evaluate("document.querySelector('.checkout-summary').textContent.includes('85')"))
  assert.deepEqual(requests.find(r=>r.path.endsWith('/cart/delivery/quote')).keys,['address'])
  assert.equal(requests.find(r=>r.path.endsWith('/cart/delivery/quote')).token,true)
  await input('district','حي آخر');assert.equal(await evaluate("Boolean(document.querySelector('.delivery-quote'))"),false)
- quoteMode='outside';await click('التحقق من إمكانية التوصيل');await waitFor("document.querySelector('.delivery-quote')")
+ quoteMode='outside';await verifyAddress();await waitFor("document.querySelector('.delivery-quote')")
  assert.ok(await evaluate("document.querySelector('.delivery-quote').textContent.includes('خارج نطاق')"))
  assert.equal(await evaluate("document.querySelector('.auth-submit').disabled"),true)
- quoteMode='network';await click('التحقق من إمكانية التوصيل');await waitFor("document.querySelector('main').textContent.includes('تعذر التحقق')")
+ quoteMode='network';await verifyAddress();await waitFor("document.querySelector('main').textContent.includes('تعذر التحقق')")
  assert.equal(await evaluate("Boolean(document.querySelector('.delivery-quote'))"),false)
  report.browser.push('Guest manual address: no auto-geolocation, real quote contract/headers, backend fee/total, address invalidation, outside-zone distinct from network error')
- quoteMode='eligible';await click('التحقق من إمكانية التوصيل');await waitFor("document.querySelector('.delivery-quote')")
+ quoteMode='eligible';await verifyAddress();await waitFor("document.querySelector('.delivery-quote')")
  await evaluate('cart.cart={...cart.cart,summary:{...cart.cart.summary,total:"90.00"}}')
  assert.equal(await evaluate("Boolean(document.querySelector('.delivery-quote'))"),false)
  await evaluate("document.querySelector('[value=pickup]').click()")
@@ -94,13 +98,14 @@ try{
  await evaluate("localStorage.setItem('shishli_auth_token','fixture-token')");authMode=true
  await navigate('/account/addresses')
  await click('إضافة عنوان');await waitFor("document.querySelector('.address-editor')")
+ await click('كتابة العنوان يدويًا')
  for(const [name,value] of [['label','منزل'],['recipient_name','مستلم اختبار'],['phone','0500000000'],['city','مدينة الاختبار'],['district','حي الاختبار']])await input(name,value)
  await evaluate("document.querySelector('.address-editor').requestSubmit()")
  await waitFor("document.querySelector('.address-card')&&!document.querySelector('.address-editor')")
  assert.equal(addresses.length,1);assert.equal(addresses[0].is_default,true)
  await click('تعديل');await waitFor("document.querySelector('.address-editor')");await input('label','عنوان محدث');await evaluate("document.querySelector('.address-editor').requestSubmit()");await waitFor("!document.querySelector('.address-editor')")
  assert.equal(addresses[0].label,'عنوان محدث')
- await click('إضافة عنوان');await input('recipient_name','مستلم ثان');await input('phone','0500000000');await input('city','مدينة الاختبار');await input('district','حي الاختبار');await evaluate("document.querySelector('.address-editor').requestSubmit()");await waitFor("document.querySelectorAll('.address-card').length===2")
+ await click('إضافة عنوان');await click('كتابة العنوان يدويًا');await input('recipient_name','مستلم ثان');await input('phone','0500000000');await input('city','مدينة الاختبار');await input('district','حي الاختبار');await evaluate("document.querySelector('.address-editor').requestSubmit()");await waitFor("document.querySelectorAll('.address-card').length===2")
  await click('تعيين افتراضي');await waitFor("document.querySelectorAll('.address-card .badge').length===1")
  assert.equal(addresses.filter(a=>a.is_default).length,1)
  await click('حذف');await waitFor("document.querySelector('dialog[open]')");await evaluate("document.querySelector('dialog[open] button').click()");await waitFor("document.querySelectorAll('.address-card').length===1")
@@ -111,15 +116,35 @@ try{
  const savedQuote=requests.filter(r=>r.path.endsWith('/cart/delivery/quote')).at(-1);assert.deepEqual(savedQuote.keys,['address_uuid']);assert.equal(savedQuote.uuid,true);assert.equal(savedQuote.token,false)
  report.browser.push('Saved address quote sends address_uuid with owned cart selector, never guest token')
  // Checkout now disables all fields while quoting; force a source change to exercise the stale-response guard.
- quoteMode='hold';await click('التحقق من إمكانية التوصيل');await waitFor('cart.isMutating');await evaluate("(()=>{const el=document.querySelector('[value=manual]');el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));return true})()");quoteMode='eligible';await fulfill(holdQuote,200,envelope(quote()));await waitFor('!cart.isMutating');assert.equal(await evaluate("Boolean(document.querySelector('.delivery-quote'))"),false)
+ quoteMode='hold';await verifyAddress();await waitFor('cart.isMutating');await evaluate("(()=>{const el=document.querySelector('[value=manual]');el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));return true})()");quoteMode='eligible';await fulfill(holdQuote,200,envelope(quote()));await waitFor('!cart.isMutating');assert.equal(await evaluate("Boolean(document.querySelector('.delivery-quote'))"),false)
  report.browser.push('Late quote response after address-source change discarded')
  branch.supports_delivery=false;await evaluate('cart.loadCart()');await waitFor('!cart.isLoading');assert.equal(await evaluate("Boolean(document.querySelector('[value=delivery]'))"),false)
  branch.accepts_orders=false;await evaluate('cart.loadCart()');await waitFor('!cart.isLoading');assert.equal(await evaluate("document.querySelector('.auth-submit').disabled"),true)
  branch.supports_delivery=true;branch.accepts_orders=true
  report.browser.push('Delivery-disabled and closed branch operational capabilities respected')
+ branch.slug='al-masif';branch.location.latitude=null;branch.location.longitude=null
  permissions=['delivery_zones.view','delivery_zones.create','delivery_zones.update','delivery_zones.delete','branches.view'];await navigate('/admin/delivery-zones')
  await waitFor("document.querySelector('.toolbar select')?.value")
- await click('إضافة منطقة');await input('name','منطقة اختبار');await input('delivery_fee','5.00');await input('districts','حي الاختبار\nحي ثان');await evaluate("document.querySelector('.catalog-subform').requestSubmit()");await waitFor("document.querySelector('tbody tr')")
+ await click('إضافة منطقة');await waitFor("document.querySelector('.zone-map-section .leaflet-container')")
+ assert.equal(await evaluate("document.querySelector('[name=type]').value"),'radius')
+ assert.equal(await evaluate("Number(document.querySelector('[name=center_latitude]').value)"),28.4378538)
+ assert.equal(await evaluate("Number(document.querySelector('[name=center_longitude]').value)"),36.5455267)
+ assert.equal(await evaluate("document.querySelector('.zone-map-section').textContent.includes('موقع الفرع غير مسجل')"),false)
+ await input('name','نطاق قريب');await input('delivery_fee','5.00');await input('radius_km','5.00')
+ await waitFor("document.querySelector('.leaflet-overlay-pane path')")
+ for(const width of [320,390,768,1440]){await send('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:width<500});await sleep(100);assert.equal(await evaluate('document.documentElement.scrollWidth<=innerWidth+1'),true);report.responsive.push('Admin radius map '+width)}
+ await click('اختيار منتصف الخريطة');const chosenLongitude=await evaluate("Number(document.querySelector('[name=center_longitude]').value)");await evaluate("document.querySelector('.catalog-subform').requestSubmit()")
+ await waitFor("document.querySelector('tbody tr')&&!document.querySelector('.catalog-subform')")
+ assert.equal(zones[0].type,'radius');assert.equal(zones[0].radius.radius_km,5)
+ assert.equal(zones[0].radius.center_longitude,chosenLongitude)
+ await click('تعديل / تفاصيل');await waitFor("document.querySelector('.zone-map-section .leaflet-container')")
+ await input('radius_km','7.00');await waitFor("document.querySelector('.leaflet-overlay-pane path')")
+ await click('استخدام موقع الفرع كمركز');await evaluate("document.querySelector('.catalog-subform').requestSubmit()")
+ await waitFor("!document.querySelector('.catalog-subform')");assert.equal(zones[0].radius.radius_km,7)
+ await evaluate("document.querySelector('tbody .danger').click()");await waitFor("document.querySelector('dialog[open]')")
+ await evaluate("document.querySelector('dialog[open] button').click()");await waitFor("!document.querySelector('tbody tr')")
+ report.browser.push('Admin radius is default; branch coordinates prefilled; map center and coverage preview; create/update radius payload uses numeric coordinates')
+ await click('إضافة منطقة');await evaluate("(()=>{const s=document.querySelector('[name=type]');s.value='district';s.dispatchEvent(new Event('change',{bubbles:true}))})()");await input('name','منطقة اختبار');await input('delivery_fee','5.00');await input('districts','حي الاختبار\nحي ثان');await evaluate("document.querySelector('.catalog-subform').requestSubmit()");await waitFor("document.querySelector('tbody tr')")
  assert.equal(zones.length,1);assert.equal(zones[0].districts.length,2)
  await click('تعديل / تفاصيل');await waitFor("document.querySelector('.catalog-subform')");await evaluate("(()=>{const s=document.querySelector('[name=type]');s.value='radius';s.dispatchEvent(new Event('change',{bubbles:true}));return true})()");await input('center_latitude','0');await input('center_longitude','0');await input('radius_km','5.00');await evaluate("document.querySelector('.catalog-subform').requestSubmit()");await waitFor("!document.querySelector('.catalog-subform')")
  assert.equal(zones[0].type,'radius');assert.equal(zones[0].radius.center_latitude,0)

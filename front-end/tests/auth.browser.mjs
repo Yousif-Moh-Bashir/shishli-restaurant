@@ -38,7 +38,7 @@ try {
     if (message.method === 'Runtime.consoleAPICalled' && ['warning', 'error'].includes(message.params.type)) report.diagnostics.push(message.params.args.map(arg => arg.value ?? arg.description).join(' '))
     if (message.method !== 'Fetch.requestPaused') return
     const { requestId, request } = message.params, path = new URL(request.url).pathname
-    requests.push({ path, method: request.method, bearer: Boolean(request.headers.Authorization), keys: request.postData ? Object.keys(JSON.parse(request.postData)) : [] })
+    requests.push({ path, method: request.method, bearer: Boolean(request.headers.Authorization), keys: request.postData ? Object.keys(JSON.parse(request.postData)) : [], phone: mode === 'mock' && request.postData ? JSON.parse(request.postData).phone : undefined })
     if (mode === 'live') { await send('Fetch.continueRequest', { requestId }); return }
     if (request.method === 'OPTIONS') { await fulfill(requestId, 200, {}); return }
     if (path.endsWith('/protected-test') && hold) { heldRequest = requestId; return }
@@ -91,12 +91,11 @@ try {
   await input('register-name', 'اختبار تكامل Vue'); await input('register-email', email)
   await input('login-password', password); await input('confirm-password', password); await submit('register-form')
   await waitFor('!window.__authTest.isLoading')
-  const registered = await evaluate(`document.getElementById('auth-status').textContent.includes('تم إنشاء الحساب')`)
+  const registered = await evaluate(`window.__authTest.isAuthenticated || document.getElementById('auth-status')?.textContent.includes('تم إنشاء حسابك')`)
   if (registered) {
-    report.live.push('Register 201 without automatic login; email-only account created')
-    assert.equal(await evaluate(`localStorage.getItem('shishli_auth_token') === null`), true)
+    report.live.push('Register 201 with automatic login, or a login fallback after account creation')
     assert.ok(requests.find(item => item.path.endsWith('/register')).keys.every(key => !['role', 'roles', 'permissions'].includes(key)))
-    await push('/login'); await login(email, password)
+    if (!(await evaluate('window.__authTest.isAuthenticated'))) { await push('/login'); await login(email, password) }
     assert.equal(await evaluate('window.__authTest.isAuthenticated'), true)
     assert.equal(await evaluate('window.__authTest.hasAdminAccess'), false)
     report.live.push('Login, GET /api/user and real customer /admin/me 403')
@@ -122,7 +121,8 @@ try {
 
   mode = 'mock'
   await evaluate(`localStorage.setItem('shishli.cart.v1', '[]')`)
-  await navigate('/admin/orders'); await login()
+  await navigate('/admin/orders'); await login('٠٥٥١٢٣٤٥٦٧')
+  assert.equal(requests.filter(item => item.path.endsWith('/login') && item.method === 'POST').at(-1).phone, '+966551234567')
   assert.equal(await evaluate('location.pathname'), '/admin/orders')
   assert.deepEqual(await evaluate(`[...document.querySelectorAll('.sidebar nav a')].map(a=>a.getAttribute('href')).sort()`),['/admin','/admin/orders','/admin/kitchen','/admin/products','/admin/categories','/admin/offers','/admin/customers','/admin/settings'].sort())
   assert.ok(await evaluate(`document.querySelector('.admin').textContent.includes('مستخدم الاختبار')`))

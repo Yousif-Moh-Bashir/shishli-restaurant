@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="C:\xampp\htdocs\projects\shishli\back-end\phpunit.xml" tests="8" assertions="33" errors="0" failures="0" skipped="0" time="0.556564">
+    <testsuite name="Feature" tests="8" assertions="33" errors="0" failures="0" skipped="0" time="0.556564">
+      <testsuite name="Tests\Feature\ProductionConfigurationTest" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" tests="8" assertions="33" errors="0" failures="0" skipped="0" time="0.556564">
+        <testcase name="test_browser_can_read_retry_after_and_request_id_on_api_rate_limit_response" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="13" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="5" time="0.316025"/>
+        <testsuite name="Tests\Feature\ProductionConfigurationTest::test_preflight_only_authorizes_configured_origins" tests="5" assertions="24" errors="0" failures="0" skipped="0" time="0.175213">
+          <testcase name="test_preflight_only_authorizes_configured_origins with data set #0" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="29" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="4" time="0.035854"/>
+          <testcase name="test_preflight_only_authorizes_configured_origins with data set #1" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="29" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="5" time="0.032817"/>
+          <testcase name="test_preflight_only_authorizes_configured_origins with data set #2" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="29" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="5" time="0.034350"/>
+          <testcase name="test_preflight_only_authorizes_configured_origins with data set #3" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="29" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="5" time="0.039718"/>
+          <testcase name="test_preflight_only_authorizes_configured_origins with data set #4" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="29" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="5" time="0.032473"/>
+        </testsuite>
+        <testsuite name="Tests\Feature\ProductionConfigurationTest::test_forwarded_scheme_and_ip_are_only_trusted_from_configured_proxy" tests="2" assertions="4" errors="0" failures="0" skipped="0" time="0.065326">
+          <testcase name="test_forwarded_scheme_and_ip_are_only_trusted_from_configured_proxy with data set #0" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="76" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="2" time="0.032523"/>
+          <testcase name="test_forwarded_scheme_and_ip_are_only_trusted_from_configured_proxy with data set #1" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="76" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="2" time="0.032803"/>
+        </testsuite>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

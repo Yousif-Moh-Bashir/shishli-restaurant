@@ -1,0 +1,383 @@
+{
+  "metrics": {
+    "metrics": [
+      {
+        "name": "Timestamp",
+        "value": 567120.863861
+      },
+      {
+        "name": "AudioHandlers",
+        "value": 0
+      },
+      {
+        "name": "AudioWorkletProcessors",
+        "value": 0
+      },
+      {
+        "name": "Documents",
+        "value": 4
+      },
+      {
+        "name": "Frames",
+        "value": 4
+      },
+      {
+        "name": "JSEventListeners",
+        "value": 109
+      },
+      {
+        "name": "LayoutObjects",
+        "value": 252
+      },
+      {
+        "name": "MediaKeySessions",
+        "value": 0
+      },
+      {
+        "name": "MediaKeys",
+        "value": 0
+      },
+      {
+        "name": "Nodes",
+        "value": 551
+      },
+      {
+        "name": "Resources",
+        "value": 44
+      },
+      {
+        "name": "ContextLifecycleStateObservers",
+        "value": 10
+      },
+      {
+        "name": "V8PerContextDatas",
+        "value": 2
+      },
+      {
+        "name": "WorkerGlobalScopes",
+        "value": 0
+      },
+      {
+        "name": "UACSSResources",
+        "value": 0
+      },
+      {
+        "name": "RTCPeerConnections",
+        "value": 0
+      },
+      {
+        "name": "ResourceFetchers",
+        "value": 4
+      },
+      {
+        "name": "AdSubframes",
+        "value": 0
+      },
+      {
+        "name": "DetachedScriptStates",
+        "value": 1
+      },
+      {
+        "name": "ArrayBufferContents",
+        "value": 0
+      },
+      {
+        "name": "LayoutCount",
+        "value": 9
+      },
+      {
+        "name": "RecalcStyleCount",
+        "value": 19
+      },
+      {
+        "name": "LayoutDuration",
+        "value": 0.279807
+      },
+      {
+        "name": "RecalcStyleDuration",
+        "value": 0.082145
+      },
+      {
+        "name": "DevToolsCommandDuration",
+        "value": 0.004052
+      },
+      {
+        "name": "ScriptDuration",
+        "value": 0.180656
+      },
+      {
+        "name": "V8CompileDuration",
+        "value": 0
+      },
+      {
+        "name": "TaskDuration",
+        "value": 1.508047
+      },
+      {
+        "name": "TaskOtherDuration",
+        "value": 0.961387
+      },
+      {
+        "name": "ThreadTime",
+        "value": 0.388013
+      },
+      {
+        "name": "ProcessTime",
+        "value": 6.862002
+      },
+      {
+        "name": "JSHeapUsedSize",
+        "value": 3023400
+      },
+      {
+        "name": "JSHeapTotalSize",
+        "value": 6029312
+      },
+      {
+        "name": "FirstMeaningfulPaint",
+        "value": 567115.859295
+      },
+      {
+        "name": "DomContentLoaded",
+        "value": 567115.21798
+      },
+      {
+        "name": "NavigationStart",
+        "value": 567114.076952
+      }
+    ]
+  },
+  "shifts": [
+    {
+      "time": 1926.7000000476837,
+      "value": 0.05879807334600525,
+      "sources": [
+        {
+          "node": "site-footer",
+          "previous": {
+            "x": 0,
+            "y": 341.875,
+            "width": 390,
+            "height": 343.296875,
+            "top": 341.875,
+            "right": 390,
+            "bottom": 685.171875,
+            "left": 0
+          },
+          "current": {
+            "x": 0,
+            "y": 344.875,
+            "width": 390,
+            "height": 344.296875,
+            "top": 344.875,
+            "right": 390,
+            "bottom": 689.171875,
+            "left": 0
+          }
+        }
+      ]
+    },
+    {
+      "time": 1993.8999999761581,
+      "value": 0.000004224656622717369,
+      "sources": [
+        {
+          "node": {},
+          "previous": {
+            "x": 99.640625,
+            "y": 407.53125,
+            "width": 13,
+            "height": 13,
+            "top": 407.53125,
+            "right": 112.640625,
+            "bottom": 420.53125,
+            "left": 99.640625
+          },
+          "current": {
+            "x": 94.625,
+            "y": 407.53125,
+            "width": 13,
+            "height": 13,
+            "top": 407.53125,
+            "right": 107.625,
+            "bottom": 420.53125,
+            "left": 94.625
+          }
+        }
+      ]
+    },
+    {
+      "time": 2386.2000000476837,
+      "value": 0.3402656982242318,
+      "sources": [
+        {
+          "node": "site-footer",
+          "previous": {
+            "x": 0,
+            "y": 344.875,
+            "width": 390,
+            "height": 344.296875,
+            "top": 344.875,
+            "right": 390,
+            "bottom": 689.171875,
+            "left": 0
+          },
+          "current": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          }
+        },
+        {
+          "node": "SELECT",
+          "previous": {
+            "x": 30,
+            "y": 246.875,
+            "width": 340,
+            "height": 50,
+            "top": 246.875,
+            "right": 370,
+            "bottom": 296.875,
+            "left": 30
+          },
+          "current": {
+            "x": 30,
+            "y": 187.875,
+            "width": 340,
+            "height": 50,
+            "top": 187.875,
+            "right": 370,
+            "bottom": 237.875,
+            "left": 30
+          }
+        }
+      ]
+    },
+    {
+      "time": 4825.399999976158,
+      "value": 0.08087626755221822,
+      "sources": [
+        {
+          "node": "::after",
+          "previous": {
+            "x": 339.6656494140625,
+            "y": 350.015625,
+            "width": 13.3343505859375,
+            "height": 110,
+            "top": 350.015625,
+            "right": 353,
+            "bottom": 460.015625,
+            "left": 339.6656494140625
+          },
+          "current": {
+            "x": 59.66563415527344,
+            "y": 350.015625,
+            "width": 293.3343505859375,
+            "height": 110,
+            "top": 350.015625,
+            "right": 352.99998474121094,
+            "bottom": 460.015625,
+            "left": 59.66563415527344
+          }
+        },
+        {
+          "node": "::after",
+          "previous": {
+            "x": 344.34136962890625,
+            "y": 306.015625,
+            "width": 8.65863037109375,
+            "height": 24,
+            "top": 306.015625,
+            "right": 353,
+            "bottom": 330.015625,
+            "left": 344.34136962890625
+          },
+          "current": {
+            "x": 162.34136962890625,
+            "y": 306.015625,
+            "width": 190.65863037109375,
+            "height": 24,
+            "top": 306.015625,
+            "right": 353,
+            "bottom": 330.015625,
+            "left": 162.34136962890625
+          }
+        },
+        {
+          "node": "::after",
+          "previous": {
+            "x": 344.34136962890625,
+            "y": 622.015625,
+            "width": 8.65863037109375,
+            "height": 24,
+            "top": 622.015625,
+            "right": 353,
+            "bottom": 646.015625,
+            "left": 344.34136962890625
+          },
+          "current": {
+            "x": 162.34136962890625,
+            "y": 622.015625,
+            "width": 190.65863037109375,
+            "height": 24,
+            "top": 622.015625,
+            "right": 353,
+            "bottom": 646.015625,
+            "left": 162.34136962890625
+          }
+        },
+        {
+          "node": "::after",
+          "previous": {
+            "x": 348.53131103515625,
+            "y": 806.015625,
+            "width": 4.46868896484375,
+            "height": 37.984375,
+            "top": 806.015625,
+            "right": 353,
+            "bottom": 844,
+            "left": 348.53131103515625
+          },
+          "current": {
+            "x": 255.53131103515625,
+            "y": 806.015625,
+            "width": 97.46868896484375,
+            "height": 37.984375,
+            "top": 806.015625,
+            "right": 353,
+            "bottom": 844,
+            "left": 255.53131103515625
+          }
+        },
+        {
+          "node": "::after",
+          "previous": {
+            "x": 339.6656494140625,
+            "y": 522.015625,
+            "width": 13.3343505859375,
+            "height": 12,
+            "top": 522.015625,
+            "right": 353,
+            "bottom": 534.015625,
+            "left": 339.6656494140625
+          },
+          "current": {
+            "x": 59.66563415527344,
+            "y": 522.015625,
+            "width": 293.3343505859375,
+            "height": 12,
+            "top": 522.015625,
+            "right": 352.99998474121094,
+            "bottom": 534.015625,
+            "left": 59.66563415527344
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -17,6 +17,7 @@ class RolePermissionSeeder extends Seeder
 
         DB::transaction(function (): void {
             $permissions = [
+                'driver.access', 'drivers.view', 'drivers.manage', 'drivers.reassign', 'drivers.settle_cash',
                 'staff.view', 'staff.create', 'staff.update', 'staff.activate', 'staff.deactivate',
                 'roles.view', 'roles.update_permissions', 'activity_logs.view',
                 'cms.pages.view', 'cms.pages.update',
@@ -79,9 +80,10 @@ class RolePermissionSeeder extends Seeder
             $roles = [
                 'super_admin' => $permissions,
                 'manager' => array_values(array_diff($permissions, ['settings.manage', 'settings.update', 'roles.update_permissions', 'activity_logs.view'])),
-                'cashier' => ['dashboard.view', 'reports.orders.view', 'orders.view', 'orders.create', 'orders.confirm', 'orders.complete', 'products.view', 'customers.view', 'payments.view', 'payments.collect_cash'],
+                'cashier' => ['dashboard.view', 'reports.orders.view', 'orders.view', 'orders.create', 'orders.confirm', 'orders.complete', 'products.view', 'customers.view', 'payments.view', 'payments.collect_cash', 'drivers.view', 'drivers.settle_cash'],
                 'kitchen' => ['orders.view', 'orders.update_status', 'orders.start_preparing', 'orders.mark_ready'],
                 'customer' => [],
+                'driver' => ['driver.access'],
             ];
 
             foreach ($roles as $name => $rolePermissions) {

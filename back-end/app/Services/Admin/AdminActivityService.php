@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class AdminActivityService
 {
-    private const SAFE_KEYS = ['name', 'is_active', 'roles', 'permissions', 'status', 'payment_status', 'is_available', 'is_featured', 'tracks_inventory', 'uuid', 'product_uuids', 'password_changed'];
+    private const SAFE_KEYS = ['name', 'is_active', 'roles', 'permissions', 'status', 'payment_status', 'is_available', 'is_featured', 'tracks_inventory', 'uuid', 'product_uuids', 'password_changed', 'driver_uuid', 'branch_uuid', 'driver_enabled', 'driver_available', 'amount'];
 
     public function values(Model $model): array
     {

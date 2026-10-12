@@ -16,6 +16,7 @@ use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\PromotionUsage;
 use App\Models\User;
+use App\Services\CartStateService;
 use App\Services\Money;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -35,6 +36,55 @@ class PromotionsTest extends TestCase
         $this->actingAs($user, 'sanctum');
 
         return $user;
+    }
+
+    public function test_admin_can_configure_first_order_offer_and_reject_invalid_flag(): void
+    {
+        $this->admin();
+        $id = $this->postJson('/api/v1/admin/promotions', $this->promotionData(['first_order_only' => true, 'discount_value' => '10', 'maximum_discount' => '5']))
+            ->assertCreated()->assertJsonPath('data.first_order_only', true)->json('data.id');
+        $this->getJson('/api/v1/admin/promotions/'.$id)->assertOk()->assertJsonPath('data.first_order_only', true);
+        $this->patchJson('/api/v1/admin/promotions/'.$id, ['name' => 'Updated offer'])->assertOk()->assertJsonPath('data.first_order_only', true);
+        $this->patchJson('/api/v1/admin/promotions/'.$id, ['first_order_only' => 'invalid'])->assertUnprocessable()->assertJsonValidationErrors('first_order_only');
+        $this->patchJson('/api/v1/admin/promotions/'.$id, ['first_order_only' => false])->assertOk()->assertJsonPath('data.first_order_only', false);
+    }
+
+    #[DataProvider('firstOrderCustomers')]
+    public function test_first_order_discount_requires_login_and_no_previous_non_cancelled_order(?string $status, bool $guest, string $expected): void
+    {
+        $user = $guest ? null : User::factory()->create();
+        if ($status !== null) {
+            Order::factory()->create(['user_id' => $user->id, 'status' => $status]);
+        }
+        Promotion::factory()->create(['first_order_only' => true, 'discount_value' => '10', 'maximum_discount' => '5']);
+        [$cart] = $this->cart(user: $user);
+        $this->getJson('/api/v1/cart')->assertOk()->assertJsonPath('data.summary.discount_total', $expected);
+    }
+
+    public static function firstOrderCustomers(): array
+    {
+        return [[null, true, '0.00'], [null, false, '5.00'], ['cancelled', false, '5.00'],
+            ['pending', false, '0.00'], ['confirmed', false, '0.00'], ['preparing', false, '0.00'],
+            ['ready', false, '0.00'], ['out_for_delivery', false, '0.00'], ['completed', false, '0.00']];
+    }
+
+    public function test_automatic_first_order_discount_revalidates_stale_cart_and_cannot_be_reused_after_cancellation(): void
+    {
+        $user = User::factory()->create();
+        $promotion = Promotion::factory()->create(['first_order_only' => true, 'discount_value' => '10']);
+        [$first] = $this->cart(user: $user);
+        [$second] = $this->cart(user: $user);
+        $this->assertSame('10.00', app(CartStateService::class)->load($second)->discount_total);
+        $order = app(PlaceOrderAction::class)->handle($first, $this->checkout());
+        $this->assertSame('10.00', $order->discount_total);
+        $next = app(PlaceOrderAction::class)->handle($second, $this->checkout());
+        $this->assertSame('0.00', $next->discount_total);
+        $this->assertSame(1, $promotion->usages()->count());
+        $order->update(['status' => 'cancelled']);
+        $next->update(['status' => 'cancelled']);
+        [$third] = $this->cart(user: $user);
+        $this->assertSame('0.00', app(CartStateService::class)->load($third)->discount_total);
+        $this->assertSame('0.00', app(PlaceOrderAction::class)->handle($third, $this->checkout())->discount_total);
     }
 
     private function promotionData(array $overrides = []): array
@@ -487,6 +537,47 @@ class PromotionsTest extends TestCase
     public static function deliveryThresholds(): array
     {
         return [['110', '20', '5.00', '95.00'], ['120', '10', '0.00', '110.00']];
+    }
+
+    public function test_registration_campaign_is_configurable_and_invalid_effective_states_roll_back(): void
+    {
+        $this->admin();
+        $id = $this->postJson('/api/v1/admin/promotions', $this->promotionData([
+            'first_order_only' => true, 'is_registration_offer' => true, 'discount_value' => '10',
+            'description' => 'Registration campaign', 'maximum_discount' => '20', 'minimum_subtotal' => '40',
+        ]))->assertCreated()->assertJsonPath('data.is_registration_offer', true)->json('data.id');
+        $url = '/api/v1/admin/promotions/'.$id;
+        $this->patchJson($url, ['discount_value' => '15'])->assertOk()->assertJsonPath('data.discount.value', '15.00');
+        foreach (['first_order_only' => false, 'type' => 'coupon', 'discount_type' => 'fixed'] as $field => $value) {
+            $this->patchJson($url, [$field => $value])->assertUnprocessable()->assertJsonValidationErrors('is_registration_offer');
+        }
+        $this->patchJson($url, ['is_registration_offer' => 'invalid'])->assertUnprocessable()->assertJsonValidationErrors('is_registration_offer');
+        $this->patchJson($url, ['maximum_discount' => '0'])->assertUnprocessable()->assertJsonValidationErrors('maximum_discount');
+        $this->getJson($url)->assertOk()->assertJsonPath('data.first_order_only', true)->assertJsonPath('data.type', 'automatic')->assertJsonPath('data.discount.maximum', '20.00');
+        $this->getJson('/api/v1/promotions?registration_offer=1')->assertOk()->assertJsonPath('data.0.discount.value', '15.00')
+            ->assertJsonPath('data.0.description', 'Registration campaign')->assertJsonPath('data.0.minimum_subtotal', '40.00');
+        $this->patchJson($url, ['is_registration_offer' => false])->assertOk();
+        $this->getJson('/api/v1/promotions?registration_offer=1')->assertOk()->assertJsonCount(0, 'data');
+    }
+
+    public function test_registration_campaign_list_respects_branch_schedule_limits_priority_and_private_data(): void
+    {
+        $this->freezeTime();
+        $branch = Branch::factory()->create();
+        $global = Promotion::factory()->create(['is_registration_offer' => true, 'first_order_only' => true, 'priority' => 1]);
+        $local = Promotion::factory()->create(['is_registration_offer' => true, 'first_order_only' => true, 'priority' => 10]);
+        $local->branches()->attach($branch);
+        $other = Promotion::factory()->create(['is_registration_offer' => true, 'first_order_only' => true, 'priority' => 100]);
+        $other->branches()->attach(Branch::factory()->create());
+        Promotion::factory()->create(['first_order_only' => true]);
+        foreach ([['is_active' => false], ['ends_at' => now()->subSecond()], ['starts_at' => now()->addDay()], ['usage_limit' => 1, 'used_count' => 1], ['first_order_only' => false], ['type' => 'coupon']] as $attributes) {
+            Promotion::factory()->create(array_replace(['is_registration_offer' => true, 'first_order_only' => true], $attributes));
+        }
+        $this->getJson('/api/v1/promotions?registration_offer=1')->assertOk()->assertJsonCount(1, 'data')->assertJsonPath('data.0.id', $global->uuid);
+        $this->getJson('/api/v1/promotions?registration_offer=1&branch_uuid='.$branch->uuid)->assertOk()->assertJsonCount(2, 'data')
+            ->assertJsonPath('data.0.id', $local->uuid)->assertJsonPath('data.0.is_registration_offer', true)
+            ->assertJsonMissingPath('data.0.used_count')->assertJsonMissingPath('data.0.limits');
+        $this->getJson('/api/v1/promotions?registration_offer=invalid')->assertUnprocessable()->assertJsonValidationErrors('registration_offer');
     }
 
     public function test_public_promotions_exclude_codes_private_counters_and_invalid_schedules(): void

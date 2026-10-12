@@ -14,7 +14,7 @@ const OrderSuccessView=()=>import('../views/site/OrderSuccessView.vue')
 const TrackOrderView=()=>import('../views/site/TrackOrderView.vue')
 const CmsPageView=()=>import('../views/site/CmsPageView.vue')
 const ProfileView=()=>import('../views/site/ProfileView.vue')
-import AdminLayout from '../layouts/AdminLayout.vue'
+const AdminLayout = () => import('../layouts/AdminLayout.vue')
 const DashboardView=()=>import('../views/admin/DashboardView.vue')
 const ReportsView=()=>import('../views/admin/ReportsView.vue')
 import { reportPermissions } from '../constants/reports'
@@ -64,6 +64,7 @@ export default createRouter({
       { path: 'register', name: 'register', component: RegisterView, meta: { guestOnly: true } },
       { path: 'forbidden', name: 'forbidden', component: ForbiddenView, meta: { title: 'غير مصرح | مطعم شيشلي' } },
       { path: 'cart', name: 'cart', component: CartView },
+      { path: 'orders', name: 'customer-orders', component: CustomerOrdersView, meta: { title: 'طلباتي | مطعم شيشلي' } },
       { path: 'account', redirect: '/account/profile', meta: { requiresAuth: true } },
       { path: 'account/profile', name:'account.profile',component:ProfileView,meta:{requiresAuth:true,title:'حسابي | مطعم شيشلي'} },
       { path: 'account/addresses', name: 'account.addresses', component: AddressesView, meta: { requiresAuth: true, title: 'عناويني | مطعم شيشلي' } },
@@ -78,10 +79,20 @@ export default createRouter({
       { path: 'contact', name: 'contact', component: CmsPageView, meta: {cmsKey:'contact', title: 'تواصل معنا | مطعم شيشلي' } },
     ],
   }, {
+    path: '/driver', component: () => import('../layouts/DriverLayout.vue'),
+    meta: { requiresAuth: true, requiresDriver: true },
+    children: [
+      { path: '', redirect: '/driver/orders' },
+      { path: 'orders', name: 'driver.orders', component: () => import('../views/driver/DriverOrdersView.vue') },
+      { path: 'orders/:id', name: 'driver.order', component: () => import('../views/driver/DriverOrderView.vue') },
+      { path: 'collections', name: 'driver.collections', component: () => import('../views/driver/DriverCollectionsView.vue') },
+    ],
+  }, {
     path: '/admin',
     component: AdminLayout,
     meta: { requiresAuth: true, requiresAdmin: true },
     children: [
+      { path: 'drivers', name: 'admin.drivers', component: () => import('../views/admin/DriversView.vue'), meta: { adminTitle: 'مناديب التوصيل', permission: 'drivers.view' } },
       {path:'staff',name:'admin.staff',component:StaffView,meta:{adminTitle:'الموظفون',permission:'staff.view'}},
       {path:'roles',name:'admin.roles',component:RolesView,meta:{adminTitle:'الأدوار والصلاحيات',permission:'roles.view'}},
       {path:'activity-logs',name:'admin.activity-logs',component:ActivityLogsView,meta:{adminTitle:'سجل النشاط',permission:'activity_logs.view'}},
@@ -112,6 +123,7 @@ export default createRouter({
   }],
   async scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition
+    if (to.name === 'home' && to.hash === '#home') return { top: 0, left: 0, behavior: 'instant' }
     if (to.hash) {
       // Allow the target view to mount before resolving its anchor.
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))

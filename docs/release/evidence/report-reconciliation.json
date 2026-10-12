@@ -1,0 +1,16 @@
+{
+  "result": "passed",
+  "checks": [
+    "Current delivered cash journey order appears in the actual filtered orders report",
+    "Report total equals immutable admin order total"
+  ],
+  "order_uuid": "14bf174d-2c85-4fc3-ba0a-6fbaabcb18a5",
+  "total": "80.00",
+  "period": {
+    "from": "2026-09-12",
+    "to": "2026-10-11",
+    "timezone": "Asia/Riyadh",
+    "utc_from": "2026-09-11T21:00:00.000000Z",
+    "utc_until_exclusive": "2026-10-11T21:00:00.000000Z"
+  }
+}

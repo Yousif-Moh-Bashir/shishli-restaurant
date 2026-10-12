@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\User;
+use Carbon\CarbonImmutable;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
@@ -64,6 +65,7 @@ class OrderAccessTest extends TestCase
     #[DataProvider('filters')]
     public function test_admin_filters_select_matching_orders(string $filter): void
     {
+        $this->travelTo(CarbonImmutable::parse('2026-09-15 15:00:00', 'UTC'));
         $this->seed(RolePermissionSeeder::class);
         $user = User::factory()->create()->givePermissionTo('orders.view');
         $target = Order::factory()->confirmed()->create(['customer_name' => 'Target Customer', 'customer_phone' => '0501112223',

@@ -1,0 +1,2191 @@
+{
+  "stage": "after-final",
+  "mode": "production",
+  "engine": "mysql",
+  "transport": "real isolated Laravel API",
+  "viewport": "390x844 DPR1",
+  "cpuSlowdown": 4,
+  "network": "1.6Mbps down, 750Kbps up, 100ms latency",
+  "repetitions": 3,
+  "pages": [
+    {
+      "name": "Home",
+      "path": "/",
+      "sample": 0,
+      "lcp": 3804,
+      "cls": 0,
+      "events": [],
+      "longTasks": [
+        299,
+        1230,
+        58,
+        76,
+        53
+      ],
+      "lcpElement": "hero-art",
+      "fcp": 3056,
+      "ttfb": 4.299999952316284,
+      "dom": 1237.7000000476837,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 118371,
+      "css_bytes": 18548,
+      "image_bytes": 279650,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 332.26,
+          "serverTiming": "app;dur=298.02, boot;dur=202.74, db;dur=3.56, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 656.23,
+          "serverTiming": "app;dur=269.66, boot;dur=201.01, db;dur=3.41, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 617.01,
+          "serverTiming": "app;dur=323.12, boot;dur=197.24, db;dur=25.89, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 939.16,
+          "serverTiming": "app;dur=309.18, boot;dur=218.14, db;dur=7.20, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1323.11,
+          "serverTiming": "app;dur=351.19, boot;dur=227.42, db;dur=6.90, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/home",
+          "status": 200,
+          "ms": 1914.28,
+          "serverTiming": "app;dur=493.33, boot;dur=225.47, db;dur=48.17, queries;desc=\"17\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2506.09,
+          "serverTiming": "app;dur=415.79, boot;dur=190.21, db;dur=53.75, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 1113
+        },
+        {
+          "path": "/assets/index-DjWsviiI.js",
+          "type": "Script",
+          "bytes": 32753
+        },
+        {
+          "path": "/assets/runtime-core.esm-bundler-fqhrJnP0.js",
+          "type": "Script",
+          "bytes": 23778
+        },
+        {
+          "path": "/assets/rolldown-runtime-hePW80VL.js",
+          "type": "Script",
+          "bytes": 1037
+        },
+        {
+          "path": "/assets/apiError-BMJP-MrT.js",
+          "type": "Script",
+          "bytes": 20407
+        },
+        {
+          "path": "/assets/drivers.api-3Fta8xSJ.js",
+          "type": "Script",
+          "bytes": 792
+        },
+        {
+          "path": "/assets/auth-Cpo-V6EL.js",
+          "type": "Script",
+          "bytes": 4478
+        },
+        {
+          "path": "/assets/useApi-BPuI6ZR9-B4ZupS0Z.js",
+          "type": "Script",
+          "bytes": 1185
+        },
+        {
+          "path": "/assets/devtools-CN5uWJaH-C5x5kDrT.js",
+          "type": "Script",
+          "bytes": 2934
+        },
+        {
+          "path": "/assets/vue-router-iD-32ApH.js",
+          "type": "Script",
+          "bytes": 7460
+        },
+        {
+          "path": "/assets/_plugin-vue_export-helper-BDNMzG2s.js",
+          "type": "Script",
+          "bytes": 403
+        },
+        {
+          "path": "/assets/SiteIcon-Df35uBvT.js",
+          "type": "Script",
+          "bytes": 1529
+        },
+        {
+          "path": "/assets/settings.api-bH8ZKF3P.js",
+          "type": "Script",
+          "bytes": 721
+        },
+        {
+          "path": "/assets/branches.api-DauWzjib.js",
+          "type": "Script",
+          "bytes": 902
+        },
+        {
+          "path": "/assets/promotions.api-BUEkmRRd.js",
+          "type": "Script",
+          "bytes": 600
+        },
+        {
+          "path": "/assets/index-CyCwNkjV.css",
+          "type": "Stylesheet",
+          "bytes": 17435
+        },
+        {
+          "path": "/assets/HomeView-KR5aTN9V.js",
+          "type": "Script",
+          "bytes": 4990
+        },
+        {
+          "path": "/assets/contentUrl-DILEBc2I.js",
+          "type": "Script",
+          "bytes": 592
+        },
+        {
+          "path": "/assets/cms.api-DBZMS0Fr.js",
+          "type": "Script",
+          "bytes": 1128
+        },
+        {
+          "path": "/assets/SiteGallery-D7em2S37.js",
+          "type": "Script",
+          "bytes": 3449
+        },
+        {
+          "path": "/assets/BranchSelector-D0DO1LFn.js",
+          "type": "Script",
+          "bytes": 2212
+        },
+        {
+          "path": "/assets/operations-ACjIkGl7.js",
+          "type": "Script",
+          "bytes": 986
+        },
+        {
+          "path": "/assets/operations.api-Cn78fYBu.js",
+          "type": "Script",
+          "bytes": 491
+        },
+        {
+          "path": "/assets/useCartFeedback-BnZK8EVY.js",
+          "type": "Script",
+          "bytes": 1183
+        },
+        {
+          "path": "/assets/categories.api-xca3PoxF.js",
+          "type": "Script",
+          "bytes": 634
+        },
+        {
+          "path": "/assets/products.api-7iiy9kW-.js",
+          "type": "Script",
+          "bytes": 737
+        },
+        {
+          "path": "/assets/ProductCard-Dog9fmyu.js",
+          "type": "Script",
+          "bytes": 1638
+        },
+        {
+          "path": "/assets/SiteOffers-zsNkK6eE.js",
+          "type": "Script",
+          "bytes": 1352
+        },
+        {
+          "path": "/assets/shishli-logo-I0Uuq2TS.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/assets/restaurant-reference-Cw54yNaR.webp",
+          "type": "Image",
+          "bytes": 240032
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10283
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9051
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10251
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9475
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10023
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8959
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8727
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10611
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8967
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Home",
+      "path": "/",
+      "sample": 1,
+      "lcp": 3660,
+      "cls": 0.0002767621406442307,
+      "events": [],
+      "longTasks": [
+        59,
+        322,
+        138,
+        70
+      ],
+      "lcpElement": "hero-art",
+      "fcp": 1812,
+      "ttfb": 12.600000023841858,
+      "dom": 1138.7999999523163,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 118371,
+      "css_bytes": 18200,
+      "image_bytes": 279650,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 460.19,
+          "serverTiming": "app;dur=288.62, boot;dur=209.38, db;dur=20.52, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 775.92,
+          "serverTiming": "app;dur=344.97, boot;dur=257.11, db;dur=3.09, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 439.34,
+          "serverTiming": "app;dur=282.41, boot;dur=189.40, db;dur=6.43, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 802.55,
+          "serverTiming": "app;dur=357.41, boot;dur=239.71, db;dur=26.72, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1144.75,
+          "serverTiming": "app;dur=337.68, boot;dur=233.81, db;dur=5.85, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/home",
+          "status": 200,
+          "ms": 1681.67,
+          "serverTiming": "app;dur=443.74, boot;dur=169.71, db;dur=30.10, queries;desc=\"17\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2284.85,
+          "serverTiming": "app;dur=340.75, boot;dur=165.70, db;dur=30.55, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/assets/index-DjWsviiI.js",
+          "type": "Script",
+          "bytes": 32753
+        },
+        {
+          "path": "/assets/runtime-core.esm-bundler-fqhrJnP0.js",
+          "type": "Script",
+          "bytes": 23778
+        },
+        {
+          "path": "/assets/rolldown-runtime-hePW80VL.js",
+          "type": "Script",
+          "bytes": 1037
+        },
+        {
+          "path": "/assets/apiError-BMJP-MrT.js",
+          "type": "Script",
+          "bytes": 20407
+        },
+        {
+          "path": "/assets/drivers.api-3Fta8xSJ.js",
+          "type": "Script",
+          "bytes": 792
+        },
+        {
+          "path": "/assets/auth-Cpo-V6EL.js",
+          "type": "Script",
+          "bytes": 4478
+        },
+        {
+          "path": "/assets/useApi-BPuI6ZR9-B4ZupS0Z.js",
+          "type": "Script",
+          "bytes": 1185
+        },
+        {
+          "path": "/assets/devtools-CN5uWJaH-C5x5kDrT.js",
+          "type": "Script",
+          "bytes": 2934
+        },
+        {
+          "path": "/assets/vue-router-iD-32ApH.js",
+          "type": "Script",
+          "bytes": 7460
+        },
+        {
+          "path": "/assets/_plugin-vue_export-helper-BDNMzG2s.js",
+          "type": "Script",
+          "bytes": 403
+        },
+        {
+          "path": "/assets/SiteIcon-Df35uBvT.js",
+          "type": "Script",
+          "bytes": 1529
+        },
+        {
+          "path": "/assets/settings.api-bH8ZKF3P.js",
+          "type": "Script",
+          "bytes": 721
+        },
+        {
+          "path": "/assets/branches.api-DauWzjib.js",
+          "type": "Script",
+          "bytes": 902
+        },
+        {
+          "path": "/assets/promotions.api-BUEkmRRd.js",
+          "type": "Script",
+          "bytes": 600
+        },
+        {
+          "path": "/assets/index-CyCwNkjV.css",
+          "type": "Stylesheet",
+          "bytes": 17435
+        },
+        {
+          "path": "/assets/HomeView-KR5aTN9V.js",
+          "type": "Script",
+          "bytes": 4990
+        },
+        {
+          "path": "/assets/contentUrl-DILEBc2I.js",
+          "type": "Script",
+          "bytes": 592
+        },
+        {
+          "path": "/assets/cms.api-DBZMS0Fr.js",
+          "type": "Script",
+          "bytes": 1128
+        },
+        {
+          "path": "/assets/SiteGallery-D7em2S37.js",
+          "type": "Script",
+          "bytes": 3449
+        },
+        {
+          "path": "/assets/BranchSelector-D0DO1LFn.js",
+          "type": "Script",
+          "bytes": 2212
+        },
+        {
+          "path": "/assets/operations-ACjIkGl7.js",
+          "type": "Script",
+          "bytes": 986
+        },
+        {
+          "path": "/assets/operations.api-Cn78fYBu.js",
+          "type": "Script",
+          "bytes": 491
+        },
+        {
+          "path": "/assets/useCartFeedback-BnZK8EVY.js",
+          "type": "Script",
+          "bytes": 1183
+        },
+        {
+          "path": "/assets/categories.api-xca3PoxF.js",
+          "type": "Script",
+          "bytes": 634
+        },
+        {
+          "path": "/assets/products.api-7iiy9kW-.js",
+          "type": "Script",
+          "bytes": 737
+        },
+        {
+          "path": "/assets/ProductCard-Dog9fmyu.js",
+          "type": "Script",
+          "bytes": 1638
+        },
+        {
+          "path": "/assets/SiteOffers-zsNkK6eE.js",
+          "type": "Script",
+          "bytes": 1352
+        },
+        {
+          "path": "/assets/shishli-logo-I0Uuq2TS.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/assets/restaurant-reference-Cw54yNaR.webp",
+          "type": "Image",
+          "bytes": 240032
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10283
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9051
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10251
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9475
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10023
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8959
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8727
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10611
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8967
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Home",
+      "path": "/",
+      "sample": 2,
+      "lcp": 3752,
+      "cls": 0.00028199563271495617,
+      "events": [],
+      "longTasks": [
+        65,
+        429,
+        80
+      ],
+      "lcpElement": "hero-art",
+      "fcp": 1836,
+      "ttfb": 3.1999999284744263,
+      "dom": 996.8999999761581,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 118371,
+      "css_bytes": 18548,
+      "image_bytes": 279650,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 392.99,
+          "serverTiming": "app;dur=337.19, boot;dur=264.85, db;dur=3.26, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 732.47,
+          "serverTiming": "app;dur=284.77, boot;dur=198.34, db;dur=3.49, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 739.72,
+          "serverTiming": "app;dur=400.46, boot;dur=239.86, db;dur=8.47, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1171.06,
+          "serverTiming": "app;dur=415.48, boot;dur=327.32, db;dur=7.64, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1505.92,
+          "serverTiming": "app;dur=341.58, boot;dur=262.64, db;dur=5.91, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/home",
+          "status": 200,
+          "ms": 2138.7,
+          "serverTiming": "app;dur=411.91, boot;dur=203.37, db;dur=27.33, queries;desc=\"17\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2761.93,
+          "serverTiming": "app;dur=414.58, boot;dur=254.89, db;dur=16.34, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 1113
+        },
+        {
+          "path": "/assets/index-DjWsviiI.js",
+          "type": "Script",
+          "bytes": 32753
+        },
+        {
+          "path": "/assets/runtime-core.esm-bundler-fqhrJnP0.js",
+          "type": "Script",
+          "bytes": 23778
+        },
+        {
+          "path": "/assets/rolldown-runtime-hePW80VL.js",
+          "type": "Script",
+          "bytes": 1037
+        },
+        {
+          "path": "/assets/apiError-BMJP-MrT.js",
+          "type": "Script",
+          "bytes": 20407
+        },
+        {
+          "path": "/assets/drivers.api-3Fta8xSJ.js",
+          "type": "Script",
+          "bytes": 792
+        },
+        {
+          "path": "/assets/auth-Cpo-V6EL.js",
+          "type": "Script",
+          "bytes": 4478
+        },
+        {
+          "path": "/assets/useApi-BPuI6ZR9-B4ZupS0Z.js",
+          "type": "Script",
+          "bytes": 1185
+        },
+        {
+          "path": "/assets/devtools-CN5uWJaH-C5x5kDrT.js",
+          "type": "Script",
+          "bytes": 2934
+        },
+        {
+          "path": "/assets/vue-router-iD-32ApH.js",
+          "type": "Script",
+          "bytes": 7460
+        },
+        {
+          "path": "/assets/_plugin-vue_export-helper-BDNMzG2s.js",
+          "type": "Script",
+          "bytes": 403
+        },
+        {
+          "path": "/assets/SiteIcon-Df35uBvT.js",
+          "type": "Script",
+          "bytes": 1529
+        },
+        {
+          "path": "/assets/settings.api-bH8ZKF3P.js",
+          "type": "Script",
+          "bytes": 721
+        },
+        {
+          "path": "/assets/branches.api-DauWzjib.js",
+          "type": "Script",
+          "bytes": 902
+        },
+        {
+          "path": "/assets/promotions.api-BUEkmRRd.js",
+          "type": "Script",
+          "bytes": 600
+        },
+        {
+          "path": "/assets/index-CyCwNkjV.css",
+          "type": "Stylesheet",
+          "bytes": 17435
+        },
+        {
+          "path": "/assets/HomeView-KR5aTN9V.js",
+          "type": "Script",
+          "bytes": 4990
+        },
+        {
+          "path": "/assets/contentUrl-DILEBc2I.js",
+          "type": "Script",
+          "bytes": 592
+        },
+        {
+          "path": "/assets/cms.api-DBZMS0Fr.js",
+          "type": "Script",
+          "bytes": 1128
+        },
+        {
+          "path": "/assets/SiteGallery-D7em2S37.js",
+          "type": "Script",
+          "bytes": 3449
+        },
+        {
+          "path": "/assets/BranchSelector-D0DO1LFn.js",
+          "type": "Script",
+          "bytes": 2212
+        },
+        {
+          "path": "/assets/operations-ACjIkGl7.js",
+          "type": "Script",
+          "bytes": 986
+        },
+        {
+          "path": "/assets/operations.api-Cn78fYBu.js",
+          "type": "Script",
+          "bytes": 491
+        },
+        {
+          "path": "/assets/useCartFeedback-BnZK8EVY.js",
+          "type": "Script",
+          "bytes": 1183
+        },
+        {
+          "path": "/assets/categories.api-xca3PoxF.js",
+          "type": "Script",
+          "bytes": 634
+        },
+        {
+          "path": "/assets/products.api-7iiy9kW-.js",
+          "type": "Script",
+          "bytes": 737
+        },
+        {
+          "path": "/assets/ProductCard-Dog9fmyu.js",
+          "type": "Script",
+          "bytes": 1638
+        },
+        {
+          "path": "/assets/SiteOffers-zsNkK6eE.js",
+          "type": "Script",
+          "bytes": 1352
+        },
+        {
+          "path": "/assets/shishli-logo-I0Uuq2TS.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/assets/restaurant-reference-Cw54yNaR.webp",
+          "type": "Image",
+          "bytes": 240032
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10283
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9051
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10251
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9475
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10023
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8959
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8727
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10611
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8967
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Menu",
+      "path": "/menu",
+      "sample": 0,
+      "lcp": 2064,
+      "cls": 0.025880892705883826,
+      "events": [
+        {
+          "id": 2992,
+          "duration": 88
+        },
+        {
+          "id": 2992,
+          "duration": 56
+        },
+        {
+          "id": 2992,
+          "duration": 56
+        }
+      ],
+      "longTasks": [
+        145,
+        625,
+        85,
+        52
+      ],
+      "lcpElement": "P",
+      "fcp": 2064,
+      "ttfb": 2.5999999046325684,
+      "dom": 1105.6000000238419,
+      "overflow": false,
+      "interaction_ms": 88,
+      "js_bytes": 109971,
+      "css_bytes": 18200,
+      "image_bytes": 39618,
+      "api_count": 8,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 277.98,
+          "serverTiming": "app;dur=287.10, boot;dur=217.48, db;dur=3.04, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 636.45,
+          "serverTiming": "app;dur=266.44, boot;dur=207.62, db;dur=3.39, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/categories",
+          "status": 200,
+          "ms": 1235.99,
+          "serverTiming": "app;dur=369.64, boot;dur=200.50, db;dur=30.37, queries;desc=\"2\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 952.11,
+          "serverTiming": "app;dur=364.89, boot;dur=213.18, db;dur=8.47, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1296.99,
+          "serverTiming": "app;dur=344.46, boot;dur=207.15, db;dur=16.77, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1612.81,
+          "serverTiming": "app;dur=300.41, boot;dur=201.34, db;dur=5.28, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu",
+          "status": 200,
+          "ms": 2074.42,
+          "serverTiming": "app;dur=381.35, boot;dur=187.56, db;dur=17.64, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2689.09,
+          "serverTiming": "app;dur=367.28, boot;dur=190.07, db;dur=31.23, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/assets/index-DjWsviiI.js",
+          "type": "Script",
+          "bytes": 32753
+        },
+        {
+          "path": "/assets/runtime-core.esm-bundler-fqhrJnP0.js",
+          "type": "Script",
+          "bytes": 23778
+        },
+        {
+          "path": "/assets/rolldown-runtime-hePW80VL.js",
+          "type": "Script",
+          "bytes": 1037
+        },
+        {
+          "path": "/assets/apiError-BMJP-MrT.js",
+          "type": "Script",
+          "bytes": 20407
+        },
+        {
+          "path": "/assets/drivers.api-3Fta8xSJ.js",
+          "type": "Script",
+          "bytes": 792
+        },
+        {
+          "path": "/assets/auth-Cpo-V6EL.js",
+          "type": "Script",
+          "bytes": 4478
+        },
+        {
+          "path": "/assets/useApi-BPuI6ZR9-B4ZupS0Z.js",
+          "type": "Script",
+          "bytes": 1185
+        },
+        {
+          "path": "/assets/devtools-CN5uWJaH-C5x5kDrT.js",
+          "type": "Script",
+          "bytes": 2934
+        },
+        {
+          "path": "/assets/vue-router-iD-32ApH.js",
+          "type": "Script",
+          "bytes": 7460
+        },
+        {
+          "path": "/assets/_plugin-vue_export-helper-BDNMzG2s.js",
+          "type": "Script",
+          "bytes": 403
+        },
+        {
+          "path": "/assets/SiteIcon-Df35uBvT.js",
+          "type": "Script",
+          "bytes": 1529
+        },
+        {
+          "path": "/assets/settings.api-bH8ZKF3P.js",
+          "type": "Script",
+          "bytes": 721
+        },
+        {
+          "path": "/assets/branches.api-DauWzjib.js",
+          "type": "Script",
+          "bytes": 902
+        },
+        {
+          "path": "/assets/promotions.api-BUEkmRRd.js",
+          "type": "Script",
+          "bytes": 600
+        },
+        {
+          "path": "/assets/index-CyCwNkjV.css",
+          "type": "Stylesheet",
+          "bytes": 17435
+        },
+        {
+          "path": "/assets/MenuView-DC5tbkYU.js",
+          "type": "Script",
+          "bytes": 3111
+        },
+        {
+          "path": "/assets/BranchSelector-D0DO1LFn.js",
+          "type": "Script",
+          "bytes": 2212
+        },
+        {
+          "path": "/assets/operations-ACjIkGl7.js",
+          "type": "Script",
+          "bytes": 986
+        },
+        {
+          "path": "/assets/operations.api-Cn78fYBu.js",
+          "type": "Script",
+          "bytes": 491
+        },
+        {
+          "path": "/assets/useCartFeedback-BnZK8EVY.js",
+          "type": "Script",
+          "bytes": 1183
+        },
+        {
+          "path": "/assets/categories.api-xca3PoxF.js",
+          "type": "Script",
+          "bytes": 634
+        },
+        {
+          "path": "/assets/products.api-7iiy9kW-.js",
+          "type": "Script",
+          "bytes": 737
+        },
+        {
+          "path": "/assets/ProductCard-Dog9fmyu.js",
+          "type": "Script",
+          "bytes": 1638
+        },
+        {
+          "path": "/assets/shishli-logo-I0Uuq2TS.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10283
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9051
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9475
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10023
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8959
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10611
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8967
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Menu",
+      "path": "/menu",
+      "sample": 1,
+      "lcp": 1584,
+      "cls": 0.015673142660205294,
+      "events": [
+        {
+          "id": 6012,
+          "duration": 104
+        },
+        {
+          "id": 6012,
+          "duration": 80
+        },
+        {
+          "id": 6012,
+          "duration": 80
+        }
+      ],
+      "longTasks": [
+        59,
+        306,
+        50,
+        69
+      ],
+      "lcpElement": "P",
+      "fcp": 1584,
+      "ttfb": 3.3000000715255737,
+      "dom": 968.3999999761581,
+      "overflow": false,
+      "interaction_ms": 104,
+      "js_bytes": 109971,
+      "css_bytes": 18200,
+      "image_bytes": 39618,
+      "api_count": 8,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 338.87,
+          "serverTiming": "app;dur=292.41, boot;dur=231.96, db;dur=3.19, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 628.18,
+          "serverTiming": "app;dur=276.17, boot;dur=181.22, db;dur=19.32, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/categories",
+          "status": 200,
+          "ms": 1318.95,
+          "serverTiming": "app;dur=402.57, boot;dur=276.52, db;dur=6.81, queries;desc=\"2\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 1124.05,
+          "serverTiming": "app;dur=442.56, boot;dur=276.83, db;dur=31.79, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1515.87,
+          "serverTiming": "app;dur=381.70, boot;dur=296.86, db;dur=7.61, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1911.86,
+          "serverTiming": "app;dur=386.08, boot;dur=295.75, db;dur=6.07, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu",
+          "status": 200,
+          "ms": 2338.32,
+          "serverTiming": "app;dur=358.85, boot;dur=235.86, db;dur=12.17, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2875.28,
+          "serverTiming": "app;dur=344.64, boot;dur=181.03, db;dur=27.11, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/assets/index-DjWsviiI.js",
+          "type": "Script",
+          "bytes": 32753
+        },
+        {
+          "path": "/assets/runtime-core.esm-bundler-fqhrJnP0.js",
+          "type": "Script",
+          "bytes": 23778
+        },
+        {
+          "path": "/assets/rolldown-runtime-hePW80VL.js",
+          "type": "Script",
+          "bytes": 1037
+        },
+        {
+          "path": "/assets/apiError-BMJP-MrT.js",
+          "type": "Script",
+          "bytes": 20407
+        },
+        {
+          "path": "/assets/drivers.api-3Fta8xSJ.js",
+          "type": "Script",
+          "bytes": 792
+        },
+        {
+          "path": "/assets/auth-Cpo-V6EL.js",
+          "type": "Script",
+          "bytes": 4478
+        },
+        {
+          "path": "/assets/useApi-BPuI6ZR9-B4ZupS0Z.js",
+          "type": "Script",
+          "bytes": 1185
+        },
+        {
+          "path": "/assets/devtools-CN5uWJaH-C5x5kDrT.js",
+          "type": "Script",
+          "bytes": 2934
+        },
+        {
+          "path": "/assets/vue-router-iD-32ApH.js",
+          "type": "Script",
+          "bytes": 7460
+        },
+        {
+          "path": "/assets/_plugin-vue_export-helper-BDNMzG2s.js",
+          "type": "Script",
+          "bytes": 403
+        },
+        {
+          "path": "/assets/SiteIcon-Df35uBvT.js",
+          "type": "Script",
+          "bytes": 1529
+        },
+        {
+          "path": "/assets/settings.api-bH8ZKF3P.js",
+          "type": "Script",
+          "bytes": 721
+        },
+        {
+          "path": "/assets/branches.api-DauWzjib.js",
+          "type": "Script",
+          "bytes": 902
+        },
+        {
+          "path": "/assets/promotions.api-BUEkmRRd.js",
+          "type": "Script",
+          "bytes": 600
+        },
+        {
+          "path": "/assets/index-CyCwNkjV.css",
+          "type": "Stylesheet",
+          "bytes": 17435
+        },
+        {
+          "path": "/assets/MenuView-DC5tbkYU.js",
+          "type": "Script",
+          "bytes": 3111
+        },
+        {
+          "path": "/assets/BranchSelector-D0DO1LFn.js",
+          "type": "Script",
+          "bytes": 2212
+        },
+        {
+          "path": "/assets/operations-ACjIkGl7.js",
+          "type": "Script",
+          "bytes": 986
+        },
+        {
+          "path": "/assets/operations.api-Cn78fYBu.js",
+          "type": "Script",
+          "bytes": 491
+        },
+        {
+          "path": "/assets/useCartFeedback-BnZK8EVY.js",
+          "type": "Script",
+          "bytes": 1183
+        },
+        {
+          "path": "/assets/categories.api-xca3PoxF.js",
+          "type": "Script",
+          "bytes": 634
+        },
+        {
+          "path": "/assets/products.api-7iiy9kW-.js",
+          "type": "Script",
+          "bytes": 737
+        },
+        {
+          "path": "/assets/ProductCard-Dog9fmyu.js",
+          "type": "Script",
+          "bytes": 1638
+        },
+        {
+          "path": "/assets/shishli-logo-I0Uuq2TS.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10283
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9051
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9475
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10023
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8959
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10611
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8968
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Menu",
+      "path": "/menu",
+      "sample": 2,
+      "lcp": 1676,
+      "cls": 0.01838734533821982,
+      "events": [
+        {
+          "id": 1011,
+          "duration": 48
+        },
+        {
+          "id": 1011,
+          "duration": 24
+        },
+        {
+          "id": 1011,
+          "duration": 24
+        }
+      ],
+      "longTasks": [
+        113,
+        314,
+        57
+      ],
+      "lcpElement": "P",
+      "fcp": 1676,
+      "ttfb": 2.6999999284744263,
+      "dom": 1026.3999999761581,
+      "overflow": false,
+      "interaction_ms": 48,
+      "js_bytes": 109971,
+      "css_bytes": 18200,
+      "image_bytes": 39618,
+      "api_count": 8,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 518.07,
+          "serverTiming": "app;dur=373.21, boot;dur=228.66, db;dur=15.68, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 687.99,
+          "serverTiming": "app;dur=287.35, boot;dur=225.54, db;dur=3.33, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/categories",
+          "status": 200,
+          "ms": 1441.29,
+          "serverTiming": "app;dur=365.35, boot;dur=276.00, db;dur=6.88, queries;desc=\"2\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 1077.5,
+          "serverTiming": "app;dur=333.62, boot;dur=233.52, db;dur=6.39, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1378.69,
+          "serverTiming": "app;dur=296.79, boot;dur=210.02, db;dur=6.49, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1863.66,
+          "serverTiming": "app;dur=466.14, boot;dur=332.83, db;dur=18.09, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu",
+          "status": 200,
+          "ms": 2449.83,
+          "serverTiming": "app;dur=438.63, boot;dur=269.12, db;dur=14.90, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 3131.32,
+          "serverTiming": "app;dur=385.52, boot;dur=196.53, db;dur=29.59, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/assets/index-DjWsviiI.js",
+          "type": "Script",
+          "bytes": 32753
+        },
+        {
+          "path": "/assets/runtime-core.esm-bundler-fqhrJnP0.js",
+          "type": "Script",
+          "bytes": 23778
+        },
+        {
+          "path": "/assets/rolldown-runtime-hePW80VL.js",
+          "type": "Script",
+          "bytes": 1037
+        },
+        {
+          "path": "/assets/apiError-BMJP-MrT.js",
+          "type": "Script",
+          "bytes": 20407
+        },
+        {
+          "path": "/assets/drivers.api-3Fta8xSJ.js",
+          "type": "Script",
+          "bytes": 792
+        },
+        {
+          "path": "/assets/auth-Cpo-V6EL.js",
+          "type": "Script",
+          "bytes": 4478
+        },
+        {
+          "path": "/assets/useApi-BPuI6ZR9-B4ZupS0Z.js",
+          "type": "Script",
+          "bytes": 1185
+        },
+        {
+          "path": "/assets/devtools-CN5uWJaH-C5x5kDrT.js",
+          "type": "Script",
+          "bytes": 2934
+        },
+        {
+          "path": "/assets/vue-router-iD-32ApH.js",
+          "type": "Script",
+          "bytes": 7460
+        },
+        {
+          "path": "/assets/_plugin-vue_export-helper-BDNMzG2s.js",
+          "type": "Script",
+          "bytes": 403
+        },
+        {
+          "path": "/assets/SiteIcon-Df35uBvT.js",
+          "type": "Script",
+          "bytes": 1529
+        },
+        {
+          "path": "/assets/settings.api-bH8ZKF3P.js",
+          "type": "Script",
+          "bytes": 721
+        },
+        {
+          "path": "/assets/branches.api-DauWzjib.js",
+          "type": "Script",
+          "bytes": 902
+        },
+        {
+          "path": "/assets/promotions.api-BUEkmRRd.js",
+          "type": "Script",
+          "bytes": 600
+        },
+        {
+          "path": "/assets/index-CyCwNkjV.css",
+          "type": "Stylesheet",
+          "bytes": 17435
+        },
+        {
+          "path": "/assets/MenuView-DC5tbkYU.js",
+          "type": "Script",
+          "bytes": 3111
+        },
+        {
+          "path": "/assets/BranchSelector-D0DO1LFn.js",
+          "type": "Script",
+          "bytes": 2212
+        },
+        {
+          "path": "/assets/operations-ACjIkGl7.js",
+          "type": "Script",
+          "bytes": 986
+        },
+        {
+          "path": "/assets/operations.api-Cn78fYBu.js",
+          "type": "Script",
+          "bytes": 491
+        },
+        {
+          "path": "/assets/useCartFeedback-BnZK8EVY.js",
+          "type": "Script",
+          "bytes": 1183
+        },
+        {
+          "path": "/assets/categories.api-xca3PoxF.js",
+          "type": "Script",
+          "bytes": 634
+        },
+        {
+          "path": "/assets/products.api-7iiy9kW-.js",
+          "type": "Script",
+          "bytes": 737
+        },
+        {
+          "path": "/assets/ProductCard-Dog9fmyu.js",
+          "type": "Script",
+          "bytes": 1638
+        },
+        {
+          "path": "/assets/shishli-logo-I0Uuq2TS.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10285
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9054
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9479
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10027
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8964
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10617
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8973
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Product",
+      "path": "/product/:product",
+      "sample": 0,
+      "lcp": 4284,
+      "cls": 0.07888797363848464,
+      "events": [],
+      "longTasks": [
+        92,
+        277,
+        55,
+        57
+      ],
+      "lcpElement": "H1",
+      "fcp": 1544,
+      "ttfb": 3.600000023841858,
+      "dom": 1009.2000000476837,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 109021,
+      "css_bytes": 18200,
+      "image_bytes": 39618,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 350.23,
+          "serverTiming": "app;dur=289.46, boot;dur=213.58, db;dur=4.05, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 632.85,
+          "serverTiming": "app;dur=277.88, boot;dur=211.49, db;dur=3.65, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 560.37,
+          "serverTiming": "app;dur=335.38, boot;dur=235.12, db;dur=6.50, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1129.68,
+          "serverTiming": "app;dur=263.30, boot;dur=182.68, db;dur=7.37, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1416.07,
+          "serverTiming": "app;dur=278.14, boot;dur=187.27, db;dur=18.73, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu/products/:product",
+          "status": 200,
+          "ms": 2050.22,
+          "serverTiming": "app;dur=361.31, boot;dur=213.50, db;dur=36.76, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2590.62,
+          "serverTiming": "app;dur=525.64, boot;dur=253.68, db;dur=33.81, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/assets/index-DjWsviiI.js",
+          "type": "Script",
+          "bytes": 32753
+        },
+        {
+          "path": "/assets/runtime-core.esm-bundler-fqhrJnP0.js",
+          "type": "Script",
+          "bytes": 23778
+        },
+        {
+          "path": "/assets/rolldown-runtime-hePW80VL.js",
+          "type": "Script",
+          "bytes": 1037
+        },
+        {
+          "path": "/assets/apiError-BMJP-MrT.js",
+          "type": "Script",
+          "bytes": 20407
+        },
+        {
+          "path": "/assets/drivers.api-3Fta8xSJ.js",
+          "type": "Script",
+          "bytes": 792
+        },
+        {
+          "path": "/assets/auth-Cpo-V6EL.js",
+          "type": "Script",
+          "bytes": 4478
+        },
+        {
+          "path": "/assets/useApi-BPuI6ZR9-B4ZupS0Z.js",
+          "type": "Script",
+          "bytes": 1185
+        },
+        {
+          "path": "/assets/devtools-CN5uWJaH-C5x5kDrT.js",
+          "type": "Script",
+          "bytes": 2934
+        },
+        {
+          "path": "/assets/vue-router-iD-32ApH.js",
+          "type": "Script",
+          "bytes": 7460
+        },
+        {
+          "path": "/assets/_plugin-vue_export-helper-BDNMzG2s.js",
+          "type": "Script",
+          "bytes": 403
+        },
+        {
+          "path": "/assets/SiteIcon-Df35uBvT.js",
+          "type": "Script",
+          "bytes": 1529
+        },
+        {
+          "path": "/assets/settings.api-bH8ZKF3P.js",
+          "type": "Script",
+          "bytes": 721
+        },
+        {
+          "path": "/assets/branches.api-DauWzjib.js",
+          "type": "Script",
+          "bytes": 902
+        },
+        {
+          "path": "/assets/promotions.api-BUEkmRRd.js",
+          "type": "Script",
+          "bytes": 600
+        },
+        {
+          "path": "/assets/index-CyCwNkjV.css",
+          "type": "Stylesheet",
+          "bytes": 17435
+        },
+        {
+          "path": "/assets/ProductView-BxGbdee2.js",
+          "type": "Script",
+          "bytes": 3799
+        },
+        {
+          "path": "/assets/products.api-7iiy9kW-.js",
+          "type": "Script",
+          "bytes": 737
+        },
+        {
+          "path": "/assets/BranchSelector-D0DO1LFn.js",
+          "type": "Script",
+          "bytes": 2212
+        },
+        {
+          "path": "/assets/operations-ACjIkGl7.js",
+          "type": "Script",
+          "bytes": 986
+        },
+        {
+          "path": "/assets/operations.api-Cn78fYBu.js",
+          "type": "Script",
+          "bytes": 491
+        },
+        {
+          "path": "/assets/useCartFeedback-BnZK8EVY.js",
+          "type": "Script",
+          "bytes": 1183
+        },
+        {
+          "path": "/assets/categories.api-xca3PoxF.js",
+          "type": "Script",
+          "bytes": 634
+        },
+        {
+          "path": "/assets/shishli-logo-I0Uuq2TS.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10292
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9057
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10030
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8967
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Product",
+      "path": "/product/:product",
+      "sample": 1,
+      "lcp": 4440,
+      "cls": 0.09039668423451139,
+      "events": [],
+      "longTasks": [
+        146,
+        140,
+        82,
+        54
+      ],
+      "lcpElement": "H1",
+      "fcp": 1460,
+      "ttfb": 2.600000023841858,
+      "dom": 1100.6000000238419,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 109021,
+      "css_bytes": 18200,
+      "image_bytes": 39618,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 425.52,
+          "serverTiming": "app;dur=376.56, boot;dur=266.03, db;dur=24.14, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 692.72,
+          "serverTiming": "app;dur=278.20, boot;dur=195.32, db;dur=3.52, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 639.49,
+          "serverTiming": "app;dur=321.10, boot;dur=205.30, db;dur=5.88, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1446.23,
+          "serverTiming": "app;dur=442.12, boot;dur=320.99, db;dur=6.88, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1803.25,
+          "serverTiming": "app;dur=342.32, boot;dur=202.06, db;dur=22.88, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu/products/:product",
+          "status": 200,
+          "ms": 2231.09,
+          "serverTiming": "app;dur=423.44, boot;dur=298.30, db;dur=13.10, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2929.14,
+          "serverTiming": "app;dur=462.46, boot;dur=236.25, db;dur=41.61, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/assets/index-DjWsviiI.js",
+          "type": "Script",
+          "bytes": 32753
+        },
+        {
+          "path": "/assets/runtime-core.esm-bundler-fqhrJnP0.js",
+          "type": "Script",
+          "bytes": 23778
+        },
+        {
+          "path": "/assets/rolldown-runtime-hePW80VL.js",
+          "type": "Script",
+          "bytes": 1037
+        },
+        {
+          "path": "/assets/apiError-BMJP-MrT.js",
+          "type": "Script",
+          "bytes": 20407
+        },
+        {
+          "path": "/assets/drivers.api-3Fta8xSJ.js",
+          "type": "Script",
+          "bytes": 792
+        },
+        {
+          "path": "/assets/auth-Cpo-V6EL.js",
+          "type": "Script",
+          "bytes": 4478
+        },
+        {
+          "path": "/assets/useApi-BPuI6ZR9-B4ZupS0Z.js",
+          "type": "Script",
+          "bytes": 1185
+        },
+        {
+          "path": "/assets/devtools-CN5uWJaH-C5x5kDrT.js",
+          "type": "Script",
+          "bytes": 2934
+        },
+        {
+          "path": "/assets/vue-router-iD-32ApH.js",
+          "type": "Script",
+          "bytes": 7460
+        },
+        {
+          "path": "/assets/_plugin-vue_export-helper-BDNMzG2s.js",
+          "type": "Script",
+          "bytes": 403
+        },
+        {
+          "path": "/assets/SiteIcon-Df35uBvT.js",
+          "type": "Script",
+          "bytes": 1529
+        },
+        {
+          "path": "/assets/settings.api-bH8ZKF3P.js",
+          "type": "Script",
+          "bytes": 721
+        },
+        {
+          "path": "/assets/branches.api-DauWzjib.js",
+          "type": "Script",
+          "bytes": 902
+        },
+        {
+          "path": "/assets/promotions.api-BUEkmRRd.js",
+          "type": "Script",
+          "bytes": 600
+        },
+        {
+          "path": "/assets/index-CyCwNkjV.css",
+          "type": "Stylesheet",
+          "bytes": 17435
+        },
+        {
+          "path": "/assets/ProductView-BxGbdee2.js",
+          "type": "Script",
+          "bytes": 3799
+        },
+        {
+          "path": "/assets/products.api-7iiy9kW-.js",
+          "type": "Script",
+          "bytes": 737
+        },
+        {
+          "path": "/assets/BranchSelector-D0DO1LFn.js",
+          "type": "Script",
+          "bytes": 2212
+        },
+        {
+          "path": "/assets/operations-ACjIkGl7.js",
+          "type": "Script",
+          "bytes": 986
+        },
+        {
+          "path": "/assets/operations.api-Cn78fYBu.js",
+          "type": "Script",
+          "bytes": 491
+        },
+        {
+          "path": "/assets/useCartFeedback-BnZK8EVY.js",
+          "type": "Script",
+          "bytes": 1183
+        },
+        {
+          "path": "/assets/categories.api-xca3PoxF.js",
+          "type": "Script",
+          "bytes": 634
+        },
+        {
+          "path": "/assets/shishli-logo-I0Uuq2TS.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10295
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9059
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10031
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8968
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Product",
+      "path": "/product/:product",
+      "sample": 2,
+      "lcp": 4360,
+      "cls": 0.06175150562771012,
+      "events": [],
+      "longTasks": [
+        72,
+        93
+      ],
+      "lcpElement": "H1",
+      "fcp": 1376,
+      "ttfb": 4.199999928474426,
+      "dom": 1036,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 109021,
+      "css_bytes": 18200,
+      "image_bytes": 39618,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 307.5,
+          "serverTiming": "app;dur=267.12, boot;dur=194.58, db;dur=3.15, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 695.64,
+          "serverTiming": "app;dur=307.28, boot;dur=215.57, db;dur=16.60, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 701.73,
+          "serverTiming": "app;dur=378.44, boot;dur=242.29, db;dur=7.90, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1398.21,
+          "serverTiming": "app;dur=315.05, boot;dur=218.21, db;dur=6.75, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1731.32,
+          "serverTiming": "app;dur=317.10, boot;dur=235.42, db;dur=16.63, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu/products/:product",
+          "status": 200,
+          "ms": 2215.14,
+          "serverTiming": "app;dur=480.48, boot;dur=248.25, db;dur=20.31, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2972.02,
+          "serverTiming": "app;dur=456.01, boot;dur=220.68, db;dur=50.18, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/assets/index-DjWsviiI.js",
+          "type": "Script",
+          "bytes": 32753
+        },
+        {
+          "path": "/assets/runtime-core.esm-bundler-fqhrJnP0.js",
+          "type": "Script",
+          "bytes": 23778
+        },
+        {
+          "path": "/assets/rolldown-runtime-hePW80VL.js",
+          "type": "Script",
+          "bytes": 1037
+        },
+        {
+          "path": "/assets/apiError-BMJP-MrT.js",
+          "type": "Script",
+          "bytes": 20407
+        },
+        {
+          "path": "/assets/drivers.api-3Fta8xSJ.js",
+          "type": "Script",
+          "bytes": 792
+        },
+        {
+          "path": "/assets/auth-Cpo-V6EL.js",
+          "type": "Script",
+          "bytes": 4478
+        },
+        {
+          "path": "/assets/useApi-BPuI6ZR9-B4ZupS0Z.js",
+          "type": "Script",
+          "bytes": 1185
+        },
+        {
+          "path": "/assets/devtools-CN5uWJaH-C5x5kDrT.js",
+          "type": "Script",
+          "bytes": 2934
+        },
+        {
+          "path": "/assets/vue-router-iD-32ApH.js",
+          "type": "Script",
+          "bytes": 7460
+        },
+        {
+          "path": "/assets/_plugin-vue_export-helper-BDNMzG2s.js",
+          "type": "Script",
+          "bytes": 403
+        },
+        {
+          "path": "/assets/SiteIcon-Df35uBvT.js",
+          "type": "Script",
+          "bytes": 1529
+        },
+        {
+          "path": "/assets/settings.api-bH8ZKF3P.js",
+          "type": "Script",
+          "bytes": 721
+        },
+        {
+          "path": "/assets/branches.api-DauWzjib.js",
+          "type": "Script",
+          "bytes": 902
+        },
+        {
+          "path": "/assets/promotions.api-BUEkmRRd.js",
+          "type": "Script",
+          "bytes": 600
+        },
+        {
+          "path": "/assets/index-CyCwNkjV.css",
+          "type": "Stylesheet",
+          "bytes": 17435
+        },
+        {
+          "path": "/assets/ProductView-BxGbdee2.js",
+          "type": "Script",
+          "bytes": 3799
+        },
+        {
+          "path": "/assets/products.api-7iiy9kW-.js",
+          "type": "Script",
+          "bytes": 737
+        },
+        {
+          "path": "/assets/BranchSelector-D0DO1LFn.js",
+          "type": "Script",
+          "bytes": 2212
+        },
+        {
+          "path": "/assets/operations-ACjIkGl7.js",
+          "type": "Script",
+          "bytes": 986
+        },
+        {
+          "path": "/assets/operations.api-Cn78fYBu.js",
+          "type": "Script",
+          "bytes": 491
+        },
+        {
+          "path": "/assets/useCartFeedback-BnZK8EVY.js",
+          "type": "Script",
+          "bytes": 1183
+        },
+        {
+          "path": "/assets/categories.api-xca3PoxF.js",
+          "type": "Script",
+          "bytes": 634
+        },
+        {
+          "path": "/assets/shishli-logo-I0Uuq2TS.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10295
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9059
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10031
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8968
+        }
+      ],
+      "failures": []
+    }
+  ],
+  "diagnostics": []
+}

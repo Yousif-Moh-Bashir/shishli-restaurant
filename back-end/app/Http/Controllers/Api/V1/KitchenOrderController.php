@@ -8,12 +8,13 @@ use App\Http\Requests\Api\V1\KitchenOrdersRequest;
 use App\Http\Resources\Api\V1\KitchenOrderResource;
 use App\Http\Responses\ApiResponse;
 use App\Models\Order;
+use App\Services\OrderWorkdayFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 
 class KitchenOrderController extends Controller
 {
-    public function __invoke(KitchenOrdersRequest $request): JsonResponse
+    public function __invoke(KitchenOrdersRequest $request, OrderWorkdayFilter $workdays): JsonResponse
     {
         $data = $request->validated();
         $query = Order::query()->without('promotions')->with(['branch', 'items.options']);
@@ -24,6 +25,7 @@ class KitchenOrderController extends Controller
         if (isset($data['branch'])) {
             $query->whereHas('branch', fn (Builder $query) => $query->where('uuid', $data['branch']));
         }
+        $workdays->apply($query, $data);
 
         return ApiResponse::paginated(KitchenOrderResource::collection($query->orderBy('placed_at')->orderBy('id')
             ->paginate($request->integer('per_page', $request->is('api/v1/admin/*') ? 20 : 25))->withQueryString()));

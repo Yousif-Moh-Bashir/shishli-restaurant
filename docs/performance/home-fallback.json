@@ -1,0 +1,89 @@
+{
+  "result": "passed",
+  "fallback": [
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/8bc18d6d-015f-46f5-91c4-87c544e7edc2/status",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/8bc18d6d-015f-46f5-91c4-87c544e7edc2/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 204
+    },
+    {
+      "path": "/api/v1/home",
+      "status": 404
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/menu",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/gallery",
+      "status": 200
+    }
+  ],
+  "publishedAndSearch": [
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 204
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/8bc18d6d-015f-46f5-91c4-87c544e7edc2/status",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/8bc18d6d-015f-46f5-91c4-87c544e7edc2/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/home",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/menu",
+      "status": 200
+    }
+  ],
+  "checks": [
+    "Draft CMS: products remain available; one menu and one gallery request, no categories",
+    "Published CMS: no redundant menu/gallery/categories",
+    "One debounced search; clearing reuses CMS products"
+  ],
+  "diagnostics": []
+}

@@ -1,0 +1,107 @@
+{
+    "files": [
+        {
+            "path": "back-end\/storage\/app\/public\/products\/6860728f-be15-4f0f-a438-201326c20161\/9ee31999-b995-4133-b8e0-caa690675be9.png",
+            "bytes": 2844934,
+            "width": 1482,
+            "height": 1061
+        },
+        {
+            "path": "back-end\/storage\/app\/public\/products\/925f4306-9fb6-4618-9c9e-d8f35d94dfbd\/87b5496d-79f8-430c-a2c0-8bf0a09d17de.png",
+            "bytes": 2803425,
+            "width": 1672,
+            "height": 941
+        },
+        {
+            "path": "back-end\/storage\/app\/public\/products\/ff8c973d-9f10-4869-9b50-7a562778ca21\/71cade94-048f-4546-895a-fb7725410d3b.png",
+            "bytes": 2767574,
+            "width": 1536,
+            "height": 1024
+        },
+        {
+            "path": "front-end\/src\/assets\/images\/banners\/restaurant-reference.png",
+            "bytes": 2243566,
+            "width": 1536,
+            "height": 1024
+        },
+        {
+            "path": "front-end\/src\/assets\/images\/logo\/shishli-logo.png",
+            "bytes": 1654348,
+            "width": 1536,
+            "height": 1024
+        },
+        {
+            "path": "back-end\/storage\/app\/public\/products\/6860728f-be15-4f0f-a438-201326c20161\/9ee31999-b995-4133-b8e0-caa690675be9.png.webp",
+            "bytes": 382878,
+            "width": 1482,
+            "height": 1061
+        },
+        {
+            "path": "back-end\/storage\/app\/public\/products\/ff8c973d-9f10-4869-9b50-7a562778ca21\/71cade94-048f-4546-895a-fb7725410d3b.png.webp",
+            "bytes": 306638,
+            "width": 1536,
+            "height": 1024
+        },
+        {
+            "path": "back-end\/storage\/app\/public\/products\/925f4306-9fb6-4618-9c9e-d8f35d94dfbd\/87b5496d-79f8-430c-a2c0-8bf0a09d17de.png.webp",
+            "bytes": 295704,
+            "width": 1600,
+            "height": 900
+        },
+        {
+            "path": "front-end\/src\/assets\/images\/banners\/restaurant-reference.webp",
+            "bytes": 239762,
+            "width": 1536,
+            "height": 1024
+        },
+        {
+            "path": "front-end\/src\/assets\/images\/logo\/shishli-logo.webp",
+            "bytes": 39350,
+            "width": 480,
+            "height": 320
+        },
+        {
+            "path": "front-end\/public\/apple-touch-icon.png",
+            "bytes": 28630,
+            "width": 180,
+            "height": 180
+        },
+        {
+            "path": "front-end\/src\/assets\/hero.png",
+            "bytes": 13057,
+            "width": 343,
+            "height": 361
+        },
+        {
+            "path": "front-end\/public\/favicon.svg",
+            "bytes": 9522,
+            "width": null,
+            "height": null
+        },
+        {
+            "path": "front-end\/src\/assets\/vite.svg",
+            "bytes": 8709,
+            "width": null,
+            "height": null
+        },
+        {
+            "path": "front-end\/public\/favicon.png",
+            "bytes": 5417,
+            "width": 64,
+            "height": 64
+        },
+        {
+            "path": "front-end\/public\/icons.svg",
+            "bytes": 5031,
+            "width": null,
+            "height": null
+        },
+        {
+            "path": "front-end\/src\/assets\/vue.svg",
+            "bytes": 496,
+            "width": null,
+            "height": null
+        }
+    ],
+    "identical_files": []
+}

@@ -42,6 +42,7 @@ class RolesAndPermissionsTest extends TestCase
     {
         return [
             'administrator' => ['super_admin', [
+                'driver.access', 'drivers.view', 'drivers.manage', 'drivers.reassign', 'drivers.settle_cash',
                 'staff.view', 'staff.create', 'staff.update', 'staff.activate', 'staff.deactivate', 'roles.view', 'roles.update_permissions', 'activity_logs.view',
                 'cms.pages.view', 'cms.pages.update',
                 'cms.banners.view', 'cms.banners.create', 'cms.banners.update', 'cms.banners.delete',
@@ -69,6 +70,7 @@ class RolesAndPermissionsTest extends TestCase
                 'options.view', 'options.create', 'options.update', 'options.delete',
             ]],
             'manager' => ['manager', [
+                'driver.access', 'drivers.view', 'drivers.manage', 'drivers.reassign', 'drivers.settle_cash',
                 'staff.view', 'staff.create', 'staff.update', 'staff.activate', 'staff.deactivate', 'roles.view',
                 'cms.pages.view', 'cms.pages.update',
                 'cms.banners.view', 'cms.banners.create', 'cms.banners.update', 'cms.banners.delete',
@@ -95,9 +97,10 @@ class RolesAndPermissionsTest extends TestCase
                 'categories.view', 'categories.create', 'categories.update', 'categories.delete',
                 'options.view', 'options.create', 'options.update', 'options.delete',
             ]],
-            'cashier' => ['cashier', ['dashboard.view', 'reports.orders.view', 'orders.view', 'orders.create', 'orders.confirm', 'orders.complete', 'products.view', 'customers.view', 'payments.view', 'payments.collect_cash']],
+            'cashier' => ['cashier', ['dashboard.view', 'reports.orders.view', 'orders.view', 'orders.create', 'orders.confirm', 'orders.complete', 'products.view', 'customers.view', 'payments.view', 'payments.collect_cash', 'drivers.view', 'drivers.settle_cash']],
             'kitchen' => ['kitchen', ['orders.view', 'orders.update_status', 'orders.start_preparing', 'orders.mark_ready']],
             'customer' => ['customer', []],
+            'driver' => ['driver', ['driver.access']],
         ];
     }
 
@@ -109,8 +112,8 @@ class RolesAndPermissionsTest extends TestCase
 
         $this->seed(RolesAndPermissionsSeeder::class);
 
-        $this->assertDatabaseCount('roles', 5);
-        $this->assertDatabaseCount('permissions', 92);
+        $this->assertDatabaseCount('roles', 6);
+        $this->assertDatabaseCount('permissions', 97);
         $this->assertDatabaseCount('model_has_roles', 1);
         $this->assertSame(['cashier'], $user->fresh()->getRoleNames()->all());
         $this->assertDatabaseHas('model_has_roles', ['model_id' => $user->id, 'model_type' => User::class]);

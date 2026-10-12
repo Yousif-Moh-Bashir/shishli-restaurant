@@ -17,9 +17,11 @@ class Promotion extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'slug', 'description', 'type', 'application_type', 'discount_type', 'discount_value', 'maximum_discount', 'minimum_subtotal', 'starts_at', 'ends_at', 'is_active', 'priority', 'is_stackable', 'usage_limit', 'usage_limit_per_user'];
+    protected $fillable = ['name', 'slug', 'description', 'type', 'application_type', 'discount_type', 'discount_value', 'maximum_discount', 'minimum_subtotal', 'starts_at', 'ends_at', 'is_active', 'priority', 'is_stackable', 'usage_limit', 'usage_limit_per_user', 'first_order_only', 'is_registration_offer'];
 
     protected $hidden = ['id'];
+
+    protected $attributes = ['first_order_only' => false, 'is_registration_offer' => false];
 
     protected static function booted(): void
     {
@@ -35,7 +37,7 @@ class Promotion extends Model
 
     protected function casts(): array
     {
-        return ['type' => PromotionType::class, 'application_type' => PromotionApplicationType::class, 'discount_type' => DiscountType::class, 'discount_value' => 'decimal:2', 'maximum_discount' => 'decimal:2', 'minimum_subtotal' => 'decimal:2', 'starts_at' => 'datetime', 'ends_at' => 'datetime', 'is_active' => 'boolean', 'is_stackable' => 'boolean', 'priority' => 'integer', 'used_count' => 'integer', 'usage_limit' => 'integer', 'usage_limit_per_user' => 'integer'];
+        return ['type' => PromotionType::class, 'application_type' => PromotionApplicationType::class, 'discount_type' => DiscountType::class, 'discount_value' => 'decimal:2', 'maximum_discount' => 'decimal:2', 'minimum_subtotal' => 'decimal:2', 'starts_at' => 'datetime', 'ends_at' => 'datetime', 'is_active' => 'boolean', 'is_stackable' => 'boolean', 'priority' => 'integer', 'used_count' => 'integer', 'usage_limit' => 'integer', 'usage_limit_per_user' => 'integer', 'first_order_only' => 'boolean', 'is_registration_offer' => 'boolean'];
     }
 
     public function branches(): BelongsToMany

@@ -7,6 +7,7 @@ use App\Enums\PaymentStatus;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\Money;
+use Database\Seeders\DatabaseSeeder;
 use Database\Seeders\DemoDataSeeder;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +17,14 @@ use Tests\TestCase;
 class DemoDataSeederTest extends TestCase
 {
     use LazilyRefreshDatabase;
+
+    public function test_default_production_seeder_does_not_create_a_known_password_test_account(): void
+    {
+        $this->assertDatabaseCount('users', 0);
+        $this->app->instance('env', 'production');
+        $this->artisan('db:seed', ['--class' => DatabaseSeeder::class, '--force' => true])->assertExitCode(0);
+        $this->assertDatabaseMissing('users', ['email' => 'test@example.com']);
+    }
 
     public function test_demo_data_is_consistent_and_repeatable_without_resetting_existing_accounts(): void
     {

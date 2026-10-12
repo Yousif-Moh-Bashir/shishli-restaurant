@@ -10,7 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class UserResource extends JsonResource
 {
     /**
-     * @return array{uuid: string, name: string, email: string, phone: ?string, email_verified_at: ?string, created_at: ?string, updated_at: ?string}
+     * @return array{uuid: string, name: string, email: ?string, phone: ?string, is_driver: bool, email_verified_at: ?string, created_at: ?string, updated_at: ?string}
      */
     public function toArray(Request $request): array
     {
@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'is_driver' => $this->resource->hasRole('driver') && $this->resource->can('driver.access'),
             'email_verified_at' => $this->email_verified_at?->toISOString(),
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),

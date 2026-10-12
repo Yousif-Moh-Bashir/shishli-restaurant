@@ -1,5 +1,6 @@
 <script setup>
 import {useId,watchEffect,computed} from 'vue'
+import PhoneInput from '../common/PhoneInput.vue'
 const props=defineProps({fields:Array,form:Object,errors:{type:Object,default:()=>({})},disabled:Boolean,sections:Array})
 const groups=computed(()=>{
  if(!props.sections?.length)return [{title:'',fields:props.fields}]
@@ -21,6 +22,7 @@ const errorsFor=key=>Object.entries(props.errors).filter(([name])=>name===key||n
  <input v-else-if="field.type==='checkbox'" :id="id+'-'+field.key" v-model="form[field.key]" type="checkbox" :disabled="disabled" :aria-invalid="errorsFor(field.key).length?true:undefined" :aria-describedby="errorsFor(field.key).length?id+'-error-'+field.key:undefined">
  <input v-else-if="field.type==='file'" :ref="element=>fileRef(field.key,element)" :id="id+'-'+field.key" type="file" accept="image/jpeg,image/png,image/webp" :required="field.required" :disabled="disabled" :aria-invalid="errorsFor(field.key).length?true:undefined" :aria-describedby="errorsFor(field.key).length?id+'-error-'+field.key:undefined" @change="form[field.key]=$event.target.files[0]||null">
  <div v-else-if="field.type==='multi'" :id="id+'-'+field.key" class="domain-checks"><label v-for="option in field.options" :key="option.value" class="check"><input v-model="form[field.key]" type="checkbox" :value="option.value" :disabled="disabled||option.disabled">{{ option.label }}</label></div>
+ <PhoneInput v-else-if="['phone','whatsapp'].includes(field.key) || field.type==='tel'" :id="id+'-'+field.key" v-model="form[field.key]" :required="field.required" :disabled="disabled" :aria-invalid="errorsFor(field.key).length?true:undefined" :aria-describedby="errorsFor(field.key).length?id+'-error-'+field.key:undefined"/>
  <input v-else :id="id+'-'+field.key" v-model="form[field.key]" :type="field.type||'text'" :required="field.required" :maxlength="field.max" :min="field.min" :max="field.type==='number'?field.max:undefined" :step="field.step" :pattern="field.pattern" :minlength="field.minlength" :disabled="disabled" :aria-invalid="errorsFor(field.key).length?true:undefined" :aria-describedby="errorsFor(field.key).length?id+'-error-'+field.key:undefined" :autocomplete="field.type==='password'?'new-password':undefined" :dir="field.dir||(['email','url','password','tel'].includes(field.type)?'ltr':undefined)">
  <small v-if="field.help" class="muted">{{ field.help }}</small><small v-if="errorsFor(field.key).length" :id="id+'-error-'+field.key" role="alert" class="field-error">{{ errorsFor(field.key).join(' ') }}</small>
  </div></div></component></div></template>

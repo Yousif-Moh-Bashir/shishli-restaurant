@@ -27,6 +27,9 @@ class CustomerAddressWriter
     public function save(User $user, array $data, ?CustomerAddress $address = null): CustomerAddress
     {
         $address ??= new CustomerAddress;
+        if (! $address->exists && $user->addresses()->count() >= CustomerAddress::MAX_SAVED_ADDRESSES) {
+            throw ValidationException::withMessages(['addresses' => 'يمكنك حفظ ثلاثة عناوين فقط. احذف عنوانًا محفوظًا لإضافة عنوان جديد.']);
+        }
         $address->fill($data);
         if (($address->latitude === null) !== ($address->longitude === null)) {
             throw ValidationException::withMessages(['latitude' => 'يجب إدخال خط العرض وخط الطول معًا أو مسحهما معًا.']);

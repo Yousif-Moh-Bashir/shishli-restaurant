@@ -1,0 +1,4580 @@
+[
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/driver/me",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "role:driver",
+            "permission:driver.access"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\DriverController@me",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\DriverController.php:26",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/driver/availability",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "role:driver",
+            "permission:driver.access"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\DriverController@availability",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\DriverController.php:34",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\DriverOperationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/driver/orders",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "role:driver",
+            "permission:driver.access"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\DriverController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\DriverController.php:39",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\DriverListRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/driver/orders/{order}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "role:driver",
+            "permission:driver.access"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\DriverController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\DriverController.php:80",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/driver/orders/{order}/accept",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "role:driver",
+            "permission:driver.access",
+            "throttle:60,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\DriverController@accept",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\DriverController.php:87",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\DriverOperationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/driver/orders/{order}/transition",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "role:driver",
+            "permission:driver.access",
+            "throttle:60,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\DriverController@transition",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\DriverController.php:92",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\DriverOperationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/driver/orders/{order}/cash/collect",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "role:driver",
+            "permission:driver.access",
+            "throttle:30,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\DriverController@collect",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\DriverController.php:97",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\DriverOperationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/driver/collections",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "role:driver",
+            "permission:driver.access"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\DriverController@collections",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\DriverController.php:102",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\DriverListRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/drivers",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "permission:drivers.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DriverController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DriverController.php:25",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\DriverListRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/drivers",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "permission:drivers.manage"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DriverController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DriverController.php:49",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\DriverRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/drivers/{driver}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "permission:drivers.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DriverController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DriverController.php:44",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PUT"
+        ],
+        "uri": "api/v1/admin/drivers/{driver}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "permission:drivers.manage"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DriverController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DriverController.php:56",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\DriverRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/drivers/{driver}/collections",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "permission:drivers.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DriverController@collections",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DriverController.php:63",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\DriverListRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/drivers/{driver}/settlements",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "permission:drivers.settle_cash"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DriverController@settle",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DriverController.php:73",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\DriverSettlementRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/orders/{order}/reassign-driver",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "permission:drivers.reassign"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DriverController@reassign",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DriverController.php:81",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReassignDeliveryRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/home",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CmsController@home",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CmsController.php:36",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CmsPublicRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsHomeTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/pages/{pageKey}",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CmsController@page",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CmsController.php:19",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsPagesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsSecurityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/banners",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CmsController@banners",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CmsController.php:24",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CmsPublicRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/gallery",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CmsController@gallery",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CmsController.php:29",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CmsPublicRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/promotions",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\PromotionController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\PromotionController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsHomeTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/webhooks/payments/{provider}",
+        "middleware": [
+            "api",
+            "throttle:120,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\PaymentWebhookController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\PaymentWebhookController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PaymentWebhookTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Support\\ConfiguresPaymentProvider.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/orders/{order}/guest/payments",
+        "middleware": [
+            "api",
+            "throttle:30,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\OrderPaymentController@guest",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\OrderPaymentController.php:31",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\InitiatePaymentRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/kitchen/orders",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "permission:orders.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\KitchenOrderController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\KitchenOrderController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\KitchenOrdersTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/orders/{order}/guest/cancel",
+        "middleware": [
+            "api",
+            "throttle:60,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\OrderCancellationController@guest",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\OrderCancellationController.php:25",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CancelOrderRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/checkout",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:checkout"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CheckoutController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\CheckoutController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CashPaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CheckoutTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerManagementTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\NotificationIsolationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTransactionTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\ReportsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/orders/{order}/guest",
+        "middleware": [
+            "api",
+            "throttle:60,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\GuestOrderController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\GuestOrderController",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/orders/track",
+        "middleware": [
+            "api",
+            "throttle:order-tracking"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\OrderTrackingController@guest",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\OrderTrackingController.php:16",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\TrackOrderRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingEstimatesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingPerformanceTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingTimelineTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/orders/{order}/tracking",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\OrderTrackingController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\OrderTrackingController.php:23",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/orders/{order}/payments",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\OrderPaymentController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\OrderPaymentController.php:18",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\ListPaymentsRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/orders/{order}/payments",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "throttle:30,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\OrderPaymentController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\OrderPaymentController.php:26",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\InitiatePaymentRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/orders/{order}/cancel",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\OrderCancellationController@authenticated",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\OrderCancellationController.php:17",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CancelOrderRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/orders",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\OrderController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\OrderController.php:16",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\ListOrdersRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminPaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CheckoutTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerDomainSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerProfilesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InitiatePaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderAccessTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderCancellationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleValidationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingEstimatesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingPerformanceTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingTimelineTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/orders/{order}",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\OrderController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\OrderController.php:22",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminPaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CheckoutTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerDomainSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerProfilesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InitiatePaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderAccessTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderCancellationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleValidationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingEstimatesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingPerformanceTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingTimelineTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/health",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\HealthController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\HealthController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Foundation\\HealthApiTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/delivery/quote",
+        "middleware": [
+            "api",
+            "throttle:delivery-quote"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\DeliveryQuoteController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\DeliveryQuoteController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\DeliveryQuoteTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/addresses",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CustomerAddressController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CustomerAddressController.php:20",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CustomerAddressTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/addresses",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CustomerAddressController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CustomerAddressController.php:25",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\StoreCustomerAddressRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CustomerAddressTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/addresses/{address}",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CustomerAddressController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CustomerAddressController.php:30",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CustomerAddressTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/addresses/{address}",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CustomerAddressController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CustomerAddressController.php:35",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\UpdateCustomerAddressRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CustomerAddressTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/addresses/{address}",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CustomerAddressController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CustomerAddressController.php:40",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CustomerAddressTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/addresses/{address}/default",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CustomerAddressController@setDefault",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CustomerAddressController.php:47",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/cart/coupon",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart",
+            "throttle:10,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartCouponController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CartCouponController.php:17",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\ApplyCouponRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/cart/coupon",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartCouponController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CartCouponController.php:22",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/cart/delivery/quote",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartDeliveryQuoteController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\CartDeliveryQuoteController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartDeliveryQuoteTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/cart",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart",
+            "throttle:cart-create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CartController.php:21",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CreateCartRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartDeliveryQuoteTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartItemTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartRefreshTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CashPaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CheckoutTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerManagementTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\NotificationIsolationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTransactionTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\ReportsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/cart",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CartController.php:28",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartDeliveryQuoteTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartItemTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartRefreshTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CashPaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CheckoutTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerManagementTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\NotificationIsolationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTransactionTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\ReportsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/cart",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CartController.php:38",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CreateCartRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartDeliveryQuoteTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartItemTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartRefreshTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CashPaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CheckoutTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerManagementTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\NotificationIsolationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTransactionTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\ReportsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/cart/refresh",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartController@refresh",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CartController.php:33",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartRefreshTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/cart/items",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartItemController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CartItemController.php:24",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\AddCartItemRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartDeliveryQuoteTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartItemTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartRefreshTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CashPaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CheckoutTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\NotificationIsolationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTransactionTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\ReportsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/cart/items",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartItemController@clear",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CartItemController.php:44",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartDeliveryQuoteTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartItemTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartRefreshTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CashPaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CheckoutTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\NotificationIsolationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTransactionTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\ReportsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/cart/items/{cartItem}/options",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartItemController@options",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CartItemController.php:34",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\UpdateCartItemOptionsRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/cart/items/{cartItem}",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartItemController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CartItemController.php:29",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\UpdateCartItemQuantityRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartItemTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartRefreshTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/cart/items/{cartItem}",
+        "middleware": [
+            "api",
+            "App\\Http\\Middleware\\OptionalCartAuthentication",
+            "throttle:cart"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CartItemController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CartItemController.php:39",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartItemTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\CartRefreshTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/menu",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\MenuController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\MenuController.php:19",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\MenuRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\MenuTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsHomeTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/menu/products/{product}",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\MenuController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\MenuController.php:31",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\MenuRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\MenuTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/products",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\ProductController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\ProductController.php:17",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\ListProductsRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductOptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\MenuTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\ProductFiltersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\ProductControllerTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\ProductImagesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\ProductMenuTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/products/{product}",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\ProductController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\ProductController.php:22",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductOptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\MenuTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\ProductFiltersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\ProductControllerTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\ProductImagesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\ProductMenuTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryAvailabilityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/categories",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CategoryController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CategoryController.php:16",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\CategoryTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\CategoryControllerTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\ProductMenuTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/categories/{category}",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CategoryController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CategoryController.php:26",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\CategoryTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/me",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\AdminSessionController@me",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\AdminSessionController.php:15",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminBootstrapTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminIntegrationSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminStaffTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/bootstrap",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\AdminSessionController@bootstrap",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\AdminSessionController.php:20",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminBootstrapTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/navigation",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\AdminSessionController@navigation",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\AdminSessionController.php:25",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminBootstrapTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/kitchen/orders",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:orders.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\KitchenOrderController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\KitchenOrderController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderPlacementMysqlTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/activity-logs",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:activity_logs.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ActivityLogController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ActivityLogController.php:19",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AdminListRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/roles",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:roles.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\RoleController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\RoleController.php:15",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminRoleManagementTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminRoleMysqlValidationTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/permissions",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:roles.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\RoleController@permissions",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\RoleController.php:20",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminRoleManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PUT"
+        ],
+        "uri": "api/v1/admin/roles/{role}/permissions",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:roles.update_permissions",
+            "throttle:admin-roles"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\RoleController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\RoleController.php:25",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\RolePermissionsRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/staff",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:staff.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\StaffController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\StaffController.php:19",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AdminListRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminStaffTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/staff",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:staff.create",
+            "throttle:admin-sensitive"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\StaffController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\StaffController.php:34",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StaffRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminStaffTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/staff/{staffUser}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:staff.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\StaffController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\StaffController.php:29",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminStaffTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/staff/{staffUser}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:staff.update",
+            "throttle:admin-sensitive"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\StaffController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\StaffController.php:39",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StaffRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminStaffTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/staff/{staffUser}/activate",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:staff.activate",
+            "throttle:admin-sensitive"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\StaffController@activate",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\StaffController.php:44",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/staff/{staffUser}/deactivate",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:staff.deactivate",
+            "throttle:admin-sensitive"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\StaffController@deactivate",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\StaffController.php:49",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/settings/groups",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:settings.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\RestaurantSettingsController@groups",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\RestaurantSettingsController.php:21",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/orders/counts",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:orders.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OrderController@counts",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OrderController.php:24",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AdminOrdersRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderPlacementMysqlTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/categories/tree",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:categories.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController@tree",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController.php:22",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/products/bulk/status",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.update",
+            "throttle:admin-sensitive"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductController@bulk",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductController.php:22",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\BulkProductStatusRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminIntegrationSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/products/bulk/availability",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.update",
+            "throttle:admin-sensitive"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductController@bulk",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductController.php:22",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\BulkProductStatusRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/pages",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.pages.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsPageController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsPageController.php:21",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AdminListRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsPagesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsSecurityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/pages/{page}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.pages.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsPageController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsPageController.php:26",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsPagesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsSecurityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/pages/{page}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.pages.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsPageController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsPageController.php:31",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CmsPageUpdateRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsPagesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsSecurityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/pages/{page}/sections",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.pages.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsPageController@sections",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsPageController.php:36",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/pages/{page}/sections/{section}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.pages.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsPageController@updateSection",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsPageController.php:41",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CmsSectionUpdateRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/banners",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.banners.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController.php:18",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AdminListRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsSecurityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/banners",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.banners.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController.php:23",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CmsBannerRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsSecurityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/banners/reorder",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.banners.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController@reorder",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController.php:45",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CmsReorderRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/banners/{banner}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.banners.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController.php:28",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsSecurityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/banners/{banner}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.banners.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController.php:33",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CmsBannerRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsSecurityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/banners/{banner}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.banners.delete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsBannerController.php:38",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsSecurityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/gallery",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.gallery.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController.php:18",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AdminListRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/gallery",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.gallery.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController.php:23",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CmsGalleryRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/gallery/reorder",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.gallery.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController@reorder",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController.php:45",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CmsReorderRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/gallery/{galleryItem}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.gallery.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController.php:28",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/gallery/{galleryItem}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.gallery.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController.php:33",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CmsGalleryRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/gallery/{galleryItem}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:cms.gallery.delete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CmsGalleryController.php:38",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CmsMediaTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/inventory",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:inventory.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController@report",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php:72",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\InventoryFilterRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/orders/{order}/stock/return",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:inventory.adjust"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController@returnStock",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php:77",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StockMutationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/inventory",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:inventory.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php:28",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\InventoryFilterRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/inventory",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:inventory.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php:42",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StoreInventoryRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/inventory/movements",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:inventory.movements.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController@movements",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php:67",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StockMovementFilterRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/inventory/{inventory}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:inventory.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php:33",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/inventory/{inventory}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:inventory.adjust"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php:47",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateInventoryRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/inventory/{inventory}/receive",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:inventory.receive"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController@receive",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php:52",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StockMutationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/inventory/{inventory}/adjust",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:inventory.adjust"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController@adjust",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php:57",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StockMutationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/inventory/{inventory}/waste",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:inventory.waste"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController@waste",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php:62",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StockMutationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/inventory/{inventory}/movements",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:inventory.movements.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController@movements",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\InventoryController.php:67",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StockMovementFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/settings",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:settings.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\RestaurantSettingsController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\RestaurantSettingsController.php:28",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\RestaurantSettingsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/settings",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:settings.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\RestaurantSettingsController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\RestaurantSettingsController.php:40",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateSettingsRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\RestaurantSettingsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/settings/audit",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:settings.audit.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\RestaurantSettingsController@audit",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\RestaurantSettingsController.php:47",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\SettingAuditRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\RestaurantSettingsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/business-hours",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.hours.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchBusinessHoursController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchBusinessHoursController.php:15",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "PUT"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/business-hours",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.hours.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchBusinessHoursController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchBusinessHoursController.php:20",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReplaceBusinessHoursRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/closures",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.closures.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchClosureController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchClosureController.php:17",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/closures",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.closures.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchClosureController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchClosureController.php:22",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StoreBranchClosureRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/closures/{closure}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.closures.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchClosureController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchClosureController.php:27",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateBranchClosureRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/closures/{closure}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.closures.delete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchClosureController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchClosureController.php:34",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/dashboard",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:dashboard.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DashboardController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\Admin\\DashboardController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminIntegrationSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\ReportsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/orders",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.orders.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\ReportsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/orders/export",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.orders.view",
+            "permission:reports.export",
+            "throttle:5,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@export",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:20",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/sales/trend",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.sales.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminBootstrapTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/sales/trend/export",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.sales.view",
+            "permission:reports.export",
+            "throttle:5,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@export",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:20",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/branches",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.branches.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/products",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.products.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/products/export",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.products.view",
+            "permission:reports.export",
+            "throttle:5,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@export",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:20",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/categories",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.products.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/payments",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.payments.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/payments/export",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.payments.view",
+            "permission:reports.export",
+            "throttle:5,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@export",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:20",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/promotions",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.promotions.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/promotions/export",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.promotions.view",
+            "permission:reports.export",
+            "throttle:5,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@export",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:20",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/coupons",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.promotions.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/customers",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.customers.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/customers/export",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.customers.view",
+            "permission:reports.export",
+            "throttle:5,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@export",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:20",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/delivery",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.delivery.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/order-statuses",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.orders.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/reports/cancellations",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:reports.orders.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ReportController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ReportController.php:15",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReportFilterRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/customers",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:customers.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController.php:25",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ListCustomersRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerDomainSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/customers/{customer}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:customers.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController.php:30",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerDomainSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/customers/{customer}/orders",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:customers.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController@orders",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController.php:38",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\ListOrdersRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/customers/{customer}/addresses",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:customers.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController@addresses",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController.php:43",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/customers/{customer}/activate",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:customers.activate"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController@activate",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController.php:48",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/customers/{customer}/deactivate",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:customers.deactivate"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController@deactivate",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CustomerController.php:53",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/guest-customers",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:customers.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\GuestCustomerController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\GuestCustomerController.php:16",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ListGuestCustomersRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerDomainSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerManagementTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/guest-customers/orders",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:customers.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\GuestCustomerController@orders",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\GuestCustomerController.php:21",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ListGuestCustomersRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerDomainSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/notifications",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:notifications.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\NotificationController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\NotificationController.php:17",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ListNotificationsRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\NotificationsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/notifications/{notification}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:notifications.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\NotificationController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\NotificationController.php:40",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\NotificationsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/notifications/{notification}/attempts",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:notifications.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\NotificationController@attempts",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\NotificationController.php:45",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/notifications/{notification}/retry",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:notifications.retry"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\NotificationController@retry",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\NotificationController.php:50",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/promotions",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:promotions.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\PromotionController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\PromotionController.php:22",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\PromotionFilterRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/promotions",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:promotions.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\PromotionController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\PromotionController.php:50",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StorePromotionRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/promotions/{promotion}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:promotions.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\PromotionController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\PromotionController.php:55",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/promotions/{promotion}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:promotions.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\PromotionController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\PromotionController.php:60",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdatePromotionRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/promotions/{promotion}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:promotions.delete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\PromotionController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\PromotionController.php:65",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PromotionsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/promotions/{promotion}/coupons",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:coupons.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CouponController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CouponController.php:19",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AdminListRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/promotions/{promotion}/coupons",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:coupons.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CouponController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CouponController.php:24",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CouponRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/promotions/{promotion}/coupons/{coupon}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:coupons.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CouponController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CouponController.php:29",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CouponRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/promotions/{promotion}/coupons/{coupon}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:coupons.delete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CouponController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CouponController.php:34",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/orders/{order}/payments/cash/collect",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:payments.collect_cash"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\PaymentController@collect",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\PaymentController.php:59",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/payments",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:payments.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\PaymentController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\PaymentController.php:20",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\ListPaymentsRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminPaymentTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/payments/{payment}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:payments.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\PaymentController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\PaymentController.php:49",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminPaymentTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/payments/{payment}/transactions",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:payments.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\PaymentController@transactions",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\PaymentController.php:54",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\ListPaymentsRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/orders/{order}/confirm",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:orders.confirm"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController@confirm",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController.php:21",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\OrderOperationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/orders/{order}/start-preparing",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:orders.start_preparing"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController@startPreparing",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController.php:26",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\OrderOperationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/orders/{order}/mark-ready",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:orders.mark_ready"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController@markReady",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController.php:31",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\OrderOperationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/orders/{order}/dispatch",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:orders.dispatch"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController@dispatch",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController.php:36",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\OrderOperationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/orders/{order}/complete",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:orders.complete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController@complete",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController.php:41",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\OrderOperationRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/orders/{order}/cancel",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:orders.cancel"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController@cancel",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OrderOperationController.php:46",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\CancelOrderRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/orders/{order}/history",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:orders.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OrderHistoryController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\Admin\\OrderHistoryController",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/orders",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:orders.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OrderController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OrderController.php:16",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AdminOrdersRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminIntegrationSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CashPaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryOrderIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\KitchenOrdersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\NotificationIsolationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderAccessTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderCancellationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTransactionTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleValidationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderPlacementMysqlTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PaymentPolicyTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/orders/{order}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:orders.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OrderController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OrderController.php:29",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminIntegrationSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CashPaymentTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryOrderIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\KitchenOrdersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\NotificationIsolationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderAccessTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderCancellationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleTransactionTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderLifecycleValidationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderPlacementMysqlTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\PaymentPolicyTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/delivery-zones",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:delivery_zones.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DeliveryZoneController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DeliveryZoneController.php:19",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/delivery-zones",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:delivery_zones.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DeliveryZoneController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DeliveryZoneController.php:24",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StoreDeliveryZoneRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/delivery-zones/{deliveryZone}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:delivery_zones.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DeliveryZoneController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DeliveryZoneController.php:29",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/delivery-zones/{deliveryZone}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:delivery_zones.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DeliveryZoneController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DeliveryZoneController.php:34",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateDeliveryZoneRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/delivery-zones/{deliveryZone}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:delivery_zones.delete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\DeliveryZoneController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\DeliveryZoneController.php:39",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/products",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchProductController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchProductController.php:23",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ListBranchProductsRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/products",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.products.manage"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchProductController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchProductController.php:28",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AttachBranchProductRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/products/bulk",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.products.manage"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchProductController@bulk",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchProductController.php:45",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\BulkBranchProductsRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/products/{product}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.products.manage"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchProductController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchProductController.php:33",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateBranchProductRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/branches/{branch}/products/{product}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.products.manage"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchProductController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchProductController.php:38",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/option-groups",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:options.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OptionGroupController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OptionGroupController.php:20",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ListOptionGroupsRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\OptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\OptionValueTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/option-groups",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:options.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OptionGroupController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OptionGroupController.php:35",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StoreOptionGroupRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\OptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\OptionValueTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/option-groups/{optionGroup}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:options.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OptionGroupController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OptionGroupController.php:40",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\OptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\OptionValueTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PUT",
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/option-groups/{optionGroup}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:options.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OptionGroupController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OptionGroupController.php:45",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateOptionGroupRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\OptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\OptionValueTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/option-groups/{optionGroup}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:options.delete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OptionGroupController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OptionGroupController.php:50",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\OptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\OptionValueTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/option-groups/{optionGroup}/values",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:options.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OptionValueController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OptionValueController.php:19",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StoreOptionValueRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/option-groups/{optionGroup}/values/{optionValue}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:options.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OptionValueController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OptionValueController.php:24",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateOptionValueRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/option-groups/{optionGroup}/values/{optionValue}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:options.delete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\OptionValueController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\OptionValueController.php:29",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/products/{product}/option-groups",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductOptionGroupController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductOptionGroupController.php:19",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/products/{product}/option-groups",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductOptionGroupController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductOptionGroupController.php:24",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AttachProductOptionGroupRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/products/{product}/option-groups/{optionGroup}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductOptionGroupController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductOptionGroupController.php:29",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateProductOptionGroupRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/products/{product}/option-groups/{optionGroup}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductOptionGroupController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductOptionGroupController.php:34",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/products/{product}/images",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductImageController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductImageController.php:20",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StoreProductImageRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/products/{product}/images/reorder",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductImageController@reorder",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductImageController.php:40",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ReorderProductImagesRequest"
+        ],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/products/{product}/images/{image}/primary",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductImageController@setPrimary",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductImageController.php:35",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/products/{product}/images/{image}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductImageController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductImageController.php:28",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/products",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductController.php:27",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\ListProductsRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminBootstrapTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminIntegrationSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductImageTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductOptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\ProductFiltersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/products",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductController.php:32",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StoreProductRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminBootstrapTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminIntegrationSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductImageTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductOptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\ProductFiltersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/products/{product}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductController.php:39",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminIntegrationSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductImageTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductOptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PUT",
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/products/{product}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductController.php:49",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateProductRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminIntegrationSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductImageTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductOptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/products/{product}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:products.delete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\ProductController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\ProductController.php:56",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminIntegrationSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminOperationsTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductImageTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductOptionGroupTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InventoryManagementTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/categories",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:categories.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController.php:27",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AdminListRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\CategoryTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\CategoryControllerTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Models\\ProductTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/categories",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:categories.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController.php:34",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StoreCategoryRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\CategoryTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\CategoryControllerTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Models\\ProductTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/categories/{category}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:categories.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController.php:41",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\CategoryTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\CategoryControllerTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Models\\ProductTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PUT",
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/categories/{category}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:categories.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController.php:48",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateCategoryRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\CategoryTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\CategoryControllerTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Models\\ProductTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/categories/{category}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:categories.delete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\CategoryController.php:53",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\CategoryTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\ProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\CategoryControllerTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Models\\ProductTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/register",
+        "middleware": [
+            "api",
+            "throttle:register"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Auth\\RegisterController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\Auth\\RegisterController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerDomainSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Foundation\\RegisterTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\Controllers\\Api\\V1\\Auth\\RegisterControllerTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/login",
+        "middleware": [
+            "api",
+            "throttle:login"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Auth\\LoginController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\Auth\\LoginController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminStaffTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerDomainSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerManagementTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Foundation\\LoginTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\InternalDeliveryTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/profile",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CustomerProfileController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CustomerProfileController.php:18",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerDomainSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerManagementTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerProfilesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Foundation\\AuthenticationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Foundation\\LoginTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Foundation\\LogoutTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/profile",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CustomerProfileController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CustomerProfileController.php:23",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\UpdateCustomerProfileRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerDomainSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerManagementTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerProfilesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Foundation\\AuthenticationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Foundation\\LoginTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Foundation\\LogoutTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/profile/claim-orders",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "throttle:10,1"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\CustomerProfileController@claimOrders",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\CustomerProfileController.php:28",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\ClaimGuestOrdersRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerDomainSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\CustomerProfilesTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\GuestCustomersTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/logout",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Auth\\LogoutController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\Auth\\LogoutController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Foundation\\LogoutTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/user",
+        "middleware": [
+            "api",
+            "auth:sanctum"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Auth\\ProfileController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\Auth\\ProfileController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Http\\ApiErrorHandlingTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Models\\UserTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/branches",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\BranchController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\BranchController.php:13",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\BranchLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\BranchScheduleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/settings/public",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\PublicConfigurationController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\PublicConfigurationController",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OrderTrackingSecurityTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\RestaurantSettingsTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/branches/{branch}/status",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\BranchStatusController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\BranchStatusController",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/branches/{branch}/business-hours",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\BranchBusinessHoursController",
+        "source": "App\\Http\\Controllers\\Api\\V1\\BranchBusinessHoursController",
+        "requests": [],
+        "test_candidates": []
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/branches/{branch}",
+        "middleware": [
+            "api"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\BranchController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\BranchController.php:21",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\BranchLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\BranchScheduleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\OperationalAvailabilityTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/branches",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchController@index",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchController.php:17",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\AdminListRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\BranchPermissionTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\BranchProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\DeliveryZoneTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\BranchLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\BranchScheduleTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "POST"
+        ],
+        "uri": "api/v1/admin/branches",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.create"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchController@store",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchController.php:24",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\StoreBranchRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\BranchPermissionTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\BranchProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\DeliveryZoneTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\BranchLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\BranchScheduleTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "GET",
+            "HEAD"
+        ],
+        "uri": "api/v1/admin/branches/{branch}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.view"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchController@show",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchController.php:31",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\BranchProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\DeliveryZoneTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\BranchLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\BranchScheduleTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PUT"
+        ],
+        "uri": "api/v1/admin/branches/{branch}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchController.php:36",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateBranchRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\BranchProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\DeliveryZoneTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\BranchLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\BranchScheduleTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "PATCH"
+        ],
+        "uri": "api/v1/admin/branches/{branch}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.update"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchController@update",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchController.php:36",
+        "requests": [
+            "App\\Http\\Requests\\Api\\V1\\Admin\\UpdateBranchRequest"
+        ],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\BranchProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\DeliveryZoneTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\BranchLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\BranchScheduleTest.php"
+        ]
+    },
+    {
+        "methods": [
+            "DELETE"
+        ],
+        "uri": "api/v1/admin/branches/{branch}",
+        "middleware": [
+            "api",
+            "auth:sanctum",
+            "App\\Http\\Middleware\\EnsureAdminAccess",
+            "App\\Http\\Middleware\\RecordAdminActivity",
+            "permission:branches.delete"
+        ],
+        "action": "App\\Http\\Controllers\\Api\\V1\\Admin\\BranchController@destroy",
+        "source": "C:\\xampp\\htdocs\\projects\\shishli\\back-end\\app\\Http\\Controllers\\Api\\V1\\Admin\\BranchController.php:43",
+        "requests": [],
+        "test_candidates": [
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\AdminListIntegrationTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\BranchProductTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\Admin\\DeliveryZoneTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\Api\\V1\\BranchLifecycleTest.php",
+            "C:\\xampp\\htdocs\\projects\\shishli/back-end/tests\\Feature\\BranchScheduleTest.php"
+        ]
+    }
+]

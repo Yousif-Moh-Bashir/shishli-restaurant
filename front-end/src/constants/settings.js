@@ -11,8 +11,8 @@ export const settingsGroupDescriptions={
 export const settingFields={
  'restaurant.name':{label:'اسم المطعم',max:150,required:true},
  'restaurant.name_en':{label:'اسم المطعم بالإنجليزية',max:150,nullable:true},
- 'restaurant.phone':{label:'هاتف المطعم',type:'tel',max:20,nullable:true,placeholder:'+966 11 000 0000',autocomplete:'tel',note:'رقم الهاتف المخصص لاستفسارات العملاء.'},
- 'restaurant.whatsapp':{label:'واتساب',type:'tel',max:20,nullable:true,placeholder:'+966 50 000 0000',autocomplete:'tel',note:'رقم واتساب مع رمز الدولة لتسهيل التواصل.'},
+ 'restaurant.phone':{label:'هاتف المطعم',type:'tel',max:20,nullable:true,placeholder:'05xxxxxxxx',autocomplete:'tel',note:'رقم الهاتف المخصص لاستفسارات العملاء.'},
+ 'restaurant.whatsapp':{label:'واتساب',type:'tel',max:20,nullable:true,placeholder:'05xxxxxxxx',autocomplete:'tel',note:'رقم واتساب المخصص للتواصل مع العملاء.'},
  'restaurant.email':{label:'البريد الإلكتروني',type:'email',max:255,nullable:true,placeholder:'hello@example.com',autocomplete:'email',note:'البريد المخصص لاستقبال رسائل العملاء.'},
  'restaurant.currency':{label:'العملة',options:['SAR'],required:true},
  'restaurant.timezone':{label:'المنطقة الزمنية للمطعم',required:true,note:'تستخدم لساعات العمل والجدولة وتواريخ التقارير؛ مثال Asia/Riyadh.'},

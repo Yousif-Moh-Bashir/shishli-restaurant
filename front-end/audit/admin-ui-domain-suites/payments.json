@@ -12,7 +12,7 @@
     "Browser success query cannot mark processing payment paid; real failed state, no fake retry/refund/provider controls",
     "20-second payment polling reads server-paid update then stops on terminal state (two 21-second observations)",
     "Owned attempts and Order Success, changed attempt rereads authoritative order summary, foreign attempts 404 clear data",
-    "Checkout only audited working cash method, no card credentials or pretend gateway"
+    "Checkout supports cash and restaurant terminal payment, no card credentials or pretend online gateway"
   ],
   "responsive": [
     "Payments list 390",

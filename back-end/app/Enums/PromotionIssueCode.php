@@ -14,10 +14,12 @@ enum PromotionIssueCode: string
     case MinimumNotMet = 'COUPON_MINIMUM_NOT_MET';
     case NotApplicable = 'COUPON_NOT_APPLICABLE';
     case AuthenticationRequired = 'COUPON_AUTHENTICATION_REQUIRED';
+    case FirstOrderOnly = 'COUPON_FIRST_ORDER_ONLY';
 
     public function issue(): array
     {
         return ['code' => $this->value, 'message' => match ($this) {
+            self::FirstOrderOnly => 'هذا العرض مخصص لأول طلب فقط.',
             self::NotFound => 'الكوبون غير موجود.',
             self::Inactive => 'الكوبون أو العرض غير نشط.',
             self::NotStarted => 'لم تبدأ صلاحية الكوبون أو العرض.',

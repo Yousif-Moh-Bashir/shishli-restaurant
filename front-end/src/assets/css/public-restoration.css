@@ -1,6 +1,7 @@
 /* Original Şişli composition, with only API integration accommodations. */
 :root{--primary:#5a1725;--primary-dark:#351017;--secondary:#d71920;--cream:#fff8f2;--gold:#c9963b;--text-dark:#291b1d;--white:#fff;--muted:#847772;--border:#eadfd6}
 body{margin:0}
+@media(pointer:coarse){html{touch-action:pan-x pan-y}}
 .site-layout .hero-art.home-custom-art{background-image:var(--home-hero-image);background-size:cover;background-position:center}
 .site-layout .branch-selector{margin-block:12px 18px;max-width:340px}
 .site-layout .branch-selector select{width:100%}

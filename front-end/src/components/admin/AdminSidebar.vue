@@ -2,13 +2,14 @@
 import { ref, computed, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import AdminIcon from './AdminIcon.vue'
-import logo from '../../assets/images/logo/shishli-logo.png'
+import logo from '../../assets/images/logo/shishli-logo.webp'
 import { useAuthStore } from '../../stores/auth'
 import { adminNavigation, adminNavigationGroups, canAccessNavigation } from '../../constants/adminNavigation'
 import { authenticatedHome } from '../../router/authGuards'
 import { adminOrdersApi } from '../../api/orders.api'
 import { useOrderPolling } from '../../composables/useOrderPolling'
 import { useNewOrderSound } from '../../composables/useNewOrderSound'
+import { normalizeApiError } from '../../utils/apiError'
 const auth = useAuthStore()
 defineProps({ open: Boolean })
 const emit = defineEmits(['navigate'])
@@ -18,12 +19,14 @@ const collapsed = ref(new Set())
 const groups = computed(() => adminNavigationGroups.map(group => ({...group,links:group.paths.map(path=>adminNavigation.find(item=>item.path===path)).filter(item=>item&&canAccessNavigation(auth,item))})).filter(group=>group.links.length))
 const canViewOrders = computed(() => auth.isAuthenticated && auth.can('orders.view'))
 const orderSound = useNewOrderSound(() => canViewOrders.value)
+const notificationError = ref(null)
 const orderCounts = useOrderPolling(async signal => {
   const [counts, recent] = await Promise.allSettled([
     adminOrdersApi.counts({}, signal),
     adminOrdersApi.list({ sort: 'created_at', direction: 'desc', per_page: 50 }, signal),
   ])
   if (signal.aborted) throw { code: 'ERR_CANCELED' }
+  notificationError.value = recent.status === 'rejected' ? normalizeApiError(recent.reason) : null
   if (recent.status === 'fulfilled') orderSound.observe(recent.value.data)
   if (counts.status === 'rejected') throw counts.reason
   return counts.value
@@ -35,6 +38,7 @@ const newOrders = computed(() => {
 watch([() => auth.token, canViewOrders], () => {
   orderCounts.reset()
   orderSound.reset()
+  notificationError.value = null
   if (canViewOrders.value) void orderCounts.load()
 }, { immediate: true })
 const active = path => path === '/admin' ? route.path === path : route.path === path || route.path.startsWith(path+'/')
@@ -48,7 +52,7 @@ defineExpose({ contains: target => sidebar.value?.contains(target) })
     <nav aria-label="أقسام لوحة التحكم">
       <section v-for="group in groups" :key="group.key" class="sidebar-group"><button class="sidebar-group-heading" type="button" :aria-expanded="expanded(group)" :aria-controls="'nav-'+group.key" @click="toggle(group)">{{ group.label }}<AdminIcon name="chevron-down"/></button><div :id="'nav-'+group.key" v-show="expanded(group)" class="sidebar-group-links"><RouterLink v-for="link in group.links" :key="link.path" :to="link.path" :class="{active:active(link.path)}" :aria-current="active(link.path)?'page':undefined" @click="emit('navigate')"><AdminIcon :name="link.icon"/><span>{{ link.label }}</span><span v-if="link.path==='/admin/orders' && newOrders" class="sidebar-orders-badge" :aria-label="newOrders+' طلبات جديدة'"><span class="sidebar-orders-new" lang="en">new</span><b class="sidebar-orders-count">{{ newOrders }}</b></span></RouterLink></div></section>
     </nav>
-    <div v-if="canViewOrders" class="sidebar-sound"><button type="button" class="sidebar-sound-toggle" :aria-pressed="orderSound.enabled.value" @click="orderSound.toggle"><AdminIcon name="bell"/>{{ orderSound.enabled.value?'كتم تنبيه الطلبات':'تفعيل صوت الطلبات' }}</button><small v-if="orderSound.message.value" role="status">{{ orderSound.message.value }}</small></div><div class="sidebar-note">شيشلي للدجاج التركي<small>إدارة المطعم والطلبات</small></div>
+    <div v-if="canViewOrders" class="sidebar-sound"><p v-if="orderCounts.error.value || notificationError" class="sidebar-sync-error" role="status">تعذر تحديث الطلبات أو التنبيهات. <button type="button" :disabled="orderCounts.refreshing.value" @click="orderCounts.load(true)">إعادة المحاولة</button></p><button type="button" class="sidebar-sound-toggle" :aria-pressed="orderSound.enabled.value" @click="orderSound.toggle"><AdminIcon name="bell"/>{{ orderSound.enabled.value?'كتم تنبيه الطلبات':'تفعيل صوت الطلبات' }}</button><small v-if="orderSound.message.value" role="status">{{ orderSound.message.value }}</small></div><div class="sidebar-note">شيشلي للدجاج التركي<small>إدارة المطعم والطلبات</small></div>
   </aside>
 </template>
 
@@ -57,4 +61,5 @@ defineExpose({ contains: target => sidebar.value?.contains(target) })
 .sidebar-sound{padding:12px 16px}.sidebar-sound-toggle{display:flex;align-items:center;gap:8px;width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:transparent;color:inherit;font:inherit;font-size:11px;cursor:pointer}.sidebar-sound-toggle[aria-pressed=true]{color:#d71920;border-color:#d71920}.sidebar-sound small{display:block;font-size:10px;margin-top:6px}.sidebar-orders-badge{display:inline-flex;align-items:center;gap:5px;margin-inline-start:auto;flex-shrink:0;line-height:1}
 .sidebar-orders-new{font-size:9px;font-weight:700;letter-spacing:.3px;color:#d71920;background:#fff0f0;padding:4px 5px;border-radius:4px}
 .sidebar-orders-count{display:grid;place-items:center;min-width:19px;height:19px;padding-inline:4px;box-sizing:border-box;border-radius:10px;background:#d71920;color:#fff;font-size:10px;font-weight:700;font-variant-numeric:tabular-nums}
+.sidebar-sync-error{font-size:11px;line-height:1.8;color:#b52a38;margin:0 0 10px}.sidebar-sync-error button{font:inherit;background:transparent;color:inherit;border:0;text-decoration:underline;cursor:pointer}
 </style>

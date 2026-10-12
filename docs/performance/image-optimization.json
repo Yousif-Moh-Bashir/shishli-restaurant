@@ -1,0 +1,18 @@
+[
+    {
+        "asset": "logo\/shishli-logo",
+        "before_bytes": 783022,
+        "after_bytes": 39350,
+        "width": 480,
+        "height": 320,
+        "quality": 90
+    },
+    {
+        "asset": "banners\/restaurant-reference",
+        "before_bytes": 1644974,
+        "after_bytes": 239762,
+        "width": 1536,
+        "height": 1024,
+        "quality": 84
+    }
+]

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,7 +18,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 #[Fillable(['name', 'email', 'phone', 'password'])]
-#[Hidden(['id', 'password', 'remember_token'])]
+#[Hidden(['id', 'password', 'remember_token', 'driver_branch_id'])]
 class User extends Authenticatable
 {
     protected $attributes = ['is_active' => true];
@@ -42,6 +43,21 @@ class User extends Authenticatable
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function driverBranch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class, 'driver_branch_id')->withTrashed();
+    }
+
+    public function deliveries(): HasMany
+    {
+        return $this->hasMany(Order::class, 'driver_id');
+    }
+
+    public function driverCollections(): HasMany
+    {
+        return $this->hasMany(DriverCashCollection::class, 'driver_id');
     }
 
     /** @use HasFactory<UserFactory> */
@@ -83,6 +99,8 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'phone_verified_at' => 'datetime',
             'is_active' => 'boolean',
+            'driver_enabled' => 'boolean',
+            'driver_available' => 'boolean',
             'password' => 'hashed',
         ];
     }

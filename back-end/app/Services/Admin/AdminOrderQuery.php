@@ -4,12 +4,13 @@ namespace App\Services\Admin;
 
 use App\Enums\OrderStatus;
 use App\Models\Order;
-use App\Services\RestaurantSettingsService;
-use Carbon\CarbonImmutable;
+use App\Services\OrderWorkdayFilter;
 use Illuminate\Database\Eloquent\Builder;
 
 class AdminOrderQuery
 {
+    public function __construct(private OrderWorkdayFilter $workdays) {}
+
     public function query(AdminOrderFilters $filters): Builder
     {
         $data = $filters->values;
@@ -32,15 +33,8 @@ class AdminOrderQuery
                 }
             });
         }
-        $timezone = app(RestaurantSettingsService::class)->getString('restaurant.timezone');
-        if (isset($data['date_from'])) {
-            $query->where('placed_at', '>=', CarbonImmutable::parse($data['date_from'], $timezone)->startOfDay()->utc());
-        }
-        if (isset($data['date_to'])) {
-            $query->where('placed_at', '<', CarbonImmutable::parse($data['date_to'], $timezone)->addDay()->startOfDay()->utc());
-        }
 
-        return $query;
+        return $this->workdays->apply($query, $data);
     }
 
     public function counts(AdminOrderFilters $filters): array
@@ -53,9 +47,8 @@ class AdminOrderQuery
         foreach ((clone $query)->select('status')->selectRaw('COUNT(*) AS aggregate')->groupBy('status')->get() as $row) {
             $counts[$row->status->value] = (int) $row->aggregate;
         }
-        $start = CarbonImmutable::now(app(RestaurantSettingsService::class)->getString('restaurant.timezone'))->startOfDay();
         foreach (['completed', 'cancelled'] as $state) {
-            $counts[$state.'_today'] = (clone $query)->where($state.'_at', '>=', $start->utc())->where($state.'_at', '<', $start->addDay()->utc())->count();
+            $counts[$state.'_today'] = $this->workdays->apply(clone $query, ['period' => 'current'] + $filters->values, $state.'_at')->count();
         }
 
         return $counts;

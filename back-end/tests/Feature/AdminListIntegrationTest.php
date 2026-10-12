@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Actions\Branches\ReplaceBusinessHoursAction;
 use App\Models\Banner;
 use App\Models\Branch;
 use App\Models\BranchInventory;
@@ -68,7 +69,34 @@ class AdminListIntegrationTest extends TestCase
         $completed->forceFill(['completed_at' => now()])->save();
         $cancelled = Order::factory()->cancelled()->create();
         $cancelled->forceFill(['cancelled_at' => now()])->save();
-        $this->getJson('/api/v1/admin/orders/counts')->assertOk()->assertJsonPath('data.confirmed', 1)->assertJsonPath('data.completed_today', 1)->assertJsonPath('data.cancelled_today', 1)->assertJsonPath('data.ready', 0);
+        $this->getJson('/api/v1/admin/orders/counts')->assertOk()->assertJsonPath('data.confirmed', 1)->assertJsonPath('data.completed_today', 0)->assertJsonPath('data.cancelled_today', 1)->assertJsonPath('data.ready', 0);
+    }
+
+    public function test_admin_orders_kitchen_and_counts_use_each_branch_current_workday_and_support_history(): void
+    {
+        $this->travelTo(CarbonImmutable::parse('2026-10-06 03:00', 'Asia/Riyadh'));
+        $early = Branch::factory()->withoutBusinessHours()->create();
+        $late = Branch::factory()->withoutBusinessHours()->create();
+        foreach ([[$early, '02:00'], [$late, '04:00']] as [$branch, $close]) {
+            app(ReplaceBusinessHoursAction::class)->handle($branch, [
+                ['day_of_week' => 1, 'opens_at' => '12:00', 'closes_at' => $close],
+                ['day_of_week' => 2, 'opens_at' => '12:00', 'closes_at' => $close],
+            ]);
+        }
+        $old = Order::factory()->for($early)->create(['status' => 'confirmed', 'placed_at' => CarbonImmutable::parse('2026-10-06 01:59:59', 'Asia/Riyadh')->utc()]);
+        $current = Order::factory()->for($early)->create(['status' => 'confirmed', 'placed_at' => CarbonImmutable::parse('2026-10-06 02:00:00', 'Asia/Riyadh')->utc()]);
+        $carry = Order::factory()->for($late)->create(['status' => 'preparing', 'placed_at' => CarbonImmutable::parse('2026-10-05 23:00', 'Asia/Riyadh')->utc()]);
+        foreach (['/api/v1/admin/orders', '/api/v1/admin/kitchen/orders'] as $path) {
+            $response = $this->getJson($path)->assertOk()->assertJsonCount(2, 'data');
+            $this->assertEqualsCanonicalizing([$current->uuid, $carry->uuid], array_column($response->json('data'), 'id'));
+            $this->getJson($path.'?period=history')->assertOk()->assertJsonCount(1, 'data')->assertJsonPath('data.0.id', $old->uuid);
+            $this->getJson($path.'?period=range&branch='.$early->uuid.'&date_from=2026-10-05&date_to=2026-10-05')
+                ->assertOk()->assertJsonCount(1, 'data')->assertJsonPath('data.0.id', $old->uuid);
+            $this->getJson($path.'?period=range')->assertUnprocessable();
+        }
+        $this->getJson('/api/v1/admin/orders/counts')->assertOk()->assertJsonPath('data.confirmed', 1)->assertJsonPath('data.preparing', 1);
+        $this->getJson('/api/v1/admin/orders/counts?period=history')->assertOk()->assertJsonPath('data.confirmed', 1)->assertJsonPath('data.preparing', 0);
+        $this->getJson('/api/v1/admin/orders/'.$old->uuid)->assertOk();
     }
 
     #[DataProvider('orderActions')]
@@ -85,7 +113,7 @@ class AdminListIntegrationTest extends TestCase
         return [
             ['manager', 'pending', 'pickup', 'cash', 'pending', ['confirm', 'cancel']], ['manager', 'pending', 'pickup', 'card', 'pending', ['cancel']], ['manager', 'pending', 'pickup', 'card', 'paid', ['confirm', 'cancel']],
             ['kitchen', 'confirmed', 'pickup', 'cash', 'pending', ['start_preparing']], ['kitchen', 'preparing', 'delivery', 'cash', 'pending', ['mark_ready']], ['cashier', 'pending', 'pickup', 'cash', 'pending', ['confirm']],
-            ['manager', 'ready', 'delivery', 'cash', 'pending', ['dispatch', 'cancel']], ['manager', 'ready', 'pickup', 'cash', 'pending', ['complete', 'cancel']], ['cashier', 'ready', 'pickup', 'cash', 'pending', ['complete']],
+            ['manager', 'ready', 'delivery', 'cash', 'pending', ['cancel']], ['manager', 'ready', 'pickup', 'cash', 'pending', ['complete', 'cancel']], ['cashier', 'ready', 'pickup', 'cash', 'pending', ['complete']],
             ['cashier', 'out_for_delivery', 'delivery', 'cash', 'pending', []], ['manager', 'out_for_delivery', 'delivery', 'cash', 'pending', ['complete']], ['manager', 'completed', 'pickup', 'cash', 'paid', []], ['manager', 'cancelled', 'pickup', 'cash', 'pending', []]];
     }
 

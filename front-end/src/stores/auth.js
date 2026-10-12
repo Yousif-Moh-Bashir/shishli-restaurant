@@ -1,12 +1,15 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { authApi } from '../api/auth.api'
+import { driversApi } from '../api/drivers.api'
 import { normalizeApiError } from '../utils/apiError'
 import { readAuthToken, writeAuthToken } from '../utils/authToken'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(null), token = ref(readAuthToken()), adminProfile = ref(null)
   const isLoading = ref(false), isInitialized = ref(false), error = ref(null), persistenceWarning = ref('')
+  const driverProfile = ref(null)
+  const isDriver = computed(() => isAuthenticated.value && driverProfile.value !== null)
   const isAuthenticated = computed(() => Boolean(token.value && user.value))
   // /admin/me is authoritative. General UserResource has no permissions.
   const hasAdminAccess = computed(() => isAuthenticated.value && adminProfile.value?.is_active === true)
@@ -18,7 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
   let bootstrapPromise, revision = 0
   function clearSession(expectedToken) {
     if (expectedToken && expectedToken !== token.value) return false
-    revision++; user.value = adminProfile.value = token.value = null
+    revision++; user.value = adminProfile.value = driverProfile.value = token.value = null
     writeAuthToken(null); persistenceWarning.value = ''; isInitialized.value = true
     return true
   }
@@ -40,6 +43,14 @@ export const useAuthStore = defineStore('auth', () => {
       if (cause.response?.status !== 403) throw cause
       // A customer's admin denial never expires their valid customer session.
     }
+    try {
+      const driver = profile.is_driver ? await driversApi.me() : null
+      if (revision === currentRevision && token.value === currentToken) driverProfile.value = driver
+    } catch (cause) {
+      if (revision !== currentRevision || token.value !== currentToken) return
+      driverProfile.value = null
+      if (cause.response?.status !== 403) throw cause
+    }
     return user.value
   }
   function initialize() {
@@ -52,7 +63,7 @@ export const useAuthStore = defineStore('auth', () => {
       catch (cause) {
         error.value = normalizeApiError(cause)
         if (cause.response?.status === 401) clearSession(expectedToken)
-        else { user.value = null; adminProfile.value = null }
+        else { user.value = null; adminProfile.value = null; driverProfile.value = null }
       } finally { isLoading.value = false; isInitialized.value = true; bootstrapPromise = null }
     })()
     return bootstrapPromise
@@ -64,7 +75,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const result = await authApi.login(payload)
       if (result?.token_type !== 'Bearer' || typeof result.token !== 'string' || !result.token) throw new Error('INVALID_AUTH_RESPONSE')
-      revision++; token.value = result.token; user.value = null; adminProfile.value = null
+      revision++; token.value = result.token; user.value = null; adminProfile.value = null; driverProfile.value = null
       issuedToken = result.token
       persistenceWarning.value = writeAuthToken(result.token) ? '' : 'التخزين المحلي غير متاح؛ ستنتهي الجلسة عند إعادة تحميل الصفحة.'
       await fetchMe(); isInitialized.value = true
@@ -93,5 +104,5 @@ export const useAuthStore = defineStore('auth', () => {
       throw cause // Do not claim token revocation after a network/server failure.
     } finally { isLoading.value = false }
   }
-  return { user, token, adminProfile, isLoading, isInitialized, error, persistenceWarning, isAuthenticated, hasAdminAccess, roles, permissions, hasRole, hasAnyRole, can, initialize, fetchMe, login, register, logout, clearSession }
+  return { user, token, adminProfile, driverProfile, isDriver, isLoading, isInitialized, error, persistenceWarning, isAuthenticated, hasAdminAccess, roles, permissions, hasRole, hasAnyRole, can, initialize, fetchMe, login, register, logout, clearSession }
 })

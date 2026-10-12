@@ -11,6 +11,8 @@ class PublicPromotionResource extends JsonResource
     {
         return ['id' => $this->uuid, 'name' => $this->name, 'description' => $this->description, 'type' => $this->type->value,
             'application_type' => $this->application_type->value,
+            'first_order_only' => $this->first_order_only,
+            'is_registration_offer' => $this->is_registration_offer,
             'discount' => ['type' => $this->discount_type->value, 'value' => $this->discount_value, 'maximum' => $this->maximum_discount],
             'minimum_subtotal' => $this->minimum_subtotal, 'starts_at' => $this->starts_at?->toISOString(), 'ends_at' => $this->ends_at?->toISOString()];
     }

@@ -1,0 +1,10 @@
+{
+    "build":  "Passed: npm run build, 349 modules, Vite 8.3.2",
+    "laravel":  "Passed: 2100 passed, 8 skipped, 2108 total, 12273 assertions; 1989980 ms. Final media follow-up: 6 passed, 32 assertions.",
+    "oracle_mysql":  "Not measured: Docker engine unavailable; available PDO MySQL server is MariaDB 10.4.25",
+    "journey":  "Passed: real isolated MySQL-protocol/MariaDB cash order, 18 pages, 210 viewport checks",
+    "browser":  "No JavaScript diagnostics, failed resources or overflow in complete before/after production and development measurements",
+    "pint":  "Passed: scoped dirty PHP files, checked after formatting",
+    "final_home":  "Passed: real production Vue, CMS draft fallback, published request reuse, one search request, no JS diagnostics",
+    "final_refresh":  "Passed: three samples each for Home/Menu/Product in production and development; no failed resources or JavaScript diagnostics"
+}

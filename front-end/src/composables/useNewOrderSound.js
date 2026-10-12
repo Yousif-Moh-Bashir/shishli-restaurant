@@ -16,14 +16,14 @@ export function useNewOrderSound(allowed = () => true) {
       return
     }
     const now = context.currentTime
-    for (const [offset, frequency] of [[0, 784], [1, 1046], [2, 784]]) {
+    for (const offset of [0, 1.7]) {
       const oscillator = context.createOscillator(), gain = context.createGain()
-      oscillator.frequency.value = frequency
+      oscillator.frequency.value = 880
       gain.gain.setValueAtTime(0, now + offset)
-      gain.gain.linearRampToValueAtTime(.2, now + offset + .015)
-      gain.gain.exponentialRampToValueAtTime(.001, now + offset + .95)
+      gain.gain.linearRampToValueAtTime(.16, now + offset + .01)
+      gain.gain.exponentialRampToValueAtTime(.001, now + offset + .28)
       oscillator.connect(gain); gain.connect(context.destination)
-      oscillator.start(now + offset); oscillator.stop(now + offset + 1)
+      oscillator.start(now + offset); oscillator.stop(now + offset + .3)
     }
   }
   async function toggle() {
@@ -41,10 +41,11 @@ export function useNewOrderSound(allowed = () => true) {
     finally { activating = false }
   }
   function observe(orders) {
-    const rows = orders.filter(order => order.id && Number.isFinite(Date.parse(order.placed_at)))
+    const arrivalTime = order => Date.parse(order.created_at ?? order.placed_at)
+    const rows = orders.filter(order => order.id && Number.isFinite(arrivalTime(order)))
     if (!rows.length) { if (watermark === null) watermark = 0; return }
-    const newest = Math.max(...rows.map(order => Date.parse(order.placed_at)))
-    const arrived = watermark !== null && rows.some(order => !seen.has(order.id) && Date.parse(order.placed_at) >= watermark)
+    const newest = Math.max(...rows.map(arrivalTime))
+    const arrived = watermark !== null && rows.some(order => !seen.has(order.id) && arrivalTime(order) >= watermark)
     watermark = Math.max(watermark ?? 0, newest)
     seen = new Set([...seen, ...rows.map(order => order.id)].slice(-500))
     if (arrived) ring()

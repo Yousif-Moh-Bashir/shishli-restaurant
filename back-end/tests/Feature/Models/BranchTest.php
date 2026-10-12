@@ -104,15 +104,15 @@ class BranchTest extends TestCase
         $this->assertSame('فرع المصيف', $branch->name);
         $this->assertSame('0551040122', $branch->phone);
         $this->assertSame('0551040122', $branch->whatsapp);
-        $this->assertSame('الرياض', $branch->city);
+        $this->assertSame('تبوك', $branch->city);
         $this->assertSame('المصيف', $branch->district);
         $this->assertTrue($branch->is_active);
         $this->assertTrue($branch->accepts_orders);
         $this->assertSame(1, $branch->sort_order);
         $this->assertSame('المصيف - بجوار إشارة المصيف', $branch->address);
         $this->assertSame($uuid, $branch->fresh()->uuid);
-        $this->assertNull($branch->latitude);
-        $this->assertNull($branch->longitude);
+        $this->assertSame('28.4378538', $branch->latitude);
+        $this->assertSame('36.5455267', $branch->longitude);
     }
 
     public function test_whatsapp_preserves_leading_zero(): void

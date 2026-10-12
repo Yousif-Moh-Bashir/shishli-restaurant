@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import AppSkeleton from "../../components/common/AppSkeleton.vue"
 import {ref,computed,watch,inject} from 'vue'
 import {useRoute,RouterLink} from 'vue-router'
@@ -10,6 +10,8 @@ import {menuApi} from '../../api/products.api'
 import {useApiState} from '../../composables/useApiState'
 import {menuProduct} from '../../composables/usePublicMenu'
 import {formatCurrency as money} from '../../utils/formatters'
+import {useCartFeedback} from '../../composables/useCartFeedback'
+const {pending,submit}=useCartFeedback()
 const route=useRoute(),branch=useBranchStore(),state=useApiState(),cart=useCartStore(),quantity=ref(1),selections=ref({}),selectedImage=ref(null),optionError=ref('')
 const {notifyCartResult,openCart,toast}=inject('site')
 const product=computed(()=>state.data.value)
@@ -37,25 +39,26 @@ function toggle(group,value,event){
   selections.value[group.id]=event.target.checked?[...current,value.id]:current.filter(id=>id!==value.id)
 }
 async function add(){
+  if(pending.value)return
   optionError.value=''
   for(const group of groups.value){const count=(selections.value[group.id]||[]).length
     if((group.is_required&&count===0)||count<group.min_select||(group.max_select!=null&&count>group.max_select)){optionError.value='راجع اختيارات '+group.name+'؛ الحد الأدنى '+group.min_select+' والحد الأقصى '+(group.max_select??'بلا حد')+'.';return}}
   if(!Number.isInteger(quantity.value)||quantity.value<1||quantity.value>50){toast('اختر كمية صحيحة من 1 إلى 50.');return}
   if(product.value?.available===true){
     const itemToEdit=editingItem.value
-    const result=itemToEdit?await cart.updateOptions(itemToEdit.id,selectedOptions.value):await cart.addItem(menuProduct(product.value,branch.selectedUuid),quantity.value,selectedOptions.value)
+    const result=await submit(()=>itemToEdit?cart.updateOptions(itemToEdit.id,selectedOptions.value):cart.addItem(menuProduct(product.value,branch.selectedUuid),quantity.value,selectedOptions.value))
     if(itemToEdit){toast(result.ok?'تم تحديث خيارات السلة.':result.message)}else notifyCartResult(result,product.value.name)
     if(!result.ok)optionError.value=Object.values(cart.error?.errors||{}).flat().join(' ')||result.message
   }
 }
 </script>
 <template><main id="main" class="container product-main"><RouterLink class="auth-back" to="/menu">→ العودة للمنيو</RouterLink><BranchSelector/>
-<p v-if="!branch.selectedBranch&&!branch.isLoading&&!branch.error" class="empty-search">اختر الفرع لعرض تفاصيل المنتج.</p><AppSkeleton v-if="state.loading.value" variant="detail" label="جارٍ تحميل المنتج…"/>
+<p v-if="!branch.selectedBranch&&!branch.isLoading&&!branch.error" class="empty-search">اختر الفرع لعرض تفاصيل المنتج.</p><AppSkeleton v-if="branch.isLoading || state.loading.value" variant="detail" label="جارٍ تحميل المنتج…"/>
 <section v-else-if="state.error.value" class="checkout-empty" role="alert"><h1>{{ state.error.value.status===404?'المنتج غير موجود في هذا الفرع':'تعذر تحميل المنتج' }}</h1><p>{{ state.error.value.message }}</p><button class="button button-primary" @click="load">إعادة المحاولة</button></section>
-<div v-else-if="product" id="product-detail"><article class="product-detail-layout"><div class="product-detail-image"><div class="product-photo api-product-photo" role="img" :aria-label="product.name"><img v-if="image" :src="image.url" :alt="image.alt_text||product.name"><span v-else class="api-no-image">لا توجد صورة للمنتج</span></div><div v-if="images.length>1" class="product-image-thumbnails"><button v-for="item in images" :key="item.id" :aria-pressed="image?.id===item.id" :aria-label="'عرض '+(item.alt_text||'صورة المنتج')" @click="selectedImage=item.id"><img :src="item.url" :alt="item.alt_text||''"></button></div><span v-if="product.is_featured" class="detail-badge">منتج مميز</span></div>
-<div class="product-detail-copy"><span class="section-kicker">{{ product.category?.name }}</span><h1>{{ product.name }}</h1><p class="detail-description">{{ product.short_description || product.description }}</p><div class="detail-price"><strong>{{ money(product.price) }}</strong></div><dl class="nutrition-details"><div><dt>وقت التحضير</dt><dd>{{ product.preparation_time==null?'غير محدد':product.preparation_time+' دقيقة' }}</dd></div><div><dt>التوفر في الفرع</dt><dd>{{ product.available?'متوفر':product.availability_message||'غير متوفر' }}</dd></div></dl><div v-if="product.description" class="detail-section"><h2>تفاصيل المنتج</h2><p>{{ product.description }}</p></div>
+<div v-else-if="product" id="product-detail"><article class="product-detail-layout"><div class="product-detail-image"><div class="product-photo api-product-photo" role="img" :aria-label="product.name"><img v-if="image" :src="image.url" fetchpriority="high" decoding="async" :alt="image.alt_text||product.name"><span v-else class="api-no-image">لا توجد صورة للمنتج</span></div><div v-if="images.length>1" class="product-image-thumbnails"><button v-for="item in images" :key="item.id" :aria-pressed="image?.id===item.id" :aria-label="'عرض '+(item.alt_text||'صورة المنتج')" @click="selectedImage=item.id"><img :src="item.url" :alt="item.alt_text||''"></button></div><span v-if="product.is_featured" class="detail-badge">منتج مميز</span></div>
+<div class="product-detail-copy"><span class="section-kicker">{{ product.category?.name }}</span><h1>{{ product.name }}</h1><p v-if="product.short_description" class="detail-description">{{ product.short_description }}</p><div class="detail-price"><strong>{{ money(product.price) }}</strong></div><dl class="nutrition-details"><div><dt>وقت التحضير</dt><dd>{{ product.preparation_time==null?'غير محدد':product.preparation_time+' دقيقة' }}</dd></div><div><dt>التوفر في الفرع</dt><dd>{{ product.available?'متوفر':product.availability_message||'غير متوفر' }}</dd></div></dl><div v-if="product.description" class="detail-section"><h2>تفاصيل المنتج</h2><p>{{ product.description }}</p></div>
 <fieldset v-for="group in groups" :key="group.id" class="detail-section product-option-group"><legend>{{ group.name }} · {{ group.is_required?'إلزامي':'اختياري' }}</legend><p>اختر {{ group.min_select }}–{{ group.max_select??'أي عدد' }} {{ group.type==='single'?'(اختيار واحد)':'' }}</p><label v-for="value in group.values" :key="value.id"><input type="checkbox" :checked="(selections[group.id]||[]).includes(value.id)" :disabled="!product.available" @change="toggle(group,value,$event)"><span>{{ value.name }}</span><small>+ {{ money(value.price_modifier) }}</small></label></fieldset>
-<p v-if="route.query.cartItem&&!editingItem" role="status" class="catalog-note">هذا السطر لم يعد موجودًا أو اندمج مع سطر آخر. راجع السلة لاختيار السطر الحالي.</p><p v-if="optionError" role="alert" class="catalog-note">{{ optionError }}</p><p v-if="groups.length" class="catalog-note">أسعار الإضافات موضحة؛ السعر النهائي يأتي من الخادم بعد الإضافة أو تعديل الخيارات.</p><div class="detail-order"><label class="detail-quantity" for="detail-quantity">الكمية<input id="detail-quantity" v-model.number="quantity" :disabled="!!route.query.cartItem || cart.isMutating" type="number" min="1" max="50" step="1"></label><button class="button button-primary" type="button" :disabled="!product.available || cart.isLoading || cart.isMutating || (!!route.query.cartItem&&!editingItem)" @click="add"><SiteIcon name="shopping-bag"/>{{ cart.isMutating?'جارٍ تحديث السلة…':editingItem?'حفظ الخيارات':product.available?'إضافة للسلة':'غير متوفر في الفرع' }}</button></div><button class="text-button" type="button" @click="openCart">مراجعة السلة <SiteIcon name="arrow-left"/></button></div></article></div></main></template>
+<p v-if="route.query.cartItem&&!editingItem" role="status" class="catalog-note">تعذر تعديل هذا العنصر. افتح السلة واختره مجددًا.</p><p v-if="optionError" role="alert" class="catalog-note">{{ optionError }}</p><p v-if="groups.length" class="catalog-note">يمكنك مراجعة السعر النهائي في السلة بعد اختيار الإضافات.</p><div class="detail-order"><label class="detail-quantity" for="detail-quantity">الكمية<input id="detail-quantity" v-model.number="quantity" :disabled="!!route.query.cartItem || cart.isMutating" type="number" min="1" max="50" step="1"></label><button class="button button-primary" type="button" :aria-busy="pending" :disabled="pending || !product.available || cart.isLoading || cart.isMutating || (!!route.query.cartItem&&!editingItem)" @click="add"><span v-if="pending" class="cart-add-spinner" aria-hidden="true"></span><SiteIcon v-else name="shopping-bag"/>{{ pending?(editingItem?'جارٍ حفظ الخيارات…':'جارٍ الإضافة…'):editingItem?'حفظ الخيارات':product.available?'إضافة للسلة':'غير متوفر في الفرع' }}</button></div><button class="text-button" type="button" @click="openCart">مراجعة السلة <SiteIcon name="arrow-left"/></button></div></article></div></main></template>
 
 
 

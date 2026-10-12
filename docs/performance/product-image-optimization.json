@@ -1,0 +1,23 @@
+[
+    {
+        "path": "products\/6860728f-be15-4f0f-a438-201326c20161\/9ee31999-b995-4133-b8e0-caa690675be9.png.webp",
+        "original_bytes": 2844934,
+        "optimized_bytes": 382878,
+        "width": 1482,
+        "height": 1061
+    },
+    {
+        "path": "products\/925f4306-9fb6-4618-9c9e-d8f35d94dfbd\/87b5496d-79f8-430c-a2c0-8bf0a09d17de.png.webp",
+        "original_bytes": 2803425,
+        "optimized_bytes": 295704,
+        "width": 1600,
+        "height": 900
+    },
+    {
+        "path": "products\/ff8c973d-9f10-4869-9b50-7a562778ca21\/71cade94-048f-4546-895a-fb7725410d3b.png.webp",
+        "original_bytes": 2767574,
+        "optimized_bytes": 306638,
+        "width": 1536,
+        "height": 1024
+    }
+]

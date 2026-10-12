@@ -47,10 +47,9 @@ class OrderLifecycleTest extends TestCase
         $this->assertSame(1, $order->statusHistory()->count());
         $this->actingAs($manager, 'sanctum');
         $commands = ['confirm' => 'confirmed', 'start-preparing' => 'preparing', 'mark-ready' => 'ready'];
-        if ($type === 'delivery') {
-            $commands['dispatch'] = 'out_for_delivery';
+        if ($type === 'pickup') {
+            $commands['complete'] = 'completed';
         }
-        $commands['complete'] = 'completed';
         Event::fake([OrderStatusChanged::class]);
         $previous = 'pending';
         foreach ($commands as $command => $status) {
@@ -67,14 +66,29 @@ class OrderLifecycleTest extends TestCase
             $this->assertNull($history->metadata);
             $previous = $status;
         }
-        Event::assertDispatchedTimes(OrderStatusChanged::class, count($commands));
+        if ($type === 'delivery') {
+            $driver = User::factory()->create()->assignRole('driver');
+            $driver->forceFill(['driver_branch_id' => $order->branch_id, 'driver_enabled' => true, 'driver_available' => true])->save();
+            $driverUrl = '/api/v1/driver/orders/'.$order->uuid;
+            $this->actingAs($driver, 'sanctum')->postJson($driverUrl.'/accept')->assertOk();
+            $this->postJson($driverUrl.'/transition', ['status' => 'picked_up'])->assertOk();
+            $this->postJson($driverUrl.'/transition', ['status' => 'on_the_way'])->assertOk()->assertJsonPath('data.preparation_status', 'out_for_delivery');
+            $this->postJson($driverUrl.'/cash/collect', ['amount' => $order->total])->assertOk();
+            $this->postJson($driverUrl.'/transition', ['status' => 'delivered'])->assertOk()->assertJsonPath('data.preparation_status', 'completed');
+            $lastHistory = $order->statusHistory()->get()->last();
+            $this->assertSame(OrderStatusSource::Driver, $lastHistory->source);
+            $this->assertSame($driver->id, $lastHistory->changed_by);
+            $this->actingAs($manager, 'sanctum');
+        }
+        $transitionCount = count($commands) + ($type === 'delivery' ? 2 : 0);
+        Event::assertDispatchedTimes(OrderStatusChanged::class, $transitionCount);
         $this->assertSame(OrderStatus::Completed, $order->fresh()->status);
         $this->assertNull($order->fresh()->cancelled_at);
         if ($type === 'pickup') {
             $this->assertNull($order->fresh()->out_for_delivery_at);
         }
         $this->getJson('/api/v1/admin/orders/'.$order->uuid.'/history')->assertOk()
-            ->assertJsonCount(count($commands) + 1, 'data')->assertJsonPath('data.0.from_status', null)
+            ->assertJsonCount($transitionCount + 1, 'data')->assertJsonPath('data.0.from_status', null)
             ->assertJsonPath('data.0.changed_by', null)->assertJsonPath('data.1.changed_by.id', $manager->uuid)
             ->assertJsonPath('data.1.source', 'admin')->assertJsonMissingPath('data.1.metadata');
         $this->withHeader('X-Order-Token', $checkout->json('data.access_token'))
@@ -97,6 +111,12 @@ class OrderLifecycleTest extends TestCase
         $this->actingAs($user, 'sanctum')->postJson($url, ['reason' => 'Customer requested'])->assertForbidden();
         $this->assertDatabaseCount('order_status_histories', 0);
         $user->givePermissionTo($permission);
+        if ($command === 'dispatch') {
+            $this->postJson($url, ['reason' => 'Customer requested'])->assertConflict();
+            $this->assertDatabaseCount('order_status_histories', 0);
+
+            return;
+        }
         $this->postJson($url, ['reason' => 'Customer requested'])->assertOk();
         $this->assertDatabaseCount('order_status_histories', 1);
     }

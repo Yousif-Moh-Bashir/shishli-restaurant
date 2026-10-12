@@ -10,12 +10,14 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+dist-performance-*
 *.local
 .env
 .env.*
 !.env.example
 !.env.production.example
 .auth-check/
+.performance-check/
 .cart-check/
 
 # Editor directories and files

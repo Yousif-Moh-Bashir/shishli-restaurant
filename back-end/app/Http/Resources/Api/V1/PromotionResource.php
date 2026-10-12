@@ -13,6 +13,8 @@ class PromotionResource extends JsonResource
             'type' => $this->type->value, 'application_type' => $this->application_type->value,
             'discount' => ['type' => $this->discount_type->value, 'value' => $this->discount_value, 'maximum' => $this->maximum_discount],
             'minimum_subtotal' => $this->minimum_subtotal,
+            'first_order_only' => $this->first_order_only,
+            'is_registration_offer' => $this->is_registration_offer,
             'starts_at' => $this->starts_at?->toISOString(), 'ends_at' => $this->ends_at?->toISOString(),
             'is_active' => $this->is_active, 'priority' => $this->priority, 'is_stackable' => $this->is_stackable,
             'limits' => ['usage_limit' => $this->usage_limit, 'usage_limit_per_user' => $this->usage_limit_per_user, 'used_count' => $this->used_count],

@@ -21,7 +21,9 @@ export const useBranchStore=defineStore('branch',()=>{
         if(!Array.isArray(result))throw new Error('INVALID_BRANCH_LIST')
         branches.value=result.filter(branch=>branch.is_active)
         let saved='';try{saved=localStorage.getItem(key)||''}catch{}
-        select(saved);initialized.value=true
+        const preferred = branches.value.find(branch => branch.id === saved)
+          || branches.value.find(branch => branch.name?.includes('المصيف'))
+        select(preferred?.id || '');initialized.value=true
       }catch(cause){error.value=normalizeApiError(cause);initialized.value=false}
       finally{isLoading.value=false;pending=null}
     })()

@@ -7,6 +7,7 @@ use App\Models\Branch;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
+use Carbon\CarbonImmutable;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,7 @@ class KitchenOrdersTest extends TestCase
 
     public function test_default_queue_is_oldest_first_and_uses_minimal_snapshot_data(): void
     {
+        $this->travelTo(CarbonImmutable::parse('2026-09-01 15:00:00', 'UTC'));
         $kitchen = $this->staff('kitchen');
         $old = Order::factory()->confirmed()->create(['placed_at' => '2026-09-01 10:00:00', 'customer_notes' => 'No onions']);
         $item = OrderItem::factory()->for($old)->hasOptions(1)->create(['product_name' => 'Snapshot chicken']);

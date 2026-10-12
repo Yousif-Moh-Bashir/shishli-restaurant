@@ -1,4 +1,8 @@
 ﻿<script setup>
+import '../assets/css/admin.css'
+import '../assets/css/details.css'
+import '../assets/css/audit-modules.css'
+import '../assets/css/admin-system.css'
 import { ref, computed, provide, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import AdminSidebar from '../components/admin/AdminSidebar.vue'

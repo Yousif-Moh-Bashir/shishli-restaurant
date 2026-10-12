@@ -1,0 +1,33 @@
+{
+  "environment": "Isolated Laravel + seeded SQLite, development server; not a production benchmark",
+  "samples": [
+    {
+      "path": "/settings/public",
+      "requests": 10,
+      "p50_ms": 666,
+      "p95_ms": 762,
+      "payload_bytes": 752
+    },
+    {
+      "path": "/menu?branch=1188faa0-3042-48e1-8e5a-70cac7720193",
+      "requests": 10,
+      "p50_ms": 739,
+      "p95_ms": 896,
+      "payload_bytes": 6299
+    },
+    {
+      "path": "/products",
+      "requests": 10,
+      "p50_ms": 714,
+      "p95_ms": 810,
+      "payload_bytes": 5177
+    },
+    {
+      "path": "/branches",
+      "requests": 10,
+      "p50_ms": 603,
+      "p95_ms": 695,
+      "payload_bytes": 729
+    }
+  ]
+}

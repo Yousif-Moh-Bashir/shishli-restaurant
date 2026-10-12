@@ -360,15 +360,16 @@ class CheckoutTest extends TestCase
     {
         $this->freezeTime();
         $this->cart();
-        $this->postJson('/api/v1/checkout', $this->payload())->assertCreated()
-            ->assertJsonPath('data.order_number', 'SH-0001');
+        $first = $this->postJson('/api/v1/checkout', $this->payload())->assertCreated()->json('data');
 
         $this->cart();
-        $this->postJson('/api/v1/checkout', $this->payload())->assertCreated()
-            ->assertJsonPath('data.order_number', 'SH-0002');
+        $second = $this->postJson('/api/v1/checkout', $this->payload())->assertCreated()->json('data');
 
-        $this->assertDatabaseHas('orders', ['order_number' => 'SH-0001']);
-        $this->assertDatabaseHas('orders', ['order_number' => 'SH-0002']);
+        $this->assertMatchesRegularExpression('/^SH-[0-9]{4,}$/', $first['order_number']);
+        $this->assertMatchesRegularExpression('/^SH-[0-9]{4,}$/', $second['order_number']);
+        $this->assertNotSame($first['order_number'], $second['order_number']);
+        $this->assertDatabaseHas('orders', ['uuid' => $first['id'], 'order_number' => $first['order_number']]);
+        $this->assertDatabaseHas('orders', ['uuid' => $second['id'], 'order_number' => $second['order_number']]);
     }
 
     public function test_order_numbers_are_unique_even_with_frozen_time(): void

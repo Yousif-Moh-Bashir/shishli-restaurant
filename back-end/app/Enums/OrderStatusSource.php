@@ -9,4 +9,5 @@ enum OrderStatusSource: string
     case Cashier = 'cashier';
     case Kitchen = 'kitchen';
     case Customer = 'customer';
+    case Driver = 'driver';
 }

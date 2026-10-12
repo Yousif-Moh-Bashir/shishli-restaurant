@@ -37,7 +37,11 @@ try {
     if (message.id) { const promise = pending.get(message.id); pending.delete(message.id); message.error ? promise.reject(message.error) : promise.resolve(message.result); return }
     if (message.method === 'Runtime.exceptionThrown') report.diagnostics.push(message.params.exceptionDetails.exception?.description || message.params.exceptionDetails.text)
     if (message.method === 'Runtime.consoleAPICalled' && ['error', 'warning'].includes(message.params.type)) report.diagnostics.push(message.params.args.map(arg => arg.value ?? arg.description).join(' '))
-    if (message.method === 'Network.responseReceived' && message.params.response.status >= 400) report.failures.push({ status: message.params.response.status, path: new URL(message.params.response.url).pathname })
+    if (message.method === 'Network.responseReceived' && message.params.response.status >= 400) {
+      const status=message.params.response.status,path=new URL(message.params.response.url).pathname
+      // A signed-in account without an active cart legitimately receives CART_NOT_FOUND.
+      if (!(status===404 && path==='/api/v1/cart')) report.failures.push({status,path})
+    }
   })
   const evaluate = async expression => { const result = await send('Runtime.evaluate', { expression, returnByValue: true }); if (result.exceptionDetails) throw Error(result.exceptionDetails.text); return result.result.value }
   const waitFor = async expression => { for (let attempt = 0; attempt < 160; attempt++) { if (await evaluate(expression)) return; await sleep(350) } throw Error('Timeout: ' + expression) }
@@ -58,7 +62,7 @@ try {
     ['/admin', '.overview-stats .stat', 'live'], ['/admin/products', '.products-table tbody tr', 'live'],
     ['/admin/categories', '.catalog-table tbody tr', 'live'], ['/admin/branches', '.catalog-table tbody tr', 'live'],
     ['/admin/product-options', '.catalog-table tbody tr', 'live'], ['/admin/orders', '.order-card', 'live'],
-    ['/admin/kitchen', '.kitchen-card', 'live'], ['/admin/payments', '.payments-table tbody tr', 'live'],
+    ['/admin/kitchen', '.kitchen-order-card, .kitchen-empty', 'live'], ['/admin/payments', '.payments-table tbody tr', 'live'],
     ['/admin/notifications', '.notifications-table tbody tr, .notifications-panel .empty', 'live'], ['/admin/delivery-zones', '.table-wrap tbody tr, .empty', 'live'],
     ['/admin/offers', 'main .table-wrap tbody tr, main .empty', 'live'], ['/admin/customers', 'main .table-wrap tbody tr, main .empty', 'live'],
     ['/admin/settings', '#settings-form', 'live'], ['/admin/reports', '.report-table tbody tr, .report-metrics .stat, .report-table .empty', 'live'],
@@ -71,7 +75,7 @@ try {
     assert.equal(await evaluate('location.pathname'), path.split('?')[0], 'Route ' + path)
     const heading = await evaluate('document.querySelector("main h1").textContent.trim()')
     report.pages.push({ path, heading, source })
-    for (const width of [1440, 768, 390]) {
+    for (const width of [320, 360, 375, 390, 412, 430, 768, 1024, 1366, 1920]) {
       await send('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: false }); await sleep(400)
       const overflow = await evaluate('document.documentElement.scrollWidth > innerWidth + 1')
       if (overflow) console.log('Overflow elements', path, width, await evaluate('[...document.querySelectorAll("main *")].filter(e=>{let r=e.getBoundingClientRect();return r.left< -1||r.right>innerWidth+1}).slice(0,8).map(e=>({tag:e.tagName,class:e.className,width:e.getBoundingClientRect().width}))'))

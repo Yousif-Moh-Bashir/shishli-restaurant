@@ -15,7 +15,7 @@ class RolePermissionService
 
     public function roles(): array
     {
-        return Role::where('guard_name', 'web')->whereIn('name', [...AdminAccessService::STAFF_ROLES, 'customer'])->with('permissions')->orderBy('name')->get()->map(fn (Role $role): array => ['id' => $role->name, 'name' => $role->name, 'permissions' => $role->permissions->pluck('name')->sort()->values()->all()])->all();
+        return Role::where('guard_name', 'web')->whereIn('name', [...AdminAccessService::STAFF_ROLES, 'customer', 'driver'])->with('permissions')->orderBy('name')->get()->map(fn (Role $role): array => ['id' => $role->name, 'name' => $role->name, 'permissions' => $role->permissions->pluck('name')->sort()->values()->all()])->all();
     }
 
     public function groups(): array
@@ -26,7 +26,7 @@ class RolePermissionService
     public function update(User $actor, Role $role, array $permissions): array
     {
         abort_unless($actor->hasRole('super_admin') && $actor->can('roles.update_permissions'), 403);
-        if ($role->name === 'super_admin' || ($role->name === 'customer' && $permissions !== [])) {
+        if (in_array($role->name, ['super_admin', 'driver'], true) || ($role->name === 'customer' && $permissions !== [])) {
             throw ValidationException::withMessages(['permissions' => 'PROTECTED_SYSTEM_ROLE']);
         }
         DB::transaction(function () use ($actor, $role, $permissions): void {

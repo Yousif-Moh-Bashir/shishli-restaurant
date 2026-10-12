@@ -71,6 +71,29 @@ class BranchScheduleService
         return $this->nextOpeningTime($branch, $at);
     }
 
+    /** Partition local work dates at the preceding day's last overnight closing, not at UTC midnight. */
+    public function businessDayWindow(?Branch $branch, ?string $date = null, ?string $timezone = null): array
+    {
+        $timezone ??= $this->settings->getString('restaurant.timezone');
+        $now = CarbonImmutable::now($timezone);
+        $day = ($date === null ? $now : CarbonImmutable::parse($date, $timezone))->startOfDay();
+        $branch?->loadMissing('businessHours');
+        $rollover = function (CarbonImmutable $day) use ($branch): string {
+            $times = $branch?->businessHours->filter(fn ($hour): bool => $hour->day_of_week === $day->isoWeekday()
+                && $hour->closes_at < $hour->opens_at)->pluck('closes_at')->sort();
+
+            return substr($times?->last() ?? '00:00', 0, 5);
+        };
+        $start = $day->setTimeFromTimeString($rollover($day->subDay()));
+        if ($date === null && $now->lessThan($start)) {
+            $day = $day->subDay();
+            $start = $day->setTimeFromTimeString($rollover($day->subDay()));
+        }
+        $end = $day->addDay()->setTimeFromTimeString($rollover($day));
+
+        return ['date' => $day->toDateString(), 'timezone' => $timezone, 'start' => $start->utc(), 'end' => $end->utc()];
+    }
+
     private function periods(Branch $branch, CarbonImmutable $at, int $days, ?string $timezone): array
     {
         $branch->loadMissing('businessHours');

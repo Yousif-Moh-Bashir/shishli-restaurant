@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { phoneRequest } from '../utils/phone'
 export const apiBaseURL = (import.meta.env.VITE_API_BASE_URL || '/api/v1').replace(/\/+$/, '')
 export const http = axios.create({ baseURL: apiBaseURL, timeout: 15000, headers: { Accept: 'application/json' } })
 let credentials = () => null, unauthorized = () => {}
@@ -6,6 +7,8 @@ let credentials = () => null, unauthorized = () => {}
 // must never expire a newer session. No store/router dependency cycle.
 export function configureHttpAuth(getToken, onUnauthorized) { credentials = getToken; unauthorized = onUnauthorized }
 http.interceptors.request.use(config => {
+  config.data = phoneRequest(config.data)
+  config.params = phoneRequest(config.params)
   const token = config.skipAuth ? null : credentials()
   config.sessionToken = token
   if (token) config.headers.set('Authorization', `Bearer ${token}`)

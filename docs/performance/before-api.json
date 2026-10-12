@@ -1,0 +1,822 @@
+[
+  {
+    "engine": "mysql",
+    "path": "/api/v1/home?branch=:branch",
+    "samples": [
+      {
+        "ms": 460.44469999999995,
+        "bytes": 9146,
+        "timing": "app;dur=440.84, boot;dur=300.23, db;dur=17.13, queries;desc=\"17\""
+      },
+      {
+        "ms": 284.31630000000007,
+        "bytes": 9146,
+        "timing": "app;dur=275.04, boot;dur=149.23, db;dur=21.85, queries;desc=\"17\""
+      },
+      {
+        "ms": 305.3736999999999,
+        "bytes": 9146,
+        "timing": "app;dur=298.91, boot;dur=166.22, db;dur=26.40, queries;desc=\"17\""
+      },
+      {
+        "ms": 304.4759999999999,
+        "bytes": 9146,
+        "timing": "app;dur=298.93, boot;dur=160.66, db;dur=34.48, queries;desc=\"17\""
+      },
+      {
+        "ms": 274.74070000000006,
+        "bytes": 9146,
+        "timing": "app;dur=268.97, boot;dur=131.10, db;dur=24.79, queries;desc=\"17\""
+      },
+      {
+        "ms": 259.80669999999964,
+        "bytes": 9146,
+        "timing": "app;dur=253.64, boot;dur=131.73, db;dur=30.29, queries;desc=\"17\""
+      },
+      {
+        "ms": 252.7107000000001,
+        "bytes": 9146,
+        "timing": "app;dur=244.75, boot;dur=126.51, db;dur=23.65, queries;desc=\"17\""
+      }
+    ]
+  },
+  {
+    "engine": "mysql",
+    "path": "/api/v1/menu?branch=:branch",
+    "samples": [
+      {
+        "ms": 228.1577000000002,
+        "bytes": 6299,
+        "timing": "app;dur=222.01, boot;dur=134.13, db;dur=12.54, queries;desc=\"9\""
+      },
+      {
+        "ms": 216.0667000000003,
+        "bytes": 6299,
+        "timing": "app;dur=210.30, boot;dur=124.04, db;dur=7.57, queries;desc=\"9\""
+      },
+      {
+        "ms": 224.92509999999993,
+        "bytes": 6299,
+        "timing": "app;dur=217.43, boot;dur=130.87, db;dur=7.21, queries;desc=\"9\""
+      },
+      {
+        "ms": 222.28729999999996,
+        "bytes": 6299,
+        "timing": "app;dur=216.22, boot;dur=133.47, db;dur=7.05, queries;desc=\"9\""
+      },
+      {
+        "ms": 221.9996000000001,
+        "bytes": 6299,
+        "timing": "app;dur=217.29, boot;dur=133.53, db;dur=7.02, queries;desc=\"9\""
+      },
+      {
+        "ms": 247.61229999999978,
+        "bytes": 6299,
+        "timing": "app;dur=241.47, boot;dur=139.83, db;dur=25.54, queries;desc=\"9\""
+      },
+      {
+        "ms": 242.58399999999983,
+        "bytes": 6299,
+        "timing": "app;dur=234.89, boot;dur=131.22, db;dur=18.77, queries;desc=\"9\""
+      }
+    ]
+  },
+  {
+    "engine": "mysql",
+    "path": "/api/v1/menu/products/:product?branch=:branch",
+    "samples": [
+      {
+        "ms": 256.9216999999999,
+        "bytes": 1067,
+        "timing": "app;dur=250.41, boot;dur=147.20, db;dur=32.05, queries;desc=\"9\""
+      },
+      {
+        "ms": 215.40809999999965,
+        "bytes": 1067,
+        "timing": "app;dur=210.18, boot;dur=129.70, db;dur=7.29, queries;desc=\"9\""
+      },
+      {
+        "ms": 217.32839999999942,
+        "bytes": 1067,
+        "timing": "app;dur=212.27, boot;dur=125.49, db;dur=16.35, queries;desc=\"9\""
+      },
+      {
+        "ms": 206.89360000000033,
+        "bytes": 1067,
+        "timing": "app;dur=200.31, boot;dur=125.93, db;dur=6.33, queries;desc=\"9\""
+      },
+      {
+        "ms": 224.51100000000042,
+        "bytes": 1067,
+        "timing": "app;dur=218.83, boot;dur=132.67, db;dur=16.89, queries;desc=\"9\""
+      },
+      {
+        "ms": 208.77620000000024,
+        "bytes": 1067,
+        "timing": "app;dur=201.75, boot;dur=125.77, db;dur=6.24, queries;desc=\"9\""
+      },
+      {
+        "ms": 205.24559999999929,
+        "bytes": 1067,
+        "timing": "app;dur=200.30, boot;dur=124.37, db;dur=6.60, queries;desc=\"9\""
+      }
+    ]
+  },
+  {
+    "engine": "mysql",
+    "path": "/api/v1/branches",
+    "samples": [
+      {
+        "ms": 205.27700000000004,
+        "bytes": 729,
+        "timing": "app;dur=199.79, boot;dur=135.17, db;dur=12.36, queries;desc=\"1\""
+      },
+      {
+        "ms": 199.58320000000003,
+        "bytes": 729,
+        "timing": "app;dur=193.10, boot;dur=127.78, db;dur=16.74, queries;desc=\"1\""
+      },
+      {
+        "ms": 182.09010000000035,
+        "bytes": 729,
+        "timing": "app;dur=175.60, boot;dur=129.09, db;dur=2.36, queries;desc=\"1\""
+      },
+      {
+        "ms": 202.17290000000048,
+        "bytes": 729,
+        "timing": "app;dur=194.85, boot;dur=145.87, db;dur=5.48, queries;desc=\"1\""
+      },
+      {
+        "ms": 185.41980000000058,
+        "bytes": 729,
+        "timing": "app;dur=180.39, boot;dur=129.43, db;dur=2.03, queries;desc=\"1\""
+      },
+      {
+        "ms": 195.1232,
+        "bytes": 729,
+        "timing": "app;dur=189.43, boot;dur=127.54, db;dur=13.58, queries;desc=\"1\""
+      },
+      {
+        "ms": 182.6214,
+        "bytes": 729,
+        "timing": "app;dur=178.25, boot;dur=129.63, db;dur=2.43, queries;desc=\"1\""
+      }
+    ]
+  },
+  {
+    "engine": "mysql",
+    "path": "/api/v1/cart",
+    "samples": [
+      {
+        "ms": 236.72519999999986,
+        "bytes": 680,
+        "timing": "app;dur=231.47, boot;dur=135.74, db;dur=11.39, queries;desc=\"12\""
+      },
+      {
+        "ms": 231.35100000000057,
+        "bytes": 680,
+        "timing": "app;dur=225.82, boot;dur=133.95, db;dur=18.18, queries;desc=\"11\""
+      },
+      {
+        "ms": 355.0178999999998,
+        "bytes": 680,
+        "timing": "app;dur=349.03, boot;dur=253.76, db;dur=17.29, queries;desc=\"11\""
+      },
+      {
+        "ms": 276.0668999999998,
+        "bytes": 680,
+        "timing": "app;dur=268.67, boot;dur=136.46, db;dur=43.70, queries;desc=\"12\""
+      },
+      {
+        "ms": 253.84029999999984,
+        "bytes": 680,
+        "timing": "app;dur=246.68, boot;dur=151.17, db;dur=19.10, queries;desc=\"11\""
+      },
+      {
+        "ms": 242.15790000000015,
+        "bytes": 680,
+        "timing": "app;dur=235.94, boot;dur=146.30, db;dur=8.56, queries;desc=\"11\""
+      },
+      {
+        "ms": 223.6262999999999,
+        "bytes": 680,
+        "timing": "app;dur=219.03, boot;dur=135.20, db;dur=8.54, queries;desc=\"11\""
+      }
+    ]
+  },
+  {
+    "engine": "mysql",
+    "path": "/api/v1/addresses",
+    "samples": [
+      {
+        "ms": 269.2451000000001,
+        "bytes": 578,
+        "timing": "app;dur=263.65, boot;dur=131.69, db;dur=30.53, queries;desc=\"4\""
+      },
+      {
+        "ms": 191.35440000000017,
+        "bytes": 578,
+        "timing": "app;dur=185.67, boot;dur=130.19, db;dur=4.21, queries;desc=\"3\""
+      },
+      {
+        "ms": 198.76200000000063,
+        "bytes": 578,
+        "timing": "app;dur=193.21, boot;dur=130.44, db;dur=11.77, queries;desc=\"3\""
+      },
+      {
+        "ms": 202.0010999999995,
+        "bytes": 578,
+        "timing": "app;dur=194.84, boot;dur=134.70, db;dur=7.18, queries;desc=\"3\""
+      },
+      {
+        "ms": 214.10919999999896,
+        "bytes": 578,
+        "timing": "app;dur=208.66, boot;dur=138.33, db;dur=14.63, queries;desc=\"3\""
+      },
+      {
+        "ms": 223.83660000000054,
+        "bytes": 578,
+        "timing": "app;dur=219.41, boot;dur=139.45, db;dur=22.01, queries;desc=\"4\""
+      },
+      {
+        "ms": 194.82140000000072,
+        "bytes": 578,
+        "timing": "app;dur=189.69, boot;dur=126.28, db;dur=10.02, queries;desc=\"3\""
+      }
+    ]
+  },
+  {
+    "engine": "mysql",
+    "path": "/api/v1/orders/:order/tracking",
+    "samples": [
+      {
+        "ms": 381.7571000000007,
+        "bytes": 2406,
+        "timing": "app;dur=374.74, boot;dur=135.18, db;dur=32.84, queries;desc=\"8\""
+      },
+      {
+        "ms": 225.5686999999998,
+        "bytes": 2406,
+        "timing": "app;dur=220.13, boot;dur=139.45, db;dur=17.73, queries;desc=\"8\""
+      },
+      {
+        "ms": 225.0645999999997,
+        "bytes": 2406,
+        "timing": "app;dur=219.48, boot;dur=138.73, db;dur=17.12, queries;desc=\"9\""
+      },
+      {
+        "ms": 231.15309999999954,
+        "bytes": 2406,
+        "timing": "app;dur=225.04, boot;dur=134.67, db;dur=21.31, queries;desc=\"8\""
+      },
+      {
+        "ms": 213.5056999999997,
+        "bytes": 2406,
+        "timing": "app;dur=207.37, boot;dur=128.84, db;dur=17.81, queries;desc=\"8\""
+      },
+      {
+        "ms": 215.92180000000008,
+        "bytes": 2406,
+        "timing": "app;dur=209.70, boot;dur=127.86, db;dur=19.48, queries;desc=\"8\""
+      },
+      {
+        "ms": 234.03240000000005,
+        "bytes": 2406,
+        "timing": "app;dur=227.14, boot;dur=134.25, db;dur=32.63, queries;desc=\"9\""
+      }
+    ]
+  },
+  {
+    "engine": "mysql",
+    "path": "/api/v1/admin/dashboard",
+    "samples": [
+      {
+        "ms": 285.08260000000155,
+        "bytes": 3228,
+        "timing": "app;dur=277.34, boot;dur=134.37, db;dur=32.82, queries;desc=\"15\""
+      },
+      {
+        "ms": 294.3034000000007,
+        "bytes": 3228,
+        "timing": "app;dur=287.85, boot;dur=129.69, db;dur=40.19, queries;desc=\"14\""
+      },
+      {
+        "ms": 287.07800000000134,
+        "bytes": 3228,
+        "timing": "app;dur=280.27, boot;dur=135.25, db;dur=23.34, queries;desc=\"14\""
+      },
+      {
+        "ms": 435.79069999999956,
+        "bytes": 3228,
+        "timing": "app;dur=427.76, boot;dur=216.28, db;dur=43.35, queries;desc=\"15\""
+      },
+      {
+        "ms": 339.8881000000001,
+        "bytes": 3228,
+        "timing": "app;dur=332.54, boot;dur=167.72, db;dur=27.67, queries;desc=\"14\""
+      },
+      {
+        "ms": 339.2999999999993,
+        "bytes": 3228,
+        "timing": "app;dur=332.20, boot;dur=173.67, db;dur=17.32, queries;desc=\"14\""
+      },
+      {
+        "ms": 362.54190000000017,
+        "bytes": 3228,
+        "timing": "app;dur=355.81, boot;dur=172.20, db;dur=42.30, queries;desc=\"15\""
+      }
+    ]
+  },
+  {
+    "engine": "mysql",
+    "path": "/api/v1/admin/orders",
+    "samples": [
+      {
+        "ms": 678.1923999999999,
+        "bytes": 8876,
+        "timing": "app;dur=670.18, boot;dur=169.86, db;dur=45.88, queries;desc=\"13\""
+      },
+      {
+        "ms": 374.41029999999955,
+        "bytes": 8876,
+        "timing": "app;dur=368.08, boot;dur=170.60, db;dur=17.31, queries;desc=\"14\""
+      },
+      {
+        "ms": 389.42009999999937,
+        "bytes": 8876,
+        "timing": "app;dur=380.49, boot;dur=178.45, db;dur=36.52, queries;desc=\"13\""
+      },
+      {
+        "ms": 422.33050000000003,
+        "bytes": 8876,
+        "timing": "app;dur=416.22, boot;dur=174.43, db;dur=45.60, queries;desc=\"14\""
+      },
+      {
+        "ms": 420.3730000000014,
+        "bytes": 8876,
+        "timing": "app;dur=414.29, boot;dur=200.45, db;dur=27.75, queries;desc=\"13\""
+      },
+      {
+        "ms": 408.634399999999,
+        "bytes": 8876,
+        "timing": "app;dur=401.30, boot;dur=177.99, db;dur=52.00, queries;desc=\"14\""
+      },
+      {
+        "ms": 365.5783999999985,
+        "bytes": 8876,
+        "timing": "app;dur=357.96, boot;dur=171.44, db;dur=14.60, queries;desc=\"13\""
+      }
+    ]
+  },
+  {
+    "engine": "mysql",
+    "path": "/api/v1/driver/orders",
+    "samples": [
+      {
+        "ms": 534.4143000000004,
+        "bytes": 1469,
+        "timing": "app;dur=527.24, boot;dur=180.06, db;dur=47.73, queries;desc=\"15\""
+      },
+      {
+        "ms": 353.7983999999997,
+        "bytes": 1469,
+        "timing": "app;dur=348.35, boot;dur=167.65, db;dur=37.68, queries;desc=\"15\""
+      },
+      {
+        "ms": 325.5498000000007,
+        "bytes": 1469,
+        "timing": "app;dur=319.16, boot;dur=162.58, db;dur=15.18, queries;desc=\"14\""
+      },
+      {
+        "ms": 348.58889999999883,
+        "bytes": 1469,
+        "timing": "app;dur=340.67, boot;dur=160.12, db;dur=37.56, queries;desc=\"14\""
+      },
+      {
+        "ms": 365.15140000000247,
+        "bytes": 1469,
+        "timing": "app;dur=358.70, boot;dur=166.26, db;dur=50.54, queries;desc=\"15\""
+      },
+      {
+        "ms": 449.39230000000316,
+        "bytes": 1469,
+        "timing": "app;dur=440.81, boot;dur=204.65, db;dur=20.38, queries;desc=\"14\""
+      },
+      {
+        "ms": 546.2260000000024,
+        "bytes": 1469,
+        "timing": "app;dur=537.85, boot;dur=282.37, db;dur=28.89, queries;desc=\"15\""
+      }
+    ]
+  },
+  {
+    "engine": "sqlite",
+    "path": "/api/v1/home?branch=:branch",
+    "samples": [
+      {
+        "ms": 411.2667000000001,
+        "bytes": 9146,
+        "timing": "app;dur=397.91, boot;dur=231.25, db;dur=7.94, queries;desc=\"17\""
+      },
+      {
+        "ms": 341.7541999999994,
+        "bytes": 9146,
+        "timing": "app;dur=334.34, boot;dur=195.79, db;dur=7.00, queries;desc=\"17\""
+      },
+      {
+        "ms": 333.0661999999975,
+        "bytes": 9146,
+        "timing": "app;dur=324.10, boot;dur=186.02, db;dur=7.12, queries;desc=\"17\""
+      },
+      {
+        "ms": 346.65450000000055,
+        "bytes": 9146,
+        "timing": "app;dur=339.10, boot;dur=196.96, db;dur=6.79, queries;desc=\"17\""
+      },
+      {
+        "ms": 317.90629999999874,
+        "bytes": 9146,
+        "timing": "app;dur=311.59, boot;dur=180.70, db;dur=7.68, queries;desc=\"17\""
+      },
+      {
+        "ms": 307.84100000000035,
+        "bytes": 9146,
+        "timing": "app;dur=299.75, boot;dur=172.63, db;dur=6.21, queries;desc=\"17\""
+      },
+      {
+        "ms": 308.33539999999994,
+        "bytes": 9146,
+        "timing": "app;dur=301.23, boot;dur=168.68, db;dur=6.48, queries;desc=\"17\""
+      }
+    ]
+  },
+  {
+    "engine": "sqlite",
+    "path": "/api/v1/menu?branch=:branch",
+    "samples": [
+      {
+        "ms": 292.8705999999984,
+        "bytes": 6299,
+        "timing": "app;dur=287.11, boot;dur=175.04, db;dur=6.10, queries;desc=\"9\""
+      },
+      {
+        "ms": 291.47509999999966,
+        "bytes": 6299,
+        "timing": "app;dur=285.89, boot;dur=179.62, db;dur=4.29, queries;desc=\"9\""
+      },
+      {
+        "ms": 299.64260000000286,
+        "bytes": 6299,
+        "timing": "app;dur=293.03, boot;dur=180.46, db;dur=5.22, queries;desc=\"9\""
+      },
+      {
+        "ms": 282.59639999999854,
+        "bytes": 6299,
+        "timing": "app;dur=275.76, boot;dur=169.90, db;dur=4.40, queries;desc=\"9\""
+      },
+      {
+        "ms": 283.47290000000066,
+        "bytes": 6299,
+        "timing": "app;dur=276.57, boot;dur=172.67, db;dur=4.27, queries;desc=\"9\""
+      },
+      {
+        "ms": 288.21770000000106,
+        "bytes": 6299,
+        "timing": "app;dur=279.65, boot;dur=174.66, db;dur=4.52, queries;desc=\"9\""
+      },
+      {
+        "ms": 281.5774999999994,
+        "bytes": 6299,
+        "timing": "app;dur=275.13, boot;dur=173.04, db;dur=4.45, queries;desc=\"9\""
+      }
+    ]
+  },
+  {
+    "engine": "sqlite",
+    "path": "/api/v1/menu/products/:product?branch=:branch",
+    "samples": [
+      {
+        "ms": 261.90230000000156,
+        "bytes": 1067,
+        "timing": "app;dur=254.70, boot;dur=162.23, db;dur=4.12, queries;desc=\"9\""
+      },
+      {
+        "ms": 269.07050000000163,
+        "bytes": 1067,
+        "timing": "app;dur=263.53, boot;dur=172.42, db;dur=4.17, queries;desc=\"9\""
+      },
+      {
+        "ms": 264.46679999999833,
+        "bytes": 1067,
+        "timing": "app;dur=258.21, boot;dur=161.96, db;dur=4.16, queries;desc=\"9\""
+      },
+      {
+        "ms": 282.48619999999937,
+        "bytes": 1067,
+        "timing": "app;dur=276.58, boot;dur=178.44, db;dur=4.40, queries;desc=\"9\""
+      },
+      {
+        "ms": 329.9907000000021,
+        "bytes": 1067,
+        "timing": "app;dur=323.38, boot;dur=179.94, db;dur=5.74, queries;desc=\"9\""
+      },
+      {
+        "ms": 363.3091000000022,
+        "bytes": 1067,
+        "timing": "app;dur=354.66, boot;dur=235.25, db;dur=7.02, queries;desc=\"9\""
+      },
+      {
+        "ms": 294.5627999999997,
+        "bytes": 1067,
+        "timing": "app;dur=286.36, boot;dur=186.54, db;dur=4.65, queries;desc=\"9\""
+      }
+    ]
+  },
+  {
+    "engine": "sqlite",
+    "path": "/api/v1/branches",
+    "samples": [
+      {
+        "ms": 250.72550000000047,
+        "bytes": 729,
+        "timing": "app;dur=242.76, boot;dur=175.24, db;dur=4.08, queries;desc=\"1\""
+      },
+      {
+        "ms": 242.0544000000009,
+        "bytes": 729,
+        "timing": "app;dur=235.69, boot;dur=173.26, db;dur=2.88, queries;desc=\"1\""
+      },
+      {
+        "ms": 246.1851999999999,
+        "bytes": 729,
+        "timing": "app;dur=239.06, boot;dur=174.83, db;dur=2.87, queries;desc=\"1\""
+      },
+      {
+        "ms": 232.59939999999915,
+        "bytes": 729,
+        "timing": "app;dur=225.11, boot;dur=165.51, db;dur=2.78, queries;desc=\"1\""
+      },
+      {
+        "ms": 249.86379999999917,
+        "bytes": 729,
+        "timing": "app;dur=243.18, boot;dur=174.26, db;dur=2.84, queries;desc=\"1\""
+      },
+      {
+        "ms": 236.41939999999886,
+        "bytes": 729,
+        "timing": "app;dur=230.14, boot;dur=169.37, db;dur=2.77, queries;desc=\"1\""
+      },
+      {
+        "ms": 245.23739999999816,
+        "bytes": 729,
+        "timing": "app;dur=238.47, boot;dur=169.09, db;dur=4.55, queries;desc=\"1\""
+      }
+    ]
+  },
+  {
+    "engine": "sqlite",
+    "path": "/api/v1/cart",
+    "samples": [
+      {
+        "ms": 293.7163999999975,
+        "bytes": 680,
+        "timing": "app;dur=287.83, boot;dur=168.39, db;dur=23.20, queries;desc=\"12\""
+      },
+      {
+        "ms": 273.4928,
+        "bytes": 680,
+        "timing": "app;dur=265.14, boot;dur=164.28, db;dur=7.55, queries;desc=\"11\""
+      },
+      {
+        "ms": 350.5066999999981,
+        "bytes": 680,
+        "timing": "app;dur=342.12, boot;dur=219.57, db;dur=5.39, queries;desc=\"11\""
+      },
+      {
+        "ms": 315.1202000000012,
+        "bytes": 680,
+        "timing": "app;dur=307.76, boot;dur=184.69, db;dur=24.34, queries;desc=\"12\""
+      },
+      {
+        "ms": 273.97169999999824,
+        "bytes": 680,
+        "timing": "app;dur=267.99, boot;dur=169.70, db;dur=5.04, queries;desc=\"11\""
+      },
+      {
+        "ms": 281.02050000000236,
+        "bytes": 680,
+        "timing": "app;dur=275.49, boot;dur=178.99, db;dur=4.75, queries;desc=\"11\""
+      },
+      {
+        "ms": 298.5639999999985,
+        "bytes": 680,
+        "timing": "app;dur=292.11, boot;dur=166.70, db;dur=26.32, queries;desc=\"12\""
+      }
+    ]
+  },
+  {
+    "engine": "sqlite",
+    "path": "/api/v1/addresses",
+    "samples": [
+      {
+        "ms": 242.21650000000227,
+        "bytes": 578,
+        "timing": "app;dur=236.59, boot;dur=167.33, db;dur=3.02, queries;desc=\"3\""
+      },
+      {
+        "ms": 244.01780000000144,
+        "bytes": 578,
+        "timing": "app;dur=237.38, boot;dur=164.30, db;dur=4.09, queries;desc=\"3\""
+      },
+      {
+        "ms": 249.65180000000328,
+        "bytes": 578,
+        "timing": "app;dur=244.09, boot;dur=172.57, db;dur=4.08, queries;desc=\"3\""
+      },
+      {
+        "ms": 265.1978999999992,
+        "bytes": 578,
+        "timing": "app;dur=259.40, boot;dur=163.64, db;dur=29.60, queries;desc=\"4\""
+      },
+      {
+        "ms": 237.5753999999979,
+        "bytes": 578,
+        "timing": "app;dur=230.98, boot;dur=164.12, db;dur=3.48, queries;desc=\"3\""
+      },
+      {
+        "ms": 240.47409999999945,
+        "bytes": 578,
+        "timing": "app;dur=233.12, boot;dur=162.38, db;dur=3.00, queries;desc=\"3\""
+      },
+      {
+        "ms": 245.47849999999744,
+        "bytes": 578,
+        "timing": "app;dur=238.20, boot;dur=166.16, db;dur=3.43, queries;desc=\"3\""
+      }
+    ]
+  },
+  {
+    "engine": "sqlite",
+    "path": "/api/v1/orders/:order/tracking",
+    "samples": [
+      {
+        "ms": 280.96459999999934,
+        "bytes": 2413,
+        "timing": "app;dur=274.50, boot;dur=172.61, db;dur=12.12, queries;desc=\"9\""
+      },
+      {
+        "ms": 259.6782000000021,
+        "bytes": 2413,
+        "timing": "app;dur=253.36, boot;dur=174.04, db;dur=4.52, queries;desc=\"8\""
+      },
+      {
+        "ms": 246.7201999999961,
+        "bytes": 2413,
+        "timing": "app;dur=240.33, boot;dur=161.88, db;dur=4.28, queries;desc=\"8\""
+      },
+      {
+        "ms": 260.6218999999983,
+        "bytes": 2413,
+        "timing": "app;dur=255.19, boot;dur=173.48, db;dur=4.17, queries;desc=\"8\""
+      },
+      {
+        "ms": 272.26480000000447,
+        "bytes": 2413,
+        "timing": "app;dur=265.52, boot;dur=166.33, db;dur=22.54, queries;desc=\"9\""
+      },
+      {
+        "ms": 252.9470999999976,
+        "bytes": 2413,
+        "timing": "app;dur=245.18, boot;dur=165.86, db;dur=4.73, queries;desc=\"8\""
+      },
+      {
+        "ms": 258.4824000000008,
+        "bytes": 2413,
+        "timing": "app;dur=252.91, boot;dur=165.25, db;dur=4.48, queries;desc=\"8\""
+      }
+    ]
+  },
+  {
+    "engine": "sqlite",
+    "path": "/api/v1/admin/dashboard",
+    "samples": [
+      {
+        "ms": 332.9427999999971,
+        "bytes": 3228,
+        "timing": "app;dur=326.40, boot;dur=167.35, db;dur=12.33, queries;desc=\"15\""
+      },
+      {
+        "ms": 365.9895000000033,
+        "bytes": 3228,
+        "timing": "app;dur=359.52, boot;dur=180.44, db;dur=40.18, queries;desc=\"15\""
+      },
+      {
+        "ms": 320.5936999999976,
+        "bytes": 3228,
+        "timing": "app;dur=312.73, boot;dur=165.78, db;dur=6.03, queries;desc=\"14\""
+      },
+      {
+        "ms": 319.9830000000002,
+        "bytes": 3228,
+        "timing": "app;dur=312.13, boot;dur=165.41, db;dur=6.13, queries;desc=\"14\""
+      },
+      {
+        "ms": 312.2939000000042,
+        "bytes": 3228,
+        "timing": "app;dur=305.87, boot;dur=163.52, db;dur=11.37, queries;desc=\"15\""
+      },
+      {
+        "ms": 304.72469999999885,
+        "bytes": 3228,
+        "timing": "app;dur=297.06, boot;dur=161.23, db;dur=6.11, queries;desc=\"14\""
+      },
+      {
+        "ms": 308.7644999999975,
+        "bytes": 3228,
+        "timing": "app;dur=303.13, boot;dur=158.92, db;dur=8.43, queries;desc=\"14\""
+      }
+    ]
+  },
+  {
+    "engine": "sqlite",
+    "path": "/api/v1/admin/orders",
+    "samples": [
+      {
+        "ms": 376.95730000000185,
+        "bytes": 8876,
+        "timing": "app;dur=370.10, boot;dur=174.25, db;dur=13.06, queries;desc=\"14\""
+      },
+      {
+        "ms": 349.49930000000313,
+        "bytes": 8876,
+        "timing": "app;dur=341.25, boot;dur=170.93, db;dur=6.22, queries;desc=\"13\""
+      },
+      {
+        "ms": 335.6129000000001,
+        "bytes": 8876,
+        "timing": "app;dur=328.68, boot;dur=163.87, db;dur=6.41, queries;desc=\"13\""
+      },
+      {
+        "ms": 364.04529999999795,
+        "bytes": 8876,
+        "timing": "app;dur=356.17, boot;dur=166.20, db;dur=24.75, queries;desc=\"14\""
+      },
+      {
+        "ms": 343.81550000000425,
+        "bytes": 8876,
+        "timing": "app;dur=337.93, boot;dur=163.43, db;dur=6.95, queries;desc=\"13\""
+      },
+      {
+        "ms": 326.329899999997,
+        "bytes": 8876,
+        "timing": "app;dur=318.98, boot;dur=158.14, db;dur=5.79, queries;desc=\"13\""
+      },
+      {
+        "ms": 353.7890000000043,
+        "bytes": 8876,
+        "timing": "app;dur=347.35, boot;dur=160.62, db;dur=23.60, queries;desc=\"14\""
+      }
+    ]
+  },
+  {
+    "engine": "sqlite",
+    "path": "/api/v1/driver/orders",
+    "samples": [
+      {
+        "ms": 369.52769999999873,
+        "bytes": 1469,
+        "timing": "app;dur=363.30, boot;dur=175.75, db;dur=42.65, queries;desc=\"15\""
+      },
+      {
+        "ms": 350.83959999999934,
+        "bytes": 1469,
+        "timing": "app;dur=343.67, boot;dur=168.04, db;dur=35.58, queries;desc=\"15\""
+      },
+      {
+        "ms": 310.0002000000022,
+        "bytes": 1469,
+        "timing": "app;dur=303.37, boot;dur=155.90, db;dur=5.98, queries;desc=\"14\""
+      },
+      {
+        "ms": 303.12489999999525,
+        "bytes": 1469,
+        "timing": "app;dur=296.83, boot;dur=158.04, db;dur=5.84, queries;desc=\"14\""
+      },
+      {
+        "ms": 331.3208999999988,
+        "bytes": 1469,
+        "timing": "app;dur=324.58, boot;dur=159.28, db;dur=23.24, queries;desc=\"15\""
+      },
+      {
+        "ms": 328.72529999999824,
+        "bytes": 1469,
+        "timing": "app;dur=322.66, boot;dur=169.54, db;dur=6.31, queries;desc=\"14\""
+      },
+      {
+        "ms": 317.61179999999877,
+        "bytes": 1469,
+        "timing": "app;dur=310.88, boot;dur=160.05, db;dur=6.01, queries;desc=\"14\""
+      }
+    ]
+  }
+]

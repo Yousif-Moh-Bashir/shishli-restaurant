@@ -1,0 +1,4591 @@
+{
+  "stage": "after-final",
+  "mode": "development",
+  "engine": "mysql",
+  "transport": "real isolated Laravel API",
+  "viewport": "390x844 DPR1",
+  "cpuSlowdown": 4,
+  "network": "1.6Mbps down, 750Kbps up, 100ms latency",
+  "repetitions": 3,
+  "pages": [
+    {
+      "name": "Home",
+      "path": "/",
+      "sample": 0,
+      "lcp": 28284,
+      "cls": 0,
+      "events": [],
+      "longTasks": [
+        91,
+        1461,
+        3720,
+        79,
+        126,
+        55
+      ],
+      "lcpElement": "hero-art",
+      "fcp": 28284,
+      "ttfb": 146.90000009536743,
+      "dom": 21722.5,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 4075401,
+      "css_bytes": 1113,
+      "image_bytes": 279650,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 772.28,
+          "serverTiming": "app;dur=677.08, boot;dur=524.96, db;dur=14.81, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 1471.28,
+          "serverTiming": "app;dur=598.11, boot;dur=471.49, db;dur=19.27, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 751.14,
+          "serverTiming": "app;dur=450.61, boot;dur=336.03, db;dur=7.81, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1164.64,
+          "serverTiming": "app;dur=400.18, boot;dur=262.61, db;dur=22.79, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1558.64,
+          "serverTiming": "app;dur=375.39, boot;dur=282.79, db;dur=5.35, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/home",
+          "status": 200,
+          "ms": 2026.29,
+          "serverTiming": "app;dur=384.50, boot;dur=218.23, db;dur=38.26, queries;desc=\"17\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2861.2,
+          "serverTiming": "app;dur=701.89, boot;dur=414.00, db;dur=54.30, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/@vite/client",
+          "type": "Script",
+          "bytes": 221802
+        },
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 1113
+        },
+        {
+          "path": "/src/main.js",
+          "type": "Script",
+          "bytes": 6714
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.js",
+          "type": "Script",
+          "bytes": 26201
+        },
+        {
+          "path": "/node_modules/.vite/deps/pinia.js",
+          "type": "Script",
+          "bytes": 157456
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 10124
+        },
+        {
+          "path": "/src/router/index.js",
+          "type": "Script",
+          "bytes": 64469
+        },
+        {
+          "path": "/src/assets/css/site.css",
+          "type": "Script",
+          "bytes": 46277
+        },
+        {
+          "path": "/src/assets/css/skeleton.css",
+          "type": "Script",
+          "bytes": 3809
+        },
+        {
+          "path": "/src/assets/css/modals.css",
+          "type": "Script",
+          "bytes": 1149
+        },
+        {
+          "path": "/src/assets/css/settings.css",
+          "type": "Script",
+          "bytes": 10632
+        },
+        {
+          "path": "/src/assets/css/public-restoration.css",
+          "type": "Script",
+          "bytes": 33670
+        },
+        {
+          "path": "/src/assets/css/cart-feedback.css",
+          "type": "Script",
+          "bytes": 2814
+        },
+        {
+          "path": "/src/directives/adminTable.js",
+          "type": "Script",
+          "bytes": 5918
+        },
+        {
+          "path": "/src/stores/auth.js",
+          "type": "Script",
+          "bytes": 29141
+        },
+        {
+          "path": "/src/stores/cart.js",
+          "type": "Script",
+          "bytes": 70254
+        },
+        {
+          "path": "/src/api/http.js",
+          "type": "Script",
+          "bytes": 7920
+        },
+        {
+          "path": "/src/router/authGuards.js",
+          "type": "Script",
+          "bytes": 10662
+        },
+        {
+          "path": "/src/components/common/AppSkeleton.vue",
+          "type": "Script",
+          "bytes": 14435
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue-router.js",
+          "type": "Script",
+          "bytes": 353377
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 1013
+        },
+        {
+          "path": "/@id/__x00__plugin-vue:export-helper",
+          "type": "Script",
+          "bytes": 1363
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.runtime.esm-bundler-Bo_ScjpA.js",
+          "type": "Script",
+          "bytes": 1203242
+        },
+        {
+          "path": "/src/layouts/SiteLayout.vue",
+          "type": "Script",
+          "bytes": 61880
+        },
+        {
+          "path": "/src/constants/reports.js",
+          "type": "Script",
+          "bytes": 51520
+        },
+        {
+          "path": "/src/constants/settings.js",
+          "type": "Script",
+          "bytes": 25908
+        },
+        {
+          "path": "/src/constants/adminNavigation.js",
+          "type": "Script",
+          "bytes": 19810
+        },
+        {
+          "path": "/node_modules/.vite/deps/axios.js",
+          "type": "Script",
+          "bytes": 463081
+        },
+        {
+          "path": "/src/utils/phone.js",
+          "type": "Script",
+          "bytes": 7088
+        },
+        {
+          "path": "/src/api/auth.api.js",
+          "type": "Script",
+          "bytes": 3455
+        },
+        {
+          "path": "/src/api/drivers.api.js",
+          "type": "Script",
+          "bytes": 9596
+        },
+        {
+          "path": "/src/utils/apiError.js",
+          "type": "Script",
+          "bytes": 9423
+        },
+        {
+          "path": "/src/utils/authToken.js",
+          "type": "Script",
+          "bytes": 1964
+        },
+        {
+          "path": "/src/api/cart.api.js",
+          "type": "Script",
+          "bytes": 7016
+        },
+        {
+          "path": "/src/api/delivery.api.js",
+          "type": "Script",
+          "bytes": 5489
+        },
+        {
+          "path": "/src/api/checkout.api.js",
+          "type": "Script",
+          "bytes": 2411
+        },
+        {
+          "path": "/src/utils/orderAccess.js",
+          "type": "Script",
+          "bytes": 20334
+        },
+        {
+          "path": "/src/stores/branch.js",
+          "type": "Script",
+          "bytes": 10952
+        },
+        {
+          "path": "/node_modules/.vite/deps/dist-C9iN58Rj.js",
+          "type": "Script",
+          "bytes": 521768
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 36137
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 24951
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 39059
+        },
+        {
+          "path": "/src/stores/registrationOffer.js",
+          "type": "Script",
+          "bytes": 11515
+        },
+        {
+          "path": "/src/components/site/SiteFooter.vue",
+          "type": "Script",
+          "bytes": 23835
+        },
+        {
+          "path": "/src/components/site/SiteIcon.vue",
+          "type": "Script",
+          "bytes": 2953
+        },
+        {
+          "path": "/src/components/site/CartItems.vue",
+          "type": "Script",
+          "bytes": 30717
+        },
+        {
+          "path": "/src/components/site/CartSummary.vue",
+          "type": "Script",
+          "bytes": 17336
+        },
+        {
+          "path": "/src/composables/useRestaurantInfo.js",
+          "type": "Script",
+          "bytes": 5483
+        },
+        {
+          "path": "/src/composables/useCartClickSound.js",
+          "type": "Script",
+          "bytes": 7790
+        },
+        {
+          "path": "/node_modules/vite/dist/client/env.mjs",
+          "type": "Script",
+          "bytes": 4185
+        },
+        {
+          "path": "/src/api/catalogTransport.js",
+          "type": "Script",
+          "bytes": 6023
+        },
+        {
+          "path": "/src/api/settings.api.js",
+          "type": "Script",
+          "bytes": 3438
+        },
+        {
+          "path": "/src/api/branches.api.js",
+          "type": "Script",
+          "bytes": 5462
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 5864
+        },
+        {
+          "path": "/src/composables/useSessionLogout.js",
+          "type": "Script",
+          "bytes": 3621
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 1006
+        },
+        {
+          "path": "/src/api/promotions.api.js",
+          "type": "Script",
+          "bytes": 2481
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 3400
+        },
+        {
+          "path": "/src/components/site/PublicBusinessHours.vue",
+          "type": "Script",
+          "bytes": 26917
+        },
+        {
+          "path": "/src/data/icons.js",
+          "type": "Script",
+          "bytes": 17106
+        },
+        {
+          "path": "/src/utils/formatters.js",
+          "type": "Script",
+          "bytes": 5803
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 14011
+        },
+        {
+          "path": "/src/stores/publicSettings.js",
+          "type": "Script",
+          "bytes": 4778
+        },
+        {
+          "path": "/src/composables/useApiState.js",
+          "type": "Script",
+          "bytes": 8275
+        },
+        {
+          "path": "/src/api/businessHours.api.js",
+          "type": "Script",
+          "bytes": 5508
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 2718
+        },
+        {
+          "path": "/node_modules/.vite/deps/rolldown-runtime-EAsCxrDo.js",
+          "type": "Script",
+          "bytes": 3163
+        },
+        {
+          "path": "/src/views/site/HomeView.vue",
+          "type": "Script",
+          "bytes": 80743
+        },
+        {
+          "path": "/src/api/cms.api.js",
+          "type": "Script",
+          "bytes": 11488
+        },
+        {
+          "path": "/src/composables/useCmsPage.js",
+          "type": "Script",
+          "bytes": 8846
+        },
+        {
+          "path": "/src/composables/usePublicMenu.js",
+          "type": "Script",
+          "bytes": 10095
+        },
+        {
+          "path": "/src/utils/contentUrl.js",
+          "type": "Script",
+          "bytes": 2108
+        },
+        {
+          "path": "/src/components/site/ProductCard.vue",
+          "type": "Script",
+          "bytes": 17123
+        },
+        {
+          "path": "/src/components/site/BranchSelector.vue",
+          "type": "Script",
+          "bytes": 17752
+        },
+        {
+          "path": "/src/components/site/SiteOffers.vue",
+          "type": "Script",
+          "bytes": 10230
+        },
+        {
+          "path": "/src/components/site/ContentLink.vue",
+          "type": "Script",
+          "bytes": 6736
+        },
+        {
+          "path": "/src/components/site/SiteGallery.vue",
+          "type": "Script",
+          "bytes": 48287
+        },
+        {
+          "path": "/src/api/products.api.js",
+          "type": "Script",
+          "bytes": 3931
+        },
+        {
+          "path": "/src/api/categories.api.js",
+          "type": "Script",
+          "bytes": 3124
+        },
+        {
+          "path": "/src/composables/useCartFeedback.js",
+          "type": "Script",
+          "bytes": 2747
+        },
+        {
+          "path": "/src/components/site/PublicOperationStatus.vue",
+          "type": "Script",
+          "bytes": 17028
+        },
+        {
+          "path": "/src/stores/operations.js",
+          "type": "Script",
+          "bytes": 5691
+        },
+        {
+          "path": "/src/api/operations.api.js",
+          "type": "Script",
+          "bytes": 1800
+        },
+        {
+          "path": "/src/assets/images/logo/shishli-logo.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/src/assets/images/banners/restaurant-reference.webp",
+          "type": "Image",
+          "bytes": 240032
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10789
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9141
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10319
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9565
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10113
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 9026
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8727
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10611
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8967
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Home",
+      "path": "/",
+      "sample": 1,
+      "lcp": 24248,
+      "cls": 0.00027347365317087474,
+      "events": [],
+      "longTasks": [
+        125,
+        384,
+        51,
+        61
+      ],
+      "lcpElement": "hero-art",
+      "fcp": 22224,
+      "ttfb": 149.59999990463257,
+      "dom": 20043.5,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 4075401,
+      "css_bytes": 1113,
+      "image_bytes": 279650,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 507.52,
+          "serverTiming": "app;dur=405.36, boot;dur=318.73, db;dur=3.69, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 905.11,
+          "serverTiming": "app;dur=284.05, boot;dur=201.11, db;dur=3.93, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 503.77,
+          "serverTiming": "app;dur=384.30, boot;dur=239.42, db;dur=6.05, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 808.47,
+          "serverTiming": "app;dur=302.91, boot;dur=206.39, db;dur=5.94, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1117.51,
+          "serverTiming": "app;dur=302.74, boot;dur=227.98, db;dur=5.91, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/home",
+          "status": 200,
+          "ms": 1706.16,
+          "serverTiming": "app;dur=475.84, boot;dur=213.01, db;dur=38.13, queries;desc=\"17\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2423.77,
+          "serverTiming": "app;dur=527.96, boot;dur=277.33, db;dur=41.33, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/@vite/client",
+          "type": "Script",
+          "bytes": 221802
+        },
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 1113
+        },
+        {
+          "path": "/src/main.js",
+          "type": "Script",
+          "bytes": 6714
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.js",
+          "type": "Script",
+          "bytes": 26201
+        },
+        {
+          "path": "/node_modules/.vite/deps/pinia.js",
+          "type": "Script",
+          "bytes": 157456
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 10124
+        },
+        {
+          "path": "/src/router/index.js",
+          "type": "Script",
+          "bytes": 64469
+        },
+        {
+          "path": "/src/assets/css/site.css",
+          "type": "Script",
+          "bytes": 46277
+        },
+        {
+          "path": "/src/assets/css/skeleton.css",
+          "type": "Script",
+          "bytes": 3809
+        },
+        {
+          "path": "/src/assets/css/modals.css",
+          "type": "Script",
+          "bytes": 1149
+        },
+        {
+          "path": "/src/assets/css/settings.css",
+          "type": "Script",
+          "bytes": 10632
+        },
+        {
+          "path": "/src/assets/css/public-restoration.css",
+          "type": "Script",
+          "bytes": 33670
+        },
+        {
+          "path": "/src/assets/css/cart-feedback.css",
+          "type": "Script",
+          "bytes": 2814
+        },
+        {
+          "path": "/src/directives/adminTable.js",
+          "type": "Script",
+          "bytes": 5918
+        },
+        {
+          "path": "/src/stores/auth.js",
+          "type": "Script",
+          "bytes": 29141
+        },
+        {
+          "path": "/src/stores/cart.js",
+          "type": "Script",
+          "bytes": 70254
+        },
+        {
+          "path": "/src/api/http.js",
+          "type": "Script",
+          "bytes": 7920
+        },
+        {
+          "path": "/src/router/authGuards.js",
+          "type": "Script",
+          "bytes": 10662
+        },
+        {
+          "path": "/src/components/common/AppSkeleton.vue",
+          "type": "Script",
+          "bytes": 14435
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue-router.js",
+          "type": "Script",
+          "bytes": 353377
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 1013
+        },
+        {
+          "path": "/@id/__x00__plugin-vue:export-helper",
+          "type": "Script",
+          "bytes": 1363
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.runtime.esm-bundler-Bo_ScjpA.js",
+          "type": "Script",
+          "bytes": 1203242
+        },
+        {
+          "path": "/src/layouts/SiteLayout.vue",
+          "type": "Script",
+          "bytes": 61880
+        },
+        {
+          "path": "/src/constants/reports.js",
+          "type": "Script",
+          "bytes": 51520
+        },
+        {
+          "path": "/src/constants/settings.js",
+          "type": "Script",
+          "bytes": 25908
+        },
+        {
+          "path": "/src/constants/adminNavigation.js",
+          "type": "Script",
+          "bytes": 19810
+        },
+        {
+          "path": "/node_modules/.vite/deps/axios.js",
+          "type": "Script",
+          "bytes": 463081
+        },
+        {
+          "path": "/src/utils/phone.js",
+          "type": "Script",
+          "bytes": 7088
+        },
+        {
+          "path": "/src/api/auth.api.js",
+          "type": "Script",
+          "bytes": 3455
+        },
+        {
+          "path": "/src/api/drivers.api.js",
+          "type": "Script",
+          "bytes": 9596
+        },
+        {
+          "path": "/src/utils/apiError.js",
+          "type": "Script",
+          "bytes": 9423
+        },
+        {
+          "path": "/src/utils/authToken.js",
+          "type": "Script",
+          "bytes": 1964
+        },
+        {
+          "path": "/src/api/cart.api.js",
+          "type": "Script",
+          "bytes": 7016
+        },
+        {
+          "path": "/src/api/delivery.api.js",
+          "type": "Script",
+          "bytes": 5489
+        },
+        {
+          "path": "/src/api/checkout.api.js",
+          "type": "Script",
+          "bytes": 2411
+        },
+        {
+          "path": "/src/utils/orderAccess.js",
+          "type": "Script",
+          "bytes": 20334
+        },
+        {
+          "path": "/src/stores/branch.js",
+          "type": "Script",
+          "bytes": 10952
+        },
+        {
+          "path": "/node_modules/.vite/deps/dist-C9iN58Rj.js",
+          "type": "Script",
+          "bytes": 521768
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 36137
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 24951
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 39059
+        },
+        {
+          "path": "/src/stores/registrationOffer.js",
+          "type": "Script",
+          "bytes": 11515
+        },
+        {
+          "path": "/src/components/site/SiteFooter.vue",
+          "type": "Script",
+          "bytes": 23835
+        },
+        {
+          "path": "/src/components/site/SiteIcon.vue",
+          "type": "Script",
+          "bytes": 2953
+        },
+        {
+          "path": "/src/components/site/CartItems.vue",
+          "type": "Script",
+          "bytes": 30717
+        },
+        {
+          "path": "/src/components/site/CartSummary.vue",
+          "type": "Script",
+          "bytes": 17336
+        },
+        {
+          "path": "/src/composables/useRestaurantInfo.js",
+          "type": "Script",
+          "bytes": 5483
+        },
+        {
+          "path": "/src/composables/useCartClickSound.js",
+          "type": "Script",
+          "bytes": 7790
+        },
+        {
+          "path": "/node_modules/vite/dist/client/env.mjs",
+          "type": "Script",
+          "bytes": 4185
+        },
+        {
+          "path": "/src/api/catalogTransport.js",
+          "type": "Script",
+          "bytes": 6023
+        },
+        {
+          "path": "/src/api/settings.api.js",
+          "type": "Script",
+          "bytes": 3438
+        },
+        {
+          "path": "/src/api/branches.api.js",
+          "type": "Script",
+          "bytes": 5462
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 5864
+        },
+        {
+          "path": "/src/composables/useSessionLogout.js",
+          "type": "Script",
+          "bytes": 3621
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 1006
+        },
+        {
+          "path": "/src/api/promotions.api.js",
+          "type": "Script",
+          "bytes": 2481
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 3400
+        },
+        {
+          "path": "/src/components/site/PublicBusinessHours.vue",
+          "type": "Script",
+          "bytes": 26917
+        },
+        {
+          "path": "/src/data/icons.js",
+          "type": "Script",
+          "bytes": 17106
+        },
+        {
+          "path": "/src/utils/formatters.js",
+          "type": "Script",
+          "bytes": 5803
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 14011
+        },
+        {
+          "path": "/src/stores/publicSettings.js",
+          "type": "Script",
+          "bytes": 4778
+        },
+        {
+          "path": "/src/composables/useApiState.js",
+          "type": "Script",
+          "bytes": 8275
+        },
+        {
+          "path": "/src/api/businessHours.api.js",
+          "type": "Script",
+          "bytes": 5508
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 2718
+        },
+        {
+          "path": "/node_modules/.vite/deps/rolldown-runtime-EAsCxrDo.js",
+          "type": "Script",
+          "bytes": 3163
+        },
+        {
+          "path": "/src/views/site/HomeView.vue",
+          "type": "Script",
+          "bytes": 80743
+        },
+        {
+          "path": "/src/api/cms.api.js",
+          "type": "Script",
+          "bytes": 11488
+        },
+        {
+          "path": "/src/composables/useCmsPage.js",
+          "type": "Script",
+          "bytes": 8846
+        },
+        {
+          "path": "/src/composables/usePublicMenu.js",
+          "type": "Script",
+          "bytes": 10095
+        },
+        {
+          "path": "/src/utils/contentUrl.js",
+          "type": "Script",
+          "bytes": 2108
+        },
+        {
+          "path": "/src/components/site/ProductCard.vue",
+          "type": "Script",
+          "bytes": 17123
+        },
+        {
+          "path": "/src/components/site/BranchSelector.vue",
+          "type": "Script",
+          "bytes": 17752
+        },
+        {
+          "path": "/src/components/site/SiteOffers.vue",
+          "type": "Script",
+          "bytes": 10230
+        },
+        {
+          "path": "/src/components/site/ContentLink.vue",
+          "type": "Script",
+          "bytes": 6736
+        },
+        {
+          "path": "/src/components/site/SiteGallery.vue",
+          "type": "Script",
+          "bytes": 48287
+        },
+        {
+          "path": "/src/api/products.api.js",
+          "type": "Script",
+          "bytes": 3931
+        },
+        {
+          "path": "/src/api/categories.api.js",
+          "type": "Script",
+          "bytes": 3124
+        },
+        {
+          "path": "/src/composables/useCartFeedback.js",
+          "type": "Script",
+          "bytes": 2747
+        },
+        {
+          "path": "/src/components/site/PublicOperationStatus.vue",
+          "type": "Script",
+          "bytes": 17028
+        },
+        {
+          "path": "/src/stores/operations.js",
+          "type": "Script",
+          "bytes": 5691
+        },
+        {
+          "path": "/src/api/operations.api.js",
+          "type": "Script",
+          "bytes": 1800
+        },
+        {
+          "path": "/src/assets/images/logo/shishli-logo.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/src/assets/images/banners/restaurant-reference.webp",
+          "type": "Image",
+          "bytes": 240032
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10789
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9141
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10319
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9565
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10113
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 9026
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8817
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10679
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9057
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Home",
+      "path": "/",
+      "sample": 2,
+      "lcp": 24160,
+      "cls": 0.0007549819204449184,
+      "events": [],
+      "longTasks": [
+        110,
+        345,
+        67
+      ],
+      "lcpElement": "hero-art",
+      "fcp": 22192,
+      "ttfb": 138.79999995231628,
+      "dom": 20012.200000047684,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 4075401,
+      "css_bytes": 765,
+      "image_bytes": 279650,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 418.6,
+          "serverTiming": "app;dur=342.78, boot;dur=250.74, db;dur=3.60, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 841.52,
+          "serverTiming": "app;dur=416.30, boot;dur=189.22, db;dur=3.58, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 590.37,
+          "serverTiming": "app;dur=349.11, boot;dur=232.28, db;dur=6.44, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 976.28,
+          "serverTiming": "app;dur=372.29, boot;dur=280.57, db;dur=6.24, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1274.7,
+          "serverTiming": "app;dur=298.30, boot;dur=213.52, db;dur=6.63, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/home",
+          "status": 200,
+          "ms": 1965.72,
+          "serverTiming": "app;dur=480.83, boot;dur=234.27, db;dur=43.76, queries;desc=\"17\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2700.46,
+          "serverTiming": "app;dur=527.24, boot;dur=323.70, db;dur=30.48, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/@vite/client",
+          "type": "Script",
+          "bytes": 221802
+        },
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/src/main.js",
+          "type": "Script",
+          "bytes": 6714
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.js",
+          "type": "Script",
+          "bytes": 26201
+        },
+        {
+          "path": "/node_modules/.vite/deps/pinia.js",
+          "type": "Script",
+          "bytes": 157456
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 10124
+        },
+        {
+          "path": "/src/router/index.js",
+          "type": "Script",
+          "bytes": 64469
+        },
+        {
+          "path": "/src/assets/css/site.css",
+          "type": "Script",
+          "bytes": 46277
+        },
+        {
+          "path": "/src/assets/css/skeleton.css",
+          "type": "Script",
+          "bytes": 3809
+        },
+        {
+          "path": "/src/assets/css/modals.css",
+          "type": "Script",
+          "bytes": 1149
+        },
+        {
+          "path": "/src/assets/css/settings.css",
+          "type": "Script",
+          "bytes": 10632
+        },
+        {
+          "path": "/src/assets/css/public-restoration.css",
+          "type": "Script",
+          "bytes": 33670
+        },
+        {
+          "path": "/src/assets/css/cart-feedback.css",
+          "type": "Script",
+          "bytes": 2814
+        },
+        {
+          "path": "/src/directives/adminTable.js",
+          "type": "Script",
+          "bytes": 5918
+        },
+        {
+          "path": "/src/stores/auth.js",
+          "type": "Script",
+          "bytes": 29141
+        },
+        {
+          "path": "/src/stores/cart.js",
+          "type": "Script",
+          "bytes": 70254
+        },
+        {
+          "path": "/src/api/http.js",
+          "type": "Script",
+          "bytes": 7920
+        },
+        {
+          "path": "/src/router/authGuards.js",
+          "type": "Script",
+          "bytes": 10662
+        },
+        {
+          "path": "/src/components/common/AppSkeleton.vue",
+          "type": "Script",
+          "bytes": 14435
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue-router.js",
+          "type": "Script",
+          "bytes": 353377
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 1013
+        },
+        {
+          "path": "/@id/__x00__plugin-vue:export-helper",
+          "type": "Script",
+          "bytes": 1363
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.runtime.esm-bundler-Bo_ScjpA.js",
+          "type": "Script",
+          "bytes": 1203242
+        },
+        {
+          "path": "/src/layouts/SiteLayout.vue",
+          "type": "Script",
+          "bytes": 61880
+        },
+        {
+          "path": "/src/constants/reports.js",
+          "type": "Script",
+          "bytes": 51520
+        },
+        {
+          "path": "/src/constants/settings.js",
+          "type": "Script",
+          "bytes": 25908
+        },
+        {
+          "path": "/src/constants/adminNavigation.js",
+          "type": "Script",
+          "bytes": 19810
+        },
+        {
+          "path": "/node_modules/.vite/deps/axios.js",
+          "type": "Script",
+          "bytes": 463081
+        },
+        {
+          "path": "/src/utils/phone.js",
+          "type": "Script",
+          "bytes": 7088
+        },
+        {
+          "path": "/src/api/auth.api.js",
+          "type": "Script",
+          "bytes": 3455
+        },
+        {
+          "path": "/src/api/drivers.api.js",
+          "type": "Script",
+          "bytes": 9596
+        },
+        {
+          "path": "/src/utils/apiError.js",
+          "type": "Script",
+          "bytes": 9423
+        },
+        {
+          "path": "/src/utils/authToken.js",
+          "type": "Script",
+          "bytes": 1964
+        },
+        {
+          "path": "/src/api/cart.api.js",
+          "type": "Script",
+          "bytes": 7016
+        },
+        {
+          "path": "/src/api/delivery.api.js",
+          "type": "Script",
+          "bytes": 5489
+        },
+        {
+          "path": "/src/api/checkout.api.js",
+          "type": "Script",
+          "bytes": 2411
+        },
+        {
+          "path": "/src/utils/orderAccess.js",
+          "type": "Script",
+          "bytes": 20334
+        },
+        {
+          "path": "/src/stores/branch.js",
+          "type": "Script",
+          "bytes": 10952
+        },
+        {
+          "path": "/node_modules/.vite/deps/dist-C9iN58Rj.js",
+          "type": "Script",
+          "bytes": 521768
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 36137
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 24951
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 39059
+        },
+        {
+          "path": "/src/stores/registrationOffer.js",
+          "type": "Script",
+          "bytes": 11515
+        },
+        {
+          "path": "/src/components/site/SiteFooter.vue",
+          "type": "Script",
+          "bytes": 23835
+        },
+        {
+          "path": "/src/components/site/SiteIcon.vue",
+          "type": "Script",
+          "bytes": 2953
+        },
+        {
+          "path": "/src/components/site/CartItems.vue",
+          "type": "Script",
+          "bytes": 30717
+        },
+        {
+          "path": "/src/components/site/CartSummary.vue",
+          "type": "Script",
+          "bytes": 17336
+        },
+        {
+          "path": "/src/composables/useRestaurantInfo.js",
+          "type": "Script",
+          "bytes": 5483
+        },
+        {
+          "path": "/src/composables/useCartClickSound.js",
+          "type": "Script",
+          "bytes": 7790
+        },
+        {
+          "path": "/node_modules/vite/dist/client/env.mjs",
+          "type": "Script",
+          "bytes": 4185
+        },
+        {
+          "path": "/src/api/catalogTransport.js",
+          "type": "Script",
+          "bytes": 6023
+        },
+        {
+          "path": "/src/api/settings.api.js",
+          "type": "Script",
+          "bytes": 3438
+        },
+        {
+          "path": "/src/api/branches.api.js",
+          "type": "Script",
+          "bytes": 5462
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 5864
+        },
+        {
+          "path": "/src/composables/useSessionLogout.js",
+          "type": "Script",
+          "bytes": 3621
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 1006
+        },
+        {
+          "path": "/src/api/promotions.api.js",
+          "type": "Script",
+          "bytes": 2481
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 3400
+        },
+        {
+          "path": "/src/components/site/PublicBusinessHours.vue",
+          "type": "Script",
+          "bytes": 26917
+        },
+        {
+          "path": "/src/data/icons.js",
+          "type": "Script",
+          "bytes": 17106
+        },
+        {
+          "path": "/src/utils/formatters.js",
+          "type": "Script",
+          "bytes": 5803
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 14011
+        },
+        {
+          "path": "/src/stores/publicSettings.js",
+          "type": "Script",
+          "bytes": 4778
+        },
+        {
+          "path": "/src/composables/useApiState.js",
+          "type": "Script",
+          "bytes": 8275
+        },
+        {
+          "path": "/src/api/businessHours.api.js",
+          "type": "Script",
+          "bytes": 5508
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 2718
+        },
+        {
+          "path": "/node_modules/.vite/deps/rolldown-runtime-EAsCxrDo.js",
+          "type": "Script",
+          "bytes": 3163
+        },
+        {
+          "path": "/src/views/site/HomeView.vue",
+          "type": "Script",
+          "bytes": 80743
+        },
+        {
+          "path": "/src/api/cms.api.js",
+          "type": "Script",
+          "bytes": 11488
+        },
+        {
+          "path": "/src/composables/useCmsPage.js",
+          "type": "Script",
+          "bytes": 8846
+        },
+        {
+          "path": "/src/composables/usePublicMenu.js",
+          "type": "Script",
+          "bytes": 10095
+        },
+        {
+          "path": "/src/utils/contentUrl.js",
+          "type": "Script",
+          "bytes": 2108
+        },
+        {
+          "path": "/src/components/site/ProductCard.vue",
+          "type": "Script",
+          "bytes": 17123
+        },
+        {
+          "path": "/src/components/site/BranchSelector.vue",
+          "type": "Script",
+          "bytes": 17752
+        },
+        {
+          "path": "/src/components/site/SiteOffers.vue",
+          "type": "Script",
+          "bytes": 10230
+        },
+        {
+          "path": "/src/components/site/ContentLink.vue",
+          "type": "Script",
+          "bytes": 6736
+        },
+        {
+          "path": "/src/components/site/SiteGallery.vue",
+          "type": "Script",
+          "bytes": 48287
+        },
+        {
+          "path": "/src/api/products.api.js",
+          "type": "Script",
+          "bytes": 3931
+        },
+        {
+          "path": "/src/api/categories.api.js",
+          "type": "Script",
+          "bytes": 3124
+        },
+        {
+          "path": "/src/composables/useCartFeedback.js",
+          "type": "Script",
+          "bytes": 2747
+        },
+        {
+          "path": "/src/components/site/PublicOperationStatus.vue",
+          "type": "Script",
+          "bytes": 17028
+        },
+        {
+          "path": "/src/stores/operations.js",
+          "type": "Script",
+          "bytes": 5691
+        },
+        {
+          "path": "/src/api/operations.api.js",
+          "type": "Script",
+          "bytes": 1800
+        },
+        {
+          "path": "/src/assets/images/logo/shishli-logo.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/src/assets/images/banners/restaurant-reference.webp",
+          "type": "Image",
+          "bytes": 240032
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10323
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9091
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10291
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9515
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10063
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8999
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l7KmHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8767
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10651
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8967
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Menu",
+      "path": "/menu",
+      "sample": 0,
+      "lcp": 21820,
+      "cls": 0.019208411183011302,
+      "events": [
+        {
+          "id": 8238,
+          "duration": 40
+        },
+        {
+          "id": 8238,
+          "duration": 24
+        },
+        {
+          "id": 8238,
+          "duration": 24
+        }
+      ],
+      "longTasks": [
+        160,
+        402,
+        71,
+        71
+      ],
+      "lcpElement": "P",
+      "fcp": 21820,
+      "ttfb": 145.30000007152557,
+      "dom": 20081.399999976158,
+      "overflow": false,
+      "interaction_ms": 40,
+      "js_bytes": 3947204,
+      "css_bytes": 765,
+      "image_bytes": 39618,
+      "api_count": 8,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 411.28,
+          "serverTiming": "app;dur=321.00, boot;dur=255.05, db;dur=3.76, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 654.9,
+          "serverTiming": "app;dur=261.06, boot;dur=199.73, db;dur=4.76, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/categories",
+          "status": 200,
+          "ms": 1162.58,
+          "serverTiming": "app;dur=250.23, boot;dur=176.71, db;dur=5.79, queries;desc=\"2\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 821.41,
+          "serverTiming": "app;dur=329.07, boot;dur=186.75, db;dur=28.90, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1124.92,
+          "serverTiming": "app;dur=325.76, boot;dur=224.23, db;dur=6.90, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1483.15,
+          "serverTiming": "app;dur=333.08, boot;dur=246.76, db;dur=6.27, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu",
+          "status": 200,
+          "ms": 1906.24,
+          "serverTiming": "app;dur=320.04, boot;dur=186.31, db;dur=13.54, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2565.26,
+          "serverTiming": "app;dur=447.06, boot;dur=196.99, db;dur=40.70, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/@vite/client",
+          "type": "Script",
+          "bytes": 221802
+        },
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/src/main.js",
+          "type": "Script",
+          "bytes": 6714
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.js",
+          "type": "Script",
+          "bytes": 26201
+        },
+        {
+          "path": "/node_modules/.vite/deps/pinia.js",
+          "type": "Script",
+          "bytes": 157456
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 10124
+        },
+        {
+          "path": "/src/router/index.js",
+          "type": "Script",
+          "bytes": 64469
+        },
+        {
+          "path": "/src/assets/css/site.css",
+          "type": "Script",
+          "bytes": 46277
+        },
+        {
+          "path": "/src/assets/css/skeleton.css",
+          "type": "Script",
+          "bytes": 3809
+        },
+        {
+          "path": "/src/assets/css/modals.css",
+          "type": "Script",
+          "bytes": 1149
+        },
+        {
+          "path": "/src/assets/css/settings.css",
+          "type": "Script",
+          "bytes": 10632
+        },
+        {
+          "path": "/src/assets/css/public-restoration.css",
+          "type": "Script",
+          "bytes": 33670
+        },
+        {
+          "path": "/src/assets/css/cart-feedback.css",
+          "type": "Script",
+          "bytes": 2814
+        },
+        {
+          "path": "/src/directives/adminTable.js",
+          "type": "Script",
+          "bytes": 5918
+        },
+        {
+          "path": "/src/stores/auth.js",
+          "type": "Script",
+          "bytes": 29141
+        },
+        {
+          "path": "/src/stores/cart.js",
+          "type": "Script",
+          "bytes": 70254
+        },
+        {
+          "path": "/src/api/http.js",
+          "type": "Script",
+          "bytes": 7920
+        },
+        {
+          "path": "/src/router/authGuards.js",
+          "type": "Script",
+          "bytes": 10662
+        },
+        {
+          "path": "/src/components/common/AppSkeleton.vue",
+          "type": "Script",
+          "bytes": 14435
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue-router.js",
+          "type": "Script",
+          "bytes": 353377
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 1013
+        },
+        {
+          "path": "/@id/__x00__plugin-vue:export-helper",
+          "type": "Script",
+          "bytes": 1363
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.runtime.esm-bundler-Bo_ScjpA.js",
+          "type": "Script",
+          "bytes": 1203242
+        },
+        {
+          "path": "/src/layouts/SiteLayout.vue",
+          "type": "Script",
+          "bytes": 61880
+        },
+        {
+          "path": "/src/constants/reports.js",
+          "type": "Script",
+          "bytes": 51520
+        },
+        {
+          "path": "/src/constants/settings.js",
+          "type": "Script",
+          "bytes": 25908
+        },
+        {
+          "path": "/src/constants/adminNavigation.js",
+          "type": "Script",
+          "bytes": 19810
+        },
+        {
+          "path": "/node_modules/.vite/deps/axios.js",
+          "type": "Script",
+          "bytes": 463081
+        },
+        {
+          "path": "/src/utils/phone.js",
+          "type": "Script",
+          "bytes": 7088
+        },
+        {
+          "path": "/src/api/auth.api.js",
+          "type": "Script",
+          "bytes": 3455
+        },
+        {
+          "path": "/src/api/drivers.api.js",
+          "type": "Script",
+          "bytes": 9596
+        },
+        {
+          "path": "/src/utils/apiError.js",
+          "type": "Script",
+          "bytes": 9423
+        },
+        {
+          "path": "/src/utils/authToken.js",
+          "type": "Script",
+          "bytes": 1964
+        },
+        {
+          "path": "/src/api/cart.api.js",
+          "type": "Script",
+          "bytes": 7016
+        },
+        {
+          "path": "/src/api/delivery.api.js",
+          "type": "Script",
+          "bytes": 5489
+        },
+        {
+          "path": "/src/api/checkout.api.js",
+          "type": "Script",
+          "bytes": 2411
+        },
+        {
+          "path": "/src/utils/orderAccess.js",
+          "type": "Script",
+          "bytes": 20334
+        },
+        {
+          "path": "/src/stores/branch.js",
+          "type": "Script",
+          "bytes": 10952
+        },
+        {
+          "path": "/node_modules/.vite/deps/dist-C9iN58Rj.js",
+          "type": "Script",
+          "bytes": 521768
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 36137
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 24951
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 39059
+        },
+        {
+          "path": "/src/stores/registrationOffer.js",
+          "type": "Script",
+          "bytes": 11515
+        },
+        {
+          "path": "/src/components/site/SiteFooter.vue",
+          "type": "Script",
+          "bytes": 23835
+        },
+        {
+          "path": "/src/components/site/SiteIcon.vue",
+          "type": "Script",
+          "bytes": 2953
+        },
+        {
+          "path": "/src/components/site/CartItems.vue",
+          "type": "Script",
+          "bytes": 30717
+        },
+        {
+          "path": "/src/components/site/CartSummary.vue",
+          "type": "Script",
+          "bytes": 17336
+        },
+        {
+          "path": "/src/composables/useRestaurantInfo.js",
+          "type": "Script",
+          "bytes": 5483
+        },
+        {
+          "path": "/src/composables/useCartClickSound.js",
+          "type": "Script",
+          "bytes": 7790
+        },
+        {
+          "path": "/node_modules/vite/dist/client/env.mjs",
+          "type": "Script",
+          "bytes": 4185
+        },
+        {
+          "path": "/src/api/catalogTransport.js",
+          "type": "Script",
+          "bytes": 6023
+        },
+        {
+          "path": "/src/api/settings.api.js",
+          "type": "Script",
+          "bytes": 3438
+        },
+        {
+          "path": "/src/api/branches.api.js",
+          "type": "Script",
+          "bytes": 5462
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 5864
+        },
+        {
+          "path": "/src/composables/useSessionLogout.js",
+          "type": "Script",
+          "bytes": 3621
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 1006
+        },
+        {
+          "path": "/src/api/promotions.api.js",
+          "type": "Script",
+          "bytes": 2481
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 3400
+        },
+        {
+          "path": "/src/components/site/PublicBusinessHours.vue",
+          "type": "Script",
+          "bytes": 26917
+        },
+        {
+          "path": "/src/data/icons.js",
+          "type": "Script",
+          "bytes": 17106
+        },
+        {
+          "path": "/src/utils/formatters.js",
+          "type": "Script",
+          "bytes": 5803
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 14011
+        },
+        {
+          "path": "/src/stores/publicSettings.js",
+          "type": "Script",
+          "bytes": 4778
+        },
+        {
+          "path": "/src/composables/useApiState.js",
+          "type": "Script",
+          "bytes": 8275
+        },
+        {
+          "path": "/src/api/businessHours.api.js",
+          "type": "Script",
+          "bytes": 5508
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 2718
+        },
+        {
+          "path": "/node_modules/.vite/deps/rolldown-runtime-EAsCxrDo.js",
+          "type": "Script",
+          "bytes": 3163
+        },
+        {
+          "path": "/src/views/site/MenuView.vue",
+          "type": "Script",
+          "bytes": 40241
+        },
+        {
+          "path": "/src/components/site/ProductCard.vue",
+          "type": "Script",
+          "bytes": 17123
+        },
+        {
+          "path": "/src/components/site/BranchSelector.vue",
+          "type": "Script",
+          "bytes": 17752
+        },
+        {
+          "path": "/src/composables/usePublicMenu.js",
+          "type": "Script",
+          "bytes": 10095
+        },
+        {
+          "path": "/src/api/products.api.js",
+          "type": "Script",
+          "bytes": 3931
+        },
+        {
+          "path": "/src/api/categories.api.js",
+          "type": "Script",
+          "bytes": 3124
+        },
+        {
+          "path": "/src/composables/useCartFeedback.js",
+          "type": "Script",
+          "bytes": 2747
+        },
+        {
+          "path": "/src/components/site/PublicOperationStatus.vue",
+          "type": "Script",
+          "bytes": 17028
+        },
+        {
+          "path": "/src/stores/operations.js",
+          "type": "Script",
+          "bytes": 5691
+        },
+        {
+          "path": "/src/api/operations.api.js",
+          "type": "Script",
+          "bytes": 1800
+        },
+        {
+          "path": "/src/assets/images/logo/shishli-logo.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10283
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9051
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9475
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10023
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8959
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10611
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8967
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Menu",
+      "path": "/menu",
+      "sample": 1,
+      "lcp": 21632,
+      "cls": 0.01571052677118231,
+      "events": [
+        {
+          "id": 9838,
+          "duration": 24
+        }
+      ],
+      "longTasks": [
+        126,
+        208,
+        71
+      ],
+      "lcpElement": "P",
+      "fcp": 21632,
+      "ttfb": 152.60000002384186,
+      "dom": 20057.699999928474,
+      "overflow": false,
+      "interaction_ms": 24,
+      "js_bytes": 3947204,
+      "css_bytes": 765,
+      "image_bytes": 39618,
+      "api_count": 8,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 358.37,
+          "serverTiming": "app;dur=301.65, boot;dur=216.30, db;dur=16.62, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 650.85,
+          "serverTiming": "app;dur=299.08, boot;dur=232.61, db;dur=4.09, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/categories",
+          "status": 200,
+          "ms": 1263.22,
+          "serverTiming": "app;dur=331.94, boot;dur=264.36, db;dur=5.25, queries;desc=\"2\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 988.15,
+          "serverTiming": "app;dur=363.72, boot;dur=196.97, db;dur=10.02, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1393.65,
+          "serverTiming": "app;dur=346.83, boot;dur=234.39, db;dur=7.64, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1765.26,
+          "serverTiming": "app;dur=419.30, boot;dur=301.45, db;dur=30.42, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu",
+          "status": 200,
+          "ms": 2267.55,
+          "serverTiming": "app;dur=405.29, boot;dur=230.14, db;dur=27.06, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2949.51,
+          "serverTiming": "app;dur=435.48, boot;dur=233.08, db;dur=19.69, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/@vite/client",
+          "type": "Script",
+          "bytes": 221802
+        },
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/src/main.js",
+          "type": "Script",
+          "bytes": 6714
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.js",
+          "type": "Script",
+          "bytes": 26201
+        },
+        {
+          "path": "/node_modules/.vite/deps/pinia.js",
+          "type": "Script",
+          "bytes": 157456
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 10124
+        },
+        {
+          "path": "/src/router/index.js",
+          "type": "Script",
+          "bytes": 64469
+        },
+        {
+          "path": "/src/assets/css/site.css",
+          "type": "Script",
+          "bytes": 46277
+        },
+        {
+          "path": "/src/assets/css/skeleton.css",
+          "type": "Script",
+          "bytes": 3809
+        },
+        {
+          "path": "/src/assets/css/modals.css",
+          "type": "Script",
+          "bytes": 1149
+        },
+        {
+          "path": "/src/assets/css/settings.css",
+          "type": "Script",
+          "bytes": 10632
+        },
+        {
+          "path": "/src/assets/css/public-restoration.css",
+          "type": "Script",
+          "bytes": 33670
+        },
+        {
+          "path": "/src/assets/css/cart-feedback.css",
+          "type": "Script",
+          "bytes": 2814
+        },
+        {
+          "path": "/src/directives/adminTable.js",
+          "type": "Script",
+          "bytes": 5918
+        },
+        {
+          "path": "/src/stores/auth.js",
+          "type": "Script",
+          "bytes": 29141
+        },
+        {
+          "path": "/src/stores/cart.js",
+          "type": "Script",
+          "bytes": 70254
+        },
+        {
+          "path": "/src/api/http.js",
+          "type": "Script",
+          "bytes": 7920
+        },
+        {
+          "path": "/src/router/authGuards.js",
+          "type": "Script",
+          "bytes": 10662
+        },
+        {
+          "path": "/src/components/common/AppSkeleton.vue",
+          "type": "Script",
+          "bytes": 14435
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue-router.js",
+          "type": "Script",
+          "bytes": 353377
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 1013
+        },
+        {
+          "path": "/@id/__x00__plugin-vue:export-helper",
+          "type": "Script",
+          "bytes": 1363
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.runtime.esm-bundler-Bo_ScjpA.js",
+          "type": "Script",
+          "bytes": 1203242
+        },
+        {
+          "path": "/src/layouts/SiteLayout.vue",
+          "type": "Script",
+          "bytes": 61880
+        },
+        {
+          "path": "/src/constants/reports.js",
+          "type": "Script",
+          "bytes": 51520
+        },
+        {
+          "path": "/src/constants/settings.js",
+          "type": "Script",
+          "bytes": 25908
+        },
+        {
+          "path": "/src/constants/adminNavigation.js",
+          "type": "Script",
+          "bytes": 19810
+        },
+        {
+          "path": "/node_modules/.vite/deps/axios.js",
+          "type": "Script",
+          "bytes": 463081
+        },
+        {
+          "path": "/src/utils/phone.js",
+          "type": "Script",
+          "bytes": 7088
+        },
+        {
+          "path": "/src/api/auth.api.js",
+          "type": "Script",
+          "bytes": 3455
+        },
+        {
+          "path": "/src/api/drivers.api.js",
+          "type": "Script",
+          "bytes": 9596
+        },
+        {
+          "path": "/src/utils/apiError.js",
+          "type": "Script",
+          "bytes": 9423
+        },
+        {
+          "path": "/src/utils/authToken.js",
+          "type": "Script",
+          "bytes": 1964
+        },
+        {
+          "path": "/src/api/cart.api.js",
+          "type": "Script",
+          "bytes": 7016
+        },
+        {
+          "path": "/src/api/delivery.api.js",
+          "type": "Script",
+          "bytes": 5489
+        },
+        {
+          "path": "/src/api/checkout.api.js",
+          "type": "Script",
+          "bytes": 2411
+        },
+        {
+          "path": "/src/utils/orderAccess.js",
+          "type": "Script",
+          "bytes": 20334
+        },
+        {
+          "path": "/src/stores/branch.js",
+          "type": "Script",
+          "bytes": 10952
+        },
+        {
+          "path": "/node_modules/.vite/deps/dist-C9iN58Rj.js",
+          "type": "Script",
+          "bytes": 521768
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 36137
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 24951
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 39059
+        },
+        {
+          "path": "/src/stores/registrationOffer.js",
+          "type": "Script",
+          "bytes": 11515
+        },
+        {
+          "path": "/src/components/site/SiteFooter.vue",
+          "type": "Script",
+          "bytes": 23835
+        },
+        {
+          "path": "/src/components/site/SiteIcon.vue",
+          "type": "Script",
+          "bytes": 2953
+        },
+        {
+          "path": "/src/components/site/CartItems.vue",
+          "type": "Script",
+          "bytes": 30717
+        },
+        {
+          "path": "/src/components/site/CartSummary.vue",
+          "type": "Script",
+          "bytes": 17336
+        },
+        {
+          "path": "/src/composables/useRestaurantInfo.js",
+          "type": "Script",
+          "bytes": 5483
+        },
+        {
+          "path": "/src/composables/useCartClickSound.js",
+          "type": "Script",
+          "bytes": 7790
+        },
+        {
+          "path": "/node_modules/vite/dist/client/env.mjs",
+          "type": "Script",
+          "bytes": 4185
+        },
+        {
+          "path": "/src/api/catalogTransport.js",
+          "type": "Script",
+          "bytes": 6023
+        },
+        {
+          "path": "/src/api/settings.api.js",
+          "type": "Script",
+          "bytes": 3438
+        },
+        {
+          "path": "/src/api/branches.api.js",
+          "type": "Script",
+          "bytes": 5462
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 5864
+        },
+        {
+          "path": "/src/composables/useSessionLogout.js",
+          "type": "Script",
+          "bytes": 3621
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 1006
+        },
+        {
+          "path": "/src/api/promotions.api.js",
+          "type": "Script",
+          "bytes": 2481
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 3400
+        },
+        {
+          "path": "/src/components/site/PublicBusinessHours.vue",
+          "type": "Script",
+          "bytes": 26917
+        },
+        {
+          "path": "/src/data/icons.js",
+          "type": "Script",
+          "bytes": 17106
+        },
+        {
+          "path": "/src/utils/formatters.js",
+          "type": "Script",
+          "bytes": 5803
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 14011
+        },
+        {
+          "path": "/src/stores/publicSettings.js",
+          "type": "Script",
+          "bytes": 4778
+        },
+        {
+          "path": "/src/composables/useApiState.js",
+          "type": "Script",
+          "bytes": 8275
+        },
+        {
+          "path": "/src/api/businessHours.api.js",
+          "type": "Script",
+          "bytes": 5508
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 2718
+        },
+        {
+          "path": "/node_modules/.vite/deps/rolldown-runtime-EAsCxrDo.js",
+          "type": "Script",
+          "bytes": 3163
+        },
+        {
+          "path": "/src/views/site/MenuView.vue",
+          "type": "Script",
+          "bytes": 40241
+        },
+        {
+          "path": "/src/components/site/ProductCard.vue",
+          "type": "Script",
+          "bytes": 17123
+        },
+        {
+          "path": "/src/components/site/BranchSelector.vue",
+          "type": "Script",
+          "bytes": 17752
+        },
+        {
+          "path": "/src/composables/usePublicMenu.js",
+          "type": "Script",
+          "bytes": 10095
+        },
+        {
+          "path": "/src/api/products.api.js",
+          "type": "Script",
+          "bytes": 3931
+        },
+        {
+          "path": "/src/api/categories.api.js",
+          "type": "Script",
+          "bytes": 3124
+        },
+        {
+          "path": "/src/composables/useCartFeedback.js",
+          "type": "Script",
+          "bytes": 2747
+        },
+        {
+          "path": "/src/components/site/PublicOperationStatus.vue",
+          "type": "Script",
+          "bytes": 17028
+        },
+        {
+          "path": "/src/stores/operations.js",
+          "type": "Script",
+          "bytes": 5691
+        },
+        {
+          "path": "/src/api/operations.api.js",
+          "type": "Script",
+          "bytes": 1800
+        },
+        {
+          "path": "/src/assets/images/logo/shishli-logo.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10283
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9051
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9475
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10023
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8959
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10611
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8967
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Menu",
+      "path": "/menu",
+      "sample": 2,
+      "lcp": 21920,
+      "cls": 0.017517331204692226,
+      "events": [
+        {
+          "id": 1844,
+          "duration": 16
+        }
+      ],
+      "longTasks": [
+        130,
+        520,
+        50,
+        53
+      ],
+      "lcpElement": "P",
+      "fcp": 21920,
+      "ttfb": 115.20000004768372,
+      "dom": 19942.600000023842,
+      "overflow": false,
+      "interaction_ms": 16,
+      "js_bytes": 3947204,
+      "css_bytes": 765,
+      "image_bytes": 39618,
+      "api_count": 8,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 316.04,
+          "serverTiming": "app;dur=316.76, boot;dur=241.46, db;dur=3.34, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 611.72,
+          "serverTiming": "app;dur=253.96, boot;dur=183.69, db;dur=4.60, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/categories",
+          "status": 200,
+          "ms": 1264.97,
+          "serverTiming": "app;dur=329.00, boot;dur=216.79, db;dur=35.27, queries;desc=\"2\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 1110.02,
+          "serverTiming": "app;dur=464.74, boot;dur=251.46, db;dur=47.93, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1407.96,
+          "serverTiming": "app;dur=284.44, boot;dur=208.86, db;dur=6.93, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1804.35,
+          "serverTiming": "app;dur=395.09, boot;dur=254.74, db;dur=6.94, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu",
+          "status": 200,
+          "ms": 2223.8,
+          "serverTiming": "app;dur=331.23, boot;dur=187.28, db;dur=13.67, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2904.78,
+          "serverTiming": "app;dur=487.13, boot;dur=326.45, db;dur=28.67, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/@vite/client",
+          "type": "Script",
+          "bytes": 221802
+        },
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/src/main.js",
+          "type": "Script",
+          "bytes": 6714
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.js",
+          "type": "Script",
+          "bytes": 26201
+        },
+        {
+          "path": "/node_modules/.vite/deps/pinia.js",
+          "type": "Script",
+          "bytes": 157456
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 10124
+        },
+        {
+          "path": "/src/router/index.js",
+          "type": "Script",
+          "bytes": 64469
+        },
+        {
+          "path": "/src/assets/css/site.css",
+          "type": "Script",
+          "bytes": 46277
+        },
+        {
+          "path": "/src/assets/css/skeleton.css",
+          "type": "Script",
+          "bytes": 3809
+        },
+        {
+          "path": "/src/assets/css/modals.css",
+          "type": "Script",
+          "bytes": 1149
+        },
+        {
+          "path": "/src/assets/css/settings.css",
+          "type": "Script",
+          "bytes": 10632
+        },
+        {
+          "path": "/src/assets/css/public-restoration.css",
+          "type": "Script",
+          "bytes": 33670
+        },
+        {
+          "path": "/src/assets/css/cart-feedback.css",
+          "type": "Script",
+          "bytes": 2814
+        },
+        {
+          "path": "/src/directives/adminTable.js",
+          "type": "Script",
+          "bytes": 5918
+        },
+        {
+          "path": "/src/stores/auth.js",
+          "type": "Script",
+          "bytes": 29141
+        },
+        {
+          "path": "/src/stores/cart.js",
+          "type": "Script",
+          "bytes": 70254
+        },
+        {
+          "path": "/src/api/http.js",
+          "type": "Script",
+          "bytes": 7920
+        },
+        {
+          "path": "/src/router/authGuards.js",
+          "type": "Script",
+          "bytes": 10662
+        },
+        {
+          "path": "/src/components/common/AppSkeleton.vue",
+          "type": "Script",
+          "bytes": 14435
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue-router.js",
+          "type": "Script",
+          "bytes": 353377
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 1013
+        },
+        {
+          "path": "/@id/__x00__plugin-vue:export-helper",
+          "type": "Script",
+          "bytes": 1363
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.runtime.esm-bundler-Bo_ScjpA.js",
+          "type": "Script",
+          "bytes": 1203242
+        },
+        {
+          "path": "/src/layouts/SiteLayout.vue",
+          "type": "Script",
+          "bytes": 61880
+        },
+        {
+          "path": "/src/constants/reports.js",
+          "type": "Script",
+          "bytes": 51520
+        },
+        {
+          "path": "/src/constants/settings.js",
+          "type": "Script",
+          "bytes": 25908
+        },
+        {
+          "path": "/src/constants/adminNavigation.js",
+          "type": "Script",
+          "bytes": 19810
+        },
+        {
+          "path": "/node_modules/.vite/deps/axios.js",
+          "type": "Script",
+          "bytes": 463081
+        },
+        {
+          "path": "/src/utils/phone.js",
+          "type": "Script",
+          "bytes": 7088
+        },
+        {
+          "path": "/src/api/auth.api.js",
+          "type": "Script",
+          "bytes": 3455
+        },
+        {
+          "path": "/src/api/drivers.api.js",
+          "type": "Script",
+          "bytes": 9596
+        },
+        {
+          "path": "/src/utils/apiError.js",
+          "type": "Script",
+          "bytes": 9423
+        },
+        {
+          "path": "/src/utils/authToken.js",
+          "type": "Script",
+          "bytes": 1964
+        },
+        {
+          "path": "/src/api/cart.api.js",
+          "type": "Script",
+          "bytes": 7016
+        },
+        {
+          "path": "/src/api/delivery.api.js",
+          "type": "Script",
+          "bytes": 5489
+        },
+        {
+          "path": "/src/api/checkout.api.js",
+          "type": "Script",
+          "bytes": 2411
+        },
+        {
+          "path": "/src/utils/orderAccess.js",
+          "type": "Script",
+          "bytes": 20334
+        },
+        {
+          "path": "/src/stores/branch.js",
+          "type": "Script",
+          "bytes": 10952
+        },
+        {
+          "path": "/node_modules/.vite/deps/dist-C9iN58Rj.js",
+          "type": "Script",
+          "bytes": 521768
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 36137
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 24951
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 39059
+        },
+        {
+          "path": "/src/stores/registrationOffer.js",
+          "type": "Script",
+          "bytes": 11515
+        },
+        {
+          "path": "/src/components/site/SiteFooter.vue",
+          "type": "Script",
+          "bytes": 23835
+        },
+        {
+          "path": "/src/components/site/SiteIcon.vue",
+          "type": "Script",
+          "bytes": 2953
+        },
+        {
+          "path": "/src/components/site/CartItems.vue",
+          "type": "Script",
+          "bytes": 30717
+        },
+        {
+          "path": "/src/components/site/CartSummary.vue",
+          "type": "Script",
+          "bytes": 17336
+        },
+        {
+          "path": "/src/composables/useRestaurantInfo.js",
+          "type": "Script",
+          "bytes": 5483
+        },
+        {
+          "path": "/src/composables/useCartClickSound.js",
+          "type": "Script",
+          "bytes": 7790
+        },
+        {
+          "path": "/node_modules/vite/dist/client/env.mjs",
+          "type": "Script",
+          "bytes": 4185
+        },
+        {
+          "path": "/src/api/catalogTransport.js",
+          "type": "Script",
+          "bytes": 6023
+        },
+        {
+          "path": "/src/api/settings.api.js",
+          "type": "Script",
+          "bytes": 3438
+        },
+        {
+          "path": "/src/api/branches.api.js",
+          "type": "Script",
+          "bytes": 5462
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 5864
+        },
+        {
+          "path": "/src/composables/useSessionLogout.js",
+          "type": "Script",
+          "bytes": 3621
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 1006
+        },
+        {
+          "path": "/src/api/promotions.api.js",
+          "type": "Script",
+          "bytes": 2481
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 3400
+        },
+        {
+          "path": "/src/components/site/PublicBusinessHours.vue",
+          "type": "Script",
+          "bytes": 26917
+        },
+        {
+          "path": "/src/data/icons.js",
+          "type": "Script",
+          "bytes": 17106
+        },
+        {
+          "path": "/src/utils/formatters.js",
+          "type": "Script",
+          "bytes": 5803
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 14011
+        },
+        {
+          "path": "/src/stores/publicSettings.js",
+          "type": "Script",
+          "bytes": 4778
+        },
+        {
+          "path": "/src/composables/useApiState.js",
+          "type": "Script",
+          "bytes": 8275
+        },
+        {
+          "path": "/src/api/businessHours.api.js",
+          "type": "Script",
+          "bytes": 5508
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 2718
+        },
+        {
+          "path": "/node_modules/.vite/deps/rolldown-runtime-EAsCxrDo.js",
+          "type": "Script",
+          "bytes": 3163
+        },
+        {
+          "path": "/src/views/site/MenuView.vue",
+          "type": "Script",
+          "bytes": 40241
+        },
+        {
+          "path": "/src/components/site/ProductCard.vue",
+          "type": "Script",
+          "bytes": 17123
+        },
+        {
+          "path": "/src/components/site/BranchSelector.vue",
+          "type": "Script",
+          "bytes": 17752
+        },
+        {
+          "path": "/src/composables/usePublicMenu.js",
+          "type": "Script",
+          "bytes": 10095
+        },
+        {
+          "path": "/src/api/products.api.js",
+          "type": "Script",
+          "bytes": 3931
+        },
+        {
+          "path": "/src/api/categories.api.js",
+          "type": "Script",
+          "bytes": 3124
+        },
+        {
+          "path": "/src/composables/useCartFeedback.js",
+          "type": "Script",
+          "bytes": 2747
+        },
+        {
+          "path": "/src/components/site/PublicOperationStatus.vue",
+          "type": "Script",
+          "bytes": 17028
+        },
+        {
+          "path": "/src/stores/operations.js",
+          "type": "Script",
+          "bytes": 5691
+        },
+        {
+          "path": "/src/api/operations.api.js",
+          "type": "Script",
+          "bytes": 1800
+        },
+        {
+          "path": "/src/assets/images/logo/shishli-logo.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10283
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9051
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9475
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10023
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8959
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l5anHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10611
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l8KiHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 8967
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Product",
+      "path": "/product/:product",
+      "sample": 0,
+      "lcp": 25076,
+      "cls": 0.09344175091097892,
+      "events": [],
+      "longTasks": [
+        70,
+        261
+      ],
+      "lcpElement": "H1",
+      "fcp": 21740,
+      "ttfb": 143.79999995231628,
+      "dom": 20036.100000023842,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 3953359,
+      "css_bytes": 765,
+      "image_bytes": 39618,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 386.09,
+          "serverTiming": "app;dur=355.98, boot;dur=269.78, db;dur=4.02, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 702.71,
+          "serverTiming": "app;dur=289.70, boot;dur=199.56, db;dur=15.82, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 798.77,
+          "serverTiming": "app;dur=410.23, boot;dur=207.32, db;dur=19.91, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1629.6,
+          "serverTiming": "app;dur=329.50, boot;dur=255.79, db;dur=6.03, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1981.67,
+          "serverTiming": "app;dur=345.55, boot;dur=197.10, db;dur=30.50, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu/products/:product",
+          "status": 200,
+          "ms": 2555.26,
+          "serverTiming": "app;dur=529.59, boot;dur=299.91, db;dur=19.50, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 3197.82,
+          "serverTiming": "app;dur=394.15, boot;dur=174.57, db;dur=30.49, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/@vite/client",
+          "type": "Script",
+          "bytes": 221802
+        },
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/src/main.js",
+          "type": "Script",
+          "bytes": 6714
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.js",
+          "type": "Script",
+          "bytes": 26201
+        },
+        {
+          "path": "/node_modules/.vite/deps/pinia.js",
+          "type": "Script",
+          "bytes": 157456
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 10124
+        },
+        {
+          "path": "/src/router/index.js",
+          "type": "Script",
+          "bytes": 64469
+        },
+        {
+          "path": "/src/assets/css/site.css",
+          "type": "Script",
+          "bytes": 46277
+        },
+        {
+          "path": "/src/assets/css/skeleton.css",
+          "type": "Script",
+          "bytes": 3809
+        },
+        {
+          "path": "/src/assets/css/modals.css",
+          "type": "Script",
+          "bytes": 1149
+        },
+        {
+          "path": "/src/assets/css/settings.css",
+          "type": "Script",
+          "bytes": 10632
+        },
+        {
+          "path": "/src/assets/css/public-restoration.css",
+          "type": "Script",
+          "bytes": 33670
+        },
+        {
+          "path": "/src/assets/css/cart-feedback.css",
+          "type": "Script",
+          "bytes": 2814
+        },
+        {
+          "path": "/src/directives/adminTable.js",
+          "type": "Script",
+          "bytes": 5918
+        },
+        {
+          "path": "/src/stores/auth.js",
+          "type": "Script",
+          "bytes": 29141
+        },
+        {
+          "path": "/src/stores/cart.js",
+          "type": "Script",
+          "bytes": 70254
+        },
+        {
+          "path": "/src/api/http.js",
+          "type": "Script",
+          "bytes": 7920
+        },
+        {
+          "path": "/src/router/authGuards.js",
+          "type": "Script",
+          "bytes": 10662
+        },
+        {
+          "path": "/src/components/common/AppSkeleton.vue",
+          "type": "Script",
+          "bytes": 14435
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue-router.js",
+          "type": "Script",
+          "bytes": 353377
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 1013
+        },
+        {
+          "path": "/@id/__x00__plugin-vue:export-helper",
+          "type": "Script",
+          "bytes": 1363
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.runtime.esm-bundler-Bo_ScjpA.js",
+          "type": "Script",
+          "bytes": 1203242
+        },
+        {
+          "path": "/src/layouts/SiteLayout.vue",
+          "type": "Script",
+          "bytes": 61880
+        },
+        {
+          "path": "/src/constants/reports.js",
+          "type": "Script",
+          "bytes": 51520
+        },
+        {
+          "path": "/src/constants/settings.js",
+          "type": "Script",
+          "bytes": 25908
+        },
+        {
+          "path": "/src/constants/adminNavigation.js",
+          "type": "Script",
+          "bytes": 19810
+        },
+        {
+          "path": "/node_modules/.vite/deps/axios.js",
+          "type": "Script",
+          "bytes": 463081
+        },
+        {
+          "path": "/src/utils/phone.js",
+          "type": "Script",
+          "bytes": 7088
+        },
+        {
+          "path": "/src/api/auth.api.js",
+          "type": "Script",
+          "bytes": 3455
+        },
+        {
+          "path": "/src/api/drivers.api.js",
+          "type": "Script",
+          "bytes": 9596
+        },
+        {
+          "path": "/src/utils/apiError.js",
+          "type": "Script",
+          "bytes": 9423
+        },
+        {
+          "path": "/src/utils/authToken.js",
+          "type": "Script",
+          "bytes": 1964
+        },
+        {
+          "path": "/src/api/cart.api.js",
+          "type": "Script",
+          "bytes": 7016
+        },
+        {
+          "path": "/src/api/delivery.api.js",
+          "type": "Script",
+          "bytes": 5489
+        },
+        {
+          "path": "/src/api/checkout.api.js",
+          "type": "Script",
+          "bytes": 2411
+        },
+        {
+          "path": "/src/utils/orderAccess.js",
+          "type": "Script",
+          "bytes": 20334
+        },
+        {
+          "path": "/src/stores/branch.js",
+          "type": "Script",
+          "bytes": 10952
+        },
+        {
+          "path": "/node_modules/.vite/deps/dist-C9iN58Rj.js",
+          "type": "Script",
+          "bytes": 521768
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 36137
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 24951
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 39059
+        },
+        {
+          "path": "/src/stores/registrationOffer.js",
+          "type": "Script",
+          "bytes": 11515
+        },
+        {
+          "path": "/src/components/site/SiteFooter.vue",
+          "type": "Script",
+          "bytes": 23835
+        },
+        {
+          "path": "/src/components/site/SiteIcon.vue",
+          "type": "Script",
+          "bytes": 2953
+        },
+        {
+          "path": "/src/components/site/CartItems.vue",
+          "type": "Script",
+          "bytes": 30717
+        },
+        {
+          "path": "/src/components/site/CartSummary.vue",
+          "type": "Script",
+          "bytes": 17336
+        },
+        {
+          "path": "/src/composables/useRestaurantInfo.js",
+          "type": "Script",
+          "bytes": 5483
+        },
+        {
+          "path": "/src/composables/useCartClickSound.js",
+          "type": "Script",
+          "bytes": 7790
+        },
+        {
+          "path": "/node_modules/vite/dist/client/env.mjs",
+          "type": "Script",
+          "bytes": 4185
+        },
+        {
+          "path": "/src/api/catalogTransport.js",
+          "type": "Script",
+          "bytes": 6023
+        },
+        {
+          "path": "/src/api/settings.api.js",
+          "type": "Script",
+          "bytes": 3438
+        },
+        {
+          "path": "/src/api/branches.api.js",
+          "type": "Script",
+          "bytes": 5462
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 5864
+        },
+        {
+          "path": "/src/composables/useSessionLogout.js",
+          "type": "Script",
+          "bytes": 3621
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 1006
+        },
+        {
+          "path": "/src/api/promotions.api.js",
+          "type": "Script",
+          "bytes": 2481
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 3400
+        },
+        {
+          "path": "/src/components/site/PublicBusinessHours.vue",
+          "type": "Script",
+          "bytes": 26917
+        },
+        {
+          "path": "/src/data/icons.js",
+          "type": "Script",
+          "bytes": 17106
+        },
+        {
+          "path": "/src/utils/formatters.js",
+          "type": "Script",
+          "bytes": 5803
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 14011
+        },
+        {
+          "path": "/src/stores/publicSettings.js",
+          "type": "Script",
+          "bytes": 4778
+        },
+        {
+          "path": "/src/composables/useApiState.js",
+          "type": "Script",
+          "bytes": 8275
+        },
+        {
+          "path": "/src/api/businessHours.api.js",
+          "type": "Script",
+          "bytes": 5508
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 2718
+        },
+        {
+          "path": "/node_modules/.vite/deps/rolldown-runtime-EAsCxrDo.js",
+          "type": "Script",
+          "bytes": 3163
+        },
+        {
+          "path": "/src/views/site/ProductView.vue",
+          "type": "Script",
+          "bytes": 63519
+        },
+        {
+          "path": "/src/components/site/BranchSelector.vue",
+          "type": "Script",
+          "bytes": 17752
+        },
+        {
+          "path": "/src/api/products.api.js",
+          "type": "Script",
+          "bytes": 3931
+        },
+        {
+          "path": "/src/composables/usePublicMenu.js",
+          "type": "Script",
+          "bytes": 10095
+        },
+        {
+          "path": "/src/composables/useCartFeedback.js",
+          "type": "Script",
+          "bytes": 2747
+        },
+        {
+          "path": "/src/api/categories.api.js",
+          "type": "Script",
+          "bytes": 3124
+        },
+        {
+          "path": "/src/components/site/PublicOperationStatus.vue",
+          "type": "Script",
+          "bytes": 17028
+        },
+        {
+          "path": "/src/stores/operations.js",
+          "type": "Script",
+          "bytes": 5691
+        },
+        {
+          "path": "/src/api/operations.api.js",
+          "type": "Script",
+          "bytes": 1800
+        },
+        {
+          "path": "/src/assets/images/logo/shishli-logo.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10283
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9051
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10023
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8959
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Product",
+      "path": "/product/:product",
+      "sample": 1,
+      "lcp": 24552,
+      "cls": 0.0920584252509951,
+      "events": [],
+      "longTasks": [
+        58,
+        87,
+        293
+      ],
+      "lcpElement": "H1",
+      "fcp": 21600,
+      "ttfb": 108.89999997615814,
+      "dom": 19989.399999976158,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 3953359,
+      "css_bytes": 742,
+      "image_bytes": 39618,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 383.33,
+          "serverTiming": "app;dur=362.68, boot;dur=273.41, db;dur=6.74, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 677.31,
+          "serverTiming": "app;dur=261.35, boot;dur=191.83, db;dur=3.57, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 652.71,
+          "serverTiming": "app;dur=330.62, boot;dur=224.85, db;dur=5.73, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1364.21,
+          "serverTiming": "app;dur=319.87, boot;dur=182.54, db;dur=25.95, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1724.37,
+          "serverTiming": "app;dur=354.54, boot;dur=263.38, db;dur=6.37, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu/products/:product",
+          "status": 200,
+          "ms": 2185.69,
+          "serverTiming": "app;dur=438.47, boot;dur=270.84, db;dur=13.53, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 3020.75,
+          "serverTiming": "app;dur=510.94, boot;dur=337.14, db;dur=30.55, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/@vite/client",
+          "type": "Script",
+          "bytes": 221802
+        },
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 742
+        },
+        {
+          "path": "/src/main.js",
+          "type": "Script",
+          "bytes": 6714
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.js",
+          "type": "Script",
+          "bytes": 26201
+        },
+        {
+          "path": "/node_modules/.vite/deps/pinia.js",
+          "type": "Script",
+          "bytes": 157456
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 10124
+        },
+        {
+          "path": "/src/router/index.js",
+          "type": "Script",
+          "bytes": 64469
+        },
+        {
+          "path": "/src/assets/css/site.css",
+          "type": "Script",
+          "bytes": 46277
+        },
+        {
+          "path": "/src/assets/css/skeleton.css",
+          "type": "Script",
+          "bytes": 3809
+        },
+        {
+          "path": "/src/assets/css/modals.css",
+          "type": "Script",
+          "bytes": 1149
+        },
+        {
+          "path": "/src/assets/css/settings.css",
+          "type": "Script",
+          "bytes": 10632
+        },
+        {
+          "path": "/src/assets/css/public-restoration.css",
+          "type": "Script",
+          "bytes": 33670
+        },
+        {
+          "path": "/src/assets/css/cart-feedback.css",
+          "type": "Script",
+          "bytes": 2814
+        },
+        {
+          "path": "/src/directives/adminTable.js",
+          "type": "Script",
+          "bytes": 5918
+        },
+        {
+          "path": "/src/stores/auth.js",
+          "type": "Script",
+          "bytes": 29141
+        },
+        {
+          "path": "/src/stores/cart.js",
+          "type": "Script",
+          "bytes": 70254
+        },
+        {
+          "path": "/src/api/http.js",
+          "type": "Script",
+          "bytes": 7920
+        },
+        {
+          "path": "/src/router/authGuards.js",
+          "type": "Script",
+          "bytes": 10662
+        },
+        {
+          "path": "/src/components/common/AppSkeleton.vue",
+          "type": "Script",
+          "bytes": 14435
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue-router.js",
+          "type": "Script",
+          "bytes": 353377
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 1013
+        },
+        {
+          "path": "/@id/__x00__plugin-vue:export-helper",
+          "type": "Script",
+          "bytes": 1363
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.runtime.esm-bundler-Bo_ScjpA.js",
+          "type": "Script",
+          "bytes": 1203242
+        },
+        {
+          "path": "/src/layouts/SiteLayout.vue",
+          "type": "Script",
+          "bytes": 61880
+        },
+        {
+          "path": "/src/constants/reports.js",
+          "type": "Script",
+          "bytes": 51520
+        },
+        {
+          "path": "/src/constants/settings.js",
+          "type": "Script",
+          "bytes": 25908
+        },
+        {
+          "path": "/src/constants/adminNavigation.js",
+          "type": "Script",
+          "bytes": 19810
+        },
+        {
+          "path": "/node_modules/.vite/deps/axios.js",
+          "type": "Script",
+          "bytes": 463081
+        },
+        {
+          "path": "/src/utils/phone.js",
+          "type": "Script",
+          "bytes": 7088
+        },
+        {
+          "path": "/src/api/auth.api.js",
+          "type": "Script",
+          "bytes": 3455
+        },
+        {
+          "path": "/src/api/drivers.api.js",
+          "type": "Script",
+          "bytes": 9596
+        },
+        {
+          "path": "/src/utils/apiError.js",
+          "type": "Script",
+          "bytes": 9423
+        },
+        {
+          "path": "/src/utils/authToken.js",
+          "type": "Script",
+          "bytes": 1964
+        },
+        {
+          "path": "/src/api/cart.api.js",
+          "type": "Script",
+          "bytes": 7016
+        },
+        {
+          "path": "/src/api/delivery.api.js",
+          "type": "Script",
+          "bytes": 5489
+        },
+        {
+          "path": "/src/api/checkout.api.js",
+          "type": "Script",
+          "bytes": 2411
+        },
+        {
+          "path": "/src/utils/orderAccess.js",
+          "type": "Script",
+          "bytes": 20334
+        },
+        {
+          "path": "/src/stores/branch.js",
+          "type": "Script",
+          "bytes": 10952
+        },
+        {
+          "path": "/node_modules/.vite/deps/dist-C9iN58Rj.js",
+          "type": "Script",
+          "bytes": 521768
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 36137
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 24951
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 39059
+        },
+        {
+          "path": "/src/stores/registrationOffer.js",
+          "type": "Script",
+          "bytes": 11515
+        },
+        {
+          "path": "/src/components/site/SiteFooter.vue",
+          "type": "Script",
+          "bytes": 23835
+        },
+        {
+          "path": "/src/components/site/SiteIcon.vue",
+          "type": "Script",
+          "bytes": 2953
+        },
+        {
+          "path": "/src/components/site/CartItems.vue",
+          "type": "Script",
+          "bytes": 30717
+        },
+        {
+          "path": "/src/components/site/CartSummary.vue",
+          "type": "Script",
+          "bytes": 17336
+        },
+        {
+          "path": "/src/composables/useRestaurantInfo.js",
+          "type": "Script",
+          "bytes": 5483
+        },
+        {
+          "path": "/src/composables/useCartClickSound.js",
+          "type": "Script",
+          "bytes": 7790
+        },
+        {
+          "path": "/node_modules/vite/dist/client/env.mjs",
+          "type": "Script",
+          "bytes": 4185
+        },
+        {
+          "path": "/src/api/catalogTransport.js",
+          "type": "Script",
+          "bytes": 6023
+        },
+        {
+          "path": "/src/api/settings.api.js",
+          "type": "Script",
+          "bytes": 3438
+        },
+        {
+          "path": "/src/api/branches.api.js",
+          "type": "Script",
+          "bytes": 5462
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 5864
+        },
+        {
+          "path": "/src/composables/useSessionLogout.js",
+          "type": "Script",
+          "bytes": 3621
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 1006
+        },
+        {
+          "path": "/src/api/promotions.api.js",
+          "type": "Script",
+          "bytes": 2481
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 3400
+        },
+        {
+          "path": "/src/components/site/PublicBusinessHours.vue",
+          "type": "Script",
+          "bytes": 26917
+        },
+        {
+          "path": "/src/data/icons.js",
+          "type": "Script",
+          "bytes": 17106
+        },
+        {
+          "path": "/src/utils/formatters.js",
+          "type": "Script",
+          "bytes": 5803
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 14011
+        },
+        {
+          "path": "/src/stores/publicSettings.js",
+          "type": "Script",
+          "bytes": 4778
+        },
+        {
+          "path": "/src/composables/useApiState.js",
+          "type": "Script",
+          "bytes": 8275
+        },
+        {
+          "path": "/src/api/businessHours.api.js",
+          "type": "Script",
+          "bytes": 5508
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 2718
+        },
+        {
+          "path": "/node_modules/.vite/deps/rolldown-runtime-EAsCxrDo.js",
+          "type": "Script",
+          "bytes": 3163
+        },
+        {
+          "path": "/src/views/site/ProductView.vue",
+          "type": "Script",
+          "bytes": 63519
+        },
+        {
+          "path": "/src/components/site/BranchSelector.vue",
+          "type": "Script",
+          "bytes": 17752
+        },
+        {
+          "path": "/src/api/products.api.js",
+          "type": "Script",
+          "bytes": 3931
+        },
+        {
+          "path": "/src/composables/usePublicMenu.js",
+          "type": "Script",
+          "bytes": 10095
+        },
+        {
+          "path": "/src/composables/useCartFeedback.js",
+          "type": "Script",
+          "bytes": 2747
+        },
+        {
+          "path": "/src/api/categories.api.js",
+          "type": "Script",
+          "bytes": 3124
+        },
+        {
+          "path": "/src/components/site/PublicOperationStatus.vue",
+          "type": "Script",
+          "bytes": 17028
+        },
+        {
+          "path": "/src/stores/operations.js",
+          "type": "Script",
+          "bytes": 5691
+        },
+        {
+          "path": "/src/api/operations.api.js",
+          "type": "Script",
+          "bytes": 1800
+        },
+        {
+          "path": "/src/assets/images/logo/shishli-logo.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10283
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9051
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10023
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8959
+        }
+      ],
+      "failures": []
+    },
+    {
+      "name": "Product",
+      "path": "/product/:product",
+      "sample": 2,
+      "lcp": 24360,
+      "cls": 0.0957132589115249,
+      "events": [],
+      "longTasks": [
+        65,
+        58,
+        89,
+        303,
+        66
+      ],
+      "lcpElement": "H1",
+      "fcp": 21692,
+      "ttfb": 110.30000007152557,
+      "dom": 20029.200000047684,
+      "overflow": false,
+      "interaction_ms": null,
+      "js_bytes": 3953359,
+      "css_bytes": 765,
+      "image_bytes": 39618,
+      "api_count": 7,
+      "api": [
+        {
+          "path": "/api/v1/settings/public",
+          "status": 200,
+          "ms": 368.68,
+          "serverTiming": "app;dur=317.12, boot;dur=236.45, db;dur=14.98, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/branches",
+          "status": 200,
+          "ms": 688.86,
+          "serverTiming": "app;dur=293.67, boot;dur=205.33, db;dur=22.71, queries;desc=\"1\""
+        },
+        {
+          "path": "/api/v1/promotions",
+          "status": 200,
+          "ms": 520.95,
+          "serverTiming": "app;dur=265.21, boot;dur=176.71, db;dur=5.98, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/status",
+          "status": 200,
+          "ms": 1198.41,
+          "serverTiming": "app;dur=348.18, boot;dur=194.98, db;dur=19.61, queries;desc=\"4\""
+        },
+        {
+          "path": "/api/v1/branches/:branch/business-hours",
+          "status": 200,
+          "ms": 1505.45,
+          "serverTiming": "app;dur=288.45, boot;dur=197.01, db;dur=19.02, queries;desc=\"3\""
+        },
+        {
+          "path": "/api/v1/menu/products/:product",
+          "status": 200,
+          "ms": 1897.85,
+          "serverTiming": "app;dur=381.33, boot;dur=185.69, db;dur=16.64, queries;desc=\"9\""
+        },
+        {
+          "path": "/api/v1/cart",
+          "status": 201,
+          "ms": 2560.98,
+          "serverTiming": "app;dur=364.40, boot;dur=208.63, db;dur=16.12, queries;desc=\"11\""
+        }
+      ],
+      "assets": [
+        {
+          "path": "/@vite/client",
+          "type": "Script",
+          "bytes": 221802
+        },
+        {
+          "path": "/css2",
+          "type": "Stylesheet",
+          "bytes": 765
+        },
+        {
+          "path": "/src/main.js",
+          "type": "Script",
+          "bytes": 6714
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.js",
+          "type": "Script",
+          "bytes": 26201
+        },
+        {
+          "path": "/node_modules/.vite/deps/pinia.js",
+          "type": "Script",
+          "bytes": 157456
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 10124
+        },
+        {
+          "path": "/src/router/index.js",
+          "type": "Script",
+          "bytes": 64469
+        },
+        {
+          "path": "/src/assets/css/site.css",
+          "type": "Script",
+          "bytes": 46277
+        },
+        {
+          "path": "/src/assets/css/skeleton.css",
+          "type": "Script",
+          "bytes": 3809
+        },
+        {
+          "path": "/src/assets/css/modals.css",
+          "type": "Script",
+          "bytes": 1149
+        },
+        {
+          "path": "/src/assets/css/settings.css",
+          "type": "Script",
+          "bytes": 10632
+        },
+        {
+          "path": "/src/assets/css/public-restoration.css",
+          "type": "Script",
+          "bytes": 33670
+        },
+        {
+          "path": "/src/assets/css/cart-feedback.css",
+          "type": "Script",
+          "bytes": 2814
+        },
+        {
+          "path": "/src/directives/adminTable.js",
+          "type": "Script",
+          "bytes": 5918
+        },
+        {
+          "path": "/src/stores/auth.js",
+          "type": "Script",
+          "bytes": 29141
+        },
+        {
+          "path": "/src/stores/cart.js",
+          "type": "Script",
+          "bytes": 70254
+        },
+        {
+          "path": "/src/api/http.js",
+          "type": "Script",
+          "bytes": 7920
+        },
+        {
+          "path": "/src/router/authGuards.js",
+          "type": "Script",
+          "bytes": 10662
+        },
+        {
+          "path": "/src/components/common/AppSkeleton.vue",
+          "type": "Script",
+          "bytes": 14435
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue-router.js",
+          "type": "Script",
+          "bytes": 353377
+        },
+        {
+          "path": "/src/App.vue",
+          "type": "Script",
+          "bytes": 1013
+        },
+        {
+          "path": "/@id/__x00__plugin-vue:export-helper",
+          "type": "Script",
+          "bytes": 1363
+        },
+        {
+          "path": "/node_modules/.vite/deps/vue.runtime.esm-bundler-Bo_ScjpA.js",
+          "type": "Script",
+          "bytes": 1203242
+        },
+        {
+          "path": "/src/layouts/SiteLayout.vue",
+          "type": "Script",
+          "bytes": 61880
+        },
+        {
+          "path": "/src/constants/reports.js",
+          "type": "Script",
+          "bytes": 51520
+        },
+        {
+          "path": "/src/constants/settings.js",
+          "type": "Script",
+          "bytes": 25908
+        },
+        {
+          "path": "/src/constants/adminNavigation.js",
+          "type": "Script",
+          "bytes": 19810
+        },
+        {
+          "path": "/node_modules/.vite/deps/axios.js",
+          "type": "Script",
+          "bytes": 463081
+        },
+        {
+          "path": "/src/utils/phone.js",
+          "type": "Script",
+          "bytes": 7088
+        },
+        {
+          "path": "/src/api/auth.api.js",
+          "type": "Script",
+          "bytes": 3455
+        },
+        {
+          "path": "/src/api/drivers.api.js",
+          "type": "Script",
+          "bytes": 9596
+        },
+        {
+          "path": "/src/utils/apiError.js",
+          "type": "Script",
+          "bytes": 9423
+        },
+        {
+          "path": "/src/utils/authToken.js",
+          "type": "Script",
+          "bytes": 1964
+        },
+        {
+          "path": "/src/api/cart.api.js",
+          "type": "Script",
+          "bytes": 7016
+        },
+        {
+          "path": "/src/api/delivery.api.js",
+          "type": "Script",
+          "bytes": 5489
+        },
+        {
+          "path": "/src/api/checkout.api.js",
+          "type": "Script",
+          "bytes": 2411
+        },
+        {
+          "path": "/src/utils/orderAccess.js",
+          "type": "Script",
+          "bytes": 20334
+        },
+        {
+          "path": "/src/stores/branch.js",
+          "type": "Script",
+          "bytes": 10952
+        },
+        {
+          "path": "/node_modules/.vite/deps/dist-C9iN58Rj.js",
+          "type": "Script",
+          "bytes": 521768
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 36137
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 24951
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 39059
+        },
+        {
+          "path": "/src/stores/registrationOffer.js",
+          "type": "Script",
+          "bytes": 11515
+        },
+        {
+          "path": "/src/components/site/SiteFooter.vue",
+          "type": "Script",
+          "bytes": 23835
+        },
+        {
+          "path": "/src/components/site/SiteIcon.vue",
+          "type": "Script",
+          "bytes": 2953
+        },
+        {
+          "path": "/src/components/site/CartItems.vue",
+          "type": "Script",
+          "bytes": 30717
+        },
+        {
+          "path": "/src/components/site/CartSummary.vue",
+          "type": "Script",
+          "bytes": 17336
+        },
+        {
+          "path": "/src/composables/useRestaurantInfo.js",
+          "type": "Script",
+          "bytes": 5483
+        },
+        {
+          "path": "/src/composables/useCartClickSound.js",
+          "type": "Script",
+          "bytes": 7790
+        },
+        {
+          "path": "/node_modules/vite/dist/client/env.mjs",
+          "type": "Script",
+          "bytes": 4185
+        },
+        {
+          "path": "/src/api/catalogTransport.js",
+          "type": "Script",
+          "bytes": 6023
+        },
+        {
+          "path": "/src/api/settings.api.js",
+          "type": "Script",
+          "bytes": 3438
+        },
+        {
+          "path": "/src/api/branches.api.js",
+          "type": "Script",
+          "bytes": 5462
+        },
+        {
+          "path": "/src/components/site/RegistrationOffer.vue",
+          "type": "Script",
+          "bytes": 5864
+        },
+        {
+          "path": "/src/composables/useSessionLogout.js",
+          "type": "Script",
+          "bytes": 3621
+        },
+        {
+          "path": "/src/components/site/SiteHeader.vue",
+          "type": "Script",
+          "bytes": 1006
+        },
+        {
+          "path": "/src/api/promotions.api.js",
+          "type": "Script",
+          "bytes": 2481
+        },
+        {
+          "path": "/src/components/site/RegistrationOfferPopup.vue",
+          "type": "Script",
+          "bytes": 3400
+        },
+        {
+          "path": "/src/components/site/PublicBusinessHours.vue",
+          "type": "Script",
+          "bytes": 26917
+        },
+        {
+          "path": "/src/data/icons.js",
+          "type": "Script",
+          "bytes": 17106
+        },
+        {
+          "path": "/src/utils/formatters.js",
+          "type": "Script",
+          "bytes": 5803
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 14011
+        },
+        {
+          "path": "/src/stores/publicSettings.js",
+          "type": "Script",
+          "bytes": 4778
+        },
+        {
+          "path": "/src/composables/useApiState.js",
+          "type": "Script",
+          "bytes": 8275
+        },
+        {
+          "path": "/src/api/businessHours.api.js",
+          "type": "Script",
+          "bytes": 5508
+        },
+        {
+          "path": "/src/components/site/CartCoupon.vue",
+          "type": "Script",
+          "bytes": 2718
+        },
+        {
+          "path": "/node_modules/.vite/deps/rolldown-runtime-EAsCxrDo.js",
+          "type": "Script",
+          "bytes": 3163
+        },
+        {
+          "path": "/src/views/site/ProductView.vue",
+          "type": "Script",
+          "bytes": 63519
+        },
+        {
+          "path": "/src/components/site/BranchSelector.vue",
+          "type": "Script",
+          "bytes": 17752
+        },
+        {
+          "path": "/src/api/products.api.js",
+          "type": "Script",
+          "bytes": 3931
+        },
+        {
+          "path": "/src/composables/usePublicMenu.js",
+          "type": "Script",
+          "bytes": 10095
+        },
+        {
+          "path": "/src/composables/useCartFeedback.js",
+          "type": "Script",
+          "bytes": 2747
+        },
+        {
+          "path": "/src/api/categories.api.js",
+          "type": "Script",
+          "bytes": 3124
+        },
+        {
+          "path": "/src/components/site/PublicOperationStatus.vue",
+          "type": "Script",
+          "bytes": 17028
+        },
+        {
+          "path": "/src/stores/operations.js",
+          "type": "Script",
+          "bytes": 5691
+        },
+        {
+          "path": "/src/api/operations.api.js",
+          "type": "Script",
+          "bytes": 1800
+        },
+        {
+          "path": "/src/assets/images/logo/shishli-logo.webp",
+          "type": "Image",
+          "bytes": 39618
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzGBCw.woff2",
+          "type": "Font",
+          "bytes": 10287
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrRpiYlJ.woff2",
+          "type": "Font",
+          "bytes": 9054
+        },
+        {
+          "path": "/s/tajawal/v12/Iurf6YBj_oCad4k1l4qkHrFpiQ.woff2",
+          "type": "Font",
+          "bytes": 10025
+        },
+        {
+          "path": "/s/tajawal/v12/Iura6YBj_oCad4k1nzSBC45I.woff2",
+          "type": "Font",
+          "bytes": 8960
+        }
+      ],
+      "failures": []
+    }
+  ],
+  "diagnostics": []
+}

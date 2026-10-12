@@ -1,0 +1,7 @@
+{
+    "isolated_mysql_schema_removed": true,
+    "private_token_manifest_removed": true,
+    "current_restaurant_database_modified": false,
+    "existing_uploaded_media_modified": false,
+    "sqlite_fixture_created_or_removed": false
+}

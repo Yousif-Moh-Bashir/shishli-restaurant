@@ -1,4 +1,4 @@
-﻿import { computed, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { cartApi } from '../api/cart.api'
 import { deliveryApi } from '../api/delivery.api'
@@ -140,13 +140,13 @@ export const useCartStore = defineStore('cart', () => {
     if (!attempt.uuid || (attempt.account === null && !cartToken.value)) return { ok: false, missingCart: true }
     const wasPending = Boolean(pendingCheckout.value), version = revision, scope = checkoutScope.value
     checkoutAttempts.value[scope] = attempt
-    if (!persistCheckoutAttempts(checkoutAttempts.value)) persistenceWarning.value = 'احتفظ بالصفحة مفتوحة؛ تعذر حفظ معرّف محاولة الطلب لاستعادتها بعد التحديث.'
+    if (!persistCheckoutAttempts(checkoutAttempts.value)) persistenceWarning.value = 'احتفظ بالصفحة مفتوحة حتى يكتمل طلبك؛ قد يتعذر استعادته إذا أعدت تحميل الصفحة.'
     checkoutBusy.value = true; isMutating.value = true
     try {
       const order = await checkoutApi.submit(body, attempt.account === null ? { token: cartToken.value } : { uuid: attempt.uuid })
       if (!order || typeof order.id !== 'string' || !order.order_number || !Array.isArray(order.items) || !order.pricing) throw new Error('INVALID_ORDER_RESPONSE')
       // Save the one-time guest credential before navigation, even if the session changed in flight.
-      const persisted = attempt.account === null ? saveOrderAccess(order.id, order.access_token) : true
+      const persisted = attempt.account === null ? saveOrderAccess(order.id, order.access_token, { number: order.order_number, placedAt: order.placed_at, expiresAt: order.tracking?.expires_at }) : true
       if (version !== revision) return { ok: false, sessionChanged: true }
       cart.value = null; initialized.value = true; error.value = null
       if (attempt.account === null) saveToken('')
@@ -186,7 +186,7 @@ export const useCartStore = defineStore('cart', () => {
     revision++; cart.value = null; initialized.value = false; error.value = null
     if (pending) await pending
     isLoading.value = false
-    notice.value = auth.token && cartToken.value ? 'سلة الضيف محفوظة وستعود عند الخروج. الخادم لا يدعم دمجها مع سلة الحساب.' : ''
+    notice.value = auth.token && cartToken.value ? 'سلتك السابقة محفوظة، ويمكنك العودة إليها بعد تسجيل الخروج.' : ''
     return initializeCart()
   }
   async function handleStorageEvent(event) {

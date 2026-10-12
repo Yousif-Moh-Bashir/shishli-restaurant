@@ -58,3 +58,15 @@
 .admin-layout .settings-page .audit-actor{display:grid;justify-items:start;gap:8px}
 @media(max-width:1100px){.admin-layout .settings-page .settings-audit-filters .form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-layout .settings-page .branch-control-panel .form-grid{grid-template-columns:1fr}}
 @media(max-width:760px){.admin-layout .settings-page .settings-audit-filters .form-grid{grid-template-columns:1fr}.admin-layout .settings-page .settings-audit-filters,.admin-layout .settings-page .branch-selector,.admin-layout .settings-page .branch-status-summary{padding:14px}.admin-layout .settings-page .panel-head{flex-wrap:wrap;align-items:flex-start}.admin-layout .settings-page .panel-head .catalog-actions{width:100%}.admin-layout .settings-page .panel-head .catalog-actions button{width:100%;margin:0}.admin-layout .settings-page .hours-period .field{min-width:100px}}
+.admin-layout .hours-confirmation{display:flex;flex-direction:column;gap:20px;min-width:0}
+.admin-layout .hours-confirmation-note{padding:16px;background:#fff8eb;border:1px solid #eadbc4;border-radius:8px;font-size:14px;line-height:1.9;overflow-wrap:anywhere}
+.admin-layout .hours-confirmation-actions{display:flex;flex-wrap:wrap;gap:10px;padding-top:16px;border-top:1px solid var(--line)}
+.admin-layout .hours-confirmation-actions button{margin:0;min-height:44px;flex:1 1 160px}
+.admin-layout .hours-confirmation .admin-feedback-error{margin:0;padding:16px;text-align:start;overflow-wrap:anywhere}
+.admin-layout .weekly-hours-quick{padding:18px;margin-block:20px;background:var(--cream);border:1px solid var(--line);border-radius:9px}
+.admin-layout .weekly-hours-quick h3{font-size:15px;color:var(--burgundy)}
+.admin-layout .weekly-hours-quick p{margin-block:6px 14px;font-size:12px;color:var(--muted)}
+.admin-layout .weekly-hours-quick>small{display:block;margin-top:12px;line-height:1.8}
+.admin-layout .weekly-hours-quick-actions{display:flex;flex-wrap:wrap;gap:10px}
+.admin-layout .weekly-hours-quick-actions button{margin:0;min-height:44px}
+@media(max-width:760px){.admin-layout .weekly-hours-quick{padding:14px}.admin-layout .weekly-hours-quick-actions button{flex:1 1 160px}}

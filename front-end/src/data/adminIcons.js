@@ -1,5 +1,17 @@
 // Original Lucide paths from dashboard/assets/js/icons.js (ISC).
   export const paths = {
+    'chart-column': '<path d="M3 3v18h18M7 17v-5M12 17V7M17 17v-8"/>',
+    'chef-hat': '<path d="M7 15a5 5 0 0 1-2-9 4 4 0 0 1 7-3 4 4 0 0 1 7 3 5 5 0 0 1-2 9v6H7ZM7 17h10"/>',
+    store: '<path d="m3 3-1 6a3 3 0 0 0 5 2 3 3 0 0 0 5 0 3 3 0 0 0 5 0 3 3 0 0 0 5-2l-1-6ZM3 12v9h18v-9M9 21v-6h6v6M7 3l-1 6M12 3v6M17 3l1 6"/>',
+    'sliders-horizontal': '<path d="M3 5h4M11 5h10M3 12h10M17 12h4M3 19h4M11 19h10M7 3v4M13 10v4M7 17v4"/>',
+    tags: '<path d="M9 3H3v6l10 10a2 2 0 0 0 3 0l3-3a2 2 0 0 0 0-3ZM14 3l7 7a2 2 0 0 1 0 3M6 6h.01"/>',
+    'badge-percent': '<path d="m9 15 6-6M12 2l3 2 4 .5.5 4L22 12l-2.5 3.5-.5 4-4 .5-3 2-3-2-4-.5-.5-4L2 12l2.5-3.5.5-4L9 4Z"/><circle cx="9" cy="9" r="1"/><circle cx="15" cy="15" r="1"/>',
+    users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/><circle cx="9" cy="7" r="4"/>',
+    'shield-check': '<path d="M12 22s9-4 9-11V5l-9-3-9 3v6c0 7 9 11 9 11Zm-4-10 3 3 5-5"/>',
+    history: '<path d="M3 11a9 9 0 1 1 2.7 7M3 4v7h7M12 7v5l3 2"/>',
+    boxes: '<path d="m12 2 8 4v4l-8 4-8-4V6Zm0 0v8M4 6l8 4 8-4M12 14v8M4 10l-2 1v7l6 3 4-2M2 11l6 3 4-2M8 14v7M20 10l2 1v7l-6 3-4-2M22 11l-6 3-4-2M16 14v7"/>',
+    'panels-top-left': '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 9v12M6 6h.01M9 6h.01"/>',
+    'map-pinned': '<path d="m8 10-6 3v8l6-3 8 3 6-3V10l-5 2M8 10v8M16 15v6M12 2a4 4 0 0 0-4 4c0 3 4 7 4 7s4-4 4-7a4 4 0 0 0-4-4Z"/><circle cx="12" cy="6" r="1"/>',
     bell: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',
     wallet: '<path d="M20 8V5a2 2 0 0 0-2-2H5a3 3 0 0 0 0 6h15v11H5a3 3 0 0 1-3-3V6"/><path d="M20 12h-5v5h5M17 14.5h.01"/>',
     'layout-grid': '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',

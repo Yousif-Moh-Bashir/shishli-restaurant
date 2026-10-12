@@ -15,6 +15,7 @@ class AdminNavigationService
             ['options', 'خيارات المنتجات', '/options', 'options.view'], ['branches', 'الفروع', '/branches', 'branches.view'],
             ['inventory', 'المخزون', '/inventory', 'inventory.view'], ['customers', 'العملاء', '/customers', 'customers.view'],
             ['payments', 'المدفوعات', '/payments', 'payments.view'], ['promotions', 'العروض', '/promotions', 'promotions.view'],
+            ['drivers', 'مناديب التوصيل', '/drivers', 'drivers.view'],
             ['coupons', 'الكوبونات', '/coupons', 'coupons.view'], ['notifications', 'الإشعارات', '/notifications', 'notifications.view'],
             ['pages', 'الصفحات', '/pages', 'cms.pages.view'], ['banners', 'البنرات', '/banners', 'cms.banners.view'],
             ['gallery', 'المعرض', '/gallery', 'cms.gallery.view'], ['settings', 'الإعدادات', '/settings', 'settings.view'],

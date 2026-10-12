@@ -13,5 +13,5 @@ export async function browserClient(port,output){
  const click=(selector,label)=>evaluate(`(()=>{const e=[...document.querySelectorAll(${JSON.stringify(selector)})].find(e=>e.textContent.includes(${JSON.stringify(label)}));if(!e)throw Error('Missing control '+${JSON.stringify(label)});e.click()})()`)
  socket.addEventListener('message',({data})=>{const m=JSON.parse(data);if(m.method==='Page.javascriptDialogOpening')send('Page.handleJavaScriptDialog',{accept:true}).catch(()=>{})})
  const onEvent=(method,callback)=>{const listener=({data})=>{const message=JSON.parse(data);if(message.method===method)callback(message.params)};socket.addEventListener('message',listener);return()=>socket.removeEventListener('message',listener)}
- await send('Page.enable');await send('Runtime.enable');return {send,evaluate,wait,go,input,click,diagnostics,sleep,onEvent,close:()=>{socket.close();process.kill()}}
+ await send('Page.enable');await send('Runtime.enable');await send('Network.enable');await send('Network.setCacheDisabled',{cacheDisabled:true});return {send,evaluate,wait,go,input,click,diagnostics,sleep,onEvent,close:()=>{socket.close();process.kill()}}
 }

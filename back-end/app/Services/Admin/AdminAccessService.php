@@ -15,7 +15,8 @@ class AdminAccessService
         }
         $staff = $user->hasAnyRole(self::STAFF_ROLES);
 
-        return $staff || (! $user->hasRole('customer') && $user->getAllPermissions()->isNotEmpty());
+        return $staff || (! $user->hasRole('customer') && $user->getAllPermissions()
+            ->contains(fn ($permission): bool => ! str_starts_with($permission->name, 'driver.')));
     }
 
     public function assertAllowed(?User $user): void

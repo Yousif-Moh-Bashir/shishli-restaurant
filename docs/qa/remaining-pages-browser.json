@@ -1,0 +1,212 @@
+{
+  "pages": [
+    "/admin/drivers",
+    "/product/shish-tawook",
+    "/forbidden",
+    "/track-order/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+    "/order-success/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7"
+  ],
+  "responsive": [
+    {
+      "path": "/admin/drivers",
+      "width": 320
+    },
+    {
+      "path": "/admin/drivers",
+      "width": 360
+    },
+    {
+      "path": "/admin/drivers",
+      "width": 375
+    },
+    {
+      "path": "/admin/drivers",
+      "width": 390
+    },
+    {
+      "path": "/admin/drivers",
+      "width": 412
+    },
+    {
+      "path": "/admin/drivers",
+      "width": 430
+    },
+    {
+      "path": "/admin/drivers",
+      "width": 768
+    },
+    {
+      "path": "/admin/drivers",
+      "width": 1024
+    },
+    {
+      "path": "/admin/drivers",
+      "width": 1366
+    },
+    {
+      "path": "/admin/drivers",
+      "width": 1920
+    },
+    {
+      "path": "/product/shish-tawook",
+      "width": 320
+    },
+    {
+      "path": "/product/shish-tawook",
+      "width": 360
+    },
+    {
+      "path": "/product/shish-tawook",
+      "width": 375
+    },
+    {
+      "path": "/product/shish-tawook",
+      "width": 390
+    },
+    {
+      "path": "/product/shish-tawook",
+      "width": 412
+    },
+    {
+      "path": "/product/shish-tawook",
+      "width": 430
+    },
+    {
+      "path": "/product/shish-tawook",
+      "width": 768
+    },
+    {
+      "path": "/product/shish-tawook",
+      "width": 1024
+    },
+    {
+      "path": "/product/shish-tawook",
+      "width": 1366
+    },
+    {
+      "path": "/product/shish-tawook",
+      "width": 1920
+    },
+    {
+      "path": "/forbidden",
+      "width": 320
+    },
+    {
+      "path": "/forbidden",
+      "width": 360
+    },
+    {
+      "path": "/forbidden",
+      "width": 375
+    },
+    {
+      "path": "/forbidden",
+      "width": 390
+    },
+    {
+      "path": "/forbidden",
+      "width": 412
+    },
+    {
+      "path": "/forbidden",
+      "width": 430
+    },
+    {
+      "path": "/forbidden",
+      "width": 768
+    },
+    {
+      "path": "/forbidden",
+      "width": 1024
+    },
+    {
+      "path": "/forbidden",
+      "width": 1366
+    },
+    {
+      "path": "/forbidden",
+      "width": 1920
+    },
+    {
+      "path": "/track-order/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 320
+    },
+    {
+      "path": "/track-order/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 360
+    },
+    {
+      "path": "/track-order/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 375
+    },
+    {
+      "path": "/track-order/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 390
+    },
+    {
+      "path": "/track-order/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 412
+    },
+    {
+      "path": "/track-order/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 430
+    },
+    {
+      "path": "/track-order/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 768
+    },
+    {
+      "path": "/track-order/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 1024
+    },
+    {
+      "path": "/track-order/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 1366
+    },
+    {
+      "path": "/track-order/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 1920
+    },
+    {
+      "path": "/order-success/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 320
+    },
+    {
+      "path": "/order-success/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 360
+    },
+    {
+      "path": "/order-success/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 375
+    },
+    {
+      "path": "/order-success/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 390
+    },
+    {
+      "path": "/order-success/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 412
+    },
+    {
+      "path": "/order-success/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 430
+    },
+    {
+      "path": "/order-success/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 768
+    },
+    {
+      "path": "/order-success/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 1024
+    },
+    {
+      "path": "/order-success/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 1366
+    },
+    {
+      "path": "/order-success/f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+      "width": 1920
+    }
+  ],
+  "result": "passed"
+}

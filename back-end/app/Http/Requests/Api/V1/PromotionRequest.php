@@ -39,6 +39,8 @@ class PromotionRequest extends FormRequest
             'priority' => ['sometimes', 'integer', 'min:0', 'max:4294967295'],
             'usage_limit' => ['sometimes', 'nullable', 'integer', 'min:1', 'max:4294967295'],
             'usage_limit_per_user' => ['sometimes', 'nullable', 'integer', 'min:1', 'max:4294967295'],
+            'first_order_only' => ['sometimes', 'boolean'],
+            'is_registration_offer' => ['sometimes', 'boolean'],
             'branches' => ['sometimes', 'array', 'max:500'], 'branches.*' => ['required', 'uuid', 'distinct', Rule::exists('branches', 'uuid')->whereNull('deleted_at')],
             'products' => ['sometimes', 'array', 'max:500'], 'products.*' => ['required', 'uuid', 'distinct', Rule::exists('products', 'uuid')->whereNull('deleted_at')],
             'categories' => ['sometimes', 'array', 'max:500'], 'categories.*' => ['required', 'uuid', 'distinct', Rule::exists('categories', 'uuid')->whereNull('deleted_at')],

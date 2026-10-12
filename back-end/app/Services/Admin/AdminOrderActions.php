@@ -27,7 +27,7 @@ class AdminOrderActions
             try {
                 $this->authorization->authorize($order, $target, $actor, $this->authorization->staffSource($actor));
             } catch (HttpException $e) {
-                if ($e->getStatusCode() === 403) {
+                if (in_array($e->getStatusCode(), [403, 409], true)) {
                     continue;
                 } throw $e;
             }

@@ -1,0 +1,1614 @@
+{
+    "server_version": "10.4.25-MariaDB",
+    "isolated_schema_verified": true,
+    "migrations_applied": 44,
+    "tables": [
+        {
+            "TABLE_NAME": "admin_activity_logs"
+        },
+        {
+            "TABLE_NAME": "banners"
+        },
+        {
+            "TABLE_NAME": "branches"
+        },
+        {
+            "TABLE_NAME": "branch_business_hours"
+        },
+        {
+            "TABLE_NAME": "branch_closures"
+        },
+        {
+            "TABLE_NAME": "branch_inventories"
+        },
+        {
+            "TABLE_NAME": "branch_products"
+        },
+        {
+            "TABLE_NAME": "cache"
+        },
+        {
+            "TABLE_NAME": "cache_locks"
+        },
+        {
+            "TABLE_NAME": "carts"
+        },
+        {
+            "TABLE_NAME": "cart_items"
+        },
+        {
+            "TABLE_NAME": "cart_item_options"
+        },
+        {
+            "TABLE_NAME": "categories"
+        },
+        {
+            "TABLE_NAME": "coupons"
+        },
+        {
+            "TABLE_NAME": "customer_addresses"
+        },
+        {
+            "TABLE_NAME": "delivery_zones"
+        },
+        {
+            "TABLE_NAME": "delivery_zone_districts"
+        },
+        {
+            "TABLE_NAME": "driver_cash_collections"
+        },
+        {
+            "TABLE_NAME": "driver_cash_settlements"
+        },
+        {
+            "TABLE_NAME": "failed_jobs"
+        },
+        {
+            "TABLE_NAME": "gallery_items"
+        },
+        {
+            "TABLE_NAME": "jobs"
+        },
+        {
+            "TABLE_NAME": "job_batches"
+        },
+        {
+            "TABLE_NAME": "migrations"
+        },
+        {
+            "TABLE_NAME": "model_has_permissions"
+        },
+        {
+            "TABLE_NAME": "model_has_roles"
+        },
+        {
+            "TABLE_NAME": "notification_attempts"
+        },
+        {
+            "TABLE_NAME": "offers"
+        },
+        {
+            "TABLE_NAME": "offer_items"
+        },
+        {
+            "TABLE_NAME": "option_groups"
+        },
+        {
+            "TABLE_NAME": "option_values"
+        },
+        {
+            "TABLE_NAME": "orders"
+        },
+        {
+            "TABLE_NAME": "order_addresses"
+        },
+        {
+            "TABLE_NAME": "order_delivery_histories"
+        },
+        {
+            "TABLE_NAME": "order_items"
+        },
+        {
+            "TABLE_NAME": "order_item_options"
+        },
+        {
+            "TABLE_NAME": "order_promotions"
+        },
+        {
+            "TABLE_NAME": "order_status_histories"
+        },
+        {
+            "TABLE_NAME": "outbound_notifications"
+        },
+        {
+            "TABLE_NAME": "pages"
+        },
+        {
+            "TABLE_NAME": "page_sections"
+        },
+        {
+            "TABLE_NAME": "password_reset_tokens"
+        },
+        {
+            "TABLE_NAME": "payments"
+        },
+        {
+            "TABLE_NAME": "payment_transactions"
+        },
+        {
+            "TABLE_NAME": "payment_webhook_events"
+        },
+        {
+            "TABLE_NAME": "permissions"
+        },
+        {
+            "TABLE_NAME": "personal_access_tokens"
+        },
+        {
+            "TABLE_NAME": "products"
+        },
+        {
+            "TABLE_NAME": "product_images"
+        },
+        {
+            "TABLE_NAME": "product_option_groups"
+        },
+        {
+            "TABLE_NAME": "promotions"
+        },
+        {
+            "TABLE_NAME": "promotion_branches"
+        },
+        {
+            "TABLE_NAME": "promotion_categories"
+        },
+        {
+            "TABLE_NAME": "promotion_products"
+        },
+        {
+            "TABLE_NAME": "promotion_usages"
+        },
+        {
+            "TABLE_NAME": "restaurant_settings"
+        },
+        {
+            "TABLE_NAME": "roles"
+        },
+        {
+            "TABLE_NAME": "role_has_permissions"
+        },
+        {
+            "TABLE_NAME": "sessions"
+        },
+        {
+            "TABLE_NAME": "setting_change_logs"
+        },
+        {
+            "TABLE_NAME": "stock_movements"
+        },
+        {
+            "TABLE_NAME": "stock_reservations"
+        },
+        {
+            "TABLE_NAME": "users"
+        }
+    ],
+    "foreign_keys": [
+        {
+            "TABLE_NAME": "admin_activity_logs",
+            "COLUMN_NAME": "user_id",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "banners",
+            "COLUMN_NAME": "created_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "banners",
+            "COLUMN_NAME": "updated_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "branch_business_hours",
+            "COLUMN_NAME": "branch_id",
+            "REFERENCED_TABLE_NAME": "branches",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "branch_closures",
+            "COLUMN_NAME": "branch_id",
+            "REFERENCED_TABLE_NAME": "branches",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "branch_closures",
+            "COLUMN_NAME": "created_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "branch_inventories",
+            "COLUMN_NAME": "branch_id",
+            "REFERENCED_TABLE_NAME": "branches",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "branch_inventories",
+            "COLUMN_NAME": "product_id",
+            "REFERENCED_TABLE_NAME": "products",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "branch_products",
+            "COLUMN_NAME": "branch_id",
+            "REFERENCED_TABLE_NAME": "branches",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "branch_products",
+            "COLUMN_NAME": "product_id",
+            "REFERENCED_TABLE_NAME": "products",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "carts",
+            "COLUMN_NAME": "branch_id",
+            "REFERENCED_TABLE_NAME": "branches",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "carts",
+            "COLUMN_NAME": "coupon_id",
+            "REFERENCED_TABLE_NAME": "coupons",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "carts",
+            "COLUMN_NAME": "user_id",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "cart_items",
+            "COLUMN_NAME": "cart_id",
+            "REFERENCED_TABLE_NAME": "carts",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "cart_items",
+            "COLUMN_NAME": "product_id",
+            "REFERENCED_TABLE_NAME": "products",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "cart_item_options",
+            "COLUMN_NAME": "cart_item_id",
+            "REFERENCED_TABLE_NAME": "cart_items",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "cart_item_options",
+            "COLUMN_NAME": "option_group_id",
+            "REFERENCED_TABLE_NAME": "option_groups",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "cart_item_options",
+            "COLUMN_NAME": "option_value_id",
+            "REFERENCED_TABLE_NAME": "option_values",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "categories",
+            "COLUMN_NAME": "parent_id",
+            "REFERENCED_TABLE_NAME": "categories",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "coupons",
+            "COLUMN_NAME": "promotion_id",
+            "REFERENCED_TABLE_NAME": "promotions",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "customer_addresses",
+            "COLUMN_NAME": "user_id",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "delivery_zones",
+            "COLUMN_NAME": "branch_id",
+            "REFERENCED_TABLE_NAME": "branches",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "delivery_zone_districts",
+            "COLUMN_NAME": "delivery_zone_id",
+            "REFERENCED_TABLE_NAME": "delivery_zones",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "driver_cash_collections",
+            "COLUMN_NAME": "driver_id",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "driver_cash_collections",
+            "COLUMN_NAME": "order_id",
+            "REFERENCED_TABLE_NAME": "orders",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "driver_cash_collections",
+            "COLUMN_NAME": "payment_id",
+            "REFERENCED_TABLE_NAME": "payments",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "driver_cash_collections",
+            "COLUMN_NAME": "settlement_id",
+            "REFERENCED_TABLE_NAME": "driver_cash_settlements",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "driver_cash_settlements",
+            "COLUMN_NAME": "cashier_id",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "driver_cash_settlements",
+            "COLUMN_NAME": "driver_id",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "gallery_items",
+            "COLUMN_NAME": "created_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "gallery_items",
+            "COLUMN_NAME": "updated_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "model_has_permissions",
+            "COLUMN_NAME": "permission_id",
+            "REFERENCED_TABLE_NAME": "permissions",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "model_has_roles",
+            "COLUMN_NAME": "role_id",
+            "REFERENCED_TABLE_NAME": "roles",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "notification_attempts",
+            "COLUMN_NAME": "notification_id",
+            "REFERENCED_TABLE_NAME": "outbound_notifications",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "option_values",
+            "COLUMN_NAME": "option_group_id",
+            "REFERENCED_TABLE_NAME": "option_groups",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "orders",
+            "COLUMN_NAME": "branch_id",
+            "REFERENCED_TABLE_NAME": "branches",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "orders",
+            "COLUMN_NAME": "cancelled_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "orders",
+            "COLUMN_NAME": "cart_id",
+            "REFERENCED_TABLE_NAME": "carts",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "orders",
+            "COLUMN_NAME": "driver_id",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "orders",
+            "COLUMN_NAME": "user_id",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "order_addresses",
+            "COLUMN_NAME": "order_id",
+            "REFERENCED_TABLE_NAME": "orders",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "order_delivery_histories",
+            "COLUMN_NAME": "changed_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "order_delivery_histories",
+            "COLUMN_NAME": "driver_id",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "order_delivery_histories",
+            "COLUMN_NAME": "order_id",
+            "REFERENCED_TABLE_NAME": "orders",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "order_delivery_histories",
+            "COLUMN_NAME": "previous_driver_id",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "order_items",
+            "COLUMN_NAME": "order_id",
+            "REFERENCED_TABLE_NAME": "orders",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "order_items",
+            "COLUMN_NAME": "product_id",
+            "REFERENCED_TABLE_NAME": "products",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "order_item_options",
+            "COLUMN_NAME": "order_item_id",
+            "REFERENCED_TABLE_NAME": "order_items",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "order_promotions",
+            "COLUMN_NAME": "order_id",
+            "REFERENCED_TABLE_NAME": "orders",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "order_status_histories",
+            "COLUMN_NAME": "changed_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "order_status_histories",
+            "COLUMN_NAME": "order_id",
+            "REFERENCED_TABLE_NAME": "orders",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "pages",
+            "COLUMN_NAME": "created_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "pages",
+            "COLUMN_NAME": "updated_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "page_sections",
+            "COLUMN_NAME": "page_id",
+            "REFERENCED_TABLE_NAME": "pages",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "payments",
+            "COLUMN_NAME": "order_id",
+            "REFERENCED_TABLE_NAME": "orders",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "payment_transactions",
+            "COLUMN_NAME": "payment_id",
+            "REFERENCED_TABLE_NAME": "payments",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "payment_webhook_events",
+            "COLUMN_NAME": "payment_id",
+            "REFERENCED_TABLE_NAME": "payments",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "products",
+            "COLUMN_NAME": "category_id",
+            "REFERENCED_TABLE_NAME": "categories",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "product_images",
+            "COLUMN_NAME": "product_id",
+            "REFERENCED_TABLE_NAME": "products",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "product_option_groups",
+            "COLUMN_NAME": "option_group_id",
+            "REFERENCED_TABLE_NAME": "option_groups",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "product_option_groups",
+            "COLUMN_NAME": "product_id",
+            "REFERENCED_TABLE_NAME": "products",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "promotion_branches",
+            "COLUMN_NAME": "branch_id",
+            "REFERENCED_TABLE_NAME": "branches",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "promotion_branches",
+            "COLUMN_NAME": "promotion_id",
+            "REFERENCED_TABLE_NAME": "promotions",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "promotion_categories",
+            "COLUMN_NAME": "category_id",
+            "REFERENCED_TABLE_NAME": "categories",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "promotion_categories",
+            "COLUMN_NAME": "promotion_id",
+            "REFERENCED_TABLE_NAME": "promotions",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "promotion_products",
+            "COLUMN_NAME": "product_id",
+            "REFERENCED_TABLE_NAME": "products",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "promotion_products",
+            "COLUMN_NAME": "promotion_id",
+            "REFERENCED_TABLE_NAME": "promotions",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "promotion_usages",
+            "COLUMN_NAME": "coupon_id",
+            "REFERENCED_TABLE_NAME": "coupons",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "promotion_usages",
+            "COLUMN_NAME": "order_id",
+            "REFERENCED_TABLE_NAME": "orders",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "promotion_usages",
+            "COLUMN_NAME": "promotion_id",
+            "REFERENCED_TABLE_NAME": "promotions",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "promotion_usages",
+            "COLUMN_NAME": "user_id",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "restaurant_settings",
+            "COLUMN_NAME": "updated_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "role_has_permissions",
+            "COLUMN_NAME": "permission_id",
+            "REFERENCED_TABLE_NAME": "permissions",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "role_has_permissions",
+            "COLUMN_NAME": "role_id",
+            "REFERENCED_TABLE_NAME": "roles",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "setting_change_logs",
+            "COLUMN_NAME": "changed_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "stock_movements",
+            "COLUMN_NAME": "branch_inventory_id",
+            "REFERENCED_TABLE_NAME": "branch_inventories",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "stock_movements",
+            "COLUMN_NAME": "created_by",
+            "REFERENCED_TABLE_NAME": "users",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "stock_reservations",
+            "COLUMN_NAME": "branch_inventory_id",
+            "REFERENCED_TABLE_NAME": "branch_inventories",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "stock_reservations",
+            "COLUMN_NAME": "order_id",
+            "REFERENCED_TABLE_NAME": "orders",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "stock_reservations",
+            "COLUMN_NAME": "order_item_id",
+            "REFERENCED_TABLE_NAME": "order_items",
+            "REFERENCED_COLUMN_NAME": "id"
+        },
+        {
+            "TABLE_NAME": "users",
+            "COLUMN_NAME": "driver_branch_id",
+            "REFERENCED_TABLE_NAME": "branches",
+            "REFERENCED_COLUMN_NAME": "id"
+        }
+    ],
+    "indexes": {
+        "orders": [
+            {
+                "Table": "orders",
+                "Non_unique": 0,
+                "Key_name": "PRIMARY",
+                "Seq_in_index": 1,
+                "Column_name": "id",
+                "Collation": "A",
+                "Cardinality": 29,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 0,
+                "Key_name": "orders_uuid_unique",
+                "Seq_in_index": 1,
+                "Column_name": "uuid",
+                "Collation": "A",
+                "Cardinality": 29,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 0,
+                "Key_name": "orders_order_number_unique",
+                "Seq_in_index": 1,
+                "Column_name": "order_number",
+                "Collation": "A",
+                "Cardinality": 29,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 0,
+                "Key_name": "orders_cart_id_unique",
+                "Seq_in_index": 1,
+                "Column_name": "cart_id",
+                "Collation": "A",
+                "Cardinality": 4,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_user_id_placed_at_index",
+                "Seq_in_index": 1,
+                "Column_name": "user_id",
+                "Collation": "A",
+                "Cardinality": 14,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_user_id_placed_at_index",
+                "Seq_in_index": 2,
+                "Column_name": "placed_at",
+                "Collation": "A",
+                "Cardinality": 29,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_branch_id_placed_at_index",
+                "Seq_in_index": 1,
+                "Column_name": "branch_id",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_branch_id_placed_at_index",
+                "Seq_in_index": 2,
+                "Column_name": "placed_at",
+                "Collation": "A",
+                "Cardinality": 29,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_status_placed_at_index",
+                "Seq_in_index": 1,
+                "Column_name": "status",
+                "Collation": "A",
+                "Cardinality": 14,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_status_placed_at_index",
+                "Seq_in_index": 2,
+                "Column_name": "placed_at",
+                "Collation": "A",
+                "Cardinality": 29,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_cancelled_by_foreign",
+                "Seq_in_index": 1,
+                "Column_name": "cancelled_by",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_guest_phone_history_index",
+                "Seq_in_index": 1,
+                "Column_name": "customer_phone_normalized",
+                "Collation": "A",
+                "Cardinality": 14,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_guest_phone_history_index",
+                "Seq_in_index": 2,
+                "Column_name": "user_id",
+                "Collation": "A",
+                "Cardinality": 14,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_guest_phone_history_index",
+                "Seq_in_index": 3,
+                "Column_name": "placed_at",
+                "Collation": "A",
+                "Cardinality": 29,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_report_placement_index",
+                "Seq_in_index": 1,
+                "Column_name": "placed_at",
+                "Collation": "A",
+                "Cardinality": 29,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_scheduled_for_index",
+                "Seq_in_index": 1,
+                "Column_name": "scheduled_for",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_driver_active_index",
+                "Seq_in_index": 1,
+                "Column_name": "driver_id",
+                "Collation": "A",
+                "Cardinality": 4,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_driver_active_index",
+                "Seq_in_index": 2,
+                "Column_name": "delivery_status",
+                "Collation": "A",
+                "Cardinality": 4,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_driver_queue_index",
+                "Seq_in_index": 1,
+                "Column_name": "branch_id",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_driver_queue_index",
+                "Seq_in_index": 2,
+                "Column_name": "type",
+                "Collation": "A",
+                "Cardinality": 4,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_driver_queue_index",
+                "Seq_in_index": 3,
+                "Column_name": "driver_id",
+                "Collation": "A",
+                "Cardinality": 7,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "orders",
+                "Non_unique": 1,
+                "Key_name": "orders_driver_queue_index",
+                "Seq_in_index": 4,
+                "Column_name": "status",
+                "Collation": "A",
+                "Cardinality": 29,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            }
+        ],
+        "branch_products": [
+            {
+                "Table": "branch_products",
+                "Non_unique": 0,
+                "Key_name": "PRIMARY",
+                "Seq_in_index": 1,
+                "Column_name": "id",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "branch_products",
+                "Non_unique": 0,
+                "Key_name": "branch_products_branch_id_product_id_unique",
+                "Seq_in_index": 1,
+                "Column_name": "branch_id",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "branch_products",
+                "Non_unique": 0,
+                "Key_name": "branch_products_branch_id_product_id_unique",
+                "Seq_in_index": 2,
+                "Column_name": "product_id",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "branch_products",
+                "Non_unique": 1,
+                "Key_name": "branch_products_product_id_foreign",
+                "Seq_in_index": 1,
+                "Column_name": "product_id",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "branch_products",
+                "Non_unique": 1,
+                "Key_name": "branch_products_branch_id_is_available_id_index",
+                "Seq_in_index": 1,
+                "Column_name": "branch_id",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "branch_products",
+                "Non_unique": 1,
+                "Key_name": "branch_products_branch_id_is_available_id_index",
+                "Seq_in_index": 2,
+                "Column_name": "is_available",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "branch_products",
+                "Non_unique": 1,
+                "Key_name": "branch_products_branch_id_is_available_id_index",
+                "Seq_in_index": 3,
+                "Column_name": "id",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            }
+        ],
+        "products": [
+            {
+                "Table": "products",
+                "Non_unique": 0,
+                "Key_name": "PRIMARY",
+                "Seq_in_index": 1,
+                "Column_name": "id",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 0,
+                "Key_name": "products_uuid_unique",
+                "Seq_in_index": 1,
+                "Column_name": "uuid",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 0,
+                "Key_name": "products_slug_unique",
+                "Seq_in_index": 1,
+                "Column_name": "slug",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 0,
+                "Key_name": "products_sku_unique",
+                "Seq_in_index": 1,
+                "Column_name": "sku",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 1,
+                "Key_name": "products_public_menu_index",
+                "Seq_in_index": 1,
+                "Column_name": "is_active",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 1,
+                "Key_name": "products_public_menu_index",
+                "Seq_in_index": 2,
+                "Column_name": "deleted_at",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 1,
+                "Key_name": "products_public_menu_index",
+                "Seq_in_index": 3,
+                "Column_name": "sort_order",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 1,
+                "Key_name": "products_public_menu_index",
+                "Seq_in_index": 4,
+                "Column_name": "name",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 1,
+                "Key_name": "products_category_visibility_index",
+                "Seq_in_index": 1,
+                "Column_name": "category_id",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 1,
+                "Key_name": "products_category_visibility_index",
+                "Seq_in_index": 2,
+                "Column_name": "is_active",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 1,
+                "Key_name": "products_category_visibility_index",
+                "Seq_in_index": 3,
+                "Column_name": "deleted_at",
+                "Collation": "A",
+                "Cardinality": 5,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 1,
+                "Key_name": "products_menu_flags_index",
+                "Seq_in_index": 1,
+                "Column_name": "is_featured",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "products",
+                "Non_unique": 1,
+                "Key_name": "products_menu_flags_index",
+                "Seq_in_index": 2,
+                "Column_name": "is_available",
+                "Collation": "A",
+                "Cardinality": 2,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            }
+        ],
+        "cart_items": [
+            {
+                "Table": "cart_items",
+                "Non_unique": 0,
+                "Key_name": "PRIMARY",
+                "Seq_in_index": 1,
+                "Column_name": "id",
+                "Collation": "A",
+                "Cardinality": 1,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "cart_items",
+                "Non_unique": 0,
+                "Key_name": "cart_items_cart_id_configuration_hash_unique",
+                "Seq_in_index": 1,
+                "Column_name": "cart_id",
+                "Collation": "A",
+                "Cardinality": 1,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "cart_items",
+                "Non_unique": 0,
+                "Key_name": "cart_items_cart_id_configuration_hash_unique",
+                "Seq_in_index": 2,
+                "Column_name": "configuration_hash",
+                "Collation": "A",
+                "Cardinality": 1,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "cart_items",
+                "Non_unique": 0,
+                "Key_name": "cart_items_uuid_unique",
+                "Seq_in_index": 1,
+                "Column_name": "uuid",
+                "Collation": "A",
+                "Cardinality": 1,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "cart_items",
+                "Non_unique": 1,
+                "Key_name": "cart_items_product_id_foreign",
+                "Seq_in_index": 1,
+                "Column_name": "product_id",
+                "Collation": "A",
+                "Cardinality": 1,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            }
+        ],
+        "driver_cash_collections": [
+            {
+                "Table": "driver_cash_collections",
+                "Non_unique": 0,
+                "Key_name": "PRIMARY",
+                "Seq_in_index": 1,
+                "Column_name": "id",
+                "Collation": "A",
+                "Cardinality": 0,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "driver_cash_collections",
+                "Non_unique": 0,
+                "Key_name": "driver_cash_collections_uuid_unique",
+                "Seq_in_index": 1,
+                "Column_name": "uuid",
+                "Collation": "A",
+                "Cardinality": 0,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "driver_cash_collections",
+                "Non_unique": 0,
+                "Key_name": "driver_cash_collections_payment_id_unique",
+                "Seq_in_index": 1,
+                "Column_name": "payment_id",
+                "Collation": "A",
+                "Cardinality": 0,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "driver_cash_collections",
+                "Non_unique": 1,
+                "Key_name": "driver_cash_collections_order_id_foreign",
+                "Seq_in_index": 1,
+                "Column_name": "order_id",
+                "Collation": "A",
+                "Cardinality": 0,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "driver_cash_collections",
+                "Non_unique": 1,
+                "Key_name": "driver_cash_collections_settlement_id_foreign",
+                "Seq_in_index": 1,
+                "Column_name": "settlement_id",
+                "Collation": "A",
+                "Cardinality": 0,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "driver_cash_collections",
+                "Non_unique": 1,
+                "Key_name": "driver_cash_collections_driver_id_settlement_id_index",
+                "Seq_in_index": 1,
+                "Column_name": "driver_id",
+                "Collation": "A",
+                "Cardinality": 0,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "driver_cash_collections",
+                "Non_unique": 1,
+                "Key_name": "driver_cash_collections_driver_id_settlement_id_index",
+                "Seq_in_index": 2,
+                "Column_name": "settlement_id",
+                "Collation": "A",
+                "Cardinality": 0,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "YES",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            }
+        ],
+        "driver_cash_settlements": [
+            {
+                "Table": "driver_cash_settlements",
+                "Non_unique": 0,
+                "Key_name": "PRIMARY",
+                "Seq_in_index": 1,
+                "Column_name": "id",
+                "Collation": "A",
+                "Cardinality": 0,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "driver_cash_settlements",
+                "Non_unique": 0,
+                "Key_name": "driver_cash_settlements_uuid_unique",
+                "Seq_in_index": 1,
+                "Column_name": "uuid",
+                "Collation": "A",
+                "Cardinality": 0,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "driver_cash_settlements",
+                "Non_unique": 1,
+                "Key_name": "driver_cash_settlements_driver_id_foreign",
+                "Seq_in_index": 1,
+                "Column_name": "driver_id",
+                "Collation": "A",
+                "Cardinality": 0,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            },
+            {
+                "Table": "driver_cash_settlements",
+                "Non_unique": 1,
+                "Key_name": "driver_cash_settlements_cashier_id_foreign",
+                "Seq_in_index": 1,
+                "Column_name": "cashier_id",
+                "Collation": "A",
+                "Cardinality": 0,
+                "Sub_part": null,
+                "Packed": null,
+                "Null": "",
+                "Index_type": "BTREE",
+                "Comment": "",
+                "Index_comment": ""
+            }
+        ]
+    },
+    "plans": {
+        "admin_business_day": [
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "orders",
+                "type": "ref",
+                "possible_keys": "orders_branch_id_placed_at_index,orders_report_placement_index,orders_driver_queue_index",
+                "key": "orders_branch_id_placed_at_index",
+                "key_len": "8",
+                "ref": "const",
+                "rows": "14",
+                "Extra": "Using where"
+            }
+        ],
+        "branch_menu": [
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "branch_products",
+                "type": "ALL",
+                "possible_keys": "branch_products_branch_id_product_id_unique,branch_products_branch_id_is_available_id_index",
+                "key": null,
+                "key_len": null,
+                "ref": null,
+                "rows": "5",
+                "Extra": "Using where"
+            }
+        ],
+        "driver_queue": [
+            {
+                "id": 1,
+                "select_type": "SIMPLE",
+                "table": "orders",
+                "type": "range",
+                "possible_keys": "orders_branch_id_placed_at_index,orders_status_placed_at_index,orders_driver_active_index,orders_driver_queue_index",
+                "key": "orders_status_placed_at_index",
+                "key_len": "122",
+                "ref": null,
+                "rows": "4",
+                "Extra": "Using where"
+            }
+        ]
+    },
+    "orphan_branch_products": 0,
+    "orphan_driver_branches": 0
+}

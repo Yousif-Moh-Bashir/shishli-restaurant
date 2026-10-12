@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\DeliveryStatus;
 use App\Enums\OrderStatus;
 use App\Enums\OrderTiming;
 use App\Enums\OrderType;
@@ -37,7 +38,7 @@ class Order extends Model
 
     protected $fillable = ['user_id', 'branch_id', 'cart_id', 'order_number', 'type', 'status', 'payment_method', 'payment_status', 'customer_name', 'customer_phone', 'customer_email', 'subtotal', 'delivery_fee', 'discount_total', 'tax_total', 'total', 'currency', 'customer_notes', 'placed_at', 'order_timing', 'scheduled_for'];
 
-    protected $hidden = ['id', 'user_id', 'branch_id', 'cart_id', 'access_token', 'guest_access_token_hash', 'guest_access_token_expires_at', 'cancelled_by'];
+    protected $hidden = ['id', 'user_id', 'branch_id', 'cart_id', 'driver_id', 'access_token', 'guest_access_token_hash', 'guest_access_token_expires_at', 'cancelled_by'];
 
     public ?string $issuedGuestAccessToken = null;
 
@@ -66,7 +67,10 @@ class Order extends Model
 
     protected function casts(): array
     {
-        return ['order_timing' => OrderTiming::class, 'scheduled_for' => 'immutable_datetime', 'type' => OrderType::class, 'status' => OrderStatus::class, 'payment_method' => PaymentMethod::class, 'payment_status' => PaymentStatus::class,
+        return ['delivery_status' => DeliveryStatus::class, 'driver_accepted_at' => 'immutable_datetime',
+            'delivery_picked_up_at' => 'immutable_datetime', 'delivery_on_the_way_at' => 'immutable_datetime',
+            'delivery_delivered_at' => 'immutable_datetime', 'delivery_failed_at' => 'immutable_datetime',
+            'order_timing' => OrderTiming::class, 'scheduled_for' => 'immutable_datetime', 'type' => OrderType::class, 'status' => OrderStatus::class, 'payment_method' => PaymentMethod::class, 'payment_status' => PaymentStatus::class,
             'guest_access_token_expires_at' => 'immutable_datetime', 'estimated_ready_at' => 'immutable_datetime',
             'estimated_delivery_from' => 'immutable_datetime', 'estimated_delivery_to' => 'immutable_datetime',
             'subtotal' => 'decimal:2', 'delivery_fee' => 'decimal:2', 'discount_total' => 'decimal:2', 'tax_total' => 'decimal:2', 'total' => 'decimal:2', 'placed_at' => 'datetime',
@@ -82,6 +86,16 @@ class Order extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function driver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'driver_id');
+    }
+
+    public function deliveryHistory(): HasMany
+    {
+        return $this->hasMany(OrderDeliveryHistory::class)->orderBy('id');
     }
 
     public function branch(): BelongsTo

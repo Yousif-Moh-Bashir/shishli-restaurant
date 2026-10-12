@@ -5,6 +5,7 @@ namespace App\Actions\Orders;
 use App\Actions\Inventory\ConsumeOrderStockAction;
 use App\Actions\Inventory\ReleaseOrderStockAction;
 use App\Actions\Payments\SyncOrderPaymentStatusAction;
+use App\Enums\DeliveryStatus;
 use App\Enums\OrderStatus;
 use App\Enums\OrderStatusSource;
 use App\Enums\PaymentStatus;
@@ -54,6 +55,14 @@ class TransitionOrderStatusAction
                 $this->releaseStock->handle($locked, $actor);
             }
             $locked->save();
+            if ($target === OrderStatus::Cancelled && $locked->driver_id !== null) {
+                $deliveryFrom = $locked->delivery_status;
+                $locked->delivery_status = DeliveryStatus::Failed;
+                $locked->delivery_failed_at = now();
+                $locked->save();
+                $locked->deliveryHistory()->create(['driver_id' => $locked->driver_id, 'changed_by' => $actor?->id ?? $locked->driver_id,
+                    'from_status' => $deliveryFrom?->value, 'to_status' => 'failed', 'reason' => $note]);
+            }
             if ($target === OrderStatus::Cancelled && $locked->payment_method->isOffline()) {
                 foreach ($locked->payments()->where('method', $locked->payment_method)->where('status', PaymentStatus::Pending)->lockForUpdate()->get() as $payment) {
                     $payment->status = $this->paymentMachine->transition($payment->status, PaymentStatus::Cancelled);

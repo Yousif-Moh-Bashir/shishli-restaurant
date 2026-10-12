@@ -16,7 +16,7 @@ class OrderController extends Controller
     public function index(AdminOrdersRequest $request, AdminOrderQuery $orders): JsonResponse
     {
         $data = $request->validated();
-        $query = $orders->query(AdminOrderFilters::fromArray($data))->with(['branch', 'payments']);
+        $query = $orders->query(AdminOrderFilters::fromArray($data))->with(['branch', 'payments', 'driver']);
 
         return ApiResponse::paginated(AdminOrderResource::collection($query->orderBy($data['sort'] ?? 'placed_at', $data['direction'] ?? 'desc')->orderByDesc('id')->paginate($request->integer('per_page', 15))->withQueryString()));
     }
@@ -28,6 +28,6 @@ class OrderController extends Controller
 
     public function show(Order $order): JsonResponse
     {
-        return ApiResponse::success(data: new AdminOrderResource($order->load(['branch', 'items.options', 'address', 'payments', 'latestPayment', 'statusHistory.changedBy'])));
+        return ApiResponse::success(data: new AdminOrderResource($order->load(['branch', 'items.options', 'address', 'payments', 'latestPayment', 'statusHistory.changedBy', 'driver', 'deliveryHistory.actor', 'deliveryHistory.driver'])));
     }
 }

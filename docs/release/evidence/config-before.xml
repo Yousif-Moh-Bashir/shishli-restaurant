@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="C:\xampp\htdocs\projects\shishli\back-end\phpunit.xml" tests="8" assertions="27" errors="0" failures="5" skipped="0" time="0.425024">
+    <testsuite name="Feature" tests="8" assertions="27" errors="0" failures="5" skipped="0" time="0.425024">
+      <testsuite name="Tests\Feature\ProductionConfigurationTest" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" tests="8" assertions="27" errors="0" failures="5" skipped="0" time="0.425024">
+        <testcase name="test_browser_can_read_retry_after_and_request_id_on_api_rate_limit_response" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="13" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="4" time="0.267713">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ProductionConfigurationTest::test_browser_can_read_retry_after_and_request_id_on_api_rate_limit_response&#13;
+Failed asserting that an array contains 'retry-after'.
+&#13;
+C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php:20</failure>
+        </testcase>
+        <testsuite name="Tests\Feature\ProductionConfigurationTest::test_preflight_only_authorizes_configured_origins" tests="5" assertions="19" errors="0" failures="4" skipped="0" time="0.108944">
+          <testcase name="test_preflight_only_authorizes_configured_origins with data set #0" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="29" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="3" time="0.024824">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ProductionConfigurationTest::test_preflight_only_authorizes_configured_origins with data set #0&#13;
+Unexpected header [Access-Control-Allow-Origin] is present on response.
+Failed asserting that true is false.
+&#13;
+C:\xampp\htdocs\projects\shishli\back-end\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+C:\xampp\htdocs\projects\shishli\back-end\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:425
+C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php:52</failure>
+          </testcase>
+          <testcase name="test_preflight_only_authorizes_configured_origins with data set #1" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="29" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="4" time="0.021673">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ProductionConfigurationTest::test_preflight_only_authorizes_configured_origins with data set #1&#13;
+Header [Access-Control-Allow-Origin] was found, but value [*] does not match [https://restaurant.example].
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-'https://restaurant.example'
++'*'
+&#13;
+C:\xampp\htdocs\projects\shishli\back-end\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+C:\xampp\htdocs\projects\shishli\back-end\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:385
+C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php:54</failure>
+          </testcase>
+          <testcase name="test_preflight_only_authorizes_configured_origins with data set #2" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="29" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="3" time="0.021112">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ProductionConfigurationTest::test_preflight_only_authorizes_configured_origins with data set #2&#13;
+Unexpected header [Access-Control-Allow-Origin] is present on response.
+Failed asserting that true is false.
+&#13;
+C:\xampp\htdocs\projects\shishli\back-end\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+C:\xampp\htdocs\projects\shishli\back-end\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:425
+C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php:52</failure>
+          </testcase>
+          <testcase name="test_preflight_only_authorizes_configured_origins with data set #3" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="29" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="4" time="0.021428">
+            <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Feature\ProductionConfigurationTest::test_preflight_only_authorizes_configured_origins with data set #3&#13;
+Header [Access-Control-Allow-Origin] was found, but value [*] does not match [https://admin.example].
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-'https://admin.example'
++'*'
+&#13;
+C:\xampp\htdocs\projects\shishli\back-end\vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:46
+C:\xampp\htdocs\projects\shishli\back-end\vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:385
+C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php:54</failure>
+          </testcase>
+          <testcase name="test_preflight_only_authorizes_configured_origins with data set #4" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="29" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="5" time="0.019907"/>
+        </testsuite>
+        <testsuite name="Tests\Feature\ProductionConfigurationTest::test_forwarded_scheme_and_ip_are_only_trusted_from_configured_proxy" tests="2" assertions="4" errors="0" failures="0" skipped="0" time="0.048366">
+          <testcase name="test_forwarded_scheme_and_ip_are_only_trusted_from_configured_proxy with data set #0" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="76" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="2" time="0.027015"/>
+          <testcase name="test_forwarded_scheme_and_ip_are_only_trusted_from_configured_proxy with data set #1" file="C:\xampp\htdocs\projects\shishli\back-end\tests\Feature\ProductionConfigurationTest.php" line="76" class="Tests\Feature\ProductionConfigurationTest" classname="Tests.Feature.ProductionConfigurationTest" assertions="2" time="0.021352"/>
+        </testsuite>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -1,10 +1,10 @@
 <script setup>
-import {computed,ref,inject,watch,nextTick} from 'vue'
+import {computed,ref,inject,watch,nextTick,onBeforeUnmount} from 'vue'
 import {RouterLink} from 'vue-router'
 import {cmsApi} from '../../api/cms.api'
 import {useCmsPage} from '../../composables/useCmsPage'
 import {useApiState} from '../../composables/useApiState'
-import {usePublicMenu} from '../../composables/usePublicMenu'
+import {usePublicMenu,menuProduct} from '../../composables/usePublicMenu'
 import {safeContentUrl} from '../../utils/contentUrl'
 import SiteIcon from '../../components/site/SiteIcon.vue'
 import ProductCard from '../../components/site/ProductCard.vue'
@@ -13,8 +13,15 @@ import SiteOffers from '../../components/site/SiteOffers.vue'
 import AppSkeleton from '../../components/common/AppSkeleton.vue'
 import ContentLink from '../../components/site/ContentLink.vue'
 import SiteGallery from '../../components/site/SiteGallery.vue'
-const page=useCmsPage('home'),menu=usePublicMenu(),gallery=useApiState(),bannerIndex=ref(0),aboutExpanded=ref(false),popularElement=ref(null),searchInput=ref(null)
 const {searchOpen,closeSearch}=inject('site')
+const page=useCmsPage('home'),menu=usePublicMenu({categoriesEnabled:false,shouldLoad:()=>!!page.error.value||(searchOpen.value&&!!menu.query.value.trim())}),fallbackGallery=useApiState(),bannerIndex=ref(0),aboutExpanded=ref(false),popularElement=ref(null),searchInput=ref(null)
+const searching=computed(()=>searchOpen.value&&!!menu.query.value.trim())
+const usesMenu=computed(()=>searching.value||!!page.error.value)
+const products=computed(()=>usesMenu.value?menu.products.value:(page.data.value?.featured_products||[]).map(product=>menuProduct(product,menu.branch.selectedUuid)))
+const productsLoading=computed(()=>usesMenu.value?menu.state.loading.value:page.loading.value)
+const productsError=computed(()=>usesMenu.value?menu.state.error.value:page.error.value)
+function retryProducts(){return usesMenu.value?menu.load():loadCms()}
+watch(page.error,cause=>{if(cause){if(!menu.state.data.value&&!menu.state.loading.value)menu.load();if(!fallbackGallery.data.value&&!fallbackGallery.loading.value)fallbackGallery.run(signal=>cmsApi.gallery({per_page:6},signal))}})
 menu.featured.value='1'
 const sections=computed(()=>Object.fromEntries((page.data.value?.page?.sections||[]).map(section=>[section.key,section])))
 const section=key=>sections.value[key]||{}
@@ -26,10 +33,12 @@ const heroTitle=computed(()=>banner.value?.title||section('hero').title)
 const heroButton=kind=>({text:banner.value?.[kind==='primary'?'button_text':'secondary_button_text']||section('hero').data?.[kind+'_button_text']||(kind==='primary'?'اطلب الآن':'شاهد المنيو'),url:safeContentUrl(banner.value?.[kind==='primary'?'button_url':'secondary_button_url']||section('hero').data?.[kind+'_button_url'])||'/menu'})
 const features=computed(()=>section('features').data?.items?.length?section('features').data.items:[{title:'دجاج طازج يوميًا',description:'من أفضل المزارع'},{title:'مشويات تركية',description:'على الفحم الطبيعي'},{title:'جودة عالية',description:'في جميع المكونات'},{title:'خدمة توصيل سريعة',description:'لجميع مناطق التوصيل'}])
 const originalPhotos=['chicken','kebab','mixed','shish','rice'].map(photo=>({photo,title:'من أطباق شيشلي',description:'نكهة تركية أصيلة'}))
-const galleryItems=computed(()=>gallery.data.value?.data||[])
+const galleryItems=computed(()=>page.error.value?(fallbackGallery.data.value?.data||[]):(page.data.value?.gallery_preview||[]))
 function loadCms(){return page.run(signal=>cmsApi.home({branch:menu.branch.selectedUuid||undefined},signal))}
-function loadGallery(){return gallery.run(signal=>cmsApi.gallery({per_page:6},signal))}
-watch(()=>menu.branch.selectedUuid,loadCms);loadCms();loadGallery()
+let branchReady=false,disposed=false
+watch(()=>menu.branch.selectedUuid,()=>{if(branchReady)loadCms()})
+menu.branch.load().then(()=>{if(disposed)return;branchReady=true;loadCms()})
+onBeforeUnmount(()=>{disposed=true})
 watch(searchOpen,async open=>{if(open){await nextTick();popularElement.value?.scrollIntoView({behavior:'smooth'});searchInput.value?.focus()}else menu.query.value=''})
 </script>
 <template>
@@ -41,7 +50,7 @@ watch(searchOpen,async open=>{if(open){await nextTick();popularElement.value?.sc
   <section class="features" aria-label="ما يميز شيشلي"><div class="container features-grid"><article v-for="(item,index) in features" :key="index"><SiteIcon :name="['drumstick','flame','badge-check','truck'][index%4]"/><div><h3>{{ item.title }}</h3><p>{{ item.description }}</p></div></article></div></section>
   <section ref="popularElement" class="popular section-space container home-popular" id="popular" aria-labelledby="popular-title"><div class="section-heading"><div><span class="section-kicker">{{ section('featured_menu').subtitle||'من شوايتنا إلى مائدتك' }}</span><h2 id="popular-title">{{ section('featured_menu').title||'الأكثر طلبًا' }} <span class="title-flourish">✦</span></h2><p>{{ section('featured_menu').content||'أطباقنا المميزة التي يفضلها عملاؤنا' }}</p></div><RouterLink class="text-button" to="/menu">شاهد المنيو الكامل <SiteIcon name="arrow-left"/></RouterLink></div>
     <div class="search-bar" id="search-bar" :hidden="!searchOpen"><label for="product-search">ابحث عن طبقك المفضل</label><div><SiteIcon name="search"/><input ref="searchInput" id="product-search" v-model="menu.query.value" type="search" placeholder="دجاج، شيش، كباب…" autocomplete="off"><button class="icon-button" type="button" @click="closeSearch" aria-label="إغلاق البحث"><SiteIcon name="x"/></button></div></div><div class="popular-browse-panel"><div class="popular-browse-copy"><strong>اختيارات مميزة من المنيو</strong><p>اختر الفرع لعرض أطباقه وأسعاره وتوفرها.</p></div><BranchSelector/></div>
-    <AppSkeleton v-if="menu.state.loading.value" variant="cards" label="جارٍ تحميل أطباق الفرع…"/><div v-else-if="menu.state.error.value" class="empty-search" role="alert"><p>تعذر تحميل الأطباق.</p><button class="text-button" @click="menu.load">إعادة المحاولة</button></div><div v-else class="products-grid" id="products-grid"><ProductCard v-for="product in menu.products.value" :key="product.id" :product="product"/></div><p v-if="!menu.state.loading.value&&!menu.state.error.value&&!menu.products.value.length" class="empty-search">{{ menu.branch.selectedUuid?'لا توجد أطباق مميزة مطابقة.':'اختر الفرع لعرض أطباقه وأسعاره.' }}</p>
+    <AppSkeleton v-if="productsLoading" variant="cards" label="جارٍ تحميل أطباق الفرع…"/><div v-else-if="productsError" class="empty-search" role="alert"><p>تعذر تحميل الأطباق.</p><button class="text-button" @click="retryProducts">إعادة المحاولة</button></div><div v-else class="products-grid" id="products-grid"><ProductCard v-for="product in products" :key="product.id" :product="product"/></div><p v-if="!productsLoading&&!productsError&&!products.length" class="empty-search">{{ menu.branch.selectedUuid?'لا توجد أطباق مميزة مطابقة.':'اختر الفرع لعرض أطباقه وأسعاره.' }}</p>
   </section>
   <SiteOffers v-if="page.data.value?.active_offers?.length" :offers="page.data.value.active_offers" :title="section('offers').title" :subtitle="section('offers').subtitle"/>
   <section class="about container home-about" id="about" aria-labelledby="about-title">
@@ -52,7 +61,7 @@ watch(searchOpen,async open=>{if(open){await nextTick();popularElement.value?.sc
       <div id="about-details" class="about-expanded-copy" :hidden="!aboutExpanded"><p>من تتبيلة الدجاج إلى آخر لمسة على الفحم، نهتم بالتفاصيل التي تجعل وجبتكم مميزة. يسعدنا استقبالكم ومشاركتكم مذاق شيشلي.</p><RouterLink class="footer-link" to="/menu">اكتشف أطباقنا <SiteIcon name="arrow-left"/></RouterLink></div>
     </div>
   </section>
-  <section class="gallery-banner container" id="gallery" aria-labelledby="gallery-title"><div class="gallery-banner-heading"><div><span class="section-kicker">لقطات تفتح النفس</span><h2 id="gallery-title">{{ section('gallery_preview').title||'معرض الصور' }}</h2><p>{{ section('gallery_preview').subtitle||'من أطباقنا… حكاية طعم في كل صورة' }}</p></div><RouterLink class="button button-outline" to="/gallery">استعرض المعرض <SiteIcon name="arrow-left"/></RouterLink></div><div class="gallery-carousel"><SiteGallery :items="galleryItems.length ? galleryItems : originalPhotos" carousel/><p v-if="gallery.error.value" class="home-gallery-error" role="status">تعذر تحميل الصور المنشورة. <button class="text-button" @click="loadGallery">إعادة المحاولة</button></p></div></section>
+  <section class="gallery-banner container" id="gallery" aria-labelledby="gallery-title"><div class="gallery-banner-heading"><div><span class="section-kicker">لقطات تفتح النفس</span><h2 id="gallery-title">{{ section('gallery_preview').title||'معرض الصور' }}</h2><p>{{ section('gallery_preview').subtitle||'من أطباقنا… حكاية طعم في كل صورة' }}</p></div><RouterLink class="button button-outline" to="/gallery">استعرض المعرض <SiteIcon name="arrow-left"/></RouterLink></div><div class="gallery-carousel"><SiteGallery :items="galleryItems.length ? galleryItems : originalPhotos" carousel/></div></section>
   <section class="cta container" aria-labelledby="cta-title"><div class="cta-symbol"><SiteIcon name="utensils"/></div><div><h2 id="cta-title">{{ section('cta').title||'جاهز لتجربة مذاق شيشلي؟' }}</h2><p>{{ section('cta').content||section('cta').subtitle||'اختر وجبتك المفضلة واطلبها الآن' }}</p></div><ContentLink class="button button-primary" :url="safeContentUrl(section('cta').data?.primary_button_url)||'/menu'">{{ section('cta').data?.primary_button_text||'ابدأ طلبك' }} <SiteIcon name="arrow-left"/></ContentLink></section>
   <section v-for="item in page.data.value?.secondary_banners||[]" :key="item.id" class="container home-secondary-banner"><img v-if="safeContentUrl(item.image_url)" class="cms-secondary-banner" :src="safeContentUrl(item.image_url)" :alt="item.title||''" loading="lazy"><h2>{{ item.title }}</h2><p>{{ item.subtitle }}</p><ContentLink v-if="safeContentUrl(item.button_url)&&item.button_text" class="button button-primary" :url="item.button_url">{{ item.button_text }}</ContentLink></section>
 </main>

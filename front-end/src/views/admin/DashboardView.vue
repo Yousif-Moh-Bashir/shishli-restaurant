@@ -4,6 +4,7 @@ import AppSkeleton from "../../components/common/AppSkeleton.vue"
 import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
 import { useAuthStore } from '../../stores/auth'
 import { useApiState } from '../../composables/useApiState'
+import { useOrderPolling } from '../../composables/useOrderPolling'
 import { useReportContext } from '../../composables/useReportContext'
 import { dashboardApi } from '../../api/dashboard.api'
 import { reportsApi } from '../../api/reports.api'
@@ -18,8 +19,10 @@ import ReportTable from '../../components/reports/ReportTable.vue'
 import { reportDefinitions, metricDefinitions } from '../../constants/reports'
 import '../../assets/css/reports.css'
 const auth = useAuthStore(), contextState = useReportContext()
-const dashboard = useApiState(), trend = useApiState(), recent = useApiState()
+const dashboard = useApiState(), trend = useApiState()
 const filters = ref({ date_from: '', date_to: '', branch_uuid: '', order_type: '', order_status: '', payment_method: '', group_by: 'day' })
+let recentQuery = null
+const recent = useOrderPolling(signal => adminOrdersApi.list(recentQuery, signal), { enabled: () => auth.can('orders.view') && recentQuery !== null })
 const context = computed(() => ({ ...contextState.data.value?.restaurant, timezone: dashboard.data.value?.period.timezone || contextState.data.value?.restaurant?.timezone }))
 const statusRows = computed(() => Object.entries(dashboard.data.value?.order_statuses || {}).map(([status,orders_count]) => ({ status, orders_count })))
 const typeRows = computed(() => Object.entries(dashboard.data.value?.order_types || {}).map(([type,orders_count]) => ({ type, orders_count })))
@@ -42,13 +45,15 @@ let loadRevision = 0
 async function load() {
   const revision = ++loadRevision
   const query = { ...filters.value }
-  trend.clear(); recent.clear()
+  recentQuery = null
+  trend.clear(); recent.reset()
   const data = await dashboard.run(signal => dashboardApi.get(query, signal))
   if (data && revision === loadRevision) {
     const period = { date_from: data.period.from, date_to: data.period.to }
+    recentQuery = { ...period, period:query.date_from||query.date_to?'range':'current', branch: query.branch_uuid, type: query.order_type, status: query.order_status, payment_method: query.payment_method, sort: 'placed_at', direction: 'desc', per_page: 5 }
     await Promise.allSettled([
       auth.can('reports.sales.view') ? trend.run(signal => reportsApi.get('sales/trend', { ...query, ...period }, signal)) : Promise.resolve(),
-      auth.can('orders.view') ? recent.run(signal => adminOrdersApi.list({ ...period, branch: query.branch_uuid, type: query.order_type, status: query.order_status, payment_method: query.payment_method, sort: 'placed_at', direction: 'desc', per_page: 5 }, signal)) : Promise.resolve(),
+      auth.can('orders.view') ? recent.load() : Promise.resolve(),
     ])
   }
 }

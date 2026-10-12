@@ -46,6 +46,7 @@ use App\Http\Controllers\Api\V1\CmsController;
 use App\Http\Controllers\Api\V1\CustomerAddressController;
 use App\Http\Controllers\Api\V1\CustomerProfileController;
 use App\Http\Controllers\Api\V1\DeliveryQuoteController;
+use App\Http\Controllers\Api\V1\DriverController;
 use App\Http\Controllers\Api\V1\GuestOrderController;
 use App\Http\Controllers\Api\V1\HealthController;
 use App\Http\Controllers\Api\V1\KitchenOrderController;
@@ -73,6 +74,30 @@ Route::bind('address', function (string $uuid): CustomerAddress {
     return request()->user()->addresses()->where('uuid', $uuid)->firstOrFail();
 });
 Route::bind('staffUser', fn (string $uuid): User => app(StaffService::class)->find($uuid));
+Route::bind('driver', fn (string $uuid): User => User::role('driver')->where('uuid', $uuid)->firstOrFail());
+
+Route::prefix('v1/driver')->name('api.v1.driver.')->middleware(['auth:sanctum', 'role:driver', 'permission:driver.access'])->group(function (): void {
+    $controller = DriverController::class;
+    Route::get('/me', [$controller, 'me'])->name('me');
+    Route::patch('/availability', [$controller, 'availability'])->name('availability');
+    Route::get('/orders', [$controller, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [$controller, 'show'])->whereUuid('order')->name('orders.show');
+    Route::post('/orders/{order}/accept', [$controller, 'accept'])->whereUuid('order')->middleware('throttle:60,1')->name('orders.accept');
+    Route::post('/orders/{order}/transition', [$controller, 'transition'])->whereUuid('order')->middleware('throttle:60,1')->name('orders.transition');
+    Route::post('/orders/{order}/cash/collect', [$controller, 'collect'])->whereUuid('order')->middleware('throttle:30,1')->name('orders.collect');
+    Route::get('/collections', [$controller, 'collections'])->name('collections');
+});
+
+Route::prefix('v1/admin')->name('api.v1.admin.')->middleware(['auth:sanctum', EnsureAdminAccess::class])->group(function (): void {
+    $controller = App\Http\Controllers\Api\V1\Admin\DriverController::class;
+    Route::get('/drivers', [$controller, 'index'])->middleware('permission:drivers.view')->name('drivers.index');
+    Route::post('/drivers', [$controller, 'store'])->middleware('permission:drivers.manage')->name('drivers.store');
+    Route::get('/drivers/{driver}', [$controller, 'show'])->whereUuid('driver')->middleware('permission:drivers.view')->name('drivers.show');
+    Route::put('/drivers/{driver}', [$controller, 'update'])->whereUuid('driver')->middleware('permission:drivers.manage')->name('drivers.update');
+    Route::get('/drivers/{driver}/collections', [$controller, 'collections'])->whereUuid('driver')->middleware('permission:drivers.view')->name('drivers.collections');
+    Route::post('/drivers/{driver}/settlements', [$controller, 'settle'])->whereUuid('driver')->middleware('permission:drivers.settle_cash')->name('drivers.settle');
+    Route::post('/orders/{order}/reassign-driver', [$controller, 'reassign'])->whereUuid('order')->middleware('permission:drivers.reassign')->name('orders.reassign-driver');
+});
 
 Route::prefix('v1')->name('api.v1.')->group(function (): void {
     Route::get('/home', [CmsController::class, 'home'])->name('home');

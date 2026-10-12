@@ -1,0 +1,10 @@
+{
+  "result": "passed",
+  "checks": [
+    "Real delivered cash journey order appears in completed cash orders report",
+    "Report total equals immutable admin order total"
+  ],
+  "order_uuid": "f28e7a2a-c3f1-4b5d-8df7-26e71baffdc7",
+  "total": "80.00",
+  "date": "2026-10-09"
+}

@@ -32,7 +32,7 @@ class AdminRoleManagementTest extends TestCase
     public function test_roles_have_stable_public_names_and_grouped_permissions(): void
     {
         $this->actor();
-        $roles = $this->getJson('/api/v1/admin/roles')->assertOk()->assertJsonCount(5, 'data')->json('data');
+        $roles = $this->getJson('/api/v1/admin/roles')->assertOk()->assertJsonCount(6, 'data')->json('data');
         foreach ($roles as $role) {
             $this->assertSame($role['name'], $role['id']);
         } $this->getJson('/api/v1/admin/permissions')->assertOk()->assertJsonPath('data.staff', ['staff.activate', 'staff.create', 'staff.deactivate', 'staff.update', 'staff.view']);
@@ -61,7 +61,7 @@ class AdminRoleManagementTest extends TestCase
 
     public static function protectedRoles(): array
     {
-        return [['super_admin', []], ['super_admin', ['orders.view']], ['customer', ['orders.view']], ['customer', ['staff.create']]];
+        return [['super_admin', []], ['super_admin', ['orders.view']], ['customer', ['orders.view']], ['customer', ['staff.create']], ['driver', ['orders.view']], ['driver', []]];
     }
 
     public function test_customer_permissions_can_only_remain_empty(): void
@@ -105,7 +105,7 @@ class AdminRoleManagementTest extends TestCase
         $this->putJson('/api/v1/admin/roles/cashier/permissions', ['permissions' => ['orders.view']])->assertOk();
         $this->seed(RolePermissionSeeder::class);
         $this->assertSame(['orders.view'], Role::findByName('cashier', 'web')->permissions->pluck('name')->all());
-        $this->assertSame(92, Role::findByName('super_admin', 'web')->permissions()->count());
+        $this->assertSame(97, Role::findByName('super_admin', 'web')->permissions()->count());
     }
 
     public function test_role_audit_failure_rolls_back_permissions_and_customization(): void

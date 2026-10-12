@@ -2,7 +2,9 @@
 
 namespace App\Actions\Payments;
 
+use App\Enums\DeliveryStatus;
 use App\Enums\OrderStatus;
+use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use App\Exceptions\PaymentException;
 use App\Models\Order;
@@ -18,10 +20,13 @@ class CollectCashPaymentAction
 
     public function handle(Order $order, User $actor): Payment
     {
-        abort_unless($actor->can('payments.collect_cash'), 403);
-
         return DB::transaction(function () use ($order, $actor): Payment {
             $locked = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
+            $driverCollection = $actor->is_active && $actor->hasRole('driver') && $actor->can('driver.access')
+                && $locked->driver_id === $actor->id && $locked->branch_id === $actor->driver_branch_id
+                && $locked->payment_method === PaymentMethod::Cash
+                && in_array($locked->delivery_status, [DeliveryStatus::PickedUp, DeliveryStatus::OnTheWay], true);
+            abort_unless($actor->can('payments.collect_cash') || $driverCollection, 403);
             if (! $locked->payment_method->isOffline()) {
                 throw new PaymentException('NOT_A_CASH_ORDER');
             }
