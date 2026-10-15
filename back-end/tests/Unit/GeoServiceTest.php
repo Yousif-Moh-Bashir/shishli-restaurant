@@ -30,6 +30,6 @@ class GeoServiceTest extends TestCase
     public function test_invalid_coordinates_are_rejected(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        (new GeoService)->distanceInKilometers(91,0,0,0);
+        (new GeoService)->distanceInKilometers(91, 0, 0, 0);
     }
 }
