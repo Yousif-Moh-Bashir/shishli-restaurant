@@ -38,6 +38,12 @@ return new class extends Migration
 
     public function down(): void
     {
+        if (in_array(Schema::getConnection()->getDriverName(), ['mysql', 'mariadb'], true) && ! Schema::hasIndex('product_images', 'product_images_product_id_foreign')) {
+            Schema::table('product_images', function (Blueprint $table): void {
+                $table->index('product_id', 'product_images_product_id_foreign');
+            });
+        }
+
         Schema::table('product_images', function (Blueprint $table): void {
             $table->dropIndex('product_images_primary_index');
             $table->dropIndex('product_images_order_index');

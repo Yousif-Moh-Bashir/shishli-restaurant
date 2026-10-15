@@ -150,7 +150,8 @@ class DeliveryQuoteTest extends TestCase
         DeliveryZone::factory()->count(10)->for($branch)->create();
         DB::enableQueryLog();
         $this->postJson('/api/v1/delivery/quote', $this->payload($branch))->assertOk();
-        $districtQueries = array_filter(DB::getQueryLog(), fn (array $query): bool => str_contains($query['query'], 'from "delivery_zone_districts"'));
+        $districtTable = DB::connection()->getQueryGrammar()->wrapTable('delivery_zone_districts');
+        $districtQueries = array_filter(DB::getQueryLog(), fn (array $query): bool => str_contains($query['query'], 'from '.$districtTable));
         DB::disableQueryLog();
         $this->assertCount(1, $districtQueries);
     }

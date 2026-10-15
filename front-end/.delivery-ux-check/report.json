@@ -1,0 +1,64 @@
+{
+  "origin": "http://127.0.0.1:8088",
+  "transport": "controlled browser fixtures against Docker frontend",
+  "checks": [
+    "GPS accepted; fixed center pin; automatic coverage and fee; mobile bottom sheet",
+    "Minimum order visibility follows public delivery setting; default hidden, enabled shown, disabled hidden",
+    "GPS locks map; accidental dragging preserves location and current coverage",
+    "Automatic Photon suggestions while typing; debounce, Saudi/branch-city scope, short-query guard and result selection; no Nominatim autocomplete",
+    "Map drag clears old coverage immediately; late old quote ignored; outside coverage shown",
+    "Recenter returns to GPS location and recalculates coverage",
+    "Touch drag on mobile map settles and recalculates delivery",
+    "Confirming location and reopening the map keeps it locked",
+    "Complete cash delivery checkout through browser fixtures; server fee is not sent by client",
+    "GPS permission denial has explicit recovery message",
+    "GPS timeout has explicit recovery message",
+    "Low GPS accuracy displayed in meters",
+    "Reverse failure preserves point and allows manual description before quoting",
+    "Manual covered district selection; changing address invalidates previous quote",
+    "Coordinates requirement cannot be bypassed by text-only entry",
+    "Saved address create/edit and quote by UUID preserved",
+    "No JavaScript exceptions; responsive checks at seven viewport sizes"
+  ],
+  "viewports": [
+    {
+      "width": 320,
+      "height": 568,
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "overflow": false
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "overflow": false
+    }
+  ],
+  "screenshots": [
+    "after-mobile.png",
+    "after-desktop.png"
+  ]
+}

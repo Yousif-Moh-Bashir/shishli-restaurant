@@ -1,0 +1,7 @@
+{
+    "database": "mysql\/shishli",
+    "cache": "redis read\/write OK",
+    "queue_size_after_enqueue": 1,
+    "users": 0,
+    "failed_jobs": 0
+}

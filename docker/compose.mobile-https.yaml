@@ -1,0 +1,33 @@
+# Opt-in only. Existing services/ports are not overridden or recreated.
+services:
+  mobile-https:
+    profiles: [mobile-https]
+    image: shishli-nginx:local
+    restart: "no"
+    ports:
+      - target: 443
+        published: "${SHISHLI_MOBILE_HTTPS_PORT:-8443}"
+        host_ip: "${SHISHLI_MOBILE_LAN_IP:?Run docker/mobile-https.ps1 -Action Setup first}"
+        protocol: tcp
+    networks: [ingress]
+    volumes:
+      - type: bind
+        source: ./.local-mobile-https/server.crt
+        target: /etc/nginx/mobile-tls/server.crt
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ./.local-mobile-https/server.key
+        target: /etc/nginx/mobile-tls/server.key
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ./.local-mobile-https/nginx-mobile.conf
+        target: /etc/nginx/conf.d/default.conf
+        read_only: true
+        bind: {create_host_path: false}
+    healthcheck:
+      test: [CMD, nginx, -t, -q]
+      interval: 10s
+      timeout: 5s
+      retries: 3

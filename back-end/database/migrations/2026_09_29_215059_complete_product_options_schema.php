@@ -69,6 +69,12 @@ return new class extends Migration
             throw new RuntimeException('Set finite group limits before rolling back this migration.');
         }
 
+        if (in_array(Schema::getConnection()->getDriverName(), ['mysql', 'mariadb'], true) && ! Schema::hasIndex('option_values', 'option_values_option_group_id_foreign')) {
+            Schema::table('option_values', function (Blueprint $table): void {
+                $table->index('option_group_id', 'option_values_option_group_id_foreign');
+            });
+        }
+
         Schema::table('product_option_groups', function (Blueprint $table): void {
             $table->dropColumn(['sort_order', 'is_required_override', 'min_select_override', 'max_select_override', 'created_at', 'updated_at']);
         });

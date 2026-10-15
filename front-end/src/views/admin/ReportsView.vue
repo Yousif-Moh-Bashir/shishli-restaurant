@@ -14,6 +14,7 @@ import { reportDefinitions, metricDefinitions, orderReportChartColumns, inventor
 import ReportFilters from '../../components/reports/ReportFilters.vue'
 import ReportMetrics from '../../components/reports/ReportMetrics.vue'
 import ReportChart from '../../components/reports/ReportChart.vue'
+import ReportOrdersChart from '../../components/reports/ReportOrdersChart.vue'
 import ReportTable from '../../components/reports/ReportTable.vue'
 import '../../assets/css/reports.css'
 const route = useRoute(), router = useRouter(), auth = useAuthStore()
@@ -44,6 +45,15 @@ const chartRows=computed(()=>{
  return data.data||[]
 })
 const exportBusy = ref(false), exportError = ref(null)
+const reportSummary=computed(()=>{
+ const result=state.data.value
+ if(definition.value?.key!=='sales/trend')return definition.value?.key==='inventory'?result:result?.summary
+ const rows=result?.data||[]
+ const orders=rows.reduce((total,row)=>total+Number(row.orders_count||0),0)
+ const completed=rows.reduce((total,row)=>total+Number(row.completed_orders_count||0),0)
+ const salesMinor=rows.reduce((total,row)=>total+Math.round(Number(row.completed_sales||0)*100),0)
+ return {orders_count:orders,completed_orders_count:completed,completed_sales:(salesMinor/100).toFixed(2),average_order_value:(completed?salesMinor/completed/100:0).toFixed(2)}
+})
 let exportController, exportRevision = 0
 function cancelExport() { exportRevision++; exportController?.abort(); exportBusy.value = false; exportError.value = null }
 function load() { return allowed.value ? state.run(signal => reportsApi.get(definition.value.key, filters.value, signal)) : state.clear() }
@@ -81,8 +91,15 @@ onBeforeUnmount(cancelExport)
       <template v-else-if="state.data.value">
         <div class="panel-head"><p v-if="state.data.value.period" class="muted">{{ reportDate(state.data.value.period.from) }} — {{ reportDate(state.data.value.period.to) }} · {{ context.timezone }}</p><p v-else class="muted">حتى {{ reportValue(state.data.value.as_of, 'datetime', context) }}</p><button v-if="definition.export && auth.can('reports.export')" class="button" :disabled="exportBusy" @click="download"><AdminIcon name="arrow-up-left"/> {{ exportBusy ? 'جارٍ التصدير…' : 'تصدير CSV' }}</button></div>
         <section v-if="exportError" class="panel report-error" role="alert">{{ exportError.message }}<p v-for="(messages,field) in exportError.errors" :key="field">{{ messages.join(' ') }}</p><p v-if="exportError.retryAfter">أعد المحاولة بعد {{ exportError.retryAfter }} ثانية.</p></section>
-        <ReportMetrics :summary="definition.key === 'inventory' ? state.data.value : state.data.value.summary" :context="context" />
-        <div v-if="chartColumns">
+        <ReportMetrics :summary="reportSummary" :context="context" />
+        <div v-if="definition.key==='sales/trend'" class="report-sales-charts">
+          <div>
+            <label class="field report-chart-metric">مؤشر الرسم<select v-model="selectedMetric"><option v-for="metric in salesMetrics" :key="metric.key" :value="metric.key">{{ metric.label }}</option></select></label>
+            <ReportChart :rows="chartRows" :label-key="chartColumns[0].key" :label-type="chartColumns[0].type" :value-key="chartColumns[1].key" :value-type="chartColumns[1].type" :context="context" title="اتجاه المبيعات" trend :metric-label="chartColumns[1].label" />
+          </div>
+          <ReportOrdersChart :rows="chartRows" :context="context" />
+        </div>
+        <div v-else-if="chartColumns">
           <p v-if="chartColumns && state.data.value.meta" class="report-note">الرسم يعرض الصفوف في الصفحة الحالية بترتيب الخادم.</p>
           <p v-if="definition.key==='orders'" class="report-note">الطلبات مجمعة حسب الحالة من نتائج الصفحة الحالية؛ القيمة تشمل حالات الطلبات المعروضة ولا تمثل التحصيل المالي.</p>
           <p v-if="definition.key==='inventory'" class="report-note">مؤشرات مستقلة من لقطة المخزون الحالية؛ المخزون المنخفض والنافد قد يتداخلان، ولا تُجمع هذه الأعمدة.</p>
@@ -90,7 +107,8 @@ onBeforeUnmount(cancelExport)
           <ReportChart :rows="chartRows" :label-key="chartColumns[0].key" :label-type="chartColumns[0].type" :value-key="chartColumns[1].key" :value-type="chartColumns[1].type" :context="context" :title="definition.key==='sales/trend'?'اتجاه المبيعات':definition.label" :trend="definition.key==='sales/trend'" :metric-label="chartColumns[1].label" />
         </div>
         <template v-if="definition.key !== 'inventory'">
-          <ReportTable :rows="state.data.value.data" :columns="definition.columns" :context="context" :meta="state.data.value.meta" :branch-drilldown="definition.key === 'branches'" @page="page => apply({ ...filters, page })" @branch="branch_uuid => apply({ ...filters, branch_uuid, page: 1 })" />
+          <details v-if="definition.key==='sales/trend'" class="report-data-disclosure"><summary>عرض البيانات</summary><ReportTable :rows="state.data.value.data" :columns="definition.columns" :context="context" /></details>
+          <ReportTable v-else :rows="state.data.value.data" :columns="definition.columns" :context="context" :meta="state.data.value.meta" :branch-drilldown="definition.key === 'branches'" @page="page => apply({ ...filters, page })" @branch="branch_uuid => apply({ ...filters, branch_uuid, page: 1 })" />
         </template>
       </template>
     </template>

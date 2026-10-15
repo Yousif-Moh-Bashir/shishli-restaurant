@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\OrderStatusHistory;
 use Illuminate\Database\QueryException;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
@@ -82,7 +83,8 @@ class OrderTransactionTest extends TestCase
             Order::factory()->create(['cart_id' => $cart->id]);
             $this->fail('A second order must violate the unique cart constraint.');
         } catch (QueryException $exception) {
-            $this->assertStringContainsString('orders.cart_id', $exception->getMessage());
+            $this->assertInstanceOf(UniqueConstraintViolationException::class, $exception);
+            $this->assertSame('23000', $exception->errorInfo[0]);
         }
         $this->assertDatabaseCount('orders', 1);
     }

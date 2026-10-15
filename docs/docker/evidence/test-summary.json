@@ -1,0 +1,47 @@
+{
+    "result":  "passed",
+    "scope":  "All original Laravel cases covered across resumed batches; failed cases rerun after fixes, not one uninterrupted full run",
+    "engine":  "Oracle MySQL 8.4.11; persistent test volume and separate tmpfs test server",
+    "initial_completed_cases":  1320,
+    "initial_passed":  1314,
+    "remaining_batch_cases":  797,
+    "unique_verified_cases":  2117,
+    "failures_before_fixes":  10,
+    "unresolved_failures":  0,
+    "suites":  [
+                   {
+                       "file":  "laravel-mysql-remaining.xml",
+                       "tests":  797,
+                       "assertions":  5043,
+                       "errors":  0,
+                       "failures":  4,
+                       "skipped":  0
+                   },
+                   {
+                       "file":  "fixes-final.xml",
+                       "tests":  222,
+                       "assertions":  1160,
+                       "errors":  0,
+                       "failures":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "file":  "platform-fixes-final.xml",
+                       "tests":  32,
+                       "assertions":  192,
+                       "errors":  0,
+                       "failures":  0,
+                       "skipped":  0
+                   },
+                   {
+                       "file":  "media-regression-final.xml",
+                       "tests":  62,
+                       "assertions":  319,
+                       "errors":  0,
+                       "failures":  0,
+                       "skipped":  0
+                   }
+               ],
+    "skipped":  0,
+    "production_database_used":  false
+}

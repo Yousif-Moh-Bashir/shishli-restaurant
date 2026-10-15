@@ -13,6 +13,7 @@ class BranchController extends Controller
     public function index(): JsonResponse
     {
         $branches = Branch::query()->where('is_active', true)
+            ->with(['deliveryZones' => fn ($query) => $query->where('is_active', true)->with('districts')])
             ->orderBy('sort_order')->orderBy('name')->orderBy('id')->get();
 
         return ApiResponse::success(data: BranchResource::collection($branches));
@@ -22,6 +23,6 @@ class BranchController extends Controller
     {
         abort_unless($branch->is_active, 404);
 
-        return ApiResponse::success(data: new BranchResource($branch));
+        return ApiResponse::success(data: new BranchResource($branch->load(['deliveryZones' => fn ($query) => $query->where('is_active', true)->with('districts')])));
     }
 }

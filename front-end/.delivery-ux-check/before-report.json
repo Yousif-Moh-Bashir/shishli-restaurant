@@ -1,0 +1,11 @@
+{
+  "origin": "http://127.0.0.1:8088",
+  "transport": "controlled browser fixtures against Docker frontend",
+  "checks": [
+    "Before screenshot captured from current Docker frontend"
+  ],
+  "viewports": [],
+  "screenshots": [
+    "before-mobile.png"
+  ]
+}

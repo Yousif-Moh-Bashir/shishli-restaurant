@@ -2,7 +2,7 @@ const text = (key, label, max, extra = {}) => ({ key, label, type: 'text', max, 
 const number = (key, label, min = 0, max = 2147483647, extra = {}) => ({ key, label, type: 'number', min, max, step: '1', default: 0, ...extra })
 const flag = (key, label, value = true) => ({ key, label, type: 'checkbox', default: value })
 const name = max => text('name', 'الاسم', max, { required: true, nullable: false })
-const slug = max => text('slug', 'الرابط المختصر', max, { pattern: '[a-z0-9]+(-[a-z0-9]+)*' })
+const slug = max => text('slug', 'اسم الرابط', max, { pattern: '[a-z0-9]+(-[a-z0-9]+)*', advanced: true, placeholder: 'يُولّد تلقائيًا عند الحفظ' })
 const sort = number('sort_order', 'ترتيب العرض')
 const money = (key, label) => number(key, label, 0, '99999999.99', { step: '0.01', money: true, default: '0.00' })
 export const catalogFields = {

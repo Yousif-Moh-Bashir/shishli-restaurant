@@ -45,6 +45,7 @@ final class RestaurantSettingDefinition
             'delivery.enabled' => $define($boolean, true, ['required', 'boolean'], 'delivery'),
             'delivery.default_preparation_minutes' => $define($integer, 40, ['required', 'integer', 'min:1', 'max:240'], 'delivery'),
             'delivery.require_coordinates' => $define($boolean, false, ['required', 'boolean'], 'delivery'),
+            'delivery.show_minimum_order' => $define($boolean, false, ['required', 'boolean'], 'delivery'),
         ];
     }
 

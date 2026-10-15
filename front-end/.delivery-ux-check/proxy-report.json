@@ -1,0 +1,13 @@
+{
+  "origin": "http://127.0.0.1:8088",
+  "reverseStatus": 200,
+  "initialCache": "MISS",
+  "repeatCache": "HIT",
+  "parallelRequests": 3,
+  "rateLimiterVerified": true,
+  "searchStatus": 200,
+  "autocompleteStatus": 200,
+  "autocompleteResults": 5,
+  "unknownRoute": 404,
+  "postMethod": 405
+}

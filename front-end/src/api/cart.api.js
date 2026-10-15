@@ -5,7 +5,7 @@ function config({ token, uuid } = {}) {
 const itemPath = id => '/cart/items/' + encodeURIComponent(id)
 export const cartApi = {
   create: branch_uuid => http.post('/cart', { branch_uuid }).then(unwrap),
-  show: ctx => http.get('/cart', config(ctx)).then(unwrap),
+  show: (ctx, signal) => http.get('/cart', { ...config(ctx), signal }).then(unwrap),
   branch: (branch_uuid, ctx) => http.patch('/cart', { branch_uuid }, config(ctx)).then(unwrap),
   refresh: ctx => http.post('/cart/refresh', {}, config(ctx)).then(unwrap),
   add: (payload, ctx) => http.post('/cart/items', payload, config(ctx)).then(unwrap),

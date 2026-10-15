@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:delivery-location": "node tests/checkout-location.mjs && node tests/location-provider.test.mjs && node tests/delivery-quote-races.test.mjs",
+    "test:delivery-location:browser": "node --experimental-websocket tests/delivery-location-ux.browser.mjs"
   },
   "dependencies": {
     "axios": "^1.20.0",

@@ -13,7 +13,8 @@ class AdminListQuery
             $pattern = '%'.str_replace(['!', '%', '_'], ['!!', '!%', '!_'], $filters['search']).'%';
             $query->where(function (Builder $query) use ($pattern, $searchable): void {
                 foreach ($searchable as $index => $field) {
-                    $index === 0 ? $query->whereRaw($field." LIKE ? ESCAPE '!'", [$pattern]) : $query->orWhereRaw($field." LIKE ? ESCAPE '!'", [$pattern]);
+                    $column = $query->getQuery()->getGrammar()->wrap($field);
+                    $index === 0 ? $query->whereRaw($column." LIKE ? ESCAPE '!'", [$pattern]) : $query->orWhereRaw($column." LIKE ? ESCAPE '!'", [$pattern]);
                 }
             });
         }

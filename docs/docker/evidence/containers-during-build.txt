@@ -1,0 +1,14 @@
+shishli-mysql-test-1|Up 21 seconds (health: starting)|3306/tcp, 33060/tcp
+shishli-mysql-1|Up About a minute (healthy)|3306/tcp, 33060/tcp
+shishli-redis-1|Up About a minute (healthy)|6379/tcp
+emdadat-frontend-frontend-1|Restarting (254) 25 seconds ago|
+emdadat-eltaqwa-app-1|Up 37 minutes (healthy)|9000/tcp
+emdadat-eltaqwa-vite-1|Restarting (254) 14 seconds ago|
+emdadat-eltaqwa-queue-1|Restarting (1) 28 seconds ago|
+emdadat-eltaqwa-scheduler-1|Restarting (1) 28 seconds ago|
+emdadat-eltaqwa-phpmyadmin-1|Up 37 minutes|0.0.0.0:8081->80/tcp, [::]:8081->80/tcp
+emdadat-eltaqwa-redis-1|Up 37 minutes (healthy)|0.0.0.0:6380->6379/tcp, [::]:6380->6379/tcp
+emdadat-eltaqwa-mailpit-1|Up 37 minutes (healthy)|0.0.0.0:8025->8025/tcp, [::]:8025->8025/tcp, 0.0.0.0:1026->1025/tcp, [::]:1026->1025/tcp
+emdadat-eltaqwa-mysql-1|Up 37 minutes (healthy)|0.0.0.0:3307->3306/tcp, [::]:3307->3306/tcp
+hospital-phpmyadmin|Up 37 minutes|0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+hospital-backend-db-1|Up 37 minutes|3306/tcp

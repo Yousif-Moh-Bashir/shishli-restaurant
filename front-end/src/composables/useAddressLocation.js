@@ -3,7 +3,8 @@ import { reverseGeocode } from '../services/geocodingService.js'
 import { validLocation } from '../utils/location.js'
 
 export function useAddressLocation(form, disabled, { onChange = () => {} } = {}) {
-  const showMap = ref(false), opened = ref(Boolean(form.district)), locating = ref(false), reverseGeocoding = ref(false)
+  const showMap = ref(validLocation(form.latitude, form.longitude)), opened = ref(Boolean(form.district)), locating = ref(false), reverseGeocoding = ref(false)
+  const userLocation = ref(null), moving = ref(false)
   const message = ref(''), geocodingMessage = ref(''), formattedAddress = ref(''), postalCode = ref(''), accuracy = ref(null)
   let revision = 0, geoRevision = 0, locationTimer, reverseTimer, controller
   function cancelReverse() {
@@ -18,8 +19,8 @@ export function useAddressLocation(form, disabled, { onChange = () => {} } = {})
     form.city = ''; form.district = ''; form.street = ''
     formattedAddress.value = ''; postalCode.value = ''; geocodingMessage.value = ''
     accuracy.value = Number.isFinite(location.accuracy) ? location.accuracy : null
-    opened.value = true; showMap.value = true; onChange()
-    message.value = 'تم اختيار الموقع. يمكنك تعديل الدبوس ومراجعة العنوان.'
+    moving.value = false; opened.value = true; showMap.value = true; onChange()
+    message.value = 'راجع الموقع تحت الدبوس. لتغييره اضغط «تعديل الموقع على الخريطة».'
     const current = geoRevision
     // Preserve any text typed by the customer while the provider is responding.
     const original = { city: form.city, district: form.district, street: form.street }
@@ -37,17 +38,25 @@ export function useAddressLocation(form, disabled, { onChange = () => {} } = {})
       } catch {
         if (current === geoRevision) geocodingMessage.value = 'تم حفظ الموقع، لكن تعذر جلب وصف العنوان. أكمل المدينة والحي يدويًا للمتابعة.'
       } finally { clearTimeout(timeout); if (current === geoRevision) reverseGeocoding.value = false }
-    }, 500)
+    }, 800)
+  }
+  function startMoving() {
+    if (disabled()) return
+    moving.value = true; cancelLocation(); cancelReverse()
+    formattedAddress.value = ''; postalCode.value = ''; geocodingMessage.value = ''; accuracy.value = null
+    // The point is not committed while the map moves; no quote may use it.
+    form.latitude = ''; form.longitude = ''
+    onChange()
   }
   function openMap() {
     if (disabled()) return
     cancelLocation(); opened.value = true; showMap.value = true
-    onChange()
-    message.value = 'اضغط على مكان التوصيل في الخريطة أو حرّك الدبوس ثم أكد الموقع.'
+    if (!validLocation(form.latitude, form.longitude)) onChange()
+    message.value = 'الخريطة مقفلة. اضغط «تعديل الموقع على الخريطة» إذا أردت تغيير مكان الدبوس.'
   }
   function manualAddress() {
     if (disabled()) return
-    cancelLocation(); cancelReverse(); showMap.value = false; opened.value = true
+    cancelLocation(); cancelReverse(); moving.value = false; showMap.value = false; opened.value = true
     form.latitude = ''; form.longitude = ''; formattedAddress.value = ''; postalCode.value = ''; accuracy.value = null
     message.value = ''; geocodingMessage.value = ''; onChange()
   }
@@ -55,23 +64,29 @@ export function useAddressLocation(form, disabled, { onChange = () => {} } = {})
     if (disabled() || locating.value) return
     cancelLocation()
     const current = revision
-    const failed = () => {
+    const failed = error => {
       if (current !== revision) return
       cancelLocation(); opened.value = true
-      message.value = 'لم نتمكن من الوصول إلى موقعك. يمكنك اختيار موقعك على الخريطة أو كتابة العنوان يدويًا.'
+      const reason = error?.code === 1 ? 'تم رفض إذن الموقع. فعّل الإذن من إعدادات المتصفح أو اختر عنوانك على الخريطة.'
+        : error?.code === 3 ? 'انتهت مهلة تحديد الموقع. حاول مجددًا قرب نافذة أو اختر عنوانك على الخريطة.'
+          : 'تعذر الحصول على موقعك. تحقق من تشغيل خدمات الموقع أو اختر عنوانك على الخريطة.'
+      message.value = reason
     }
-    if (!window.isSecureContext || !navigator.geolocation) { failed(); return }
+    if (!window.isSecureContext) { failed(); message.value = 'تحديد الموقع يحتاج اتصال HTTPS. يمكنك اختيار العنوان على الخريطة الآن.'; return }
+    if (!navigator.geolocation) { failed(); return }
     locating.value = true; message.value = 'جارٍ تحديد موقعك…'
-    locationTimer = setTimeout(failed, 15000)
+    locationTimer = setTimeout(() => failed({ code: 3 }), 20000)
     try {
       navigator.geolocation.getCurrentPosition(position => {
         if (current !== revision || disabled()) return
         if (!validLocation(position.coords.latitude, position.coords.longitude)) { failed(); return }
+        userLocation.value = { latitude: position.coords.latitude, longitude: position.coords.longitude, accuracy: position.coords.accuracy }
         selectLocation(position.coords)
-      }, failed, { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 })
+      }, failed, { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 })
     } catch { failed() }
   }
   watch(disabled, value => { if (value) { cancelLocation(); cancelReverse() } })
   onBeforeUnmount(() => { cancelLocation(); cancelReverse() })
-  return { showMap, opened, locating, reverseGeocoding, message, geocodingMessage, formattedAddress, postalCode, accuracy, selectLocation, openMap, manualAddress, locate }
+  function recenter() { if (userLocation.value) selectLocation(userLocation.value); else locate() }
+  return { showMap, opened, locating, reverseGeocoding, moving, userLocation, message, geocodingMessage, formattedAddress, postalCode, accuracy, selectLocation, startMoving, openMap, manualAddress, locate, recenter }
 }

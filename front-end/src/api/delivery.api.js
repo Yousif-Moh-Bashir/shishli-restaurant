@@ -9,5 +9,5 @@ export const deliveryZonesApi = {
   remove: (branch, id) => http.delete(path(branch) + '/' + encodeURIComponent(id)).then(unwrap),
 }
 export const deliveryApi = {
-  quote: (body, { token, uuid } = {}) => http.post('/cart/delivery/quote', body, { headers: token ? { 'X-Cart-Token': token } : uuid ? { 'X-Cart-UUID': uuid } : {} }).then(unwrap),
+  quote: (body, { token, uuid } = {}, signal) => http.post('/cart/delivery/quote', body, { signal, headers: token ? { 'X-Cart-Token': token } : uuid ? { 'X-Cart-UUID': uuid } : {} }).then(unwrap),
 }

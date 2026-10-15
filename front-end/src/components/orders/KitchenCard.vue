@@ -42,7 +42,8 @@ const quantity=computed(()=>(props.order.items||[]).reduce((total,item)=>total+N
 :deep(.kitchen-snapshot>section){padding:12px;background:#f7f7f7;border:1px solid #ececec;border-inline-start:3px solid var(--primary);border-radius:8px;margin-top:14px}
 :deep(.kitchen-snapshot>section h3){font-size:12px;color:var(--primary);margin-bottom:5px}
 :deep(.kitchen-notes){font-size:13px;line-height:1.8;font-weight:500;color:var(--text)}
-.kitchen-card-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-top:18px;margin-top:auto}
+.kitchen-card-actions{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;padding-top:18px;margin-top:auto}
+.kitchen-card-actions>.button,.kitchen-card-actions>.row-button{white-space:nowrap;line-height:1.5}
 .kitchen-card-actions>.button{flex:1;justify-content:center;padding:10px 12px;min-height:42px;font-size:12px}
 .kitchen-card-actions>.button{background:#d71920;border-color:#d71920;color:white}
 .kitchen-card-actions>.row-button{margin:0;display:flex;align-items:center;justify-content:center;gap:5px;min-height:42px;font-size:11px;padding:8px 10px}

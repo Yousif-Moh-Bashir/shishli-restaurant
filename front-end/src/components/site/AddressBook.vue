@@ -14,6 +14,7 @@ const auth=useAuthStore(),state=useApiState(),mutation=useApiMutation(),recordLo
 const {toast}=inject('site')
 const branches=useBranchStore()
 const editor=ref(null)
+const locationBusy=ref(false)
 function mapsUrl(item){const lat=item.location?.latitude,lng=item.location?.longitude;if(lat===null||lat===undefined||lng===null||lng===undefined||String(lat).trim()===''||String(lng).trim()==='')return null;const latitude=Number(lat),longitude=Number(lng);return Number.isFinite(latitude)&&Number.isFinite(longitude)&&Math.abs(latitude)<=90&&Math.abs(longitude)<=180?'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(latitude+','+longitude):null}
 let revision=0
 function load(){if(auth.isAuthenticated)return state.run(signal=>addressesApi.list(signal))}
@@ -27,11 +28,12 @@ async function edit(record){
   const version=revision
   if(record){recordLoading.value=true;let result;try{result=await mutation.run(()=>addressesApi.show(record.id))}finally{recordLoading.value=false};if(!result.ok){if(mutation.error.value?.status===404)load();return}if(version!==revision)return;record=result.data}
   editing.value=record
-  Object.assign(form,addressForm(record||{recipient_name:auth.user?.name||'',phone:auth.user?.phone||'',city:branches.selectedBranch?.name?.includes('المصيف')?'تبوك':branches.selectedBranch?.location?.city||''}))
+  Object.assign(form,addressForm(record||{recipient_name:auth.user?.name||'',phone:auth.user?.phone||'',city:branches.selectedBranch?.location?.city||''}))
   showForm.value=true
   if(props.management){await nextTick();editor.value?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});editor.value?.querySelector('input')?.focus({preventScroll:true})}
 }
 async function save(){
+  if(locationBusy.value)return
   if(!editing.value&&limitReached.value){toast('يمكنك حفظ ثلاثة عناوين فقط. احذف عنوانًا لإضافة عنوان جديد.');return}
   const version=revision
   const result=await mutation.run(()=>editing.value?addressesApi.update(editing.value.id,addressPayload(form)):addressesApi.create(addressPayload(form)))
@@ -56,7 +58,7 @@ async function remove(){const record=deleting.value,version=revision;const resul
    <div class="form-actions address-card-actions"><button type="button" v-if="selectable" class="button" :aria-pressed="selectedId===item.id" :disabled="mutation.busy.value" @click="emit('selected',item)">{{ selectedId===item.id?'العنوان المختار':'اختيار للتوصيل' }}</button><button type="button" class="text-button" :disabled="mutation.busy.value||recordLoading" @click="edit(item)">تعديل</button><button type="button" v-if="!item.is_default" class="text-button" :disabled="mutation.busy.value||recordLoading" @click="setDefault(item)">تعيين افتراضي</button><button type="button" class="text-button address-delete" :disabled="mutation.busy.value||recordLoading" @click="deleting=item;confirmation.showModal()">حذف</button></div>
   </article></div>
   <AppSkeleton v-if="recordLoading" variant="inline" label="جارٍ تحميل تفاصيل العنوان…"/>
-  <form v-if="showForm" ref="editor" class="checkout-panel address-editor" @submit.prevent="save"><div class="address-editor-heading"><span v-if="management" class="address-pin"><SiteIcon name="map-pin"/></span><div><h3>{{ editing?'تعديل العنوان':'عنوان جديد' }}</h3><p v-if="management">حدّد الموقع على الخريطة، ثم أكمل بيانات المستلم.</p></div></div><AddressFields :key="editing?.id || 'new'" :center="branches.selectedBranch?.location" :form="form" :errors="mutation.error.value?.errors" :disabled="mutation.busy.value"/><div class="form-actions address-editor-actions"><button type="submit" class="button button-primary" :disabled="mutation.busy.value">{{ mutation.busy.value?'جارٍ الحفظ…':'حفظ العنوان' }}</button><button type="button" class="button" :disabled="mutation.busy.value" @click="showForm=false;Object.assign(form,addressForm())">إلغاء</button></div></form>
+  <form v-if="showForm" ref="editor" class="checkout-panel address-editor" @submit.prevent="save"><div class="address-editor-heading"><span v-if="management" class="address-pin"><SiteIcon name="map-pin"/></span><div><h3>{{ editing?'تعديل العنوان':'عنوان جديد' }}</h3><p v-if="management">حدّد الموقع على الخريطة، ثم أكمل بيانات المستلم.</p></div></div><AddressFields :key="editing?.id || 'new'" :center="branches.selectedBranch?.location" :form="form" :errors="mutation.error.value?.errors" :disabled="mutation.busy.value" @busy="locationBusy=$event"/><div class="form-actions address-editor-actions"><button type="submit" class="button button-primary" :disabled="mutation.busy.value || locationBusy">{{ mutation.busy.value?'جارٍ الحفظ…':'حفظ العنوان' }}</button><button type="button" class="button" :disabled="mutation.busy.value" @click="showForm=false;Object.assign(form,addressForm())">إلغاء</button></div></form>
   <div v-if="mutation.error.value" class="address-message" role="alert"><p>{{ mutation.error.value.message }}</p><p v-for="(messages,key) in mutation.error.value.errors" :key="key">{{ messages.join(' ') }}</p></div>
   <dialog ref="confirmation" class="info-dialog address-delete-dialog" aria-labelledby="delete-address-title"><h2 id="delete-address-title">حذف العنوان؟</h2><p>سيُحذف هذا العنوان من عناوينك المحفوظة. يمكنك إضافته مرة أخرى لاحقًا.</p><p v-if="deleting?.is_default">سيُختار عنوان آخر كعنوان افتراضي إن وجد.</p><div class="form-actions"><button type="button" class="button button-primary" :disabled="mutation.busy.value" @click="remove">حذف</button><button type="button" class="button" :disabled="mutation.busy.value" @click="confirmation.close()">إلغاء</button></div></dialog>
  </section>

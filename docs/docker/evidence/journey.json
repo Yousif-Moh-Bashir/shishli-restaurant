@@ -1,0 +1,1523 @@
+{
+  "checks": [
+    "Home reuses existing products/gallery, searches with one real API request and reuses initial products after clearing search",
+    "Product options/quantity and add-to-cart through UI",
+    "Saved coordinate address, real delivery quote, cash checkout, duplicate-click guard and admin visibility",
+    "Real kitchen transitions, ready driver queue, privacy, accept, pickup, on-way, cash and delivered read-only details",
+    "Admin completion/payment verification, driver collections and cashier settlement"
+  ],
+  "pages": [
+    "/",
+    "/menu",
+    "/branches",
+    "/offers",
+    "/about",
+    "/gallery",
+    "/contact",
+    "/cart",
+    "/checkout",
+    "/login",
+    "/register",
+    "/orders",
+    "/track-order",
+    "/missing-qa",
+    "/account/profile",
+    "/account/addresses",
+    "/account/orders",
+    "/account/orders/9773540c-6efa-40cb-b793-dca0c51daf09"
+  ],
+  "responsive": [
+    {
+      "path": "/checkout",
+      "width": 320
+    },
+    {
+      "path": "/checkout",
+      "width": 360
+    },
+    {
+      "path": "/checkout",
+      "width": 375
+    },
+    {
+      "path": "/checkout",
+      "width": 390
+    },
+    {
+      "path": "/checkout",
+      "width": 412
+    },
+    {
+      "path": "/checkout",
+      "width": 430
+    },
+    {
+      "path": "/checkout",
+      "width": 768
+    },
+    {
+      "path": "/checkout",
+      "width": 1024
+    },
+    {
+      "path": "/checkout",
+      "width": 1366
+    },
+    {
+      "path": "/checkout",
+      "width": 1920
+    },
+    {
+      "path": "/driver/orders/:id",
+      "width": 320
+    },
+    {
+      "path": "/driver/orders/:id",
+      "width": 360
+    },
+    {
+      "path": "/driver/orders/:id",
+      "width": 375
+    },
+    {
+      "path": "/driver/orders/:id",
+      "width": 390
+    },
+    {
+      "path": "/driver/orders/:id",
+      "width": 412
+    },
+    {
+      "path": "/driver/orders/:id",
+      "width": 430
+    },
+    {
+      "path": "/driver/orders/:id",
+      "width": 768
+    },
+    {
+      "path": "/driver/orders/:id",
+      "width": 1024
+    },
+    {
+      "path": "/driver/orders/:id",
+      "width": 1366
+    },
+    {
+      "path": "/driver/orders/:id",
+      "width": 1920
+    },
+    {
+      "path": "/driver/collections",
+      "width": 320
+    },
+    {
+      "path": "/driver/collections",
+      "width": 360
+    },
+    {
+      "path": "/driver/collections",
+      "width": 375
+    },
+    {
+      "path": "/driver/collections",
+      "width": 390
+    },
+    {
+      "path": "/driver/collections",
+      "width": 412
+    },
+    {
+      "path": "/driver/collections",
+      "width": 430
+    },
+    {
+      "path": "/driver/collections",
+      "width": 768
+    },
+    {
+      "path": "/driver/collections",
+      "width": 1024
+    },
+    {
+      "path": "/driver/collections",
+      "width": 1366
+    },
+    {
+      "path": "/driver/collections",
+      "width": 1920
+    },
+    {
+      "path": "/",
+      "width": 320
+    },
+    {
+      "path": "/",
+      "width": 360
+    },
+    {
+      "path": "/",
+      "width": 375
+    },
+    {
+      "path": "/",
+      "width": 390
+    },
+    {
+      "path": "/",
+      "width": 412
+    },
+    {
+      "path": "/",
+      "width": 430
+    },
+    {
+      "path": "/",
+      "width": 768
+    },
+    {
+      "path": "/",
+      "width": 1024
+    },
+    {
+      "path": "/",
+      "width": 1366
+    },
+    {
+      "path": "/",
+      "width": 1920
+    },
+    {
+      "path": "/menu",
+      "width": 320
+    },
+    {
+      "path": "/menu",
+      "width": 360
+    },
+    {
+      "path": "/menu",
+      "width": 375
+    },
+    {
+      "path": "/menu",
+      "width": 390
+    },
+    {
+      "path": "/menu",
+      "width": 412
+    },
+    {
+      "path": "/menu",
+      "width": 430
+    },
+    {
+      "path": "/menu",
+      "width": 768
+    },
+    {
+      "path": "/menu",
+      "width": 1024
+    },
+    {
+      "path": "/menu",
+      "width": 1366
+    },
+    {
+      "path": "/menu",
+      "width": 1920
+    },
+    {
+      "path": "/branches",
+      "width": 320
+    },
+    {
+      "path": "/branches",
+      "width": 360
+    },
+    {
+      "path": "/branches",
+      "width": 375
+    },
+    {
+      "path": "/branches",
+      "width": 390
+    },
+    {
+      "path": "/branches",
+      "width": 412
+    },
+    {
+      "path": "/branches",
+      "width": 430
+    },
+    {
+      "path": "/branches",
+      "width": 768
+    },
+    {
+      "path": "/branches",
+      "width": 1024
+    },
+    {
+      "path": "/branches",
+      "width": 1366
+    },
+    {
+      "path": "/branches",
+      "width": 1920
+    },
+    {
+      "path": "/offers",
+      "width": 320
+    },
+    {
+      "path": "/offers",
+      "width": 360
+    },
+    {
+      "path": "/offers",
+      "width": 375
+    },
+    {
+      "path": "/offers",
+      "width": 390
+    },
+    {
+      "path": "/offers",
+      "width": 412
+    },
+    {
+      "path": "/offers",
+      "width": 430
+    },
+    {
+      "path": "/offers",
+      "width": 768
+    },
+    {
+      "path": "/offers",
+      "width": 1024
+    },
+    {
+      "path": "/offers",
+      "width": 1366
+    },
+    {
+      "path": "/offers",
+      "width": 1920
+    },
+    {
+      "path": "/about",
+      "width": 320
+    },
+    {
+      "path": "/about",
+      "width": 360
+    },
+    {
+      "path": "/about",
+      "width": 375
+    },
+    {
+      "path": "/about",
+      "width": 390
+    },
+    {
+      "path": "/about",
+      "width": 412
+    },
+    {
+      "path": "/about",
+      "width": 430
+    },
+    {
+      "path": "/about",
+      "width": 768
+    },
+    {
+      "path": "/about",
+      "width": 1024
+    },
+    {
+      "path": "/about",
+      "width": 1366
+    },
+    {
+      "path": "/about",
+      "width": 1920
+    },
+    {
+      "path": "/gallery",
+      "width": 320
+    },
+    {
+      "path": "/gallery",
+      "width": 360
+    },
+    {
+      "path": "/gallery",
+      "width": 375
+    },
+    {
+      "path": "/gallery",
+      "width": 390
+    },
+    {
+      "path": "/gallery",
+      "width": 412
+    },
+    {
+      "path": "/gallery",
+      "width": 430
+    },
+    {
+      "path": "/gallery",
+      "width": 768
+    },
+    {
+      "path": "/gallery",
+      "width": 1024
+    },
+    {
+      "path": "/gallery",
+      "width": 1366
+    },
+    {
+      "path": "/gallery",
+      "width": 1920
+    },
+    {
+      "path": "/contact",
+      "width": 320
+    },
+    {
+      "path": "/contact",
+      "width": 360
+    },
+    {
+      "path": "/contact",
+      "width": 375
+    },
+    {
+      "path": "/contact",
+      "width": 390
+    },
+    {
+      "path": "/contact",
+      "width": 412
+    },
+    {
+      "path": "/contact",
+      "width": 430
+    },
+    {
+      "path": "/contact",
+      "width": 768
+    },
+    {
+      "path": "/contact",
+      "width": 1024
+    },
+    {
+      "path": "/contact",
+      "width": 1366
+    },
+    {
+      "path": "/contact",
+      "width": 1920
+    },
+    {
+      "path": "/cart",
+      "width": 320
+    },
+    {
+      "path": "/cart",
+      "width": 360
+    },
+    {
+      "path": "/cart",
+      "width": 375
+    },
+    {
+      "path": "/cart",
+      "width": 390
+    },
+    {
+      "path": "/cart",
+      "width": 412
+    },
+    {
+      "path": "/cart",
+      "width": 430
+    },
+    {
+      "path": "/cart",
+      "width": 768
+    },
+    {
+      "path": "/cart",
+      "width": 1024
+    },
+    {
+      "path": "/cart",
+      "width": 1366
+    },
+    {
+      "path": "/cart",
+      "width": 1920
+    },
+    {
+      "path": "/checkout",
+      "width": 320
+    },
+    {
+      "path": "/checkout",
+      "width": 360
+    },
+    {
+      "path": "/checkout",
+      "width": 375
+    },
+    {
+      "path": "/checkout",
+      "width": 390
+    },
+    {
+      "path": "/checkout",
+      "width": 412
+    },
+    {
+      "path": "/checkout",
+      "width": 430
+    },
+    {
+      "path": "/checkout",
+      "width": 768
+    },
+    {
+      "path": "/checkout",
+      "width": 1024
+    },
+    {
+      "path": "/checkout",
+      "width": 1366
+    },
+    {
+      "path": "/checkout",
+      "width": 1920
+    },
+    {
+      "path": "/login",
+      "width": 320
+    },
+    {
+      "path": "/login",
+      "width": 360
+    },
+    {
+      "path": "/login",
+      "width": 375
+    },
+    {
+      "path": "/login",
+      "width": 390
+    },
+    {
+      "path": "/login",
+      "width": 412
+    },
+    {
+      "path": "/login",
+      "width": 430
+    },
+    {
+      "path": "/login",
+      "width": 768
+    },
+    {
+      "path": "/login",
+      "width": 1024
+    },
+    {
+      "path": "/login",
+      "width": 1366
+    },
+    {
+      "path": "/login",
+      "width": 1920
+    },
+    {
+      "path": "/register",
+      "width": 320
+    },
+    {
+      "path": "/register",
+      "width": 360
+    },
+    {
+      "path": "/register",
+      "width": 375
+    },
+    {
+      "path": "/register",
+      "width": 390
+    },
+    {
+      "path": "/register",
+      "width": 412
+    },
+    {
+      "path": "/register",
+      "width": 430
+    },
+    {
+      "path": "/register",
+      "width": 768
+    },
+    {
+      "path": "/register",
+      "width": 1024
+    },
+    {
+      "path": "/register",
+      "width": 1366
+    },
+    {
+      "path": "/register",
+      "width": 1920
+    },
+    {
+      "path": "/orders",
+      "width": 320
+    },
+    {
+      "path": "/orders",
+      "width": 360
+    },
+    {
+      "path": "/orders",
+      "width": 375
+    },
+    {
+      "path": "/orders",
+      "width": 390
+    },
+    {
+      "path": "/orders",
+      "width": 412
+    },
+    {
+      "path": "/orders",
+      "width": 430
+    },
+    {
+      "path": "/orders",
+      "width": 768
+    },
+    {
+      "path": "/orders",
+      "width": 1024
+    },
+    {
+      "path": "/orders",
+      "width": 1366
+    },
+    {
+      "path": "/orders",
+      "width": 1920
+    },
+    {
+      "path": "/track-order",
+      "width": 320
+    },
+    {
+      "path": "/track-order",
+      "width": 360
+    },
+    {
+      "path": "/track-order",
+      "width": 375
+    },
+    {
+      "path": "/track-order",
+      "width": 390
+    },
+    {
+      "path": "/track-order",
+      "width": 412
+    },
+    {
+      "path": "/track-order",
+      "width": 430
+    },
+    {
+      "path": "/track-order",
+      "width": 768
+    },
+    {
+      "path": "/track-order",
+      "width": 1024
+    },
+    {
+      "path": "/track-order",
+      "width": 1366
+    },
+    {
+      "path": "/track-order",
+      "width": 1920
+    },
+    {
+      "path": "/missing-qa",
+      "width": 320
+    },
+    {
+      "path": "/missing-qa",
+      "width": 360
+    },
+    {
+      "path": "/missing-qa",
+      "width": 375
+    },
+    {
+      "path": "/missing-qa",
+      "width": 390
+    },
+    {
+      "path": "/missing-qa",
+      "width": 412
+    },
+    {
+      "path": "/missing-qa",
+      "width": 430
+    },
+    {
+      "path": "/missing-qa",
+      "width": 768
+    },
+    {
+      "path": "/missing-qa",
+      "width": 1024
+    },
+    {
+      "path": "/missing-qa",
+      "width": 1366
+    },
+    {
+      "path": "/missing-qa",
+      "width": 1920
+    },
+    {
+      "path": "/account/profile",
+      "width": 320
+    },
+    {
+      "path": "/account/profile",
+      "width": 360
+    },
+    {
+      "path": "/account/profile",
+      "width": 375
+    },
+    {
+      "path": "/account/profile",
+      "width": 390
+    },
+    {
+      "path": "/account/profile",
+      "width": 412
+    },
+    {
+      "path": "/account/profile",
+      "width": 430
+    },
+    {
+      "path": "/account/profile",
+      "width": 768
+    },
+    {
+      "path": "/account/profile",
+      "width": 1024
+    },
+    {
+      "path": "/account/profile",
+      "width": 1366
+    },
+    {
+      "path": "/account/profile",
+      "width": 1920
+    },
+    {
+      "path": "/account/addresses",
+      "width": 320
+    },
+    {
+      "path": "/account/addresses",
+      "width": 360
+    },
+    {
+      "path": "/account/addresses",
+      "width": 375
+    },
+    {
+      "path": "/account/addresses",
+      "width": 390
+    },
+    {
+      "path": "/account/addresses",
+      "width": 412
+    },
+    {
+      "path": "/account/addresses",
+      "width": 430
+    },
+    {
+      "path": "/account/addresses",
+      "width": 768
+    },
+    {
+      "path": "/account/addresses",
+      "width": 1024
+    },
+    {
+      "path": "/account/addresses",
+      "width": 1366
+    },
+    {
+      "path": "/account/addresses",
+      "width": 1920
+    },
+    {
+      "path": "/account/orders",
+      "width": 320
+    },
+    {
+      "path": "/account/orders",
+      "width": 360
+    },
+    {
+      "path": "/account/orders",
+      "width": 375
+    },
+    {
+      "path": "/account/orders",
+      "width": 390
+    },
+    {
+      "path": "/account/orders",
+      "width": 412
+    },
+    {
+      "path": "/account/orders",
+      "width": 430
+    },
+    {
+      "path": "/account/orders",
+      "width": 768
+    },
+    {
+      "path": "/account/orders",
+      "width": 1024
+    },
+    {
+      "path": "/account/orders",
+      "width": 1366
+    },
+    {
+      "path": "/account/orders",
+      "width": 1920
+    },
+    {
+      "path": "/account/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "width": 320
+    },
+    {
+      "path": "/account/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "width": 360
+    },
+    {
+      "path": "/account/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "width": 375
+    },
+    {
+      "path": "/account/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "width": 390
+    },
+    {
+      "path": "/account/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "width": 412
+    },
+    {
+      "path": "/account/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "width": 430
+    },
+    {
+      "path": "/account/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "width": 768
+    },
+    {
+      "path": "/account/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "width": 1024
+    },
+    {
+      "path": "/account/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "width": 1366
+    },
+    {
+      "path": "/account/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "width": 1920
+    }
+  ],
+  "responses": [
+    {
+      "path": "/api/v1/admin/me",
+      "status": 403
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/status",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/home",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/menu",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "status": 403
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/status",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/menu/products/5d0d18b6-c686-4302-a844-830474f3231f",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart/items",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/addresses",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart/delivery/quote",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart/delivery/quote",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/status",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/checkout",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/orders/9773540c-6efa-40cb-b793-dca0c51daf09/payments",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "status": 403
+    },
+    {
+      "path": "/api/v1/driver/me",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/me",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders/9773540c-6efa-40cb-b793-dca0c51daf09/accept",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders/9773540c-6efa-40cb-b793-dca0c51daf09/transition",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders/9773540c-6efa-40cb-b793-dca0c51daf09/transition",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders/9773540c-6efa-40cb-b793-dca0c51daf09/cash/collect",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders/9773540c-6efa-40cb-b793-dca0c51daf09/transition",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "status": 403
+    },
+    {
+      "path": "/api/v1/driver/me",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/me",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/driver/collections",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/status",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/home",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/categories",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/status",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/menu",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/status",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/pages/about",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/pages/gallery",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/gallery",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/pages/contact",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/status",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/promotions",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "status": 403
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/profile",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 404
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 201
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "status": 403
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/addresses",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/cart",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "status": 403
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/orders",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "status": 403
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/orders/9773540c-6efa-40cb-b793-dca0c51daf09",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/branches/c4086e43-06b2-4470-8dac-509b3585ce98/business-hours",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/orders/9773540c-6efa-40cb-b793-dca0c51daf09/payments",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/orders/9773540c-6efa-40cb-b793-dca0c51daf09/tracking",
+      "status": 200
+    }
+  ],
+  "transport": "Real Vue / Axios / Laravel on isolated seeded MySQL; cash only",
+  "result": "passed"
+}

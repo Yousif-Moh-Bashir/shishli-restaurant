@@ -100,7 +100,10 @@ class AdminOperationsTest extends TestCase
         $uuid = (string) Str::uuid();
         app(AdminActivityService::class)->record($actor, 'security.test', 'user', $uuid, [], ['name' => ['password' => 'nested-secret'], 'password' => 'raw-password', 'token' => 'raw-token', 'permissions' => ['orders.view', ['api_key' => 'private']], 'roles' => ['cashier'], 'is_active' => true]);
         $json = $this->getJson('/api/v1/admin/activity-logs')->assertOk()->assertJsonPath('data.0.actor.id', $actor->uuid)->assertJsonPath('data.0.subject.id', $uuid)->json('data.0');
-        $this->assertSame(['permissions' => ['orders.view'], 'roles' => ['cashier'], 'is_active' => true], $json['new_values']);
+        $this->assertCount(3, $json['new_values']);
+        $this->assertSame(['orders.view'], $json['new_values']['permissions']);
+        $this->assertSame(['cashier'], $json['new_values']['roles']);
+        $this->assertTrue($json['new_values']['is_active']);
         $encoded = json_encode($json);
         foreach (['nested-secret', 'raw-password', 'raw-token', 'private', 'ip_hash', 'user_id'] as $secret) {
             $this->assertStringNotContainsString($secret, $encoded);

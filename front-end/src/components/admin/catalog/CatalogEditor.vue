@@ -11,12 +11,26 @@ import { catalogFields, initialForm, formPayload } from '../../../constants/cata
 import { categoriesApi, flattenCategories } from '../../../api/categories.api'
 import { useAuthStore } from '../../../stores/auth'
 import AppSkeleton from '../../common/AppSkeleton.vue'
+import MapLocationPicker from '../../site/MapLocationPicker.vue'
+import { validLocation } from '../../../utils/location.js'
 const props = defineProps({ open:Boolean, record:Object, mode:String, kind:String, api:Object })
 const emit = defineEmits(['update:open','saved'])
 const { notify } = inject('admin')
 const auth = useAuthStore(), mutation = useApiMutation(), form = reactive({}), categories = ref([]), choicesError = ref(null)
 const kindLabels={products:'منتج',categories:'تصنيف',branches:'فرع',groups:'مجموعة خيارات'}
 const fields = computed(()=>catalogFields[props.kind]),choicesLoading=ref(false)
+const visibleFields = computed(() => props.kind === 'branches' ? fields.value.filter(field => !['latitude', 'longitude'].includes(field.key)) : fields.value)
+const coordinateFields = computed(() => fields.value.filter(field => ['latitude', 'longitude'].includes(field.key)))
+const hasBranchLocation = computed(() => validLocation(form.latitude, form.longitude))
+function selectBranchLocation(location) {
+  if (mutation.busy.value) return
+  form.latitude = Number(location.latitude.toFixed(7))
+  form.longitude = Number(location.longitude.toFixed(7))
+}
+function clearBranchLocation() {
+  if (mutation.busy.value) return
+  form.latitude = ''; form.longitude = ''
+}
 const sections=computed(()=>({
  products:[{title:'المعلومات الأساسية',keys:['name','slug','sku','category_uuid']},{title:'التسعير والتجهيز',keys:['base_price','preparation_time']},{title:'وصف المنتج',keys:['short_description','description']},{title:'التوفر والعرض',keys:['sort_order','is_active','is_available','is_featured','tracks_inventory']}],
  branches:[{title:'بيانات الفرع',keys:['name','slug','sort_order']},{title:'التواصل',keys:['phone','whatsapp']},{title:'الموقع',keys:['city','district','address','latitude','longitude']},{title:'الحالة والخدمات',keys:['is_active','accepts_orders','supports_pickup','supports_delivery']}],
@@ -52,7 +66,15 @@ async function submit(){
 </script>
 <template><AdminModal :open="open" :size="mode!=='delete'&&['products','branches'].includes(kind)?'large':'medium'" :class="{'product-editor-dialog':kind==='products'&&mode!=='delete'}" :title="mode==='delete'?'تأكيد الحذف':(record?'تعديل ':'إضافة ')+(kindLabels[kind]||'بيانات')" :busy="mutation.busy.value" @update:open="$emit('update:open',$event)" @submit="submit">
 <p v-if="mode==='delete'">هل تريد حذف «{{ record?.name }}»؟ سيطبق الخادم قواعد الحذف.</p>
-<template v-else><AppSkeleton v-if="choicesLoading" variant="inline" label="جارٍ تحميل التصنيفات…"/><ApiFeedback v-if="choicesError" :error="choicesError" @retry="emit('update:open',false)"/><CatalogFields :sections="sections" :fields="fields" :form="form" :categories="categories" :errors="mutation.error.value?.errors" :disabled="mutation.busy.value"/><p v-if="kind==='categories'" class="form-note">الصورة حقل رابط أو مسار؛ لا يوفر الخادم رفعًا لصور الأقسام.</p><p v-if="kind==='products'" class="form-note">يمكن إدارة الصور والخيارات وأسعار الفروع بعد إنشاء المنتج. تفعيل تتبع المخزون يحتاج إعداد المخزون في مرحلة إدارته.</p></template>
+<template v-else><AppSkeleton v-if="choicesLoading" variant="inline" label="جارٍ تحميل التصنيفات…"/><ApiFeedback v-if="choicesError" :error="choicesError" @retry="emit('update:open',false)"/><CatalogFields :sections="sections" :fields="visibleFields" :form="form" :categories="categories" :errors="mutation.error.value?.errors" :disabled="mutation.busy.value">
+<template #section="{ title }"><div v-if="kind==='branches' && title==='الموقع'">
+<p class="form-note">حدد موقع الفرع على الخريطة؛ تُحفظ الإحداثيات تلقائيًا.</p>
+<MapLocationPicker :latitude="form.latitude" :longitude="form.longitude" :disabled="mutation.busy.value" label="موقع الفرع" @selected="selectBranchLocation"/>
+<p class="form-note" role="status">{{ hasBranchLocation ? 'تم تحديد موقع الفرع.' : 'لم يُحدد موقع الفرع بعد (اختياري).' }}</p>
+<button v-if="hasBranchLocation" type="button" class="row-button" :disabled="mutation.busy.value" @click="clearBranchLocation">مسح الموقع</button>
+<details><summary>إدخال الإحداثيات يدويًا (اختياري)</summary><CatalogFields :fields="coordinateFields" :form="form" :errors="mutation.error.value?.errors" :disabled="mutation.busy.value"/></details>
+</div></template>
+</CatalogFields><p v-if="kind==='categories'" class="form-note">الصورة حقل رابط أو مسار؛ لا يوفر الخادم رفعًا لصور الأقسام.</p><p v-if="kind==='products'" class="form-note">يمكن إدارة الصور والخيارات وأسعار الفروع بعد إنشاء المنتج. تفعيل تتبع المخزون يحتاج إعداد المخزون في مرحلة إدارته.</p></template>
 <div v-if="mutation.error.value" class="form-note" role="alert">{{ mutation.error.value.message }}<ul><li v-for="(messages,field) in mutation.error.value.errors" :key="field">{{ messages.join(' ') }}</li></ul></div>
 <div class="form-actions"><button class="button" :class="{danger:mode==='delete'}" type="submit" :disabled="mutation.busy.value">{{ mutation.busy.value?'جارٍ الحفظ…':mode==='delete'?'تأكيد الحذف':'حفظ البيانات' }}</button><button class="row-button" type="button" :disabled="mutation.busy.value" @click="emit('update:open',false)">إلغاء</button></div>
 </AdminModal></template>

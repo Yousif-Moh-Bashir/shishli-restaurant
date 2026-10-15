@@ -39,13 +39,15 @@ class CheckoutTest extends TestCase
             ->assertJsonPath('data.items.0.options.0.value.id', $value->uuid);
         $this->assertSame(CartStatus::Converted, $cart->fresh()->status);
         $this->assertDatabaseCount('orders', 1);
-        $this->assertSame('SH-0001', $response->json('data.order_number'));
-        Event::assertDispatched(OrderPlaced::class, fn (OrderPlaced $event): bool => $event->order->order_number === 'SH-0001');
+        $orderNumber = $response->json('data.order_number');
+        $this->assertMatchesRegularExpression('/^SH-\d{4,}$/D', $orderNumber);
+        $this->assertSame(Order::firstOrFail()->order_number, $orderNumber);
+        Event::assertDispatched(OrderPlaced::class, fn (OrderPlaced $event): bool => $event->order->order_number === $orderNumber);
         $this->assertDatabaseCount('order_addresses', 0);
         $this->assertSame(64, strlen($response->json('data.access_token')));
         $this->postJson('/api/v1/checkout', $this->payload())->assertOk()
             ->assertJsonPath('data.id', $response->json('data.id'))
-            ->assertJsonPath('data.order_number', 'SH-0001')
+            ->assertJsonPath('data.order_number', $orderNumber)
             ->assertJsonMissingPath('data.access_token')->assertJsonMissingPath('data.tracking');
         $this->assertDatabaseCount('orders', 1);
         Event::assertDispatchedTimes(OrderPlaced::class, 1);

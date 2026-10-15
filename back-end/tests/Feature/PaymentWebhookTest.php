@@ -36,7 +36,10 @@ class PaymentWebhookTest extends TestCase
         $event = PaymentWebhookEvent::sole();
         $this->assertTrue($event->signature_valid);
         $this->assertSame(WebhookEventStatus::Processed, $event->status);
-        $this->assertSame(['status' => 'paid', 'amount' => '85.00', 'currency' => 'SAR'], $event->payload);
+        $this->assertCount(3, $event->payload);
+        $this->assertSame('paid', $event->payload['status']);
+        $this->assertSame('85.00', $event->payload['amount']);
+        $this->assertSame('SAR', $event->payload['currency']);
         Event::assertDispatched(PaymentSucceeded::class, fn (PaymentSucceeded $event): bool => $event->payment->uuid === $payment->uuid && $event->order->payment_status === PaymentStatus::Paid);
     }
 

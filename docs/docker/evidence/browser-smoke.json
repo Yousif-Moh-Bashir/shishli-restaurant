@@ -1,0 +1,177 @@
+{
+  "origin": "http://127.0.0.1:8088",
+  "pages": [
+    {
+      "path": "/",
+      "width": 390,
+      "overflow": false,
+      "main": true,
+      "textLength": 1405,
+      "metrics": {
+        "lcpMs": 2132,
+        "cls": 0,
+        "domContentLoadedMs": 1847.3999999985099
+      }
+    },
+    {
+      "path": "/menu",
+      "width": 390,
+      "overflow": false,
+      "main": true,
+      "textLength": 644,
+      "metrics": {
+        "lcpMs": 1172,
+        "cls": 0,
+        "domContentLoadedMs": 1088
+      }
+    },
+    {
+      "path": "/branches",
+      "width": 390,
+      "overflow": false,
+      "main": true,
+      "textLength": 365,
+      "metrics": {
+        "lcpMs": 752,
+        "cls": 0,
+        "domContentLoadedMs": 688.1000000014901
+      }
+    },
+    {
+      "path": "/cart",
+      "width": 390,
+      "overflow": false,
+      "main": true,
+      "textLength": 453,
+      "metrics": {
+        "lcpMs": 660,
+        "cls": 0,
+        "domContentLoadedMs": 579.3999999985099
+      }
+    },
+    {
+      "path": "/checkout",
+      "width": 390,
+      "overflow": false,
+      "main": true,
+      "textLength": 347,
+      "metrics": {
+        "lcpMs": 428,
+        "cls": 0,
+        "domContentLoadedMs": 319.5
+      }
+    },
+    {
+      "path": "/login",
+      "width": 390,
+      "overflow": false,
+      "main": true,
+      "textLength": 622,
+      "metrics": {
+        "lcpMs": 408,
+        "cls": 0,
+        "domContentLoadedMs": 300.5
+      }
+    },
+    {
+      "path": "/register",
+      "width": 390,
+      "overflow": false,
+      "main": true,
+      "textLength": 654,
+      "metrics": {
+        "lcpMs": 632,
+        "cls": 0,
+        "domContentLoadedMs": 580.1000000014901
+      }
+    },
+    {
+      "path": "/",
+      "width": 1366,
+      "overflow": false,
+      "main": true,
+      "textLength": 1515,
+      "metrics": {
+        "lcpMs": 452,
+        "cls": 0.00036022749648151385,
+        "domContentLoadedMs": 284.8999999985099
+      }
+    },
+    {
+      "path": "/menu",
+      "width": 1366,
+      "overflow": false,
+      "main": true,
+      "textLength": 716,
+      "metrics": {
+        "lcpMs": 380,
+        "cls": 0.04843021097212186,
+        "domContentLoadedMs": 307.1000000014901
+      }
+    },
+    {
+      "path": "/branches",
+      "width": 1366,
+      "overflow": false,
+      "main": true,
+      "textLength": 437,
+      "metrics": {
+        "lcpMs": 640,
+        "cls": 0.06732540061271243,
+        "domContentLoadedMs": 579.7999999970198
+      }
+    },
+    {
+      "path": "/cart",
+      "width": 1366,
+      "overflow": false,
+      "main": true,
+      "textLength": 525,
+      "metrics": {
+        "lcpMs": 344,
+        "cls": 0.19041430106180604,
+        "domContentLoadedMs": 279.8999999985099
+      }
+    },
+    {
+      "path": "/checkout",
+      "width": 1366,
+      "overflow": false,
+      "main": true,
+      "textLength": 419,
+      "metrics": {
+        "lcpMs": 632,
+        "cls": 0.13858125401306057,
+        "domContentLoadedMs": 568.3999999985099
+      }
+    },
+    {
+      "path": "/login",
+      "width": 1366,
+      "overflow": false,
+      "main": true,
+      "textLength": 695,
+      "metrics": {
+        "lcpMs": 648,
+        "cls": 0.00042050420063324535,
+        "domContentLoadedMs": 569.9000000022352
+      }
+    },
+    {
+      "path": "/register",
+      "width": 1366,
+      "overflow": false,
+      "main": true,
+      "textLength": 727,
+      "metrics": {
+        "lcpMs": 676,
+        "cls": 0.0004030532116736732,
+        "domContentLoadedMs": 576.4000000022352
+      }
+    }
+  ],
+  "metrics": [],
+  "diagnostics": [],
+  "scope": "Chrome localhost; empty production database; desktop/mobile; no customer mutations",
+  "result": "passed"
+}

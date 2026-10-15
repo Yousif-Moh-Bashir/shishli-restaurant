@@ -1,0 +1,150 @@
+{
+  "origin": "https://192.168.1.218:8443",
+  "transport": "real public HTTPS GET routes; cart/quote writes blocked and supplied only as in-memory browser fixtures",
+  "pages": [
+    {
+      "path": "/",
+      "secure": true,
+      "geolocation": true,
+      "overflow": false
+    },
+    {
+      "path": "/menu",
+      "secure": true,
+      "geolocation": true,
+      "overflow": false
+    },
+    {
+      "path": "/checkout",
+      "secure": true,
+      "geolocation": true,
+      "overflow": false
+    }
+  ],
+  "insecureRequests": [],
+  "blockedWrites": [
+    {
+      "path": "/api/v1/cart",
+      "method": "POST"
+    }
+  ],
+  "apiRequests": [
+    {
+      "path": "/api/v1/settings/public",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/branches",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/promotions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/promotions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/branches/f8c41a05-eaca-46e6-b039-ff03596d9678/status",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/branches/f8c41a05-eaca-46e6-b039-ff03596d9678/business-hours",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/home",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/cart",
+      "method": "POST"
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/branches",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/promotions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/categories",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/promotions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/branches/f8c41a05-eaca-46e6-b039-ff03596d9678/status",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/branches/f8c41a05-eaca-46e6-b039-ff03596d9678/business-hours",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/menu",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/cart",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/branches",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/promotions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/promotions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/branches/f8c41a05-eaca-46e6-b039-ff03596d9678/business-hours",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1/cart",
+      "method": "GET"
+    }
+  ],
+  "tileResponses": [
+    {
+      "status": 200,
+      "protocol": "h2"
+    },
+    {
+      "status": 200,
+      "protocol": "h2"
+    }
+  ],
+  "exceptions": [],
+  "securityStates": [
+    "secure",
+    "secure",
+    "secure",
+    "neutral",
+    "secure",
+    "secure",
+    "secure",
+    "neutral",
+    "secure",
+    "secure",
+    "secure"
+  ],
+  "physicalGPS": "Not tested: no physical phone/geolocation call used"
+}

@@ -1,0 +1,6 @@
+shishli-app-1|0.01%|47.81MiB / 7.611GiB
+shishli-nginx-1|0.00%|10.26MiB / 7.611GiB
+shishli-mysql-1|2.11%|481.6MiB / 7.611GiB
+shishli-redis-1|2.41%|8.801MiB / 7.611GiB
+shishli-queue-1|7.24%|35.56MiB / 7.611GiB
+shishli-scheduler-1|0.10%|31.86MiB / 7.611GiB

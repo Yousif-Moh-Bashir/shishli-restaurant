@@ -1,0 +1,6 @@
+.env.docker
+.env.e2e
+.env.mysql
+docker/backups/
+docs/docker/evidence/private/
+.local-mobile-https/

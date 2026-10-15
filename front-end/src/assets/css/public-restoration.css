@@ -25,7 +25,7 @@ body{margin:0}
 .site-layout .popular-browse-copy{flex:1;min-width:170px}.site-layout .popular-browse-copy strong{display:block;color:var(--primary);font-size:14px}.site-layout .popular-browse-copy p{font-size:12px;color:var(--muted);margin-top:4px}
 .site-layout .popular-browse-panel>.branch-selector{margin:0;min-width:230px;width:300px;font-size:12px}.site-layout .popular-browse-panel .branch-selector label{font-size:12px;margin-bottom:6px}.site-layout .popular-browse-panel .branch-selector select{min-height:42px;border-radius:8px;background:var(--cream);font-size:13px}
 .site-layout .home-popular .search-bar{margin-bottom:18px;border-radius:10px}
-.site-layout .home-popular .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;align-items:stretch}
+.site-layout .home-popular .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;align-items:stretch}
 .site-layout .home-popular .product-card{min-width:0;display:flex;flex-direction:column;background:#fffdfa;border:1px solid var(--border);border-radius:13px;overflow:hidden;box-shadow:0 3px 14px #35101706}
 .site-layout .home-popular .product-photo{height:180px;min-height:0;aspect-ratio:auto}
 .site-layout .home-popular .product-content{display:flex;flex-direction:column;flex:1;padding:16px}

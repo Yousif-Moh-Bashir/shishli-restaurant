@@ -1,0 +1,9 @@
+{
+  "origin": "http://127.0.0.1:8088",
+  "transport": "real Docker Vue/Axios/Laravel/MySQL; browser GPS coordinates supplied by CDP",
+  "checks": [
+    "Live API quotes accept branch location and reject an outside point",
+    "Real reverse geocoding returned city/district",
+    "Updated real map screenshot captured; test cart emptied via normal API"
+  ]
+}

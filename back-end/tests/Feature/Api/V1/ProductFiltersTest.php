@@ -168,7 +168,8 @@ class ProductFiltersTest extends TestCase
             DB::enableQueryLog();
             try {
                 $this->getJson($url)->assertOk()->assertJsonCount(6, 'data');
-                $categoryQueries = array_filter(DB::getQueryLog(), fn (array $query): bool => str_starts_with($query['query'], 'select * from "categories"'));
+                $categoriesTable = DB::connection()->getQueryGrammar()->wrapTable('categories');
+                $categoryQueries = array_filter(DB::getQueryLog(), fn (array $query): bool => str_starts_with($query['query'], 'select * from '.$categoriesTable));
                 $this->assertCount(1, $categoryQueries);
             } finally {
                 DB::disableQueryLog();

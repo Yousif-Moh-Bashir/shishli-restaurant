@@ -3,6 +3,7 @@
 namespace Tests\Feature\Api\V1;
 
 use App\Models\Branch;
+use App\Models\DeliveryZone;
 use App\Models\User;
 use Database\Seeders\BranchSeeder;
 use Database\Seeders\RolePermissionSeeder;
@@ -13,6 +14,31 @@ use Tests\TestCase;
 class BranchLifecycleTest extends TestCase
 {
     use LazilyRefreshDatabase;
+
+    public function test_public_branch_coverage_contains_only_active_districts_and_radius_availability(): void
+    {
+        $branch = Branch::factory()->create(['city' => 'الرياض']);
+        DeliveryZone::factory()->create(['branch_id' => $branch->id]);
+        DeliveryZone::factory()->create(['branch_id' => $branch->id]);
+        $hidden = DeliveryZone::factory()->inactive()->create(['branch_id' => $branch->id]);
+        $hidden->districts()->create(['district_name' => 'حي غير مغطى']);
+        $deleted = DeliveryZone::factory()->create(['branch_id' => $branch->id]);
+        $deleted->districts()->create(['district_name' => 'حي محذوف']);
+        $deleted->delete();
+        $radius = DeliveryZone::factory()->radius()->create(['branch_id' => $branch->id]);
+
+        foreach (['/api/v1/branches', '/api/v1/branches/'.$branch->uuid] as $path) {
+            $prefix = $path === '/api/v1/branches' ? 'data.0' : 'data';
+            $this->getJson($path)->assertOk()
+                ->assertJsonPath($prefix.'.delivery_coverage.city', 'الرياض')
+                ->assertJsonPath($prefix.'.delivery_coverage.districts', ['المصيف'])
+                ->assertJsonPath($prefix.'.delivery_coverage.has_radius_zones', true);
+        }
+
+        $radius->update(['is_active' => false]);
+        $this->getJson('/api/v1/branches/'.$branch->uuid)->assertOk()
+            ->assertJsonPath('data.delivery_coverage.has_radius_zones', false);
+    }
 
     private function authenticateAdmin(): void
     {

@@ -36,7 +36,7 @@ export function useNewOrderSound(allowed = () => true) {
       context ||= new Audio()
       await context.resume()
       if (context.state !== 'running') throw Error('AUDIO_BLOCKED')
-      enabled.value = true; saveMute(false); message.value = ''; ring()
+      enabled.value = true; saveMute(false); message.value = ''
     } catch { enabled.value = false; message.value = 'تعذر تشغيل الصوت. اضغط تفعيل الصوت مرة أخرى.' }
     finally { activating = false }
   }

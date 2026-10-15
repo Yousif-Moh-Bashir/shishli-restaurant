@@ -1,0 +1,43 @@
+{
+    "date":  "2026-10-12",
+    "project":  "shishli",
+    "url":  "http://127.0.0.1:8088",
+    "site_running":  true,
+    "engine":  "available",
+    "runtime_services_healthy":  6,
+    "tests":  {
+                  "unresolved_failures":  0,
+                  "skipped":  0,
+                  "unique_verified_cases":  2117,
+                  "execution":  "resumed batches plus targeted fixes, not one uninterrupted final full run"
+              },
+    "migrations_ran":  44,
+    "production_users":  0,
+    "system_roles":  6,
+    "system_permissions":  97,
+    "e2e":  "passed; 18 pages and 210 responsive checks",
+    "browser_smoke":  "passed; 14 visits",
+    "redis_cache_probe":  "passed",
+    "queue_probe":  "processed; failed_jobs=0",
+    "scheduler":  "healthy; no scheduled business tasks defined",
+    "backup":  {
+                   "storage_content_restore":  "passed",
+                   "directory":  "docker/backups/20261012-214208",
+                   "isolated_restore":  "passed; 63 tables, 44 migrations, 6 roles, 97 permissions, 0 users",
+                   "synthetic_data_restore":  "passed; 13 users, 30 orders, total 1767.00, 2 collections"
+               },
+    "test_services_stopped":  true,
+    "other_projects_modified":  false,
+    "reference_directory_modified":  false,
+    "xampp_databases_modified":  false,
+    "production_demo_accounts_created":  false,
+    "engine_restart_performed_by_agent":  false,
+    "vps_staging_technical_ready":  true,
+    "deployed_to_vps":  false,
+    "pending_vps_configuration":  [
+                                      "domain and HTTPS",
+                                      "deployment secrets and trusted proxies",
+                                      "real admin and restaurant data",
+                                      "offsite encrypted backups and monitoring"
+                                  ]
+}

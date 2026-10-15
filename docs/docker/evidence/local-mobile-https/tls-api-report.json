@@ -1,0 +1,187 @@
+{
+  "origin": "https://192.168.1.218:8443",
+  "tls": {
+    "authorized": true,
+    "protocol": "TLSv1.3",
+    "fingerprint": "E0:51:5C:0C:F8:6F:1B:34:9D:8B:E6:BC:8E:78:B2:DD:16:8E:D7:87:33:34:42:8C:90:F0:72:F3:4B:71:F9:76",
+    "subjectAltName": "DNS:localhost, IP Address:192.168.1.218, IP Address:127.0.0.1",
+    "validFrom": "Oct 14 21:04:36 2026 GMT",
+    "validTo": "Jan 14 21:04:36 2029 GMT",
+    "wrongHostnameRejected": true,
+    "rootFingerprint": "A0:94:D5:38:74:9A:19:CB:71:87:02:24:0E:D5:81:4C:3F:35:29:FF:17:0A:80:E5:8D:BF:10:B4:77:7E:3F:82"
+  },
+  "checks": [
+    "Existing HTTP and LAN HTTPS both return the Vue application",
+    "Reverse geocoding succeeds through HTTPS and existing HTTP; cache status recorded without assuming upstream responses are cacheable",
+    "Certificate/private files are not served over the web",
+    "All original container IDs retained; TLS port bound only to LAN IP; only server cert/key and config mounted read-only; no private network on HTTPS gateway"
+  ],
+  "apis": [
+    {
+      "path": "/api/v1/health",
+      "status": 200,
+      "insecureUrls": 0
+    },
+    {
+      "path": "/api/v1/branches",
+      "status": 200,
+      "insecureUrls": 0
+    },
+    {
+      "path": "/api/v1/settings/public",
+      "status": 200,
+      "insecureUrls": 0
+    },
+    {
+      "path": "/api/v1/home",
+      "status": 404,
+      "baselineStatus": 404,
+      "note": "Application failure also present on existing HTTP; this is not a passing API result"
+    },
+    {
+      "path": "/api/v1/banners",
+      "status": 200,
+      "insecureUrls": 0
+    },
+    {
+      "path": "/api/v1/gallery",
+      "status": 200,
+      "insecureUrls": 0
+    },
+    {
+      "path": "/api/v1/menu?branch=f8c41a05-eaca-46e6-b039-ff03596d9678",
+      "status": 200,
+      "insecureUrls": 0
+    }
+  ],
+  "assets": [
+    {
+      "path": "/assets/index-NJlQ-IVA.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/runtime-core.esm-bundler-CnF2e93P.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/rolldown-runtime-hePW80VL.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/apiError-BrwkAuV_.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/drivers.api-CDsuUbf0.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/auth-nEJv70vi.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/useApi-BPuI6ZR9-2uf0wq41.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/devtools-CN5uWJaH-DCVhh0Dx.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/vue-router-Cty1eq-h.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/_plugin-vue_export-helper-BDNMzG2s.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/SiteIcon-e2eMH0oF.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/settings.api-D5RFbbrs.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/branches.api-CmjSFjMn.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/promotions.api-D5cX3Iml.js",
+      "status": 200,
+      "identical": true
+    },
+    {
+      "path": "/assets/index-CqPPK2R0.css",
+      "status": 200,
+      "identical": true
+    }
+  ],
+  "images": [
+    {
+      "path": "/storage/cms/gallery/d2bfe6c3-b57a-4e2b-826c-8ee9175f762d/dcf6538d-bbc7-4533-95b6-c6dc15874f95.png.webp",
+      "status": 200
+    },
+    {
+      "path": "/storage/products/dc0363fa-d8b6-47a8-8dc7-e5dff2d93443/a7d8475f-7f6e-49b3-b5b1-c025158b55fc.png.webp",
+      "status": 200
+    }
+  ],
+  "maps": [
+    {
+      "route": "reverse",
+      "status": 200,
+      "cache": "HIT"
+    },
+    {
+      "route": "reverse HTTP baseline",
+      "status": 200,
+      "cache": "HIT"
+    },
+    {
+      "route": "autocomplete",
+      "status": 200,
+      "cache": "HIT"
+    }
+  ],
+  "containers": [
+    "shishli-nginx-1",
+    "shishli-scheduler-1",
+    "shishli-queue-1",
+    "shishli-app-1",
+    "shishli-e2e-nginx-1",
+    "shishli-e2e-app-1",
+    "shishli-mysql-test-fast-1",
+    "shishli-mysql-test-1",
+    "shishli-mysql-1",
+    "shishli-redis-1",
+    "emdadat-eltaqwa-app-1",
+    "emdadat-eltaqwa-vite-1",
+    "emdadat-eltaqwa-queue-1",
+    "emdadat-eltaqwa-scheduler-1",
+    "emdadat-eltaqwa-nginx-1",
+    "emdadat-eltaqwa-phpmyadmin-1",
+    "emdadat-eltaqwa-redis-1",
+    "emdadat-eltaqwa-mailpit-1",
+    "emdadat-eltaqwa-mysql-1",
+    "hospital-phpmyadmin",
+    "hospital-backend-nginx-1",
+    "hospital-backend-redis-1",
+    "hospital-backend-app-1",
+    "hospital-backend-db-1"
+  ]
+}

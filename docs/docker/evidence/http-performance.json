@@ -1,0 +1,143 @@
+{
+  "origin": "http://127.0.0.1:8088",
+  "tests": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/menu",
+      "status": 200
+    },
+    {
+      "path": "/up",
+      "status": 200
+    },
+    {
+      "path": "/api/v1/health",
+      "status": 200
+    },
+    {
+      "path": "/api/user",
+      "status": 401
+    },
+    {
+      "path": "/api/v1/admin/me",
+      "status": 401
+    },
+    {
+      "path": "/.env",
+      "status": 403
+    },
+    {
+      "path": "/index.php",
+      "status": 404
+    },
+    {
+      "path": "/assets/index-DagZr1oY.js",
+      "status": 200,
+      "gzip": "gzip"
+    },
+    {
+      "path": "/assets/runtime-core.esm-bundler-fqhrJnP0.js",
+      "status": 200,
+      "gzip": "gzip"
+    },
+    {
+      "path": "/assets/rolldown-runtime-hePW80VL.js",
+      "status": 200,
+      "gzip": null
+    },
+    {
+      "path": "/assets/apiError-BrwkAuV_.js",
+      "status": 200,
+      "gzip": "gzip"
+    },
+    {
+      "path": "/assets/drivers.api-CDsuUbf0.js",
+      "status": 200,
+      "gzip": "gzip"
+    },
+    {
+      "path": "/assets/auth-DSsSL2dn.js",
+      "status": 200,
+      "gzip": "gzip"
+    },
+    {
+      "path": "/assets/useApi-BPuI6ZR9-B4ZupS0Z.js",
+      "status": 200,
+      "gzip": null
+    },
+    {
+      "path": "/assets/devtools-CN5uWJaH-C5x5kDrT.js",
+      "status": 200,
+      "gzip": "gzip"
+    },
+    {
+      "path": "/assets/vue-router-iD-32ApH.js",
+      "status": 200,
+      "gzip": "gzip"
+    },
+    {
+      "path": "/assets/_plugin-vue_export-helper-BDNMzG2s.js",
+      "status": 200,
+      "gzip": null
+    },
+    {
+      "path": "/assets/SiteIcon-Df35uBvT.js",
+      "status": 200,
+      "gzip": "gzip"
+    },
+    {
+      "path": "/assets/settings.api-D5RFbbrs.js",
+      "status": 200,
+      "gzip": null
+    },
+    {
+      "path": "/assets/branches.api-CmjSFjMn.js",
+      "status": 200,
+      "gzip": null
+    },
+    {
+      "path": "/assets/promotions.api-D5cX3Iml.js",
+      "status": 200,
+      "gzip": null
+    },
+    {
+      "path": "/assets/index-CyCwNkjV.css",
+      "status": 200,
+      "gzip": "gzip"
+    }
+  ],
+  "performance": [
+    {
+      "path": "/",
+      "samples": 30,
+      "medianMs": 3.9941000000000173,
+      "p95Ms": 5.432799999999986,
+      "meanMs": 4.191783333333335
+    },
+    {
+      "path": "/up",
+      "samples": 30,
+      "medianMs": 9.002650000000017,
+      "p95Ms": 19.24780000000004,
+      "meanMs": 9.927220000000004
+    },
+    {
+      "path": "/api/v1/health",
+      "samples": 30,
+      "medianMs": 6.941800000000001,
+      "p95Ms": 10.186599999999999,
+      "meanMs": 7.205893333333328
+    },
+    {
+      "path": "/api/v1/branches",
+      "samples": 30,
+      "medianMs": 10.355300000000057,
+      "p95Ms": 25.14580000000001,
+      "meanMs": 11.524986666666674
+    }
+  ],
+  "scope": "Sequential localhost, empty production database, one warmup per endpoint"
+}

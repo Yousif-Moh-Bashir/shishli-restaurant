@@ -1,0 +1,38 @@
+[
+    {
+        "Service":  "app",
+        "State":  "running",
+        "Health":  "healthy",
+        "Ports":  "9000/tcp"
+    },
+    {
+        "Service":  "mysql",
+        "State":  "running",
+        "Health":  "healthy",
+        "Ports":  "3306/tcp, 33060/tcp"
+    },
+    {
+        "Service":  "nginx",
+        "State":  "running",
+        "Health":  "healthy",
+        "Ports":  "127.0.0.1:8088-\u003e80/tcp"
+    },
+    {
+        "Service":  "queue",
+        "State":  "running",
+        "Health":  "healthy",
+        "Ports":  "9000/tcp"
+    },
+    {
+        "Service":  "redis",
+        "State":  "running",
+        "Health":  "healthy",
+        "Ports":  "6379/tcp"
+    },
+    {
+        "Service":  "scheduler",
+        "State":  "running",
+        "Health":  "healthy",
+        "Ports":  "9000/tcp"
+    }
+]

@@ -31,6 +31,7 @@ class RestaurantSettingsTest extends TestCase
         $this->assertSame('0.00', $service->getDecimal('orders.minimum_amount'));
         $this->getJson('/api/v1/settings/public')->assertOk()->assertJsonPath('data.restaurant.currency', 'SAR')
             ->assertJsonPath('data.restaurant.timezone', 'Asia/Riyadh')
+            ->assertJsonPath('data.delivery.show_minimum_order', false)
             ->assertJsonPath('data.orders.enabled', true)->assertJsonMissingPath('data.orders.maintenance_message')
             ->assertJsonMissingPath('data.payments')->assertJsonMissingPath('data.notifications');
     }
@@ -71,7 +72,7 @@ class RestaurantSettingsTest extends TestCase
         $this->assertFalse($log->new_value);
         $this->assertSame($actor->id, $log->changed_by);
         $this->assertNotNull($log->created_at);
-        $this->getJson('/api/v1/admin/settings')->assertOk()->assertJsonCount(26, 'data')->assertJsonMissingPath('data.0.id');
+        $this->getJson('/api/v1/admin/settings')->assertOk()->assertJsonCount(27, 'data')->assertJsonMissingPath('data.0.id');
     }
 
     #[DataProvider('invalidSettings')]
@@ -84,13 +85,29 @@ class RestaurantSettingsTest extends TestCase
         $this->assertDatabaseCount('setting_change_logs', 0);
     }
 
+    public function test_minimum_order_display_can_be_enabled_and_disabled_without_changing_order_limits(): void
+    {
+        $this->admin();
+        $this->getJson('/api/v1/settings/public')->assertOk()->assertJsonPath('data.delivery.show_minimum_order', false);
+
+        foreach ([true, false] as $visible) {
+            $this->patchJson('/api/v1/admin/settings', ['settings' => ['delivery.show_minimum_order' => $visible]])->assertOk();
+            $this->assertSame($visible, app(RestaurantSettingsService::class)->getBoolean('delivery.show_minimum_order'));
+            $this->assertDatabaseHas('restaurant_settings', ['key' => 'delivery.show_minimum_order']);
+            $this->getJson('/api/v1/settings/public')->assertOk()->assertJsonPath('data.delivery.show_minimum_order', $visible);
+            $this->assertSame('0.00', app(RestaurantSettingsService::class)->getDecimal('orders.minimum_amount'));
+        }
+
+        $this->assertDatabaseCount('setting_change_logs', 2);
+    }
+
     public static function invalidSettings(): array
     {
         return [['anything_i_want', true], ['restaurant.timezone', 'Fake/Zone'], ['orders.minimum_amount', '-1'],
             ['orders.minimum_amount', '12.345'], ['orders.maximum_items_per_order', 0], ['orders.max_scheduling_days', 367],
             ['pickup.default_preparation_minutes', 241], ['restaurant.email', 'invalid'], ['branding.primary_color', 'red'],
             ['branding.logo_path', '../secret'], ['restaurant.currency', 'USD'], ['pickup.enabled', 'false'],
-            ['restaurant.name', null], ['delivery.enabled', ['true']], ['restaurant.country', 'Saudi Arabia']];
+            ['restaurant.name', null], ['delivery.enabled', ['true']], ['restaurant.country', 'Saudi Arabia'], ['delivery.show_minimum_order', 'false']];
     }
 
     public function test_seeder_is_idempotent_and_preserves_admin_values(): void
@@ -99,7 +116,7 @@ class RestaurantSettingsTest extends TestCase
         $user = User::factory()->create();
         app(UpdateRestaurantSettingsAction::class)->handle(['restaurant.name' => 'اسم جديد'], $user);
         $this->seed(RestaurantSettingsSeeder::class);
-        $this->assertDatabaseCount('restaurant_settings', 26);
+        $this->assertDatabaseCount('restaurant_settings', 27);
         $this->assertSame('اسم جديد', app(RestaurantSettingsService::class)->getString('restaurant.name'));
         $this->assertDatabaseCount('setting_change_logs', 1);
     }

@@ -193,7 +193,8 @@ class ProductOptionGroupTest extends TestCase
             ->assertJsonMissingPath('data.option_groups.0.pivot')
             ->assertJsonMissingPath('data.option_groups.0.values.0.option_group_id');
         $this->assertSame(['0.00', '5.00', '10.00'], array_column($response->json('data.option_groups.0.values'), 'price_modifier'));
-        $valueQueries = collect(DB::getQueryLog())->filter(fn (array $query): bool => str_contains($query['query'], 'from "option_values"'));
+        $optionValuesTable = DB::connection()->getQueryGrammar()->wrapTable('option_values');
+        $valueQueries = collect(DB::getQueryLog())->filter(fn (array $query): bool => str_contains($query['query'], 'from '.$optionValuesTable));
         $this->assertCount(1, $valueQueries);
         DB::flushQueryLog();
         $this->getJson('/api/v1/products')->assertOk()->assertJsonMissingPath('data.0.option_groups');

@@ -55,7 +55,7 @@ watch(() => cart.cart?.branch.id, (id, previous) => {
   }
 }, { flush: 'sync' })
 watch(() => [branch.value?.id, branch.value?.name, branch.value?.location?.city, auth.token], () => {
-  const city = branch.value?.name?.includes('المصيف') ? 'تبوك' : branch.value?.location?.city || ''
+  const city = branch.value?.location?.city || ''
   if (!manual.city || manual.city === defaultCity) manual.city = city
   defaultCity = city
   manual.recipient_name = customer.name; manual.phone = customer.phone
@@ -99,7 +99,16 @@ watch(() => cart.pendingCheckout, value => {
 }, { immediate: true })
 watch(manual, () => { invalidate(); addressCheckErrors.value={}; addressCheckMessage.value=''; }, { deep: true, flush: 'sync' })
 watch([orderType, addressMode, orderTiming, scheduledFor], () => { invalidate(); if (orderType.value === 'pickup') selectedAddress.value = null })
-async function selectAddress(record) { selectedAddress.value = record; if (record && deliveryAvailable.value && !cart.isMutating && !isQuoting.value && !pending.value) await verify() }
+async function selectAddress(record) { selectedAddress.value = record }
+let quoteTimer
+const quoteInputReady = computed(() => addressMode.value === 'saved' ? Boolean(selectedAddress.value) : Boolean(manual.city?.trim() && manual.district?.trim()) && (manual.latitude === '' && manual.longitude === '' ? config.value?.delivery?.require_coordinates !== true : Number.isFinite(Number(manual.latitude)) && Number.isFinite(Number(manual.longitude)) && manual.latitude !== '' && manual.longitude !== ''))
+function scheduleQuote() {
+  clearTimeout(quoteTimer)
+  if (pending.value || orderType.value !== 'delivery' || !deliveryAvailable.value || !quoteInputReady.value || locationBusy.value || cart.isLoading || cart.isMutating || cart.checkoutBusy || quote.value || isQuoting.value) return
+  quoteTimer = setTimeout(() => { if (!locationBusy.value && quoteInputReady.value && !pending.value && !cart.isMutating && !cart.isLoading && !quote.value) void requestQuote() }, 900)
+}
+watch([source, () => JSON.stringify(manual), () => JSON.stringify(cart.cart), locationBusy, deliveryAvailable, () => cart.isLoading, () => cart.isMutating, () => cart.checkoutBusy, orderType, addressMode], scheduleQuote, { flush: 'post', immediate: true })
+onBeforeUnmount(() => clearTimeout(quoteTimer))
 async function verify() {
   if (locationBusy.value || isQuoting.value || cart.checkoutBusy || cart.isLoading || cart.isMutating || !deliveryAvailable.value || pending.value) return
   addressCheckErrors.value = {}; addressCheckMessage.value = ''
@@ -109,7 +118,7 @@ async function verify() {
   }
   if (addressMode.value === 'manual') {
     const errors = {}
-    for (const field of addressFields.filter(field => field.key !== 'label')) {
+    for (const field of addressFields.filter(field => !['label','recipient_name','phone'].includes(field.key))) {
       const value = String(manual[field.key] || '').trim()
       if (field.required && !value) errors['address.' + field.key] = [field.label + ' مطلوب.']
       else if (value.length > field.max) errors['address.' + field.key] = ['تجاوز الحد المسموح لهذا الحقل.']
@@ -122,7 +131,7 @@ async function verify() {
     if (Object.keys(errors).length) {
       addressCheckErrors.value = errors; addressCheckMessage.value = 'أكمل حقول العنوان المطلوبة قبل التحقق من التوصيل.'
       await nextTick()
-      const first = [...document.querySelectorAll('.checkout-address-section input, .checkout-address-section textarea')].find(control => errors['address.' + control.name])
+      const first = [...document.querySelectorAll('.checkout-address-section input, .checkout-address-section select, .checkout-address-section textarea')].find(control => errors['address.' + control.name])
       first?.focus({preventScroll:true}); first?.scrollIntoView({behavior:'smooth',block:'center'})
       return
     }
@@ -212,7 +221,7 @@ onBeforeRouteLeave(() => !cart.checkoutBusy&&!checking.value)
     <div v-if="cart.items.length || pending" class="checkout-layout">
       <section class="checkout-panel checkout-data-panel">
         <div>
-          <fieldset class="checkout-fields" :disabled="checking || cart.checkoutBusy || isQuoting"><legend class="checkout-data-title">بيانات الطلب</legend>
+          <fieldset class="checkout-fields" :disabled="checking || cart.checkoutBusy"><legend class="checkout-data-title">بيانات الطلب</legend>
             <section class="checkout-step checkout-receipt-step"><div class="checkout-step-heading"><span class="checkout-step-number">1</span><div><h2>طريقة الاستلام</h2><p>اختر الطريقة المناسبة لطلبك.</p></div></div><p class="checkout-branch-name"><SiteIcon name="map-pin"/>{{ cart.cart?.branch.name }}</p><p v-if="availability?.reason" class="catalog-note">{{ availability.reason.message }}</p>
             <label v-if="config?.orders?.allow_scheduled_orders" class="field">توقيت الطلب<select v-model="orderTiming" name="order_timing" form="checkout-submit-form" :disabled="pending"><option value="asap">في أقرب وقت</option><option value="scheduled">طلب مجدول</option></select></label>
             <label v-if="scheduled" class="field">موعد الطلب بتوقيت جهازك<input v-model="scheduledFor" name="scheduled_for" form="checkout-submit-form" type="datetime-local" required :disabled="pending && !!retryBody"><small>اختر موعدًا خلال {{ config?.orders?.max_scheduling_days }} أيام، ضمن أوقات عمل الفرع.</small><small class="field-error">{{ fieldErrors.scheduled_for?.join(' ') }}</small></label>
@@ -225,7 +234,7 @@ onBeforeRouteLeave(() => !cart.checkoutBusy&&!checking.value)
               <div class="checkout-step-heading checkout-step-divider"><SiteIcon name="map-pin"/><div><h3>عنوان التوصيل</h3><p>اختر عنوانًا محفوظًا أو أضف عنوان هذا الطلب.</p></div></div>
               <div v-if="auth.isAuthenticated" class="form-actions"><label class="check"><input v-model="addressMode" type="radio" value="saved" name="address_mode" :disabled="pending && !!retryBody">عنوان محفوظ</label><label class="check"><input v-model="addressMode" type="radio" value="manual" name="address_mode" :disabled="pending && !!retryBody">عنوان يدوي لهذا الطلب</label><RouterLink to="/account/addresses">إدارة عناويني</RouterLink></div>
               <AddressBook v-if="auth.isAuthenticated && addressMode==='saved'" ref="addressBook" selectable :selected-id="selectedAddress?.id" @selected="selectAddress" @changed="invalidate" />
-              <CheckoutAddress v-else ref="locationEditor" :key="cart.cart?.branch.id + auth.token" :form="manual" :errors="deliveryFieldsErrors" :center="branch?.location" :disabled="isQuoting || cart.checkoutBusy || pending && !!retryBody" @busy="locationBusy=$event" @changed="invalidate" @confirm="verify" />
+              <CheckoutAddress v-else ref="locationEditor" :key="cart.cart?.branch.id + auth.token" :form="manual" :errors="deliveryFieldsErrors" :center="branch?.location" :coverage="branch?.delivery_coverage" :require-coordinates="config?.delivery?.require_coordinates === true" :quote="quote" :quote-error="quoteError" :quoting="isQuoting" :disabled="checking || cart.checkoutBusy || pending && !!retryBody" @busy="locationBusy=$event" @changed="invalidate" @confirm="verify" />
               <p class="catalog-note">العنوان اليدوي لهذا الطلب فقط، ولا يُحفظ في حسابك.</p>
               <AppSkeleton v-if="isQuoting" variant="inline" label="جارٍ تحميل رسوم ومدة التوصيل…"/><button v-if="!pending && addressMode==='saved'" type="button" class="button button-primary" :disabled="locationBusy || !deliveryAvailable || isQuoting || cart.checkoutBusy || cart.isLoading || cart.isMutating" @click="verify">{{ isQuoting ? 'جارٍ التحقق من التوصيل…' : 'التحقق من إمكانية التوصيل' }}</button>
               <p v-if="addressCheckMessage" class="field-error" role="alert">{{ addressCheckMessage }}</p><p>النتيجة تقديرية؛ يُعاد حساب رسوم التوصيل عند تأكيد الطلب.</p>
@@ -238,10 +247,10 @@ onBeforeRouteLeave(() => !cart.checkoutBusy&&!checking.value)
                 <dl v-if="!outsideDeliveryArea && (quote.zone || quote.available || Number(quote.minimum_order)>0 || deliveryDuration)" class="delivery-result-details">
                   <div v-if="quote.zone"><dt>منطقة التوصيل</dt><dd>{{ quote.zone.name }}</dd></div>
                   <div v-if="quote.available && quote.delivery_fee!=null" class="delivery-result-fee"><dt>رسوم التوصيل</dt><dd>{{ Number(quote.delivery_fee)===0 ? 'مجانًا' : formatCurrency(quote.delivery_fee) }}</dd></div>
-                  <div v-if="Number(quote.minimum_order)>0"><dt>الحد الأدنى للطلب</dt><dd>{{ formatCurrency(quote.minimum_order) }}</dd></div>
+                  <div v-if="config?.delivery?.show_minimum_order === true && Number(quote.minimum_order)>0"><dt>الحد الأدنى للطلب</dt><dd>{{ formatCurrency(quote.minimum_order) }}</dd></div>
                   <div v-if="deliveryDuration"><dt>مدة التوصيل المتوقعة</dt><dd>{{ deliveryDuration }}</dd></div>
                 </dl>
-                <p v-if="!outsideDeliveryArea && quote.minimum_order_met===false && Number(quote.remaining_amount)>0" class="delivery-result-note">أضف {{ formatCurrency(quote.remaining_amount) }} لإكمال الحد الأدنى للطلب.</p>
+                <p v-if="config?.delivery?.show_minimum_order === true && !outsideDeliveryArea && quote.minimum_order_met===false && Number(quote.remaining_amount)>0" class="delivery-result-note">أضف {{ formatCurrency(quote.remaining_amount) }} لإكمال الحد الأدنى للطلب.</p>
                 <p v-if="!outsideDeliveryArea && quote.free_delivery_applied" class="delivery-result-note">التوصيل مجاني لطلبك.</p>
                 <div v-if="outsideDeliveryArea" class="delivery-result-actions"><button type="button" class="button button-primary" @click="chooseAnotherLocation">اختيار موقع آخر</button><button v-if="pickupAvailable" type="button" class="button" @click="orderType='pickup'">الاستلام من الفرع</button></div>
               </section>

@@ -1,0 +1,21 @@
+services:
+  e2e-app:
+    profiles: [test]
+    image: shishli-tests:local
+    env_file: .env.e2e
+    command: [php-fpm]
+    networks: [private]
+    volumes: [e2e_storage:/var/www/html/storage]
+    depends_on:
+      mysql-test: {condition: service_healthy}
+  e2e-nginx:
+    profiles: [test]
+    image: shishli-nginx:local
+    ports: ['127.0.0.1:8090:80']
+    networks: [private, ingress]
+    volumes:
+      - ./docker/nginx/e2e.conf:/etc/nginx/conf.d/default.conf:ro
+      - e2e_storage:/var/www/storage:ro
+    depends_on: [e2e-app]
+volumes:
+  e2e_storage: {name: shishli_e2e_storage}

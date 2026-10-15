@@ -66,10 +66,10 @@ return new class extends Migration
         Schema::dropIfExists('driver_cash_settlements');
         Schema::dropIfExists('order_delivery_histories');
         Schema::table('orders', function (Blueprint $table): void {
+            $table->dropForeign(['driver_id']);
             $table->dropIndex('orders_driver_active_index');
             $table->dropIndex('orders_driver_queue_index');
-            $table->dropConstrainedForeignId('driver_id');
-            $table->dropColumn(['delivery_status', 'driver_accepted_at', 'delivery_picked_up_at', 'delivery_on_the_way_at', 'delivery_delivered_at', 'delivery_failed_at']);
+            $table->dropColumn(['driver_id', 'delivery_status', 'driver_accepted_at', 'delivery_picked_up_at', 'delivery_on_the_way_at', 'delivery_delivered_at', 'delivery_failed_at']);
         });
         Schema::table('users', function (Blueprint $table): void {
             $table->dropConstrainedForeignId('driver_branch_id');

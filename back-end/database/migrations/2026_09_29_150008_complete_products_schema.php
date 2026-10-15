@@ -27,6 +27,12 @@ return new class extends Migration
     {
         $this->assertLengths(['sku' => 64, 'short_description' => 255]);
 
+        if (in_array(Schema::getConnection()->getDriverName(), ['mysql', 'mariadb'], true) && ! Schema::hasIndex('products', 'products_category_id_foreign')) {
+            Schema::table('products', function (Blueprint $table): void {
+                $table->index('category_id', 'products_category_id_foreign');
+            });
+        }
+
         Schema::table('products', function (Blueprint $table): void {
             $table->dropIndex('products_public_menu_index');
             $table->dropIndex('products_category_visibility_index');

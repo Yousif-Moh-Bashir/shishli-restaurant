@@ -1,0 +1,35 @@
+{
+  "origin": "http://127.0.0.1:8090",
+  "scope": "Synthetic E2E database on Oracle MySQL; local Windows/Docker Desktop; no network throttling or real restaurant data",
+  "endpoints": [
+    {
+      "path": "/api/v1/branches",
+      "samples": 30,
+      "medianMs": 18.545699999999954,
+      "p95Ms": 41.06309999999996,
+      "maxMs": 42.860900000000015
+    },
+    {
+      "path": "/api/v1/home?branch=:branch",
+      "samples": 30,
+      "medianMs": 42.41504999999984,
+      "p95Ms": 55.63299999999981,
+      "maxMs": 66.87920000000008
+    },
+    {
+      "path": "/api/v1/menu?branch=:branch",
+      "samples": 30,
+      "medianMs": 29.019700000000057,
+      "p95Ms": 33.52300000000014,
+      "maxMs": 33.598799999999756
+    }
+  ],
+  "load": {
+    "path": "/up",
+    "requests": 64,
+    "concurrency": 8,
+    "durationMs": 344.8875000000003,
+    "requestsPerSecond": 185.56775760211647,
+    "p95Ms": 51.168800000000374
+  }
+}

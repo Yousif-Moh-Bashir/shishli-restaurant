@@ -7,7 +7,7 @@ export const settingsGroupDescriptions={
  pickup:'اضبط خدمة الاستلام والحد الأدنى للطلب ومدة التجهيز.',
  delivery:'اضبط خدمة التوصيل ومدة التجهيز ومتطلبات العنوان.',
 }
-// Presentation metadata for the 26 keys in RestaurantSettingDefinition.
+// Presentation metadata for RestaurantSettingDefinition.
 export const settingFields={
  'restaurant.name':{label:'اسم المطعم',max:150,required:true},
  'restaurant.name_en':{label:'اسم المطعم بالإنجليزية',max:150,nullable:true},
@@ -35,6 +35,7 @@ export const settingFields={
  'delivery.enabled':{label:'تفعيل التوصيل',sensitive:true},
  'delivery.default_preparation_minutes':{label:'مدة تجهيز التوصيل بالدقائق',type:'number',min:1,maxValue:240,required:true},
  'delivery.require_coordinates':{label:'اشتراط إحداثيات عنوان التوصيل'},
+ 'delivery.show_minimum_order':{label:'إظهار الحد الأدنى للطلب في تفاصيل التوصيل',note:'يتحكم في عرض الحد الأدنى والمبلغ المتبقي للعميل فقط؛ يظل شرط الحد الأدنى مطبقًا عند تأكيد الطلب.'},
 }
 export const operationPermissions=['branches.hours.view','branches.closures.view','branches.view']
 export const weekdayLabels={1:'الاثنين',2:'الثلاثاء',3:'الأربعاء',4:'الخميس',5:'الجمعة',6:'السبت',7:'الأحد'}

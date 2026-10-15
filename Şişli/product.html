@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#351017">
+  <meta name="description" content="مطعم شيشلي للدجاج التركي والشيش. دجاج طازج ومشويات على الفحم بطعم تركي أصيل. تصفح أطباقنا المميزة في المصيف.">
+  <title>تفاصيل المنتج | مطعم شيشلي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body class="product-page">
+  <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html#home" aria-label="مطعم شيشلي، الرئيسية"><span class="brand-image" role="img" aria-label="شعار مطعم شيشلي"></span></a>
+      <nav class="main-nav" id="main-nav" aria-label="القائمة الرئيسية">
+        <a href="index.html#home">الرئيسية</a><a href="index.html#about">من نحن</a><a href="menu.html">المنيو</a><button type="button" data-cart-open>الطلبات</button><a href="index.html#gallery">معرض الصور</a><a href="https://maps.app.goo.gl/yS1bHr8mAG1dNf2t9" target="_blank" rel="noopener noreferrer">فروعنا</a><a href="#contact">تواصل معنا</a>
+      <a class="mobile-account-link" href="login.html">تسجيل الدخول</a></nav>
+      <div class="header-actions">
+        <a class="icon-button desktop-action" href="menu.html" aria-label="البحث في الأطباق"><i data-icon="search"></i></a>
+        <button class="icon-button cart-toggle" type="button" data-cart-open aria-label="فتح السلة"><i data-icon="shopping-bag"></i><span class="cart-count" id="cart-count">0</span></button>
+        <a class="icon-button desktop-action" href="login.html" aria-label="حسابي"><i data-icon="user-round"></i></a>
+        <a class="login-button" href="login.html" >تسجيل الدخول</a>
+        <button class="icon-button menu-toggle" id="menu-toggle" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="main-nav"><i data-icon="menu"></i></button>
+      </div>
+    </div>
+  </header>
+  <main id="main" class="container product-main">
+    <a class="auth-back" href="menu.html">→ العودة للمنيو</a>
+    <div id="product-detail"></div>
+    <noscript><p>فعّل JavaScript لعرض تفاصيل المنتج وإضافته للسلة.</p><a class="button button-primary" href="menu.html">العودة للمنيو</a></noscript>
+  </main>
+  <footer class="site-footer" id="contact"><div class="container footer-grid">
+    <div class="footer-brand"><a href="index.html#home" class="brand" aria-label="شيشلي، العودة إلى الرئيسية"><span class="brand-image" role="img" aria-label="شعار مطعم شيشلي"></span></a><p>أصول تركية، ونكهة تجمعنا.</p></div>
+    <div id="location"><h3><i data-icon="map-pin"></i> موقعنا</h3><p><a href="https://maps.app.goo.gl/yS1bHr8mAG1dNf2t9" target="_blank" rel="noopener noreferrer" aria-label="موقع مطعم شيشلي على خرائط جوجل">المصيف - بجوار إشارة المصيف</a></p><a class="footer-link" href="https://maps.app.goo.gl/yS1bHr8mAG1dNf2t9" target="_blank" rel="noopener noreferrer">اعرض الموقع على الخريطة <i data-icon="arrow-up-left"></i></a></div>
+    <div><h3><i data-icon="phone"></i> اتصل بنا</h3><a class="phone-number" href="tel:0551040122" dir="ltr">0551040122</a><p>يسعدنا تواصلكم واستفساراتكم</p></div>
+    <div><h3><i data-icon="clock"></i> أوقات العمل</h3><p>من 11:00 صباحًا إلى 2:00 صباحًا</p><span class="hours-note">أوقات توضيحية — تُؤكَّد مع المطعم</span></div>
+  </div><div class="container footer-bottom"><p>© 2026 مطعم شيشلي للدجاج التركي - جميع الحقوق محفوظة</p><div class="social-links" aria-label="التواصل الاجتماعي"><span>تابعنا على</span><button type="button" data-social="إنستغرام" aria-label="إنستغرام"><i data-icon="instagram"></i></button><button type="button" data-social="تيك توك" aria-label="تيك توك"><i data-icon="music-2"></i></button><button type="button" data-social="سناب شات" aria-label="سناب شات"><i data-icon="ghost"></i></button><a href="https://wa.me/966551040122" target="_blank" rel="noopener noreferrer" aria-label="تواصل عبر واتساب"><i data-icon="message-circle"></i></a></div></div></footer>
+  <dialog class="cart-dialog" id="cart-dialog" aria-labelledby="cart-title"><div class="dialog-heading"><div><span class="section-kicker">طعمك المفضل، في مكان واحد</span><h2 id="cart-title">سلة طلباتك</h2></div><button class="icon-button" type="button" data-close aria-label="إغلاق السلة"><i data-icon="x"></i></button></div><p class="demo-note">سلة تجريبية — لا يتم إرسال طلبات أو تحصيل مدفوعات.</p><div id="cart-items" class="cart-items"></div><div class="cart-summary"><div><span>إجمالي المنتجات</span><strong id="cart-total">0 ريال</strong></div><p>الأسعار المعروضة تجريبية، ولا تشمل رسوم التوصيل.</p><a class="button button-primary checkout-link" href="checkout.html" data-checkout-link hidden>إكمال الطلب ←</a><button class="button cart-continue" type="button" data-close>متابعة اختيار الأطباق <i data-icon="arrow-left"></i></button></div></dialog>
+  <dialog class="info-dialog" id="info-dialog" aria-labelledby="info-title"><div class="dialog-heading"><h2 id="info-title"></h2><button class="icon-button" type="button" data-close aria-label="إغلاق النافذة"><i data-icon="x"></i></button></div><div id="info-content"></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

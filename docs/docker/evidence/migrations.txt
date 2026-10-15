@@ -1,0 +1,47 @@
+
+  Migration name .............................................. Batch / Status  
+  0001_01_01_000000_create_users_table ............................... [1] Ran  
+  0001_01_01_000001_create_cache_table ............................... [1] Ran  
+  0001_01_01_000002_create_jobs_table ................................ [1] Ran  
+  2026_09_23_211542_create_personal_access_tokens_table .............. [1] Ran  
+  2026_09_23_214937_add_uuid_to_users_table .......................... [1] Ran  
+  2026_09_24_202311_create_permission_tables ......................... [1] Ran  
+  2026_09_25_144409_add_phone_to_users_table ......................... [1] Ran  
+  2026_09_25_194640_create_branches_table ............................ [1] Ran  
+  2026_09_25_195645_create_categories_table .......................... [1] Ran  
+  2026_09_25_195846_create_products_table ............................ [1] Ran  
+  2026_09_25_200335_create_product_images_table ...................... [1] Ran  
+  2026_09_25_202143_create_option_groups_table ....................... [1] Ran  
+  2026_09_25_202229_create_option_values_table ....................... [1] Ran  
+  2026_09_25_205314_create_offers_table .............................. [1] Ran  
+  2026_09_25_205327_create_offer_items_table ......................... [1] Ran  
+  2026_09_26_104129_create_product_option_groups_table ............... [1] Ran  
+  2026_09_26_202603_add_branch_details_and_soft_deletes_to_branches_table  [1] Ran  
+  2026_09_26_205827_make_branch_contact_fields_nullable .............. [1] Ran  
+  2026_09_29_150008_complete_products_schema ......................... [1] Ran  
+  2026_09_29_170147_complete_product_images_schema ................... [1] Ran  
+  2026_09_29_215059_complete_product_options_schema .................. [1] Ran  
+  2026_09_30_125524_create_branch_products_table ..................... [1] Ran  
+  2026_09_30_141135_create_cart_tables ............................... [1] Ran  
+  2026_09_30_174239_create_customer_addresses_table .................. [1] Ran  
+  2026_09_30_174240_create_delivery_zones_tables ..................... [1] Ran  
+  2026_09_30_174241_add_delivery_support_to_branches_table ........... [1] Ran  
+  2026_10_01_143217_create_order_tables .............................. [1] Ran  
+  2026_10_01_152843_add_order_lifecycle .............................. [1] Ran  
+  2026_10_01_210525_create_payment_domain_tables ..................... [1] Ran  
+  2026_10_01_220028_create_promotion_domain_tables ................... [1] Ran  
+  2026_10_01_232406_create_outbound_notification_tables .............. [1] Ran  
+  2026_10_02_103414_add_customer_fields_to_users_and_orders .......... [1] Ran  
+  2026_10_02_234540_add_category_snapshots_and_reporting_indexes ..... [1] Ran  
+  2026_10_03_002636_create_restaurant_settings_and_operational_schedules  [1] Ran  
+  2026_10_03_012230_create_branch_inventory_domain ................... [1] Ran  
+  2026_10_03_021236_add_secure_guest_tracking_and_estimates_to_orders  [1] Ran  
+  2026_10_03_024009_create_website_cms_tables ........................ [1] Ran  
+  2026_10_03_113819_create_admin_activity_logs_table ................. [1] Ran  
+  2026_10_03_114343_make_staff_email_optional_on_users ............... [1] Ran  
+  2026_10_03_121103_add_permission_customization_to_roles ............ [1] Ran  
+  2026_10_08_002358_add_internal_delivery_domain ..................... [1] Ran  
+  2026_10_08_210656_stabilize_order_placement_timestamp .............. [1] Ran  
+  2026_10_09_112653_add_first_order_only_to_promotions_table ......... [1] Ran  
+  2026_10_09_120203_add_registration_offer_to_promotions_table ....... [1] Ran  
+

@@ -125,14 +125,23 @@ export const useCartStore = defineStore('cart', () => {
   const refreshCart = () => mutate(ctx => cartApi.refresh(ctx))
   const applyCoupon = code => mutate(ctx => cartApi.applyCoupon(code,ctx))
   const removeCoupon = () => mutate(ctx => cartApi.removeCoupon(ctx))
-  async function requestDeliveryQuote(body) {
-    let quote
-    const result = await mutate(async ctx => {
-      quote = await deliveryApi.quote(body, ctx)
-      // Quote explicitly reprices on the server; synchronize the cart snapshot.
-      return cartApi.show(ctx)
-    })
-    return { ...result, data: result.ok ? quote : null }
+  async function requestDeliveryQuote(body, { signal, onSync = operation => operation() } = {}) {
+    if (!cart.value || isLoading.value || isMutating.value || checkoutBusy.value || pendingCheckout.value) return { ok: false, busy: true }
+    const version = revision, session = auth.token, signature = JSON.stringify(cart.value), ctx = context()
+    const stale = () => signal?.aborted || version !== revision || session !== auth.token || signature !== JSON.stringify(cart.value) || isMutating.value || isLoading.value
+    try {
+      const quote = await deliveryApi.quote(body, ctx, signal)
+      if (stale()) return { ok: false, stale: true }
+      // Laravel reprices the cart while quoting. Apply its refreshed snapshot
+      // only if no cart/session change occurred while these requests ran.
+      const refreshed = await cartApi.show(ctx, signal)
+      if (stale()) return { ok: false, stale: true }
+      onSync(() => apply(refreshed))
+      return { ok: true, data: quote }
+    } catch (cause) {
+      if (stale() || cause.code === 'ERR_CANCELED') return { ok: false, stale: true }
+      return { ok: false, error: normalizeApiError(cause) }
+    }
   }
   async function submitCheckout(body) {
     if (checkoutBusy.value || isMutating.value || isLoading.value) return { ok: false, busy: true }

@@ -1,0 +1,17 @@
+{
+  "origin": "http://127.0.0.1:8088",
+  "transport": "real Docker Vue/Axios/Laravel/MySQL; browser GPS coordinates supplied by CDP",
+  "checks": [
+    "Live API quotes accept branch location and reject an outside point",
+    "Real reverse geocoding returned city/district",
+    "Actual cash delivery order created through the updated Vue UI and Laravel; fee confirmed server-side",
+    "Test order cancelled through normal guest API; no volumes/data deleted",
+    "Native browser permission denial verified; loopback secure context verified"
+  ],
+  "order": {
+    "number": "SH-0005",
+    "paymentMethod": "cash",
+    "deliveryFee": "5.00",
+    "finalStatus": "cancelled"
+  }
+}
