@@ -62,7 +62,9 @@ jobs:
         run: |
           node --test .github/scripts/ghcr-gate.test.mjs
           python3 docker/ghcr/test_inspect_images.py
+          python3 .github/scripts/test_collect_trivy_evidence.py
       - name: Build PHP-FPM without publishing
+        id: php_image
         uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
         with:
           context: .
@@ -80,6 +82,7 @@ jobs:
           cache-from: type=gha,scope=ghcr-app
           cache-to: type=gha,mode=max,scope=ghcr-app
       - name: Build Nginx and Vue without publishing
+        id: nginx_image
         uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
         with:
           context: .
@@ -112,35 +115,47 @@ jobs:
         with:
           version: v0.69.3
           cache: false
+      - name: Prepare trustworthy Trivy evidence context
+        id: prepare_evidence
+        if: ${{ !cancelled() && steps.verify.outcome == 'success' && steps.trivy.outcome == 'success' }}
+        env:
+          IMAGE_SHA: ${{ needs.gate.outputs.sha || github.sha }}
+          PHP_BUILD_DIGEST: ${{ steps.php_image.outputs.digest }}
+          NGINX_BUILD_DIGEST: ${{ steps.nginx_image.outputs.digest }}
+        run: python3 .github/scripts/collect-trivy-evidence.py prepare
       - name: Scan PHP image
+        id: scan_php
         if: ${{ !cancelled() && steps.verify.outcome == 'success' && steps.trivy.outcome == 'success' }}
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
-        with:
-          version: v0.69.3
-          skip-setup-trivy: true
-          input: /tmp/app.tar
-          scanners: vuln,secret
-          severity: HIGH,CRITICAL
-          ignore-unfixed: false
-          exit-code: '1'
-          cache: false
+        # Each image runs mandatory HIGH/CRITICAL vulnerability and all-severity
+        # secret scans with --exit-code 1; raw diagnostics are never printed.
+        env:
+          PREPARE_OUTCOME: ${{ steps.prepare_evidence.outcome }}
+        run: python3 .github/scripts/collect-trivy-evidence.py scan --image php
       - name: Scan Nginx image
+        id: scan_nginx
         if: ${{ !cancelled() && steps.verify.outcome == 'success' && steps.trivy.outcome == 'success' }}
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
+        env:
+          PREPARE_OUTCOME: ${{ steps.prepare_evidence.outcome }}
+        run: python3 .github/scripts/collect-trivy-evidence.py scan --image nginx
+      - name: Validate and collect sanitized Trivy evidence
+        if: always()
+        env:
+          IMAGE_SHA: ${{ needs.gate.outputs.sha || github.sha }}
+          PREPARE_OUTCOME: ${{ steps.prepare_evidence.outcome }}
+          PHP_SCAN_OUTCOME: ${{ steps.scan_php.outcome }}
+          NGINX_SCAN_OUTCOME: ${{ steps.scan_nginx.outcome }}
+        run: python3 .github/scripts/collect-trivy-evidence.py collect
+      - name: Retain Trivy evidence even when scans fail
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          version: v0.69.3
-          skip-setup-trivy: true
-          input: /tmp/nginx.tar
-          scanners: vuln,secret
-          severity: HIGH,CRITICAL
-          ignore-unfixed: false
-          exit-code: '1'
-          cache: false
-      - name: Check secrets at every severity
-        if: ${{ !cancelled() && steps.verify.outcome == 'success' && steps.trivy.outcome == 'success' }}
-        run: |
-          trivy image --input /tmp/app.tar --scanners secret --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
-          trivy image --input /tmp/nginx.tar --scanners secret --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+          name: trivy-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/shishli-trivy-evidence/manifest.json
+            ${{ runner.temp }}/shishli-trivy-evidence/php-vulnerabilities.json
+            ${{ runner.temp }}/shishli-trivy-evidence/nginx-vulnerabilities.json
+          retention-days: 7
+          if-no-files-found: error
       - name: Retain only verified images for publishing
         if: github.event_name == 'workflow_run'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
