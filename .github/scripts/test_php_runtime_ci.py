@@ -5,6 +5,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -126,6 +127,88 @@ class RuntimeCiTests(unittest.TestCase):
         ci.expected_probe(result(20, 'CI_EXPECTED_CONNECTION_FAILURE'), 20, 'CI_EXPECTED_CONNECTION_FAILURE')
         with self.assertRaises(ci.CiError):
             ci.expected_probe(result(10, 'CI_PROBE_FAILED'), 20, 'CI_EXPECTED_CONNECTION_FAILURE')
+
+    def test_redis_negative_probe_uses_updated_config_despite_cached_manager(self):
+        php = os.environ.get('PHP_BINARY') or shutil.which('php')
+        if not php:
+            self.skipTest('PHP CLI required for the fixture regression test')
+        source = (ci.ROOT / '.github/fixtures/php-runtime/probe.php').read_text(encoding='utf-8')
+        body = source.split("case 'bad-redis':", 1)[1].split('default:', 1)[0]
+        catch = source.split('} catch (Throwable $exception) {', 1)[1]
+        # Unit double for Laravel's config snapshot and connection boundary.
+        # Execute the actual probe and catch block; no sockets/services are used.
+        harness = r'''
+namespace Illuminate\Redis {
+    class RedisManager {
+        public function __construct($app, $driver, private array $config) {}
+        public function purge($name) {}
+        public function connection() {
+            return new class($this->config['default']) {
+                public function __construct(private array $config) {}
+                public function ping() {
+                    $port = $this->config['port'];
+                    if (!empty($this->config['url'])) {
+                        $port = parse_url($this->config['url'], PHP_URL_PORT);
+                    }
+                    if ($port === 1) {
+                        if ($GLOBALS['mode'] === 'unrelated') {
+                            throw new \LogicException('Unexpected implementation error');
+                        }
+                        if ($GLOBALS['mode'] !== 'success') {
+                            throw new \RedisException('Connection refused');
+                        }
+                    }
+                    return 'PONG';
+                }
+            };
+        }
+    }
+}
+namespace Illuminate\Support\Facades {
+    class Redis {
+        public static $manager;
+        public static function purge($name) { self::$manager->purge($name); }
+        public static function connection() { return self::$manager->connection(); }
+    }
+}
+namespace {
+    use Illuminate\Support\Facades\Redis;
+    class RedisException extends \RuntimeException {}
+    $mode = $argv[1];
+    $config = ['database' => ['redis' => ['client' => 'phpredis',
+        'default' => ['host' => 'redis', 'port' => 6379, 'url' => 'tcp://redis:6379']]]];
+    function config($key) {
+        global $config;
+        if (is_array($key)) {
+            foreach ($key as $path => $value) {
+                $target =& $config;
+                foreach (explode('.', $path) as $part) { $target =& $target[$part]; }
+                $target = $value;
+                unset($target);
+            }
+            return;
+        }
+        $value = $config;
+        foreach (explode('.', $key) as $part) { $value = $value[$part]; }
+        return $value;
+    }
+    $app = new \stdClass;
+    Redis::$manager = new \Illuminate\Redis\RedisManager($app, 'phpredis', config('database.redis'));
+    Redis::connection()->ping();
+    try {
+        $operation = 'bad-redis';
+'''
+        script = harness + body + '} catch (Throwable $exception) {' + catch + '\n}'
+        for mode, code, marker in [
+            ('connection_error', 20, 'CI_EXPECTED_CONNECTION_FAILURE'),
+            ('success', 10, 'CI_PROBE_FAILED'),
+            ('unrelated', 10, 'CI_PROBE_FAILED'),
+        ]:
+            with self.subTest(mode=mode):
+                actual = subprocess.run([php, '-n', '-r', script, mode],
+                                        capture_output=True, text=True, timeout=15, check=False)
+                self.assertEqual(code, actual.returncode, actual.stderr + actual.stdout)
+                self.assertEqual(marker, actual.stdout.strip())
 
     def test_subprocess_output_and_timeout_are_not_printed(self):
         with patch.object(ci.subprocess, 'run', side_effect=subprocess.TimeoutExpired('SECRET', 1, output='SECRET')):
