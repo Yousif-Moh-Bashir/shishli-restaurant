@@ -1,0 +1,211 @@
+name: GHCR images
+
+on:
+  pull_request:
+    branches: [master]
+  workflow_run:
+    workflows: [CI]
+    branches: [master]
+    types: [completed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ghcr-${{ github.event.pull_request.number || 'master' }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    if: >-
+      github.event_name == 'workflow_run' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      sha: ${{ steps.gate.outputs.sha }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Verify exact successful CI run and current master
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node .github/scripts/ghcr-gate.mjs
+
+  build:
+    needs: [gate]
+    if: >-
+      always() && !cancelled() &&
+      (github.event_name == 'pull_request' || needs.gate.result == 'success')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.gate.outputs.sha || github.sha }}
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+      - name: Test publishing authorization rules
+        run: |
+          node --test .github/scripts/ghcr-gate.test.mjs
+          python3 docker/ghcr/test_inspect_images.py
+      - name: Build PHP-FPM without publishing
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          file: docker/php/Dockerfile
+          target: production
+          platforms: linux/amd64
+          pull: true
+          no-cache-filters: runtime
+          load: true
+          push: false
+          tags: shishli-app:verify
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ needs.gate.outputs.sha || github.sha }}
+          cache-from: type=gha,scope=ghcr-app
+          cache-to: type=gha,mode=max,scope=ghcr-app
+      - name: Build Nginx and Vue without publishing
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          file: docker/nginx/Dockerfile
+          platforms: linux/amd64
+          pull: true
+          no-cache-filters: frontend,runtime
+          load: true
+          push: false
+          tags: shishli-nginx:verify
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ needs.gate.outputs.sha || github.sha }}
+          cache-from: type=gha,scope=ghcr-nginx
+          cache-to: type=gha,mode=max,scope=ghcr-nginx
+      - name: Verify image layers, paths, routes and Vue assets
+        id: verify
+        run: |
+          docker save -o /tmp/app.tar shishli-app:verify
+          docker save -o /tmp/nginx.tar shishli-nginx:verify
+          python3 docker/ghcr/inspect-images.py /tmp/app.tar /tmp/nginx.tar
+          docker run --rm --network none --entrypoint sh shishli-app:verify -ec '! command -v gcc && ! command -v g++ && ! command -v git && ! command -v composer && php-fpm -t && test -x /usr/bin/cgi-fcgi'
+          docker run --rm --network none --entrypoint php shishli-app:verify -r 'foreach (["pdo_mysql", "pdo_sqlite", "mbstring", "intl", "zip", "gd", "bcmath", "pcntl", "Zend OPcache", "redis"] as $e) { if (!extension_loaded($e)) { throw new Exception($e); } } $gd = gd_info(); foreach (["JPEG Support", "PNG Support", "WebP Support"] as $format) { if (!$gd[$format]) { throw new Exception($format); } } new PDO("sqlite::memory:"); new Redis(); new ZipArchive();'
+          docker run --rm --network none --entrypoint php -e APP_ENV=testing -e CACHE_STORE=array -e SESSION_DRIVER=array shishli-app:verify artisan route:list --path=api --except-vendor > /tmp/api-routes.txt
+          grep -q 'api/v1' /tmp/api-routes.txt
+          docker run --rm --network none --add-host app:127.0.0.1 --entrypoint nginx shishli-nginx:verify -t
+          GHCR_IMAGE_TAG=sha-${{ needs.gate.outputs.sha || github.sha }} docker compose -f compose.ghcr.yaml config --quiet --no-env-resolution
+      - name: Install pinned Trivy
+        id: trivy
+        uses: aquasecurity/setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514 # v0.2.6
+        with:
+          version: v0.69.3
+          cache: false
+      - name: Scan PHP image
+        if: ${{ !cancelled() && steps.verify.outcome == 'success' && steps.trivy.outcome == 'success' }}
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
+        with:
+          version: v0.69.3
+          skip-setup-trivy: true
+          input: /tmp/app.tar
+          scanners: vuln,secret
+          severity: HIGH,CRITICAL
+          ignore-unfixed: false
+          exit-code: '1'
+          cache: false
+      - name: Scan Nginx image
+        if: ${{ !cancelled() && steps.verify.outcome == 'success' && steps.trivy.outcome == 'success' }}
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
+        with:
+          version: v0.69.3
+          skip-setup-trivy: true
+          input: /tmp/nginx.tar
+          scanners: vuln,secret
+          severity: HIGH,CRITICAL
+          ignore-unfixed: false
+          exit-code: '1'
+          cache: false
+      - name: Check secrets at every severity
+        if: ${{ !cancelled() && steps.verify.outcome == 'success' && steps.trivy.outcome == 'success' }}
+        run: |
+          trivy image --input /tmp/app.tar --scanners secret --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+          trivy image --input /tmp/nginx.tar --scanners secret --exit-code 1 --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+      - name: Retain only verified images for publishing
+        if: github.event_name == 'workflow_run'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ghcr-images-${{ needs.gate.outputs.sha }}
+          path: |
+            /tmp/app.tar
+            /tmp/nginx.tar
+          retention-days: 1
+          if-no-files-found: error
+
+  publish:
+    needs: [gate, build]
+    if: github.event_name == 'workflow_run' && needs.gate.result == 'success' && needs.build.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+      packages: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.gate.outputs.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: ghcr-images-${{ needs.gate.outputs.sha }}
+          path: /tmp/images
+      - name: Load the exact scanned images
+        run: |
+          docker load -i /tmp/images/app.tar
+          docker load -i /tmp/images/nginx.tar
+      - name: Recheck CI and master immediately before publishing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node .github/scripts/ghcr-gate.mjs
+      - name: Verify existing package visibility and publish SHA tags
+        env:
+          GH_TOKEN: ${{ github.token }}
+          IMAGE_SHA: ${{ needs.gate.outputs.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          owner="${GITHUB_REPOSITORY_OWNER,,}"
+          for suffix in app nginx; do
+            test "$(docker image inspect "shishli-$suffix:verify" --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}')" = "$IMAGE_SHA"
+            test "$(docker image inspect "shishli-$suffix:verify" --format '{{.Os}}/{{.Architecture}}')" = linux/amd64
+          done
+          # A missing package is created private by GHCR. Never reuse a public package.
+          for suffix in app nginx; do
+            status=$(curl -sS -o /tmp/package.json -w '%{http_code}' \
+              -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+              "https://api.github.com/users/$GITHUB_REPOSITORY_OWNER/packages/container/shishli-$suffix")
+            if [ "$status" = 200 ]; then
+              jq -e '.visibility == "private"' /tmp/package.json > /dev/null
+            elif [ "$status" != 404 ]; then
+              echo "Cannot verify package visibility: HTTP $status"; exit 1
+            fi
+          done
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          trap 'docker logout ghcr.io' EXIT
+          for suffix in app nginx; do
+            image="ghcr.io/$owner/shishli-$suffix:sha-$IMAGE_SHA"
+            docker tag "shishli-$suffix:verify" "$image"
+            docker push "$image"
+            echo "Published $image" >> "$GITHUB_STEP_SUMMARY"
+          done
+          for suffix in app nginx; do
+            curl --fail-with-body -sS -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/users/$GITHUB_REPOSITORY_OWNER/packages/container/shishli-$suffix" \
+              | jq -e '.visibility == "private"' > /dev/null
+          done
