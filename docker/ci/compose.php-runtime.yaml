@@ -1,0 +1,65 @@
+# CI only. Credentials live in RUNNER_TEMP; no production env files are read.
+x-labels: &labels
+  io.shishli.ci.owner: php-runtime-integration
+  io.shishli.ci.run: ${CI_ID:?CI_ID required}
+
+x-runtime: &runtime
+  image: ${CI_IMAGE:?CI_IMAGE required}
+  pull_policy: never
+  labels: *labels
+  env_file:
+    - ${CI_ENV_FILE:?CI_ENV_FILE required}
+  volumes:
+    - type: bind
+      source: ${CI_FIXTURES:?CI_FIXTURES required}
+      target: /ci
+      read_only: true
+  networks: [isolated]
+  healthcheck:
+    test: [CMD-SHELL, 'SCRIPT_NAME=/fpm-ping SCRIPT_FILENAME=/fpm-ping REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 | grep -q pong']
+    interval: 3s
+    timeout: 3s
+    retries: 40
+  depends_on:
+    mysql:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+
+services:
+  mysql:
+    image: mysql:8.4
+    labels: *labels
+    env_file:
+      - ${CI_MYSQL_ENV_FILE:?CI_MYSQL_ENV_FILE required}
+    tmpfs:
+      - /var/lib/mysql
+    networks: [isolated]
+    healthcheck:
+      test: [CMD-SHELL, 'MYSQL_PWD="$${MYSQL_ROOT_PASSWORD}" mysql --protocol=TCP -h 127.0.0.1 -uroot -Nse "SELECT 1" >/dev/null']
+      interval: 3s
+      timeout: 3s
+      retries: 60
+  redis:
+    image: redis:7.4
+    labels: *labels
+    command: [redis-server, --save, '', --appendonly, 'no']
+    tmpfs:
+      - /data
+    networks: [isolated]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 3s
+      timeout: 3s
+      retries: 40
+  runtime:
+    <<: *runtime
+  runtime-production:
+    <<: *runtime
+    environment:
+      APP_ENV: production
+
+networks:
+  isolated:
+    internal: true
+    labels: *labels

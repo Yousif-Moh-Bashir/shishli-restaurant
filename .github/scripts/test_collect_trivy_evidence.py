@@ -27,7 +27,11 @@ class EvidenceTest(unittest.TestCase):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name)
-        self.private, self.cache, self.public = [self.root / name for name in ('private', 'cache', 'public')]
+        self.console = io.StringIO()
+        redirect = redirect_stdout(self.console)
+        redirect.__enter__()
+        self.addCleanup(redirect.__exit__, None, None, None)
+        self.private, self.cache, self.public = [self.root / name for name in ('shishli-trivy-private', 'shishli-trivy-cache', 'shishli-trivy-evidence')]
         self.now = datetime.now(timezone.utc)
         self.db = {'Version': 2, 'UpdatedAt': self.now.isoformat(), 'DownloadedAt': self.now.isoformat(),
                    'NextUpdate': (self.now + timedelta(hours=2)).isoformat()}
@@ -115,6 +119,10 @@ class EvidenceTest(unittest.TestCase):
             code = 0
         if mode == 'wrong-scanner':
             report['Trivy']['Version'] = '0.1.0'
+        if mode == 'schema-mismatch':
+            report['SchemaVersion'] = 1
+        if mode == 'invalid-fix-status':
+            report['Results'][0]['Vulnerabilities'][0]['Status'] = SENSITIVE
         evidence.write(output, report)
         return subprocess.CompletedProcess(command, code, SENSITIVE, SENSITIVE)
 
@@ -131,6 +139,8 @@ class EvidenceTest(unittest.TestCase):
         manifest = evidence.load(self.public / 'manifest.json')
         for file in self.public.iterdir():
             self.assertNotIn(SENSITIVE, file.read_text())
+        self.assertNotIn(SENSITIVE, self.console.getvalue())
+        self.assertTrue(all(item['code'] in evidence.DIAGNOSTIC_CODES for item in manifest['diagnostics']))
         self.assertTrue(set(file.name for file in self.public.iterdir()) <= {'manifest.json', 'php-vulnerabilities.json', 'nginx-vulnerabilities.json'})
         return code, manifest
 
@@ -139,10 +149,47 @@ class EvidenceTest(unittest.TestCase):
         code, manifest = self.collected(outcomes)
         self.assertEqual(code, 0)
         self.assertEqual(manifest['gate'], 'passed')
+        self.assertEqual(manifest['collection_status'], 'completed')
         self.assertEqual(manifest['source']['sha'], SHA)
         self.assertEqual(manifest['scanner']['db_sha256'], evidence.digest(self.cache / 'db/trivy.db'))
         self.assertEqual(manifest['images']['php']['identity']['build_digest'], DIGEST)
         self.assertEqual(manifest['images']['php']['secrets']['finding_count'], 0)
+
+    def test_completed_php_77_high_3_critical_collects_successfully_without_passing_security_gate(self):
+        rows = []
+        for index in range(80):
+            row = self.vulnerability('HIGH' if index < 77 else 'CRITICAL')
+            row['VulnerabilityID'] = 'CVE-2026-' + str(10000 + index)
+            rows.append(row)
+        self.findings[('php', 'vuln')] = rows
+        outcomes = self.scan_both()
+        self.assertEqual(outcomes, {'php': 'failure', 'nginx': 'success'})
+        code, manifest = self.collected(outcomes)
+        self.assertEqual(code, 0, 'Reliable evidence collection must succeed despite a failed security verdict')
+        self.assertEqual(manifest['gate'], 'failed')
+        self.assertEqual(manifest['collection_status'], 'completed')
+        self.assertEqual(manifest['preparation'], 'success')
+        self.assertFalse(manifest['errors'])
+        php = evidence.load(self.public / 'php-vulnerabilities.json')
+        self.assertEqual(php['scan']['status'], 'completed')
+        self.assertEqual(php['scan']['gate'], 'failed')
+        self.assertEqual(php['scan']['exit_code'], 1)
+        self.assertEqual(php['scan']['finding_count'], 80)
+        self.assertEqual(sum(row['severity'] == 'HIGH' for row in php['findings']), 77)
+        self.assertEqual(sum(row['severity'] == 'CRITICAL' for row in php['findings']), 3)
+        self.assertTrue((self.public / 'nginx-vulnerabilities.json').exists())
+
+    def test_collect_cli_returns_zero_but_does_not_claim_security_pass_for_php_findings(self):
+        self.findings[('php', 'vuln')] = [self.vulnerability('CRITICAL')]
+        outcomes = self.scan_both()
+        with patch.dict(os.environ, {'RUNNER_TEMP': str(self.root),
+                                    'PHP_SCAN_OUTCOME': outcomes['php'], 'NGINX_SCAN_OUTCOME': outcomes['nginx']}), patch.object(sys, 'argv', ['evidence.py', 'collect']):
+            self.assertEqual(evidence.main(), 0)
+        manifest = evidence.load(self.public / 'manifest.json')
+        self.assertEqual(manifest['gate'], 'failed')
+        self.assertIn('security verdict is recorded separately', self.console.getvalue())
+        self.assertIn('code=vulnerabilities_found', self.console.getvalue())
+        self.assertNotIn('Trivy evidence operation: passed.', self.console.getvalue())
 
     def test_high_and_critical_each_fail_but_both_images_and_secret_scans_are_attempted(self):
         for severity in ['HIGH', 'CRITICAL']:
@@ -155,7 +202,7 @@ class EvidenceTest(unittest.TestCase):
         self.findings[('php', 'vuln')] = [self.vulnerability()]
         outcomes = self.scan_both()
         code, manifest = self.collected(outcomes)
-        self.assertEqual(code, 1)
+        self.assertEqual(code, 0)
         self.assertEqual(outcomes, {'php': 'failure', 'nginx': 'success'})
         scans = [(Path(c[c.index('--input') + 1]).stem, c[c.index('--scanners') + 1]) for c in self.commands if '--scanners' in c]
         self.assertEqual(scans, [('php', 'vuln'), ('php', 'secret'), ('nginx', 'vuln'), ('nginx', 'secret')])
@@ -167,9 +214,11 @@ class EvidenceTest(unittest.TestCase):
         self.findings[('nginx', 'secret')] = [{'Severity': 'LOW', 'Match': SENSITIVE, 'Code': {'Lines': [SENSITIVE]}}]
         outcomes = self.scan_both()
         code, manifest = self.collected(outcomes)
-        self.assertEqual(code, 1)
+        self.assertEqual(code, 0)
         self.assertEqual(manifest['images']['nginx']['secrets']['gate'], 'failed')
         self.assertEqual(manifest['images']['nginx']['secrets']['finding_count'], 1)
+        self.assertEqual(manifest['gate'], 'failed')
+        self.assertEqual(manifest['collection_status'], 'completed')
         self.assertEqual(set(manifest['images']['nginx']['secrets']), {'status', 'gate', 'exit_code', 'finding_count', 'created_at'})
 
     def test_missing_report_is_interrupted_not_zero_and_other_scans_still_run(self):
@@ -203,6 +252,22 @@ class EvidenceTest(unittest.TestCase):
 
     def test_wrong_scanner_report_is_rejected(self):
         self.assert_interrupted('wrong-scanner')
+        self.assertIn('code=report_scanner_mismatch', self.console.getvalue())
+
+    def test_invalid_trivy_schema_has_specific_safe_diagnostic(self):
+        self.assert_interrupted('schema-mismatch')
+        self.assertIn('code=invalid_report_schema', self.console.getvalue())
+
+    def test_invalid_package_status_has_specific_diagnostic_without_its_value(self):
+        self.findings[('php', 'vuln')] = [self.vulnerability()]
+        self.assert_interrupted('invalid-fix-status')
+        self.assertIn('code=invalid_fix_status', self.console.getvalue())
+
+    def test_untrusted_exception_and_scope_never_become_diagnostic_content(self):
+        self.assertEqual(evidence.diagnostic(evidence.EvidenceError(SENSITIVE)), 'unreliable_evidence')
+        evidence.announce(SENSITIVE, SENSITIVE)
+        self.assertNotIn(SENSITIVE, self.console.getvalue())
+        self.assertIn('[evidence]: code=unreliable_evidence', self.console.getvalue())
 
     def test_partial_report_cannot_claim_zero_vulnerabilities(self):
         self.assert_interrupted('partial')
@@ -282,6 +347,16 @@ class EvidenceTest(unittest.TestCase):
         code, manifest = self.collected(outcomes)
         self.assertEqual(code, 1)
         self.assertTrue(manifest['errors'])
+        self.assertIn('code=database_changed', self.console.getvalue())
+
+    def test_valid_but_different_source_sha_is_rejected_with_specific_code(self):
+        outcomes = self.scan_both()
+        with patch.dict(os.environ, {'IMAGE_SHA': 'c' * 40}):
+            code, manifest = self.collected(outcomes)
+        self.assertEqual(code, 1)
+        self.assertEqual(manifest['collection_status'], 'failed')
+        self.assertEqual(manifest['gate'], 'failed')
+        self.assertIn('code=source_sha_mismatch', self.console.getvalue())
 
     def test_changed_archive_fails_closed(self):
         outcomes = self.scan_both()

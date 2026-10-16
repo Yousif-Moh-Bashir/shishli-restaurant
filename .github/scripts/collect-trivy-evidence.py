@@ -21,6 +21,56 @@ class EvidenceError(Exception):
 FAILURES = (EvidenceError, OSError, ValueError, TypeError, KeyError, IndexError,
             AttributeError, tarfile.TarError, subprocess.SubprocessError)
 
+DIAGNOSTIC_CODES = frozenset('''
+invalid_timestamp invalid_source_sha source_sha_mismatch invalid_repository
+invalid_run_id invalid_run_attempt unsupported_db_schema database_expired
+archive_manifest_missing ambiguous_image_archive archive_config_missing
+image_platform_mismatch image_source_mismatch build_digest_missing
+scanner_version_mismatch database_update_failed invalid_report_schema
+invalid_report_artifact report_image_mismatch report_scanner_mismatch
+incomplete_report invalid_result unexpected_secret_payload
+unexpected_vulnerability_payload invalid_findings invalid_finding
+invalid_severity invalid_vulnerability_id invalid_package invalid_version
+invalid_fixed_version invalid_fix_status scan_exit_report_mismatch
+prepare_not_successful database_changed archive_changed stale_report
+step_outcome_mismatch source_changed image_required report_missing_or_unsafe
+invalid_json scanner_timeout invalid_image_archive evidence_io_error
+invalid_evidence_structure unreliable_evidence vulnerabilities_found
+secrets_found no_findings evidence_collection_failed
+evidence_collected_security_blocked evidence_collected
+'''.split())
+
+
+def diagnostic(error):
+    if isinstance(error, EvidenceError) and len(error.args) == 1:
+        code = error.args[0]
+        if isinstance(code, str) and code in DIAGNOSTIC_CODES:
+            return code
+    if isinstance(error, subprocess.TimeoutExpired):
+        return 'scanner_timeout'
+    if isinstance(error, tarfile.TarError):
+        return 'invalid_image_archive'
+    if isinstance(error, OSError):
+        return 'evidence_io_error'
+    if isinstance(error, (ValueError, TypeError, KeyError, IndexError, AttributeError)):
+        return 'invalid_evidence_structure'
+    return 'unreliable_evidence'
+
+
+def announce(scope, code):
+    # Only fixed scopes and allowlisted codes; never exception messages/values.
+    if not re.fullmatch(r'(?:evidence|prepare|collection|(?:scan|collect)/(?:php|nginx)/(?:vuln|secret))', scope):
+        scope = 'evidence'
+    if code not in DIAGNOSTIC_CODES:
+        code = 'unreliable_evidence'
+    print('Trivy evidence [' + scope + ']: code=' + code)
+
+
+def result_code(state, kind):
+    if state['gate'] == 'passed':
+        return 'no_findings'
+    return 'vulnerabilities_found' if kind == 'vuln' else 'secrets_found'
+
 
 def require(condition, code):
     if not condition:
@@ -185,8 +235,10 @@ def scan_image(private, cache, name):
                        '--ignore-unfixed=false', '--exit-code', '1', '--format', 'json', '--output', str(report)]
             execution['returncode'] = invoke(command).returncode
             checked, _ = check_report(load(report), image, execution['returncode'], kind)
+            announce('scan/' + name + '/' + kind, result_code(checked, kind))
             failed = failed or checked['gate'] == 'failed'
-        except FAILURES:
+        except FAILURES as error:
+            announce('scan/' + name + '/' + kind, diagnostic(error))
             failed = True
         executions[kind] = execution
     write(private / (name + '-execution.json'), executions)
@@ -201,8 +253,14 @@ def collect(private, cache, public, outcomes):
     manifest = {'schema_version': 1, 'preparation': preparation, 'source': None, 'scanner': None, 'images': {
         name: {'identity': None, 'vulnerabilities': {'status': 'interrupted'}, 'secrets': {'status': 'interrupted'}}
         for name in IMAGES
-    }, 'errors': []}
-    failed = False
+    }, 'errors': [], 'diagnostics': []}
+    unreliable = False
+    blocked = False
+
+    def record(scope, code):
+        manifest['diagnostics'].append({'scope': scope, 'code': code})
+        announce(scope, code)
+
     try:
         require(preparation == 'success', 'prepare_not_successful')
         context = load(private / 'context.json')
@@ -223,30 +281,39 @@ def collect(private, cache, public, outcomes):
                     try:
                         state, findings = check_report(load(private / (name + '-' + kind + '.json')), image, executions[kind]['returncode'], kind)
                         entry[label] = state
+                        record('collect/' + name + '/' + kind, result_code(state, kind))
                         if kind == 'vuln':
                             report = {
                                 'schema_version': 1, 'image': name, 'source_sha': manifest['source']['sha'],
                                 'config_digest': image['config_digest'], 'scan': state, 'findings': findings,
                             }
-                    except FAILURES:
-                        failed = True
+                    except FAILURES as error:
+                        record('collect/' + name + '/' + kind, diagnostic(error))
+                        unreliable = True
                 clean = all(entry[label].get('gate') == 'passed' for label in ('vulnerabilities', 'secrets'))
                 expected = 'success' if clean else 'failure'
                 require(outcomes[name] == expected, 'step_outcome_mismatch')
                 if report is not None:
                     write(public / (name + '-vulnerabilities.json'), report)
-                failed = failed or not clean
-            except FAILURES:
+                blocked = blocked or not clean
+            except FAILURES as error:
+                record('collection', diagnostic(error))
                 entry['vulnerabilities'] = {'status': 'interrupted'}
                 entry['secrets'] = {'status': 'interrupted'}
                 entry['evidence_error'] = 'image_evidence_unreliable'
-                failed = True
-    except FAILURES:
+                unreliable = True
+    except FAILURES as error:
+        record('collection', diagnostic(error))
         manifest['errors'].append('source_or_scanner_evidence_unavailable')
-        failed = True
-    manifest['gate'] = 'failed' if failed else 'passed'
+        unreliable = True
+    # Collection success never erases a failed mandatory scan step. The build
+    # and publish gates still fail; this exit code describes evidence integrity.
+    manifest['gate'] = 'failed' if unreliable or blocked else 'passed'
+    manifest['collection_status'] = 'failed' if unreliable else 'completed'
     write(public / 'manifest.json', manifest)
-    return 1 if failed else 0
+    announce('collection', 'evidence_collection_failed' if unreliable else
+             'evidence_collected_security_blocked' if blocked else 'evidence_collected')
+    return 1 if unreliable else 0
 
 
 def main():
@@ -265,11 +332,15 @@ def main():
             code = scan_image(private, cache, args.image)
         else:
             code = collect(private, cache, public, {'php': os.environ.get('PHP_SCAN_OUTCOME'), 'nginx': os.environ.get('NGINX_SCAN_OUTCOME')})
-    except FAILURES:
+    except FAILURES as error:
         # Do not expose exception text, raw scanner diagnostics or report content.
+        announce('evidence', diagnostic(error))
         print('Trivy evidence operation failed: trustworthy evidence could not be produced.')
         return 1
-    print('Trivy evidence operation: ' + ('passed.' if code == 0 else 'failed; review sanitized evidence.'))
+    if args.operation == 'collect' and code == 0:
+        print('Trivy evidence collection completed; security verdict is recorded separately in manifest.json.')
+    else:
+        print('Trivy evidence operation: ' + ('passed.' if code == 0 else 'failed; review sanitized evidence.'))
     return code
 
 
