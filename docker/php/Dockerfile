@@ -1,7 +1,7 @@
-FROM php:8.3.35-fpm-bookworm AS runtime
+FROM php:8.3.35-fpm-trixie AS runtime
 
 # Build extensions once, retain their shared libraries, and remove toolchains.
-# Keep Debian Bookworm and glibc; no application dependency changes are needed.
+# Keep Debian and glibc on Trixie; no application dependency changes are needed.
 RUN set -eux; \
     apt-get update; \
     apt-get upgrade -y --no-install-recommends; \
@@ -17,7 +17,7 @@ RUN set -eux; \
     find /usr/local -type f \( -executable -o -name '*.so' \) -exec ldd '{}' ';' \
         | awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1) next; gsub("^/(usr/)?", "", so); print "*" so }' \
         | sort -u | xargs -r dpkg-query --search \
-        | cut -d: -f1 | sort -u | xargs -r apt-mark manual; \
+        | awk -F: '/^[a-z0-9][a-z0-9+.-]*(:[a-z0-9-]+)?: / {print $1}' | sort -u | xargs -r apt-mark manual; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/* /tmp/pear; \
     php -m; \
