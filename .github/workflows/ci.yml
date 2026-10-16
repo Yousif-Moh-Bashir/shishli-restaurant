@@ -35,7 +35,7 @@ jobs:
       DB_URL: ''
       CACHE_STORE: array
       CACHE_LIMITER: array
-      CACHE_PREFIX: shishli_ci_
+      CACHE_PREFIX: shishli_ci_${{ github.run_id }}_${{ github.run_attempt }}_
       SESSION_DRIVER: array
       QUEUE_CONNECTION: sync
       NOTIFICATION_QUEUE_CONNECTION: database
@@ -44,9 +44,12 @@ jobs:
       REDIS_CLIENT: phpredis
       REDIS_HOST: 127.0.0.1
       REDIS_PORT: '6379'
+      REDIS_PREFIX: shishli_ci_${{ github.run_id }}_${{ github.run_attempt }}_
+      REDIS_URL: ''
+      REDIS_PASSWORD: ''
+      CI_SERVICES_INTEGRATION: '1'
       INVENTORY_MYSQL_CONCURRENCY: '1'
       DRIVER_MYSQL_CONCURRENCY: '1'
-      BRANCH_MYSQL_TEST: '1'
     services:
       mysql:
         image: mysql:8.4
@@ -96,6 +99,8 @@ jobs:
       - name: Verify isolated MySQL and Redis services
         run: |
           test "$APP_ENV" = testing
+          test "$GITHUB_ACTIONS" = true
+          test "$DB_CONNECTION" = mysql
           test "$DB_HOST" = 127.0.0.1
           test "$DB_DATABASE" = shishli_ci_test
           php <<'PHP'
@@ -104,14 +109,45 @@ jobs:
           if ($pdo->query('SELECT DATABASE()')->fetchColumn() !== 'shishli_ci_test') {
               throw new RuntimeException('Refusing a non-CI database.');
           }
+          if (!str_starts_with($pdo->query('SELECT VERSION()')->fetchColumn(), '8.4.')) {
+              throw new RuntimeException('MySQL 8.4 is required.');
+          }
+          if ((int) $pdo->query("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'shishli_ci_test'")->fetchColumn() !== 0) {
+              throw new RuntimeException('The runner test database must be empty before migrations.');
+          }
           $redis = new Redis();
           $redis->connect('127.0.0.1', 6379);
           if (!$redis->ping()) {
               throw new RuntimeException('Redis is unavailable.');
           }
+          if (!str_starts_with($redis->info('server')['redis_version'], '7.4.')) {
+              throw new RuntimeException('Redis 7.4 is required.');
+          }
           PHP
+      - name: Migrate the fresh runner database and verify repeat execution
+        run: |
+          php artisan migrate --force --no-interaction
+          php artisan migrate --force --no-interaction
+          php artisan migrate:status --no-ansi > /tmp/migrations-status.txt
+      - name: Test MySQL and Redis integration through Laravel
+        run: php artisan test --compact --group=ci-services --fail-on-skipped --log-junit=/tmp/services-junit.xml
       - name: Run Laravel unit, feature and MySQL concurrency tests
-        run: php artisan test --compact
+        run: php artisan test --compact --exclude-group=ci-services --fail-on-skipped --log-junit=/tmp/laravel-junit.xml
+      - name: Require complete executed business and concurrency coverage
+        run: |
+          python3 ../.github/scripts/test_check_laravel_results.py
+          python3 ../.github/scripts/check-laravel-results.py /tmp/laravel-junit.xml /tmp/services-junit.xml
+      - name: Retain migration and JUnit evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: laravel-ci-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            /tmp/migrations-status.txt
+            /tmp/services-junit.xml
+            /tmp/laravel-junit.xml
+          retention-days: 7
+          if-no-files-found: warn
 
   vue:
     name: Vue / Node 22
