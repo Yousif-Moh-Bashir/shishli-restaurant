@@ -52,6 +52,14 @@ jobs:
           ref: ${{ needs.gate.outputs.sha || github.sha }}
           persist-credentials: false
       - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+      - name: Validate deployment Compose without runtime secrets
+        env:
+          GHCR_IMAGE_TAG: sha-${{ needs.gate.outputs.sha || github.sha }}
+        run: |
+          docker compose version
+          docker compose config --help | grep -q -- '--no-env-resolution'
+          # Validate the model without opening host-only service env_file paths.
+          docker compose -f compose.ghcr.yaml config --quiet --no-env-resolution
       - name: Test publishing authorization rules
         run: |
           node --test .github/scripts/ghcr-gate.test.mjs
@@ -100,7 +108,6 @@ jobs:
           docker run --rm --network none --entrypoint php -e APP_ENV=testing -e CACHE_STORE=array -e SESSION_DRIVER=array shishli-app:verify artisan route:list --path=api --except-vendor > /tmp/api-routes.txt
           grep -q 'api/v1' /tmp/api-routes.txt
           docker run --rm --network none --add-host app:127.0.0.1 --entrypoint nginx shishli-nginx:verify -t
-          GHCR_IMAGE_TAG=sha-${{ needs.gate.outputs.sha || github.sha }} docker compose -f compose.ghcr.yaml config --quiet --no-env-resolution
       - name: Install pinned Trivy
         id: trivy
         uses: aquasecurity/setup-trivy@3fb12ec12f41e471780db15c232d5dd185dcb514 # v0.2.6

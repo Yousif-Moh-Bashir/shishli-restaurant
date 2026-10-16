@@ -1,5 +1,29 @@
 # SHISHLI — Phase 3B: GitHub Container Registry
 
+## إصلاح فحص Compose في Pull Request — 16 أكتوبر 2026
+
+سبب الخطأ: `docker compose -f compose.ghcr.yaml config --quiet` يحاول تحميل ملفات `env_file` للخدمات، ومنها `/etc/shishli/app.env` و`/etc/shishli/mysql.env`. الخيار `--quiet` يمنع طباعة النموذج فقط؛ لا يمنع قراءة ملفات البيئة. الأمر متعلق بفحص Compose داخل build وليس بأمر بناء الصور أو تسجيل دخول GHCR.
+
+عند هذه المراجعة كانت النسخة المحلية تحتوي **بالفعل** على `--no-env-resolution` في آخر خطوة `Verify image layers, paths, routes and Vue assets`، ولذلك لا يمكن نسبة الفشل المبلغ عنه إلى هذه النسخة دون مراجعة SHA وسجل التشغيل الفاشل على GitHub. أُعيد إنتاج نفس نوع الخطأ محليًا بحذف الخيار: خروج 1 لغياب app.env؛ ترجمة المسار على Windows تختلف عن مسار Linux المبلغ عنه.
+
+التعديل في `.github/workflows/ghcr.yml` ينقل الفحص إلى خطوة مستقلة مبكرة `Validate deployment Compose without runtime secrets` قبل بناء الصور، مع تسجيل نسخة Compose واشتراط ظهور الخيار في `config --help`، ثم تشغيل:
+
+```sh
+docker compose -f compose.ghcr.yaml config --quiet --no-env-resolution
+```
+
+يُمرر `GHCR_IMAGE_TAG=sha-<commit>` عبر بيئة الخطوة فقط، وليس ملف env. الخيار يمنع تحميل **ملفات بيئة الخدمات** مع استمرار فحص النموذج واستبدال متغيرات Compose؛ لا يتحقق من صحة محتوى أسرار التشغيل. هذا سلوك موثق في [مرجع Docker الرسمي](https://docs.docker.com/reference/cli/docker/compose/config/). لا fallback إلى فحص يقرأ الأسرار إذا كانت النسخة قديمة؛ تفشل خطوة التوافق بوضوح ويحتاج runner تحديث Compose.
+
+نتائج التحقق الفعلية:
+
+- Compose المحلي `v5.1.4`: الخيار موجود في help؛ الفحص بالصيغة أعلاه نجح بخروج 0 رغم غياب ملفات runtime، والفحص بدونه فشل بخروج 1 كما هو متوقع.
+- `actionlint` لـGHCR نجح؛ shellcheck/pyflakes غير متاحين محليًا. `git diff --check` نجح.
+- Docker طبع تحذيرًا بأن sandbox يمنع قراءة إعداد المستخدم `.docker/config.json`؛ لم يمنع فحص Compose ولم تُقرأ أو تُطبع بيانات ذلك الملف.
+- لم يُنفذ `up` أو `run` أو `start` أو build ضمن هذه المعالجة؛ جميع أوامر Docker المنفذة محليًا كانت version/help/config فقط، ولا تشغل خدمات أو تتصل بقواعد البيانات.
+- لم تُنشأ ملفات env وهمية أو أسرار، ولم يتغير `compose.ghcr.yaml` أو Trivy أو gate أو publish أو صلاحيات GITHUB_TOKEN. ملفا هذه المعالجة فقط: Workflow وهذا التقرير. لا commit أو push.
+
+التحقق على نسخة GitHub الفعلية ينتظر إعادة تشغيل Workflow للـSHA الذي يتضمن هذا التعديل؛ الخطوة الجديدة تسجل إصدارها وتثبت دعم الخيار على runner نفسه. لم يُعَد تشغيل GitHub Actions من هذه الجلسة. بقاء عائق Trivy الأمني مستقل عن هذا الإصلاح ولا يُتجاوز.
+
 تاريخ آخر تحديث: 16 أكتوبر 2026، بتوقيت Africa/Khartoum.
 
 **نتيجة Security Remediation الأحدث: نشر GHCR ما زال محجوبًا بسبب PHP.** تمت إعادة البناء بـ`--pull` وفحص OS ومكتبات التطبيق والأسرار، دون تجاوز بوابة الأمان.
