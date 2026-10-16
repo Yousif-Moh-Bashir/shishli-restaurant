@@ -1,6 +1,65 @@
 # SHISHLI — Phase 3B: GitHub Container Registry
 
+## التصحيح المثبت لتوافق Compose v2.38.2 — PR #2
+
+هذا القسم يصحح استنتاج الإصلاح السابق أدناه: نجاح `v5.1.4` وظهور الخيار في help **لا يثبتان** توافق `v2.38.2`. السبب ليس فحصًا ثانيًا أو غياب الخيار؛ أُعيد إنتاج الفشل بالأمر الذي يحتويه فعلًا.
+
+### السبب الجذري والأمر الفاشل
+
+تمت مراجعة `.github/workflows/ghcr.yml` كاملًا. قبل هذا التصحيح كان استدعاء Compose محصورًا في خطوة `Validate deployment Compose without runtime secrets` داخل job `build`: `version` ثم `config --help` ثم الأمر الفاشل:
+
+```sh
+docker compose -f compose.ghcr.yaml config --quiet --no-env-resolution
+```
+
+لا يوجد فحص Compose ثانٍ في خطوات بناء الصور أو فحص الطبقات أو Trivy أو gate أو publish. يأتي هذا الفحص بعد checkout وsetup-buildx وقبل اختبارات gate والبناء. أوامر Compose في `.github/workflows/ci.yml` تخص Compose المحلي وليست قارئًا لـ`compose.ghcr.yaml`؛ لم تتغير هنا.
+
+تأكد دعم الاسم `--no-env-resolution` في **help للأداة v2.38.2 نفسها**، لكنه غير كافٍ: [مصدر config.go لذلك الإصدار](https://github.com/docker/compose/blob/v2.38.2/cmd/compose/config.go#L67) يمرر `WithDiscardEnvFile` دون `WithoutEnvironmentResolution` أثناء تحميل المشروع. فحص `noResolveEnv` يأتي لاحقًا داخل `runConfigInterpolate`، بعد `ToProject`. مرحلة `LoadProject` في [compose.go](https://github.com/docker/compose/blob/v2.38.2/cmd/compose/compose.go#L276) تقرأ ملفات الخدمة المطلوبة قبل بلوغ ذلك الفحص. لذلك يفشل الأمر عند ملف app.env الغائب حتى مع الخيار.
+
+الدليل التنفيذي: تنزيل إصدار Windows الرسمي من [release v2.38.2](https://github.com/docker/compose/releases/tag/v2.38.2) إلى Temp ومطابقة SHA256 مع checksums.txt الرسمي: `ba8f09d3873f7a9755b863ed2013a1276b96fcbbc074c69ff3d3cfbce3e0186f`. أظهر `version` الإصدار المطلوب؛ الأمر السابق أعاد exit 1 وخطأ app.env الغائب. على Windows يظهر المسار مترجمًا داخل مسار المشروع، مقابل `/etc/shishli/app.env` على Ubuntu. هذا يثبت فشل الأمر والتوافق، وليس مجرد تخمين من اسم الخطوة. سجل GitHub الكامل وSHA التشغيل لم يُجلبا عبر اتصال مصادق؛ تحديد الخطوة يستند إلى مراجعة Workflow الحالي والمخرجات التي قدمها المستخدم وإعادة الإنتاج.
+
+### التعديل
+
+استبدلت الخطوة أوامرها باستدعاء:
+
+```sh
+python3 .github/scripts/test_validate_ghcr_compose.py
+python3 .github/scripts/validate-ghcr-compose.py
+```
+
+أداة التحقق تستخدم Python stdlib فقط. تنشئ `TemporaryDirectory` خارج المستودع بثلاثة ملفات: app.env بقيم APP_ENV=testing وAPP_DEBUG=false، وmysql.env باسم قاعدة اختبار غير سرية، وملف فارغ خاص باستبدال متغيرات Compose. لا توجد مفاتيح أو كلمات مرور للنشر. تُحدد مسارات ملفي الخدمة عبر المتغيرين الموجودين أصلًا `SHISHLI_RUNTIME_ENV_FILE` و`SHISHLI_MYSQL_ENV_FILE`، وتثبت منفذ التحقق 8089 ووسم الصورة الممرر من Workflow. تُحذف متغيرات COMPOSE_* الموروثة وتُمرر `--env-file` صراحة لمنع تحميل `.env` للمطور أو ملفات Compose بديلة. الأمر الفعلي الوحيد لفحص النموذج هو:
+
+```sh
+docker compose --env-file <temp>/interpolation.env -f <repo>/compose.ghcr.yaml config --quiet
+```
+
+الملفات مؤقتة ومعزولة وتُحذف عند النجاح والفشل. لا تُطبع محتوياتها أو النموذج المحلول، ولا تُستخدم أسرار Staging/Production. `config` لا يشغل حاويات ولا يحتاج daemon أو قواعد بيانات. بقيت مسارات `/etc/shishli/*` الافتراضية في `compose.ghcr.yaml` دون تعديل؛ التوجيه إلى Temp خاص بعملية التحقق فقط.
+
+### الاختبارات وحدود التحقق
+
+| التحقق | النتيجة |
+| --- | --- |
+| v2.38.2 الرسمي: help + الأمر القديم بالخيار | الخيار مدعوم بالاسم؛ الأمر يفشل exit 1 عند app.env كما أبلغ GitHub |
+| v2.38.2 الرسمي: الفحص البديل | exit 0 |
+| اختبارات regression على v2.38.2 | 3 ناجحة: النموذج الحقيقي مع مسارات موروثة غير موجودة وCOMPOSE_FILE/COMPOSE_ENV_FILES غير صالحين؛ رفض GHCR_IMAGE_TAG فارغ؛ رفض depends_on لخدمة مفقودة. جميعها تتحقق من حذف الملفات المؤقتة، والأول يثبت عدم تعديل ملف النشر |
+| الفحص والاختبارات الثلاثة على v5.1.4 | ناجحة أيضًا |
+| actionlint لـghcr.yml | ناجح؛ shellcheck وpyflakes غير متاحين محليًا |
+| git diff --check | ناجح |
+
+تشغيل اختبارات التوافق محليًا: اضبط `SHISHLI_TEST_COMPOSE_BINARY` إلى مسار الأداة المستقلة v2.38.2 ثم شغل ملف الاختبارات؛ وللتحقق التنفيذي استخدم `validate-ghcr-compose.py --compose-binary <path>` مع GHCR_IMAGE_TAG. داخل Actions تستخدم الاختبارات الأداة المثبتة على Ubuntu مباشرة قبل البناء، لذا فشل التوافق يمنع التقدم. التحقق المحلي نفذ **الإصدار نفسه على Windows**، وليس Ubuntu؛ إعادة تشغيل PR #2 ما زالت مطلوبة لإثبات النتيجة على runner الفعلي. لم يُثبت أي plugin محل Compose المحلي ولم تُشغل خدمات.
+
+ملفات هذه المعالجة فقط:
+
+- `.github/workflows/ghcr.yml`
+- `.github/scripts/validate-ghcr-compose.py`
+- `.github/scripts/test_validate_ghcr_compose.py`
+- `docs/GHCR_SETUP_REPORT.md`
+
+لم تتغير Trivy أو بوابة CI أو gate/publish أو صلاحيات GHCR أو Compose الإنتاجي. لا `compose up/down/run` أو تعديل حاويات أو قواعد بيانات أو Volumes أو commit أو push. هذه المعالجة تصلح فحص Compose فقط؛ العائق الأمني المستقل يبقى ساريًا.
+
 ## إصلاح فحص Compose في Pull Request — 16 أكتوبر 2026
+
+**سجل تاريخي: محدودية هذا الإصلاح مثبتة في قسم v2.38.2 أعلاه، وقد استُبدلت آليته.**
 
 سبب الخطأ: `docker compose -f compose.ghcr.yaml config --quiet` يحاول تحميل ملفات `env_file` للخدمات، ومنها `/etc/shishli/app.env` و`/etc/shishli/mysql.env`. الخيار `--quiet` يمنع طباعة النموذج فقط؛ لا يمنع قراءة ملفات البيئة. الأمر متعلق بفحص Compose داخل build وليس بأمر بناء الصور أو تسجيل دخول GHCR.
 

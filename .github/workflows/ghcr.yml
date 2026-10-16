@@ -56,10 +56,8 @@ jobs:
         env:
           GHCR_IMAGE_TAG: sha-${{ needs.gate.outputs.sha || github.sha }}
         run: |
-          docker compose version
-          docker compose config --help | grep -q -- '--no-env-resolution'
-          # Validate the model without opening host-only service env_file paths.
-          docker compose -f compose.ghcr.yaml config --quiet --no-env-resolution
+          python3 .github/scripts/test_validate_ghcr_compose.py
+          python3 .github/scripts/validate-ghcr-compose.py
       - name: Test publishing authorization rules
         run: |
           node --test .github/scripts/ghcr-gate.test.mjs
