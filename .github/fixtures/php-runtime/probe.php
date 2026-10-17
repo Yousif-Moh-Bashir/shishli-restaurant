@@ -105,9 +105,10 @@ try {
             DB::connection('mysql')->getPdo();
             throw new RuntimeException('CONNECTION_UNEXPECTEDLY_SUCCEEDED');
         case 'bad-redis':
-            config(['database.redis.default.port' => 1, 'database.redis.default.timeout' => 1]);
-            Redis::purge('default');
-            Redis::connection()->ping();
+            config(['database.redis.default.url' => null, 'database.redis.default.port' => 1, 'database.redis.default.timeout' => 1]);
+            // A resolved manager snapshots config; purge() does not reload it.
+            $redis = new Illuminate\Redis\RedisManager($app, config('database.redis.client'), config('database.redis'));
+            $redis->connection()->ping();
             throw new RuntimeException('CONNECTION_UNEXPECTEDLY_SUCCEEDED');
         default:
             throw new RuntimeException('UNKNOWN_PROBE');
