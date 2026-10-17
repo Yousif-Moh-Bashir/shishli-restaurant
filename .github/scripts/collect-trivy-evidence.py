@@ -8,9 +8,11 @@ from pathlib import Path
 import re
 import subprocess
 import tarfile
+import tempfile
 
 VERSION = '0.69.3'
 DB_REPOSITORY = 'ghcr.io/aquasecurity/trivy-db:2'
+DB_FALLBACK_REPOSITORY = 'public.ecr.aws/aquasecurity/trivy-db:2'
 IMAGES = {'php': '/tmp/app.tar', 'nginx': '/tmp/nginx.tar'}
 ALL_SEVERITIES = 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
 
@@ -133,7 +135,11 @@ def source():
     }
 
 
-def scanner(cache):
+def scanner(cache, repository=None):
+    if repository is None:
+        marker = cache / 'database-source.json'
+        repository = load(marker) if marker.exists() else DB_REPOSITORY
+    require(repository in (DB_REPOSITORY, DB_FALLBACK_REPOSITORY), 'database_update_failed')
     metadata = load(cache / 'db' / 'metadata.json')
     require(metadata.get('Version') == 2, 'unsupported_db_schema')
     result = {key: timestamp(metadata.get(key)) for key in ('UpdatedAt', 'DownloadedAt', 'NextUpdate')}
@@ -141,8 +147,8 @@ def scanner(cache):
     # Only normalized timestamps and constants reach the log, never raw metadata
     # or subprocess output. Log before rejecting an expired database.
     print('Trivy database: ' + json.dumps({
-        **result, 'now_utc': now.isoformat(), 'configured_repository': DB_REPOSITORY,
-        'cache_location': '$RUNNER_TEMP/shishli-trivy-cache/db',
+        **result, 'now_utc': now.isoformat(), 'configured_repository': repository,
+        'cache_location': 'selected-cache/db',
         'trivy_version': VERSION, 'db_schema': 2,
     }, sort_keys=True))
     require(datetime.fromisoformat(result['NextUpdate']) > now, 'database_expired')
@@ -184,6 +190,31 @@ def prepare(private, cache):
     }, sort_keys=True))
     require(invoke(['trivy', 'image', '--cache-dir', str(cache), '--db-repository',
                     DB_REPOSITORY, '--download-db-only']).returncode == 0, 'database_update_failed')
+    try:
+        scanner(cache, DB_REPOSITORY)
+    except EvidenceError as error:
+        if error.args != ('database_expired',):
+            raise
+        announce('prepare', 'database_expired')
+        # A fresh, isolated cache prevents Trivy's one-hour DownloadedAt policy
+        # from reusing the expired primary snapshot on the fallback attempt.
+        with tempfile.TemporaryDirectory(prefix='db-fallback-', dir=private) as directory:
+            fallback = Path(directory)
+            try:
+                require(invoke(['trivy', 'image', '--cache-dir', str(fallback),
+                                '--db-repository', DB_FALLBACK_REPOSITORY,
+                                '--download-db-only']).returncode == 0, 'database_update_failed')
+                scanner(fallback, DB_FALLBACK_REPOSITORY)
+            except FAILURES as failure:
+                announce('prepare', diagnostic(failure))
+                raise EvidenceError('database_expired') from None
+            # Promote only a validated snapshot; scan/collect retain their
+            # existing freshness and database-hash checks on the stable cache.
+            for filename in ('trivy.db', 'metadata.json'):
+                (fallback / 'db' / filename).replace(cache / 'db' / filename)
+        write(cache / 'database-source.json', DB_FALLBACK_REPOSITORY)
+    else:
+        write(cache / 'database-source.json', DB_REPOSITORY)
     context = {'source': source(), 'scanner': scanner(cache), 'images': {}}
     for name, path in IMAGES.items():
         context['images'][name] = identity(Path(path), os.environ.get(name.upper() + '_BUILD_DIGEST'), context['source']['sha'])

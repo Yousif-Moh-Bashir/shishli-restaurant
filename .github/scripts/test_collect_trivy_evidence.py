@@ -50,6 +50,7 @@ class EvidenceTest(unittest.TestCase):
         self.findings = {}
         self.behavior = {}
         self.commands = []
+        self.databases = {}
         self.environment = patch.dict(os.environ, {
             'IMAGE_SHA': SHA, 'GITHUB_REPOSITORY': 'owner/repo', 'GITHUB_RUN_ID': '123',
             'GITHUB_RUN_ATTEMPT': '2', 'PHP_BUILD_DIGEST': DIGEST, 'NGINX_BUILD_DIGEST': DIGEST,
@@ -87,9 +88,15 @@ class EvidenceTest(unittest.TestCase):
         if command == ['trivy', '--version']:
             return subprocess.CompletedProcess(command, 0, 'Version: ' + evidence.VERSION + '\n', '')
         if '--download-db-only' in command:
-            folder = self.cache / 'db'
+            repository = command[command.index('--db-repository') + 1]
+            metadata = self.databases.get(repository, self.db)
+            if metadata == 'timeout':
+                raise subprocess.TimeoutExpired(command, 600, output=SENSITIVE)
+            if metadata is None:
+                return subprocess.CompletedProcess(command, 1, SENSITIVE, SENSITIVE)
+            folder = Path(command[command.index('--cache-dir') + 1]) / 'db'
             folder.mkdir(parents=True, exist_ok=True)
-            evidence.write(folder / 'metadata.json', self.db)
+            evidence.write(folder / 'metadata.json', metadata)
             (folder / 'trivy.db').write_bytes(b'test database snapshot')
             return subprocess.CompletedProcess(command, 0, '', '')
         name = Path(command[command.index('--input') + 1]).stem
@@ -467,6 +474,50 @@ class EvidenceTest(unittest.TestCase):
         with self.assertRaisesRegex(evidence.EvidenceError, '^database_expired$'):
             evidence.scan_image(self.private, self.cache, 'php')
         self.assertEqual(len(self.commands), before)
+
+    def test_expired_primary_falls_back_to_fresh_isolated_cache_and_scans(self):
+        self.databases[evidence.DB_REPOSITORY] = dict(
+            self.db, NextUpdate=(self.now - timedelta(seconds=1)).isoformat())
+        self.commands.clear()
+        evidence.prepare(self.root / 'fallback-private', self.cache)
+        downloads = [command for command in self.commands if '--download-db-only' in command]
+        self.assertEqual(len(downloads), 2)
+        self.assertEqual([command[command.index('--db-repository') + 1] for command in downloads],
+                         [evidence.DB_REPOSITORY, evidence.DB_FALLBACK_REPOSITORY])
+        self.assertNotEqual(downloads[0][downloads[0].index('--cache-dir') + 1],
+                            downloads[1][downloads[1].index('--cache-dir') + 1])
+        self.assertEqual(evidence.load(self.cache / 'database-source.json'),
+                         evidence.DB_FALLBACK_REPOSITORY)
+        self.assertEqual(evidence.load(self.cache / 'db/metadata.json'), self.db)
+        self.assertEqual(evidence.scanner(self.cache),
+                         evidence.load(self.root / 'fallback-private/context.json')['scanner'])
+        self.assertEqual(self.scan_both(), {'php': 'success', 'nginx': 'success'})
+        self.assertIn(evidence.DB_FALLBACK_REPOSITORY, self.console.getvalue())
+
+    def test_fallback_failure_never_produces_context_or_starts_scan(self):
+        expired = dict(self.db, NextUpdate=(self.now - timedelta(seconds=1)).isoformat())
+        self.databases[evidence.DB_REPOSITORY] = expired
+        for index, fallback in enumerate((expired, None, 'timeout',
+                                          dict(self.db, Version=3),
+                                          dict(self.db, NextUpdate=SENSITIVE))):
+            with self.subTest(fallback=index):
+                self.databases[evidence.DB_FALLBACK_REPOSITORY] = fallback
+                self.commands.clear()
+                private = self.root / ('failed-fallback-' + str(index))
+                with self.assertRaisesRegex(evidence.EvidenceError, '^database_expired$'):
+                    evidence.prepare(private, self.cache)
+                self.assertFalse((private / 'context.json').exists())
+                self.assertFalse(any('--input' in command for command in self.commands))
+                self.assertEqual(evidence.load(self.cache / 'db/metadata.json'), expired)
+                self.assertFalse(list(private.glob('db-fallback-*')))
+        self.assertNotIn(SENSITIVE, self.console.getvalue())
+
+    def test_invalid_primary_metadata_does_not_trigger_expiry_fallback(self):
+        self.databases[evidence.DB_REPOSITORY] = dict(self.db, NextUpdate=SENSITIVE)
+        self.commands.clear()
+        with self.assertRaisesRegex(evidence.EvidenceError, '^invalid_timestamp$'):
+            evidence.prepare(self.root / 'invalid-private', self.cache)
+        self.assertEqual(sum('--download-db-only' in command for command in self.commands), 1)
 
     def test_duplicate_scan_does_not_reuse_stale_report(self):
         self.assertEqual(evidence.scan_image(self.private, self.cache, 'php'), 0)
