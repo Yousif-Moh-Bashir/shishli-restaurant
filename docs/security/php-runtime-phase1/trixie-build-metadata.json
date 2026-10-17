@@ -1,0 +1,67 @@
+{
+  "buildx.build.provenance": {
+    "builder": {
+      "id": ""
+    },
+    "buildType": "https://mobyproject.org/buildkit@v1",
+    "materials": [
+      {
+        "uri": "pkg:docker/composer@2?platform=linux%2Famd64",
+        "digest": {
+          "sha256": "af98f42dfff7c68ba8d53c2164fd9fde1087b7d449514baa38c418b1f6bc4bac"
+        }
+      },
+      {
+        "uri": "pkg:docker/php@8.3.35-fpm-trixie?platform=linux%2Famd64",
+        "digest": {
+          "sha256": "ed67b5fcd7600614dd651621a04214fbe16d373262cb31eb50bc224c18cf0e88"
+        }
+      }
+    ],
+    "invocation": {
+      "configSource": {
+        "entryPoint": "trixie.Dockerfile"
+      },
+      "parameters": {
+        "frontend": "dockerfile.v0",
+        "args": {
+          "target": "production"
+        },
+        "locals": [
+          {
+            "name": "context"
+          },
+          {
+            "name": "dockerfile"
+          }
+        ],
+        "root": {
+          "configSource": {
+            "path": "trixie.Dockerfile"
+          },
+          "request": {
+            "args": {
+              "target": "production",
+              "vcs:localdir:context": ".",
+              "vcs:revision": "1561d2545a4d64c946c328b82b19ec617f209907",
+              "vcs:source": "https://github.com/Yousif-Moh-Bashir/shishli-restaurant.git"
+            }
+          }
+        },
+        "compatibilityVersion": 20
+      },
+      "environment": {
+        "dockerfileVersion": "1.24.0",
+        "platform": "linux/amd64"
+      }
+    }
+  },
+  "buildx.build.ref": "desktop-linux/desktop-linux/l6862b060earih5eql5amq60x",
+  "containerimage.descriptor": {
+    "mediaType": "application/vnd.oci.image.index.v1+json",
+    "digest": "sha256:e92494badf1a3ec81293cbeb2bdccd08ea1c93555c20081cf26a409ac045b3b5",
+    "size": 856
+  },
+  "containerimage.digest": "sha256:e92494badf1a3ec81293cbeb2bdccd08ea1c93555c20081cf26a409ac045b3b5",
+  "image.name": "docker.io/library/shishli-php-phase1:trixie-20261016"
+}

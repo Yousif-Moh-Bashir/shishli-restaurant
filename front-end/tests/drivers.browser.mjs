@@ -9,7 +9,7 @@ const branch = { id:id(1), name:'فرع المصيف', location:{city:'تبوك'
 let mode = 'driver', accepted = false, stage = null, paid = false, acceptConflict = true, detailFailure = 0, settled = false
 const driver = { id:id(2),name:'مندوب الاختبار',phone:'+966551234567',email:null,enabled:true,available:true,account_active:true,branch,delivered_count:0,unsettled_cash:'85.00',current_order:null }
 const preparation = () => stage==='on_the_way'?'out_for_delivery':stage==='delivered'?'completed':'ready'
-const actions = () => stage==='assigned'?['picked_up','failed']:stage==='picked_up'?['on_the_way','failed',...(!paid?['collect_cash']:[])]:stage==='on_the_way'?[...(paid?['delivered']:['collect_cash']),'failed']:[]
+const actions = () => stage==='assigned'?['picked_up','failed']:stage==='picked_up'?['on_the_way','failed',...(!paid?['collect_payment']:[])]:stage==='on_the_way'?[...(paid?['delivered']:['collect_payment']),'failed']:[]
 const summary = () => ({ id:id(3),order_number:'SH-DRIVER',branch,preparation_status:preparation(),estimated_ready_at:'2026-10-08T12:30:00Z',district:'المصيف',delivery_zone:'المصيف',delivery_fee:'5.00',currency:'SAR',delivery_status:stage,available_actions:accepted?actions():driver.available&&driver.enabled?['accept']:[] })
 const detail = () => ({ ...summary(),customer:{name:'عميل خاص',phone:'0559999999'},address:{recipient_name:'عميل خاص',phone:'0559999999',city:'تبوك',district:'المصيف',street:'شارع الاختبار',building_number:'12',notes:'الجرس عند الباب',location:{latitude:'28.4378538',longitude:'36.5455267'}},branch_location:{latitude:'28.43',longitude:'36.54'},total:'85.00',payment_method:'cash',payment_status:paid?'paid':'pending',cash_due:paid?'0.00':'85.00',history:[{to_status:stage,actor:driver.name,at:'2026-10-08T12:00:00Z',reason:null}] })
 const collection = () => ({id:id(4),order:{id:id(3),order_number:'SH-DRIVER'},amount:'85.00',currency:'SAR',collected_at:'2026-10-08T12:00:00Z',settled_at:settled?'2026-10-08T12:10:00Z':null,settlement:settled?{cashier:'كاشير الاختبار',reason:'استلام العهدة'}:null})
@@ -36,6 +36,7 @@ browser.onEvent('Fetch.requestPaused', async ({requestId,request}) => {
     else if (path.endsWith('/accept')) {if(acceptConflict){status=409;acceptConflict=false}else{accepted=true;stage='assigned';data=detail()}}
     else if (path.endsWith('/transition')) {stage=body.status;data=detail()}
     else if (path.endsWith('/cash/collect')) {paid=true;data=collection()}
+    else if (path.endsWith('/payment/collect')) {paid=true;data=detail()}
     else if (path.includes('/driver/orders/')) {status=detailFailure||200;data=detail()}
     else if (path.endsWith('/driver/collections')) {data=paid && (url.searchParams.get('settled')!=='0'||!settled)?[collection()]:[];paginated=true}
     else if (path.endsWith('/admin/drivers') && request.method==='POST') {data={...driver,...body,id:id(5)};status=201}
@@ -87,11 +88,14 @@ try {
   checks.push('responsive driver details: 320,360,390,430,768,1280')
   await browser.click('button','استلام من الفرع');await browser.wait('document.body.innerText.includes("بدء التوصيل")')
   await browser.click('button','بدء التوصيل');await browser.wait('document.body.innerText.includes("في الطريق للعميل")')
-  assert.equal(await browser.evaluate('[...document.querySelectorAll("button")].some(b=>b.textContent.includes("تأكيد التسليم"))'),false)
-  await browser.click('button','تسجيل التحصيل النقدي');await browser.input('.driver-field input[type=number]','85.00');await browser.click('button','تأكيد استلام المبلغ');await browser.wait('document.body.innerText.includes("تأكيد التسليم")')
-  await browser.click('button','تأكيد التسليم');await browser.wait('document.body.innerText.includes("تم التسليم")')
-  assert.equal(requests.filter(request=>request.method==='POST' && request.path.endsWith('/cash/collect')).length,1)
-  checks.push('picked up, on the way, cash before delivered, no duplicate collection')
+  assert.equal(await browser.evaluate('[...document.querySelectorAll("button")].find(b=>b.textContent.includes("إكمال الطلب"))?.disabled'),true)
+  assert.equal(await browser.evaluate('document.querySelector("#driver-payment-required")?.textContent.includes("أكّد تحصيل المبلغ")'),true)
+  assert.equal(await browser.evaluate('document.querySelector(".driver-field input[type=number]")'),null)
+  await browser.click('button','تأكيد تحصيل المبلغ');await browser.wait('[...document.querySelectorAll("button")].some(b=>b.textContent.includes("إكمال الطلب")&&!b.disabled)')
+  assert.equal(await browser.evaluate('document.querySelector("#driver-payment-required")'),null)
+  await browser.click('button','إكمال الطلب');await browser.wait('document.body.innerText.includes("تم التسليم")')
+  assert.equal(requests.filter(request=>request.method==='POST' && request.path.endsWith('/payment/collect')).length,1)
+  checks.push('picked up, on the way, receipt confirmation without selecting payment method, completion, no duplicate collection')
   await browser.go(origin,'/driver/collections');await browser.wait('document.body.innerText.includes("عهدة نقدية")')
   checks.push('driver unsettled collections')
   for (const code of [403,404,500]) { detailFailure=code;await browser.go(origin,'/driver/orders/'+id(3));await browser.wait('document.querySelector(".driver-error")');assert.equal(await browser.evaluate('document.body.innerText.includes("عميل خاص")'),false) }

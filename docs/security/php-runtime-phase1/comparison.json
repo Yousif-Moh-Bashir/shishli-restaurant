@@ -1,0 +1,2272 @@
+{
+  "schema_version": 1,
+  "assessment_time_utc": "2026-10-16T14:56:55.676133+00:00",
+  "source": {
+    "commit": "1561d2545a4d64c946c328b82b19ec617f209907",
+    "protected_files_sha256": {
+      "docker/php/Dockerfile": "997b3e16b35569220cfbca6a76cde964edd4c3a278c35877c7a57938819b99e4",
+      "docker/nginx/Dockerfile": "279e32986e5cb6eb30ad138dae6a82cb6187ce248a72659d0f27b007c546d981",
+      "compose.yaml": "3143d8ac002eaab795daa66ec0d179153575c82ba0ef6655eed4177d5585c2a3",
+      "compose.ghcr.yaml": "a215d30b5ab8dcbcd3dd785c8095e716a743b3aef93fa4d3639d49a5f94c9bc9",
+      ".github/workflows/ghcr.yml": "97a91fd3b0fae023dce6434ef173c67de94832af2046a53809c3d8e28edc93eb",
+      ".github/workflows/ci.yml": "b506944705fce6384315da6076de5abd04becc559f036b13dfa0342389cf5f38",
+      "back-end/composer.lock": "814654bcca41e687a668282124f99b4953818fecc6ed65884d98d612a15f0860",
+      "front-end/package-lock.json": "1f44b9c44238df4226ef0ea95a5ced44980bf4745b863c3fb0b57849fb68f02d",
+      ".dockerignore": "de0273419d7e72aca7c2d48e91f198353bb7d7c3ebb8c13fffc661dfce7666bf"
+    }
+  },
+  "github_reference": {
+    "run_id": 38845986381,
+    "job_id": 116796516552,
+    "head_sha": "1561d2545a4d64c946c328b82b19ec617f209907",
+    "url": "https://github.com/Yousif-Moh-Bashir/shishli-restaurant/actions/runs/38845986381/job/116796516552",
+    "failed_step": "Scan PHP image",
+    "exit_code": 1,
+    "counts_reported_by_user": {
+      "HIGH": 77,
+      "CRITICAL": 3
+    },
+    "workflow_configured_trivy": "0.69.3",
+    "exact_runner_trivy_binary_verified": false,
+    "runner_vulnerability_db_metadata": null,
+    "runner_image_digest": null,
+    "dedicated_trivy_json_artifact_found": false,
+    "artifact_contents_downloaded": false
+  },
+  "scanner": {
+    "version": "0.69.3",
+    "db_metadata": {
+      "Version": 2,
+      "NextUpdate": "2026-10-16T19:09:25.631493777Z",
+      "UpdatedAt": "2026-10-15T19:09:25.631494278Z",
+      "DownloadedAt": "2026-10-15T21:58:45.7543363Z"
+    },
+    "db_sha256": "32c6ed2327c56930f4814c2f243bcdbf54fe4b6b42d85533e53d0a02ebe36e4d",
+    "flags": [
+      "--skip-db-update",
+      "--scanners=vuln,secret",
+      "--list-all-pkgs",
+      "--ignore-unfixed=false",
+      "--severity=UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL"
+    ],
+    "baseline_gate_exit_code": 1,
+    "database_update_check": "download-db-only succeeded; database still within NextUpdate; no new snapshot required"
+  },
+  "candidates": {
+    "bookworm": {
+      "image_tag": "shishli-php-phase1:bookworm-20261016",
+      "local_image_id": "sha256:417f8ff0efc02c998c79dbd177195bc4378fa0cca8ab13af849eacd6a0cdfba2",
+      "build_manifest_digest": "sha256:417f8ff0efc02c998c79dbd177195bc4378fa0cca8ab13af849eacd6a0cdfba2",
+      "size_bytes": 184662292,
+      "platform": "linux/amd64",
+      "base_materials": [
+        {
+          "uri": "pkg:docker/composer@2?platform=linux%2Famd64",
+          "digest": {
+            "sha256": "af98f42dfff7c68ba8d53c2164fd9fde1087b7d449514baa38c418b1f6bc4bac"
+          }
+        },
+        {
+          "uri": "pkg:docker/php@8.3.35-fpm-bookworm?platform=linux%2Famd64",
+          "digest": {
+            "sha256": "f768bd9142444f6126a690697b028c23f30878c3b628a7c355dfce75e29cc045"
+          }
+        }
+      ],
+      "scan_created_at": "2026-10-16T16:53:17.0759463+02:00",
+      "scan_sha256": "2893b8473a03eaf17b883499e8ff063e2024ee5851904a640344e838fabd02d1",
+      "recipe_sha256": "997b3e16b35569220cfbca6a76cde964edd4c3a278c35877c7a57938819b99e4",
+      "build_seconds": 3.8330143,
+      "severity_counts": {
+        "LOW": 160,
+        "HIGH": 77,
+        "MEDIUM": 133,
+        "CRITICAL": 3,
+        "UNKNOWN": 1
+      },
+      "unique_high_critical_cves": 29,
+      "affected_high_critical_packages": {
+        "bsdutils": {
+          "HIGH": 6
+        },
+        "curl": {
+          "HIGH": 5
+        },
+        "gzip": {
+          "HIGH": 1
+        },
+        "libacl1": {
+          "HIGH": 1
+        },
+        "libblkid1": {
+          "HIGH": 6
+        },
+        "libcurl4": {
+          "HIGH": 5
+        },
+        "libldap-2.5-0": {
+          "HIGH": 1
+        },
+        "libmount1": {
+          "HIGH": 6
+        },
+        "libsmartcols1": {
+          "HIGH": 6
+        },
+        "libsqlite3-0": {
+          "CRITICAL": 1,
+          "HIGH": 2
+        },
+        "libssl3": {
+          "HIGH": 1
+        },
+        "libsystemd0": {
+          "HIGH": 1
+        },
+        "libtinfo6": {
+          "HIGH": 1
+        },
+        "libudev1": {
+          "HIGH": 1
+        },
+        "libuuid1": {
+          "HIGH": 6
+        },
+        "libxml2": {
+          "CRITICAL": 1,
+          "HIGH": 6
+        },
+        "mount": {
+          "HIGH": 6
+        },
+        "ncurses-base": {
+          "HIGH": 1
+        },
+        "ncurses-bin": {
+          "HIGH": 1
+        },
+        "openssl": {
+          "HIGH": 1
+        },
+        "perl-base": {
+          "HIGH": 1
+        },
+        "util-linux": {
+          "HIGH": 6
+        },
+        "util-linux-extra": {
+          "HIGH": 6
+        },
+        "zlib1g": {
+          "CRITICAL": 1
+        }
+      },
+      "status_counts_high_critical": {
+        "affected": 57,
+        "fix_deferred": 22,
+        "will_not_fix": 1
+      },
+      "fixable_high_critical_count": 0,
+      "application_vulnerability_count": 0,
+      "secret_count": 0,
+      "package_count_os": 121,
+      "critical_libraries": [
+        {
+          "package": "libicu72",
+          "version": "72.1",
+          "release": "3+deb12u1",
+          "source": "icu",
+          "depends_on": [
+            "libc6@2.36-9+deb12u14",
+            "libgcc-s1@12.2.0-14+deb12u1",
+            "libstdc++6@12.2.0-14+deb12u1"
+          ]
+        },
+        {
+          "package": "libsqlite3-0",
+          "version": "3.40.1",
+          "release": "2+deb12u2",
+          "source": "sqlite3",
+          "depends_on": [
+            "libc6@2.36-9+deb12u14"
+          ]
+        },
+        {
+          "package": "libssl3",
+          "version": "3.0.22",
+          "release": "1~deb12u1",
+          "source": "openssl",
+          "depends_on": [
+            "libc6@2.36-9+deb12u14"
+          ]
+        },
+        {
+          "package": "libxml2",
+          "version": "2.9.14+dfsg",
+          "release": "1.3~deb12u6",
+          "source": "libxml2",
+          "depends_on": [
+            "libc6@2.36-9+deb12u14",
+            "libicu72@72.1-3+deb12u1",
+            "liblzma5@5.4.1-1+deb12u2",
+            "zlib1g@1:1.2.13.dfsg-1"
+          ]
+        },
+        {
+          "package": "zlib1g",
+          "version": "1.2.13.dfsg",
+          "release": "1",
+          "source": "zlib",
+          "depends_on": [
+            "libc6@2.36-9+deb12u14"
+          ]
+        }
+      ],
+      "runtime_facts": {
+        "php": "8.3.35",
+        "redis": "6.3.0",
+        "sqlite": "3.40.1",
+        "icu": "72.1",
+        "arabic_month": "يناير",
+        "timezone": "15:00",
+        "libxml": "2.9.14"
+      },
+      "runtime_modules": [
+        "[PHP Modules]",
+        "bcmath",
+        "Core",
+        "ctype",
+        "curl",
+        "date",
+        "dom",
+        "fileinfo",
+        "filter",
+        "gd",
+        "hash",
+        "iconv",
+        "intl",
+        "json",
+        "libxml",
+        "mbstring",
+        "mysqlnd",
+        "openssl",
+        "pcntl",
+        "pcre",
+        "PDO",
+        "pdo_mysql",
+        "pdo_sqlite",
+        "Phar",
+        "posix",
+        "random",
+        "readline",
+        "redis",
+        "Reflection",
+        "session",
+        "SimpleXML",
+        "sodium",
+        "SPL",
+        "sqlite3",
+        "standard",
+        "tokenizer",
+        "xml",
+        "xmlreader",
+        "xmlwriter",
+        "Zend OPcache",
+        "zip",
+        "zlib",
+        "",
+        "[Zend Modules]",
+        "Zend OPcache",
+        ""
+      ],
+      "official_package_policy": "libxml2:\n  Installed: 2.9.14+dfsg-1.3~deb12u6\n  Candidate: 2.9.14+dfsg-1.3~deb12u6\n  Version table:\n *** 2.9.14+dfsg-1.3~deb12u6 500\n        500 http://deb.debian.org/debian bookworm/main amd64 Packages\n        100 /var/lib/dpkg/status\n     2.9.14+dfsg-1.3~deb12u4 500\n        500 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages\nlibsqlite3-0:\n  Installed: 3.40.1-2+deb12u2\n  Candidate: 3.40.1-2+deb12u2\n  Version table:\n *** 3.40.1-2+deb12u2 500\n        500 http://deb.debian.org/debian bookworm/main amd64 Packages\n        100 /var/lib/dpkg/status\nzlib1g:\n  Installed: 1:1.2.13.dfsg-1\n  Candidate: 1:1.2.13.dfsg-1\n  Version table:\n *** 1:1.2.13.dfsg-1 500\n        500 http://deb.debian.org/debian bookworm/main amd64 Packages\n        100 /var/lib/dpkg/status\n",
+      "compatibility_checks": "passed in BuildKit with --network none; PHP/FPM/OPcache/extensions/SQLite memory/ZIP/GD/pcntl/Arabic/API routes/shared-library links",
+      "live_mysql_redis_integration_run": false,
+      "full_laravel_suite_run": false,
+      "high_critical_findings": [
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "bsdutils",
+          "cve": "CVE-2026-53613",
+          "severity": "HIGH",
+          "installed_version": "1:2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: TOCTOU in the mount program via ancestor directory swap on target path",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53613"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "bsdutils",
+          "cve": "CVE-2026-53615",
+          "severity": "HIGH",
+          "installed_version": "1:2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: Partition metadata compromise via integer overflow in DOS partition parser",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53615"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "bsdutils",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "1:2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "bsdutils",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "1:2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "bsdutils",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "1:2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "bsdutils",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "1:2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "curl",
+          "cve": "CVE-2026-12064",
+          "severity": "HIGH",
+          "installed_version": "7.88.1-10+deb12u15",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "curl: curl: SSH host verification bypass when using schemeless URLs with SFTP/SCP",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-12064"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "curl",
+          "cve": "CVE-2026-6276",
+          "severity": "HIGH",
+          "installed_version": "7.88.1-10+deb12u15",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "curl: libcurl: Information disclosure due to cookie leak when reusing connections with custom Host headers",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-6276"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "curl",
+          "cve": "CVE-2026-8286",
+          "severity": "HIGH",
+          "installed_version": "7.88.1-10+deb12u15",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "curl: curl: Insecure connection establishment due to TLS configuration mismatch",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-8286"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "curl",
+          "cve": "CVE-2026-8458",
+          "severity": "HIGH",
+          "installed_version": "7.88.1-10+deb12u15",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "curl: libcurl: Unauthorized connection reuse due to a logical error",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-8458"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "curl",
+          "cve": "CVE-2026-8927",
+          "severity": "HIGH",
+          "installed_version": "7.88.1-10+deb12u15",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "curl: Information disclosure due to uncleared proxy authentication state",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-8927"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "gzip",
+          "cve": "CVE-2026-41992",
+          "severity": "HIGH",
+          "installed_version": "1.12-1",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "gzip: gzip: Information disclosure via global buffer overflow in LZH decompression",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-41992"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libacl1",
+          "cve": "CVE-2026-54369",
+          "severity": "HIGH",
+          "installed_version": "2.3.1-3",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "acl: Symlink traversal privilege escalation via libacl functions",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-54369"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libblkid1",
+          "cve": "CVE-2026-53613",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: TOCTOU in the mount program via ancestor directory swap on target path",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53613"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libblkid1",
+          "cve": "CVE-2026-53615",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: Partition metadata compromise via integer overflow in DOS partition parser",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53615"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libblkid1",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libblkid1",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libblkid1",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libblkid1",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libcurl4",
+          "cve": "CVE-2026-12064",
+          "severity": "HIGH",
+          "installed_version": "7.88.1-10+deb12u15",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "curl: curl: SSH host verification bypass when using schemeless URLs with SFTP/SCP",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-12064"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libcurl4",
+          "cve": "CVE-2026-6276",
+          "severity": "HIGH",
+          "installed_version": "7.88.1-10+deb12u15",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "curl: libcurl: Information disclosure due to cookie leak when reusing connections with custom Host headers",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-6276"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libcurl4",
+          "cve": "CVE-2026-8286",
+          "severity": "HIGH",
+          "installed_version": "7.88.1-10+deb12u15",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "curl: curl: Insecure connection establishment due to TLS configuration mismatch",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-8286"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libcurl4",
+          "cve": "CVE-2026-8458",
+          "severity": "HIGH",
+          "installed_version": "7.88.1-10+deb12u15",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "curl: libcurl: Unauthorized connection reuse due to a logical error",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-8458"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libcurl4",
+          "cve": "CVE-2026-8927",
+          "severity": "HIGH",
+          "installed_version": "7.88.1-10+deb12u15",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "curl: Information disclosure due to uncleared proxy authentication state",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-8927"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libldap-2.5-0",
+          "cve": "CVE-2023-2953",
+          "severity": "HIGH",
+          "installed_version": "2.5.13+dfsg-5",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "openldap: null pointer dereference in  ber_memalloc_x  function",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2023-2953"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libmount1",
+          "cve": "CVE-2026-53613",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: TOCTOU in the mount program via ancestor directory swap on target path",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53613"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libmount1",
+          "cve": "CVE-2026-53615",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: Partition metadata compromise via integer overflow in DOS partition parser",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53615"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libmount1",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libmount1",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libmount1",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libmount1",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libsmartcols1",
+          "cve": "CVE-2026-53613",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: TOCTOU in the mount program via ancestor directory swap on target path",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53613"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libsmartcols1",
+          "cve": "CVE-2026-53615",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: Partition metadata compromise via integer overflow in DOS partition parser",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53615"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libsmartcols1",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libsmartcols1",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libsmartcols1",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libsmartcols1",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libsqlite3-0",
+          "cve": "CVE-2025-7458",
+          "severity": "CRITICAL",
+          "installed_version": "3.40.1-2+deb12u2",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "sqlite: SQLite integer overflow",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2025-7458"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libsqlite3-0",
+          "cve": "CVE-2026-11822",
+          "severity": "HIGH",
+          "installed_version": "3.40.1-2+deb12u2",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "sqlite: SQLite: Arbitrary code execution via crafted FTS5 full-text search data",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-11822"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libsqlite3-0",
+          "cve": "CVE-2026-11824",
+          "severity": "HIGH",
+          "installed_version": "3.40.1-2+deb12u2",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "sqlite: SQLite: Arbitrary code execution and crash via heap-based buffer overflow in FTS5",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-11824"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libssl3",
+          "cve": "CVE-2026-84782",
+          "severity": "HIGH",
+          "installed_version": "3.0.22-1~deb12u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "openssl: compat-openssl: openssl: Information disclosure via DTLS handshake retransmission",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-84782"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libsystemd0",
+          "cve": "CVE-2026-16742",
+          "severity": "HIGH",
+          "installed_version": "252.39-1~deb12u2",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "systemd: systemd-homed: Local privilege escalation via missing home-record signature verification",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-16742"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libtinfo6",
+          "cve": "CVE-2025-69720",
+          "severity": "HIGH",
+          "installed_version": "6.4-4",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "ncurses: ncurses: Buffer overflow vulnerability may lead to arbitrary code execution.",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2025-69720"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libudev1",
+          "cve": "CVE-2026-16742",
+          "severity": "HIGH",
+          "installed_version": "252.39-1~deb12u2",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "systemd: systemd-homed: Local privilege escalation via missing home-record signature verification",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-16742"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libuuid1",
+          "cve": "CVE-2026-53613",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: TOCTOU in the mount program via ancestor directory swap on target path",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53613"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libuuid1",
+          "cve": "CVE-2026-53615",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: Partition metadata compromise via integer overflow in DOS partition parser",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53615"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libuuid1",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libuuid1",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libuuid1",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libuuid1",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-6653",
+          "severity": "CRITICAL",
+          "installed_version": "2.9.14+dfsg-1.3~deb12u6",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "libxml2: mingw-libxml2: libxml2: Denial of Service via crafted XML input due to use-after-free",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-6653"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-74860",
+          "severity": "HIGH",
+          "installed_version": "2.9.14+dfsg-1.3~deb12u6",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "libxml2: double-free/UAF in libxml2 Python bindings",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-74860"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-86138",
+          "severity": "HIGH",
+          "installed_version": "2.9.14+dfsg-1.3~deb12u6",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "libxml2: libxml2: Arbitrary code execution via heap-based buffer overflow",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86138"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-86140",
+          "severity": "HIGH",
+          "installed_version": "2.9.14+dfsg-1.3~deb12u6",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "libxml2: libxml2: Arbitrary code execution via stack-based buffer overflow in xmlSnprintfElements",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86140"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-86142",
+          "severity": "HIGH",
+          "installed_version": "2.9.14+dfsg-1.3~deb12u6",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "libxml2: libxml2: Heap-based buffer overflow in xmlXPtrEval due to xpointer length saturation",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86142"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-86143",
+          "severity": "HIGH",
+          "installed_version": "2.9.14+dfsg-1.3~deb12u6",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "libxml2: libxml2: Data integrity issues due to integer overflow in write callbacks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86143"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-86144",
+          "severity": "HIGH",
+          "installed_version": "2.9.14+dfsg-1.3~deb12u6",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "libxml2: libxml2: Information disclosure, SSRF, or denial of service due to improper parseFlags propagation.",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86144"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "mount",
+          "cve": "CVE-2026-53613",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: TOCTOU in the mount program via ancestor directory swap on target path",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53613"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "mount",
+          "cve": "CVE-2026-53615",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: Partition metadata compromise via integer overflow in DOS partition parser",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53615"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "mount",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "mount",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "mount",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "mount",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "ncurses-base",
+          "cve": "CVE-2025-69720",
+          "severity": "HIGH",
+          "installed_version": "6.4-4",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "ncurses: ncurses: Buffer overflow vulnerability may lead to arbitrary code execution.",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2025-69720"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "ncurses-bin",
+          "cve": "CVE-2025-69720",
+          "severity": "HIGH",
+          "installed_version": "6.4-4",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "ncurses: ncurses: Buffer overflow vulnerability may lead to arbitrary code execution.",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2025-69720"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "openssl",
+          "cve": "CVE-2026-84782",
+          "severity": "HIGH",
+          "installed_version": "3.0.22-1~deb12u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "openssl: compat-openssl: openssl: Information disclosure via DTLS handshake retransmission",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-84782"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "perl-base",
+          "cve": "CVE-2026-9538",
+          "severity": "HIGH",
+          "installed_version": "5.36.0-7+deb12u4",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "perl-Archive-Tar: perl-Archive-Tar: Denial of Service via crafted tar header with large entry size",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-9538"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux",
+          "cve": "CVE-2026-53613",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: TOCTOU in the mount program via ancestor directory swap on target path",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53613"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux",
+          "cve": "CVE-2026-53615",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: Partition metadata compromise via integer overflow in DOS partition parser",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53615"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux-extra",
+          "cve": "CVE-2026-53613",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: TOCTOU in the mount program via ancestor directory swap on target path",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53613"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux-extra",
+          "cve": "CVE-2026-53615",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: Partition metadata compromise via integer overflow in DOS partition parser",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-53615"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux-extra",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux-extra",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux-extra",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "util-linux-extra",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.38.1-5+deb12u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "bookworm",
+          "ecosystem": "debian",
+          "package": "zlib1g",
+          "cve": "CVE-2023-45853",
+          "severity": "CRITICAL",
+          "installed_version": "1:1.2.13.dfsg-1",
+          "fixed_version": null,
+          "status": "will_not_fix",
+          "title": "zlib: integer overflow and resultant heap-based buffer overflow in zipOpenNewFileInZip4_6",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2023-45853"
+        }
+      ]
+    },
+    "trixie": {
+      "image_tag": "shishli-php-phase1:trixie-20261016",
+      "local_image_id": "sha256:e92494badf1a3ec81293cbeb2bdccd08ea1c93555c20081cf26a409ac045b3b5",
+      "build_manifest_digest": "sha256:e92494badf1a3ec81293cbeb2bdccd08ea1c93555c20081cf26a409ac045b3b5",
+      "size_bytes": 198216388,
+      "platform": "linux/amd64",
+      "base_materials": [
+        {
+          "uri": "pkg:docker/composer@2?platform=linux%2Famd64",
+          "digest": {
+            "sha256": "af98f42dfff7c68ba8d53c2164fd9fde1087b7d449514baa38c418b1f6bc4bac"
+          }
+        },
+        {
+          "uri": "pkg:docker/php@8.3.35-fpm-trixie?platform=linux%2Famd64",
+          "digest": {
+            "sha256": "ed67b5fcd7600614dd651621a04214fbe16d373262cb31eb50bc224c18cf0e88"
+          }
+        }
+      ],
+      "scan_created_at": "2026-10-16T16:54:22.4892949+02:00",
+      "scan_sha256": "2b409158d6979e19970a919f67f2fd222ebac1014dbc754aee3ebe2e92403629",
+      "recipe_sha256": "fcc21d4e30d901365693e3fda035029218ab89e0a8bd6685849e88243d54094b",
+      "build_seconds": 52.4579104,
+      "severity_counts": {
+        "LOW": 146,
+        "HIGH": 54,
+        "MEDIUM": 94,
+        "CRITICAL": 1,
+        "UNKNOWN": 1
+      },
+      "unique_high_critical_cves": 18,
+      "affected_high_critical_packages": {
+        "bsdutils": {
+          "HIGH": 4
+        },
+        "curl": {
+          "HIGH": 2
+        },
+        "libacl1": {
+          "HIGH": 1
+        },
+        "libblkid1": {
+          "HIGH": 4
+        },
+        "libcurl4t64": {
+          "HIGH": 2
+        },
+        "liblastlog2-2": {
+          "HIGH": 4
+        },
+        "libmount1": {
+          "HIGH": 4
+        },
+        "libsmartcols1": {
+          "HIGH": 4
+        },
+        "libsystemd0": {
+          "HIGH": 1
+        },
+        "libtinfo6": {
+          "HIGH": 1
+        },
+        "libudev1": {
+          "HIGH": 1
+        },
+        "libuuid1": {
+          "HIGH": 4
+        },
+        "libxml2": {
+          "CRITICAL": 1,
+          "HIGH": 7
+        },
+        "login": {
+          "HIGH": 4
+        },
+        "mount": {
+          "HIGH": 4
+        },
+        "ncurses-base": {
+          "HIGH": 1
+        },
+        "ncurses-bin": {
+          "HIGH": 1
+        },
+        "perl-base": {
+          "HIGH": 1
+        },
+        "util-linux": {
+          "HIGH": 4
+        }
+      },
+      "status_counts_high_critical": {
+        "affected": 54,
+        "fix_deferred": 1
+      },
+      "fixable_high_critical_count": 0,
+      "application_vulnerability_count": 0,
+      "secret_count": 0,
+      "package_count_os": 119,
+      "critical_libraries": [
+        {
+          "package": "libsqlite3-0",
+          "version": "3.46.1",
+          "release": "7+deb13u2",
+          "source": "sqlite3",
+          "depends_on": [
+            "libc6@2.41-12+deb13u4"
+          ]
+        },
+        {
+          "package": "libssl3t64",
+          "version": "3.5.7",
+          "release": "1~deb13u3",
+          "source": "openssl",
+          "depends_on": [
+            "libc6@2.41-12+deb13u4",
+            "libzstd1@1.5.7+dfsg-1",
+            "openssl-provider-legacy@3.5.7-1~deb13u3",
+            "zlib1g@1:1.3.dfsg+really1.3.1-1+b1"
+          ]
+        },
+        {
+          "package": "libxml2",
+          "version": "2.12.7+dfsg+really2.9.14",
+          "release": "2.1+deb13u3",
+          "source": "libxml2",
+          "depends_on": [
+            "libc6@2.41-12+deb13u4",
+            "liblzma5@5.8.1-1+deb13u2",
+            "zlib1g@1:1.3.dfsg+really1.3.1-1+b1"
+          ]
+        },
+        {
+          "package": "zlib1g",
+          "version": "1.3.dfsg+really1.3.1",
+          "release": "1+b1",
+          "source": "zlib",
+          "depends_on": [
+            "libc6@2.41-12+deb13u4"
+          ]
+        }
+      ],
+      "runtime_facts": {
+        "php": "8.3.35",
+        "redis": "6.3.0",
+        "sqlite": "3.46.1",
+        "icu": "76.1",
+        "arabic_month": "يناير",
+        "timezone": "15:00",
+        "libxml": "2.9.14"
+      },
+      "runtime_modules": [
+        "[PHP Modules]",
+        "bcmath",
+        "Core",
+        "ctype",
+        "curl",
+        "date",
+        "dom",
+        "fileinfo",
+        "filter",
+        "gd",
+        "hash",
+        "iconv",
+        "intl",
+        "json",
+        "libxml",
+        "mbstring",
+        "mysqlnd",
+        "openssl",
+        "pcntl",
+        "pcre",
+        "PDO",
+        "pdo_mysql",
+        "pdo_sqlite",
+        "Phar",
+        "posix",
+        "random",
+        "readline",
+        "redis",
+        "Reflection",
+        "session",
+        "SimpleXML",
+        "sodium",
+        "SPL",
+        "sqlite3",
+        "standard",
+        "tokenizer",
+        "xml",
+        "xmlreader",
+        "xmlwriter",
+        "Zend OPcache",
+        "zip",
+        "zlib",
+        "",
+        "[Zend Modules]",
+        "Zend OPcache",
+        ""
+      ],
+      "official_package_policy": "libxml2:\n  Installed: 2.12.7+dfsg+really2.9.14-2.1+deb13u3\n  Candidate: 2.12.7+dfsg+really2.9.14-2.1+deb13u3\n  Version table:\n *** 2.12.7+dfsg+really2.9.14-2.1+deb13u3 500\n        500 http://deb.debian.org/debian trixie/main amd64 Packages\n        100 /var/lib/dpkg/status\n     2.12.7+dfsg+really2.9.14-2.1+deb13u1 500\n        500 http://deb.debian.org/debian-security trixie-security/main amd64 Packages\nlibsqlite3-0:\n  Installed: 3.46.1-7+deb13u2\n  Candidate: 3.46.1-7+deb13u2\n  Version table:\n *** 3.46.1-7+deb13u2 500\n        500 http://deb.debian.org/debian trixie/main amd64 Packages\n        100 /var/lib/dpkg/status\nzlib1g:\n  Installed: 1:1.3.dfsg+really1.3.1-1+b1\n  Candidate: 1:1.3.dfsg+really1.3.1-1+b1\n  Version table:\n *** 1:1.3.dfsg+really1.3.1-1+b1 500\n        500 http://deb.debian.org/debian trixie/main amd64 Packages\n        100 /var/lib/dpkg/status\n",
+      "compatibility_checks": "passed in BuildKit with --network none; PHP/FPM/OPcache/extensions/SQLite memory/ZIP/GD/pcntl/Arabic/API routes/shared-library links",
+      "live_mysql_redis_integration_run": false,
+      "full_laravel_suite_run": false,
+      "high_critical_findings": [
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "bsdutils",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "1:2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "bsdutils",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "1:2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "bsdutils",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "1:2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "bsdutils",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "1:2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "curl",
+          "cve": "CVE-2026-12064",
+          "severity": "HIGH",
+          "installed_version": "8.14.1-2+deb13u7",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "curl: curl: SSH host verification bypass when using schemeless URLs with SFTP/SCP",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-12064"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "curl",
+          "cve": "CVE-2026-8458",
+          "severity": "HIGH",
+          "installed_version": "8.14.1-2+deb13u7",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "curl: libcurl: Unauthorized connection reuse due to a logical error",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-8458"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libacl1",
+          "cve": "CVE-2026-54369",
+          "severity": "HIGH",
+          "installed_version": "2.3.2-2+b1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "acl: Symlink traversal privilege escalation via libacl functions",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-54369"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libblkid1",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libblkid1",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libblkid1",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libblkid1",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libcurl4t64",
+          "cve": "CVE-2026-12064",
+          "severity": "HIGH",
+          "installed_version": "8.14.1-2+deb13u7",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "curl: curl: SSH host verification bypass when using schemeless URLs with SFTP/SCP",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-12064"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libcurl4t64",
+          "cve": "CVE-2026-8458",
+          "severity": "HIGH",
+          "installed_version": "8.14.1-2+deb13u7",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "curl: libcurl: Unauthorized connection reuse due to a logical error",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-8458"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "liblastlog2-2",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "liblastlog2-2",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "liblastlog2-2",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "liblastlog2-2",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libmount1",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libmount1",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libmount1",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libmount1",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libsmartcols1",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libsmartcols1",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libsmartcols1",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libsmartcols1",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libsystemd0",
+          "cve": "CVE-2026-16742",
+          "severity": "HIGH",
+          "installed_version": "257.13-1~deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "systemd: systemd-homed: Local privilege escalation via missing home-record signature verification",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-16742"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libtinfo6",
+          "cve": "CVE-2025-69720",
+          "severity": "HIGH",
+          "installed_version": "6.5+20250216-2",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "ncurses: ncurses: Buffer overflow vulnerability may lead to arbitrary code execution.",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2025-69720"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libudev1",
+          "cve": "CVE-2026-16742",
+          "severity": "HIGH",
+          "installed_version": "257.13-1~deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "systemd: systemd-homed: Local privilege escalation via missing home-record signature verification",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-16742"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libuuid1",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libuuid1",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libuuid1",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libuuid1",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-6653",
+          "severity": "CRITICAL",
+          "installed_version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "libxml2: mingw-libxml2: libxml2: Denial of Service via crafted XML input due to use-after-free",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-6653"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-74860",
+          "severity": "HIGH",
+          "installed_version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "libxml2: double-free/UAF in libxml2 Python bindings",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-74860"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-86138",
+          "severity": "HIGH",
+          "installed_version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "libxml2: libxml2: Arbitrary code execution via heap-based buffer overflow",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86138"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-86139",
+          "severity": "HIGH",
+          "installed_version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "libxml2: libxml2: Integer overflow in xmlURIEscapeStr may lead to arbitrary code execution",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86139"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-86140",
+          "severity": "HIGH",
+          "installed_version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "libxml2: libxml2: Arbitrary code execution via stack-based buffer overflow in xmlSnprintfElements",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86140"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-86142",
+          "severity": "HIGH",
+          "installed_version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "libxml2: libxml2: Heap-based buffer overflow in xmlXPtrEval due to xpointer length saturation",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86142"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-86143",
+          "severity": "HIGH",
+          "installed_version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "libxml2: libxml2: Data integrity issues due to integer overflow in write callbacks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86143"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "libxml2",
+          "cve": "CVE-2026-86144",
+          "severity": "HIGH",
+          "installed_version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "libxml2: libxml2: Information disclosure, SSRF, or denial of service due to improper parseFlags propagation.",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-86144"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "login",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "1:4.16.0-2+really2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "login",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "1:4.16.0-2+really2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "login",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "1:4.16.0-2+really2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "login",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "1:4.16.0-2+really2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "mount",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "mount",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "mount",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "mount",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "ncurses-base",
+          "cve": "CVE-2025-69720",
+          "severity": "HIGH",
+          "installed_version": "6.5+20250216-2",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "ncurses: ncurses: Buffer overflow vulnerability may lead to arbitrary code execution.",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2025-69720"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "ncurses-bin",
+          "cve": "CVE-2025-69720",
+          "severity": "HIGH",
+          "installed_version": "6.5+20250216-2",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "ncurses: ncurses: Buffer overflow vulnerability may lead to arbitrary code execution.",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2025-69720"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "perl-base",
+          "cve": "CVE-2026-9538",
+          "severity": "HIGH",
+          "installed_version": "5.40.1-6+deb13u1",
+          "fixed_version": null,
+          "status": "fix_deferred",
+          "title": "perl-Archive-Tar: perl-Archive-Tar: Denial of Service via crafted tar header with large entry size",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-9538"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "util-linux",
+          "cve": "CVE-2026-76642",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: failed external mount helper still runs privileged X-mount post-hooks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-76642"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "util-linux",
+          "cve": "CVE-2026-78408",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: nsenter --join-cgroup leaks root cgroup migration authority",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78408"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "util-linux",
+          "cve": "CVE-2026-78409",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: X-mount.subdir detached-tree resolution can escape via intermediate symlinks",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78409"
+        },
+        {
+          "variant": "trixie",
+          "ecosystem": "debian",
+          "package": "util-linux",
+          "cve": "CVE-2026-78410",
+          "severity": "HIGH",
+          "installed_version": "2.41.5-0+deb13u1",
+          "fixed_version": null,
+          "status": "affected",
+          "title": "util-linux: util-linux: restricted bind mounts do not pin the source, allowing X-mount.owner/group/mode redirection",
+          "primary_url": "https://avd.aquasec.com/nvd/cve-2026-78410"
+        }
+      ]
+    },
+    "alpine": {
+      "image_tag": "shishli-php-phase1:alpine-20261016",
+      "local_image_id": "sha256:d8bdf0fb3ba41753bf8f75f6675f4675fb9714eea4be9e9330573335b019b4fb",
+      "build_manifest_digest": "sha256:d8bdf0fb3ba41753bf8f75f6675f4675fb9714eea4be9e9330573335b019b4fb",
+      "size_bytes": 63602003,
+      "platform": "linux/amd64",
+      "base_materials": [
+        {
+          "uri": "pkg:docker/composer@2?platform=linux%2Famd64",
+          "digest": {
+            "sha256": "af98f42dfff7c68ba8d53c2164fd9fde1087b7d449514baa38c418b1f6bc4bac"
+          }
+        },
+        {
+          "uri": "pkg:docker/php@8.3.35-fpm-alpine3.24?platform=linux%2Famd64",
+          "digest": {
+            "sha256": "454b11c8907e32878ce92e87b13c14e1bbe6e1b10f4f96d4a19c9b62ec675d41"
+          }
+        }
+      ],
+      "scan_created_at": "2026-10-16T16:54:24.166573+02:00",
+      "scan_sha256": "65247b5a45de318fe2497c2fbff041ddf819e1f63eb31a4e874be00383c52509",
+      "recipe_sha256": "97e7a9ae3540c08cb00e8da73353488e5e913c88581e43a26c666197fdd133ab",
+      "build_seconds": 41.0492564,
+      "severity_counts": {},
+      "unique_high_critical_cves": 0,
+      "affected_high_critical_packages": {},
+      "status_counts_high_critical": {},
+      "fixable_high_critical_count": 0,
+      "application_vulnerability_count": 0,
+      "secret_count": 0,
+      "package_count_os": 54,
+      "critical_libraries": [
+        {
+          "package": "icu-data-full",
+          "version": "78.1-r0",
+          "release": null,
+          "source": "icu",
+          "depends_on": []
+        },
+        {
+          "package": "icu-libs",
+          "version": "78.1-r0",
+          "release": null,
+          "source": "icu",
+          "depends_on": [
+            "icu-data-full@78.1-r0",
+            "libgcc@15.2.0-r5",
+            "libstdc++@15.2.0-r5",
+            "musl@1.2.6-r2"
+          ]
+        },
+        {
+          "package": "libssl3",
+          "version": "3.5.9-r0",
+          "release": null,
+          "source": "openssl",
+          "depends_on": [
+            "libcrypto3@3.5.9-r0",
+            "musl@1.2.6-r2"
+          ]
+        },
+        {
+          "package": "libxml2",
+          "version": "2.13.9-r2",
+          "release": null,
+          "source": "libxml2",
+          "depends_on": [
+            "musl@1.2.6-r2",
+            "xz-libs@5.8.4-r0",
+            "zlib@1.3.2-r1"
+          ]
+        },
+        {
+          "package": "sqlite-libs",
+          "version": "3.53.4-r0",
+          "release": null,
+          "source": "sqlite",
+          "depends_on": [
+            "musl@1.2.6-r2"
+          ]
+        },
+        {
+          "package": "zlib",
+          "version": "1.3.2-r1",
+          "release": null,
+          "source": "zlib",
+          "depends_on": [
+            "musl@1.2.6-r2"
+          ]
+        }
+      ],
+      "runtime_facts": {
+        "php": "8.3.35",
+        "redis": "6.3.0",
+        "sqlite": "3.53.4",
+        "icu": "78.1",
+        "arabic_month": "يناير",
+        "timezone": "15:00",
+        "libxml": "2.13.9"
+      },
+      "runtime_modules": [
+        "[PHP Modules]",
+        "bcmath",
+        "Core",
+        "ctype",
+        "curl",
+        "date",
+        "dom",
+        "fileinfo",
+        "filter",
+        "gd",
+        "hash",
+        "iconv",
+        "intl",
+        "json",
+        "libxml",
+        "mbstring",
+        "mysqlnd",
+        "openssl",
+        "pcntl",
+        "pcre",
+        "PDO",
+        "pdo_mysql",
+        "pdo_sqlite",
+        "Phar",
+        "posix",
+        "random",
+        "readline",
+        "redis",
+        "Reflection",
+        "session",
+        "SimpleXML",
+        "sodium",
+        "SPL",
+        "sqlite3",
+        "standard",
+        "tokenizer",
+        "xml",
+        "xmlreader",
+        "xmlwriter",
+        "Zend OPcache",
+        "zip",
+        "zlib",
+        "",
+        "[Zend Modules]",
+        "Zend OPcache",
+        ""
+      ],
+      "official_package_policy": "libxml2 policy:\n  2.13.9-r2:\n    lib/apk/db/installed\n    https://dl-cdn.alpinelinux.org/alpine/v3.24/main\nsqlite-libs policy:\n  3.53.4-r0:\n    lib/apk/db/installed\n    https://dl-cdn.alpinelinux.org/alpine/v3.24/main\nzlib policy:\n  1.3.2-r1:\n    lib/apk/db/installed\n    https://dl-cdn.alpinelinux.org/alpine/v3.24/main\n",
+      "compatibility_checks": "passed in BuildKit with --network none; PHP/FPM/OPcache/extensions/SQLite memory/ZIP/GD/pcntl/Arabic/API routes/shared-library links",
+      "live_mysql_redis_integration_run": false,
+      "full_laravel_suite_run": false,
+      "high_critical_findings": []
+    }
+  }
+}
