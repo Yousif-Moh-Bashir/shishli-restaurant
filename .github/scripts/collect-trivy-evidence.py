@@ -10,6 +10,7 @@ import subprocess
 import tarfile
 
 VERSION = '0.69.3'
+DB_REPOSITORY = 'ghcr.io/aquasecurity/trivy-db:2'
 IMAGES = {'php': '/tmp/app.tar', 'nginx': '/tmp/nginx.tar'}
 ALL_SEVERITIES = 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
 
@@ -136,7 +137,15 @@ def scanner(cache):
     metadata = load(cache / 'db' / 'metadata.json')
     require(metadata.get('Version') == 2, 'unsupported_db_schema')
     result = {key: timestamp(metadata.get(key)) for key in ('UpdatedAt', 'DownloadedAt', 'NextUpdate')}
-    require(datetime.fromisoformat(result['NextUpdate']) > datetime.now(timezone.utc), 'database_expired')
+    now = datetime.now(timezone.utc)
+    # Only normalized timestamps and constants reach the log, never raw metadata
+    # or subprocess output. Log before rejecting an expired database.
+    print('Trivy database: ' + json.dumps({
+        **result, 'now_utc': now.isoformat(), 'configured_repository': DB_REPOSITORY,
+        'cache_location': '$RUNNER_TEMP/shishli-trivy-cache/db',
+        'trivy_version': VERSION, 'db_schema': 2,
+    }, sort_keys=True))
+    require(datetime.fromisoformat(result['NextUpdate']) > now, 'database_expired')
     result.update({'version': VERSION, 'db_schema': 2, 'db_sha256': digest(cache / 'db' / 'trivy.db')})
     return result
 
@@ -165,10 +174,16 @@ def prepare(private, cache):
     private.mkdir(mode=0o700, parents=True, exist_ok=False)
     version = invoke(['trivy', '--version'])
     require(version.returncode == 0 and version.stdout.splitlines()[0] == 'Version: ' + VERSION, 'scanner_version_mismatch')
-    # Use the upstream DB directly: the default GCR mirror can serve a snapshot
-    # whose NextUpdate has already elapsed even after a successful download.
+    # --download-db-only still consults Trivy's local freshness policy. A zero
+    # exit code alone does not establish that a new database was downloaded.
+    print('Trivy database cache before prepare: ' + json.dumps({
+        'database_present': (cache / 'db' / 'trivy.db').exists(),
+        'metadata_present': (cache / 'db' / 'metadata.json').exists(),
+        'configured_repository': DB_REPOSITORY,
+        'cache_location': '$RUNNER_TEMP/shishli-trivy-cache/db',
+    }, sort_keys=True))
     require(invoke(['trivy', 'image', '--cache-dir', str(cache), '--db-repository',
-                    'ghcr.io/aquasecurity/trivy-db:2', '--download-db-only']).returncode == 0, 'database_update_failed')
+                    DB_REPOSITORY, '--download-db-only']).returncode == 0, 'database_update_failed')
     context = {'source': source(), 'scanner': scanner(cache), 'images': {}}
     for name, path in IMAGES.items():
         context['images'][name] = identity(Path(path), os.environ.get(name.upper() + '_BUILD_DIGEST'), context['source']['sha'])

@@ -390,6 +390,59 @@ class EvidenceTest(unittest.TestCase):
         with self.assertRaises(evidence.EvidenceError):
             evidence.scanner(self.cache)
 
+    def test_expired_database_logs_only_normalized_allowlisted_diagnostics(self):
+        metadata = dict(self.db, NextUpdate=(self.now - timedelta(seconds=1)).isoformat(),
+                        private=SENSITIVE)
+        evidence.write(self.cache / 'db/metadata.json', metadata)
+        output = io.StringIO()
+        with redirect_stdout(output):
+            with self.assertRaisesRegex(evidence.EvidenceError, '^database_expired$'):
+                evidence.scanner(self.cache)
+        prefix = 'Trivy database: '
+        diagnostic = json.loads(output.getvalue().removeprefix(prefix))
+        self.assertEqual(set(diagnostic), {'UpdatedAt', 'DownloadedAt', 'NextUpdate',
+                         'now_utc', 'configured_repository', 'cache_location',
+                         'trivy_version', 'db_schema'})
+        self.assertEqual(diagnostic['NextUpdate'], metadata['NextUpdate'])
+        self.assertGreaterEqual(datetime.fromisoformat(diagnostic['now_utc']),
+                                datetime.fromisoformat(diagnostic['NextUpdate']))
+        self.assertEqual(diagnostic['configured_repository'], evidence.DB_REPOSITORY)
+        self.assertNotIn(SENSITIVE, output.getvalue())
+        self.assertNotIn(str(self.root), output.getvalue())
+
+    def test_cache_presence_is_reported_before_download(self):
+        prefix = 'Trivy database cache before prepare: '
+        first = next(line for line in self.console.getvalue().splitlines() if line.startswith(prefix))
+        self.assertFalse(json.loads(first.removeprefix(prefix))['database_present'])
+        output = io.StringIO()
+        with redirect_stdout(output):
+            evidence.prepare(self.root / 'second-private', self.cache)
+        state = json.loads(output.getvalue().splitlines()[0].removeprefix(prefix))
+        self.assertTrue(state['database_present'])
+        self.assertTrue(state['metadata_present'])
+
+    def test_utc_offsets_and_go_nanoseconds_are_interpreted_as_same_instant(self):
+        self.assertEqual(evidence.timestamp('2026-10-17T12:00:00.123456789Z'),
+                         evidence.timestamp('2026-10-17T14:00:00.123456789+02:00'))
+        metadata = dict(self.db, NextUpdate=(self.now + timedelta(hours=1)).astimezone(
+            timezone(timedelta(hours=-5))).isoformat())
+        evidence.write(self.cache / 'db/metadata.json', metadata)
+        self.assertEqual(evidence.scanner(self.cache)['NextUpdate'],
+                         (self.now + timedelta(hours=1)).isoformat())
+
+    def test_invalid_timestamp_is_never_echoed_in_diagnostics(self):
+        evidence.write(self.cache / 'db/metadata.json', dict(self.db, NextUpdate=SENSITIVE))
+        output = io.StringIO()
+        with redirect_stdout(output):
+            with self.assertRaisesRegex(evidence.EvidenceError, '^invalid_timestamp$'):
+                evidence.scanner(self.cache)
+        self.assertNotIn(SENSITIVE, output.getvalue())
+
+    def test_incompatible_database_schema_is_rejected(self):
+        evidence.write(self.cache / 'db/metadata.json', dict(self.db, Version=3))
+        with self.assertRaisesRegex(evidence.EvidenceError, '^unsupported_db_schema$'):
+            evidence.scanner(self.cache)
+
     def test_download_uses_upstream_database_instead_of_default_mirror(self):
         downloads = [command for command in self.commands if '--download-db-only' in command]
         self.assertEqual(len(downloads), 1)
