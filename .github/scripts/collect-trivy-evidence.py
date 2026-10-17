@@ -165,7 +165,10 @@ def prepare(private, cache):
     private.mkdir(mode=0o700, parents=True, exist_ok=False)
     version = invoke(['trivy', '--version'])
     require(version.returncode == 0 and version.stdout.splitlines()[0] == 'Version: ' + VERSION, 'scanner_version_mismatch')
-    require(invoke(['trivy', 'image', '--cache-dir', str(cache), '--download-db-only']).returncode == 0, 'database_update_failed')
+    # Use the upstream DB directly: the default GCR mirror can serve a snapshot
+    # whose NextUpdate has already elapsed even after a successful download.
+    require(invoke(['trivy', 'image', '--cache-dir', str(cache), '--db-repository',
+                    'ghcr.io/aquasecurity/trivy-db:2', '--download-db-only']).returncode == 0, 'database_update_failed')
     context = {'source': source(), 'scanner': scanner(cache), 'images': {}}
     for name, path in IMAGES.items():
         context['images'][name] = identity(Path(path), os.environ.get(name.upper() + '_BUILD_DIGEST'), context['source']['sha'])

@@ -88,7 +88,7 @@ class EvidenceTest(unittest.TestCase):
             return subprocess.CompletedProcess(command, 0, 'Version: ' + evidence.VERSION + '\n', '')
         if '--download-db-only' in command:
             folder = self.cache / 'db'
-            folder.mkdir(parents=True)
+            folder.mkdir(parents=True, exist_ok=True)
             evidence.write(folder / 'metadata.json', self.db)
             (folder / 'trivy.db').write_bytes(b'test database snapshot')
             return subprocess.CompletedProcess(command, 0, '', '')
@@ -389,6 +389,31 @@ class EvidenceTest(unittest.TestCase):
         evidence.write(self.cache / 'db/metadata.json', expired)
         with self.assertRaises(evidence.EvidenceError):
             evidence.scanner(self.cache)
+
+    def test_download_uses_upstream_database_instead_of_default_mirror(self):
+        downloads = [command for command in self.commands if '--download-db-only' in command]
+        self.assertEqual(len(downloads), 1)
+        self.assertEqual(downloads[0][downloads[0].index('--db-repository') + 1],
+                         'ghcr.io/aquasecurity/trivy-db:2')
+        self.assertEqual(evidence.load(self.private / 'context.json')['scanner'],
+                         evidence.scanner(self.cache))
+
+    def test_successful_download_with_expired_metadata_cannot_prepare_evidence(self):
+        self.db['NextUpdate'] = (self.now - timedelta(seconds=1)).isoformat()
+        # DownloadedAt remains recent: downloading an old snapshot must not
+        # extend its validity or allow scans to start.
+        with self.assertRaisesRegex(evidence.EvidenceError, '^database_expired$'):
+            evidence.prepare(self.root / 'expired-private', self.cache)
+        self.assertFalse((self.root / 'expired-private/context.json').exists())
+        self.assertFalse(any('--input' in command for command in self.commands))
+
+    def test_database_expiring_after_prepare_blocks_scan_before_execution(self):
+        evidence.write(self.cache / 'db/metadata.json',
+                       dict(self.db, NextUpdate=(self.now - timedelta(seconds=1)).isoformat()))
+        before = len(self.commands)
+        with self.assertRaisesRegex(evidence.EvidenceError, '^database_expired$'):
+            evidence.scan_image(self.private, self.cache, 'php')
+        self.assertEqual(len(self.commands), before)
 
     def test_duplicate_scan_does_not_reuse_stale_report(self):
         self.assertEqual(evidence.scan_image(self.private, self.cache, 'php'), 0)
