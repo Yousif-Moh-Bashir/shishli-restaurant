@@ -519,6 +519,61 @@ class EvidenceTest(unittest.TestCase):
             evidence.prepare(self.root / 'invalid-private', self.cache)
         self.assertEqual(sum('--download-db-only' in command for command in self.commands), 1)
 
+    def test_attempt_diagnostics_distinguish_download_validation_and_expiry(self):
+        expired = dict(self.db, NextUpdate=(self.now - timedelta(seconds=1)).isoformat())
+        cases = [
+            (self.db, 'success', 'validation', None, 0, self.db['NextUpdate']),
+            (None, 'failed', 'download', 'database_update_failed', 1, None),
+            ('timeout', 'failed', 'download', 'scanner_timeout', None, None),
+            (expired, 'success', 'validation', 'database_expired', 0, expired['NextUpdate']),
+            (dict(self.db, Version=3), 'success', 'validation', 'unsupported_db_schema', 0,
+             self.db['NextUpdate']),
+            (dict(self.db, NextUpdate=SENSITIVE), 'success', 'validation', 'invalid_timestamp', 0, None),
+        ]
+        for index, (metadata, status, phase, code, returncode, next_update) in enumerate(cases):
+            with self.subTest(case=index):
+                self.databases[evidence.DB_FALLBACK_REPOSITORY] = metadata
+                output = io.StringIO()
+                with redirect_stdout(output):
+                    if code:
+                        with self.assertRaises(evidence.FAILURES):
+                            evidence.download_database(self.root / ('attempt-' + str(index)),
+                                                       evidence.DB_FALLBACK_REPOSITORY)
+                    else:
+                        evidence.download_database(self.root / ('attempt-' + str(index)),
+                                                   evidence.DB_FALLBACK_REPOSITORY)
+                prefix = 'Trivy database attempt: '
+                rows = [json.loads(line.removeprefix(prefix)) for line in output.getvalue().splitlines()
+                        if line.startswith(prefix)]
+                self.assertEqual(len(rows), 1)
+                self.assertEqual(rows[0], {
+                    'repository': evidence.DB_FALLBACK_REPOSITORY, 'download': status,
+                    'phase': phase, 'code': code, 'returncode': returncode, 'NextUpdate': next_update,
+                    'cache_role': 'isolated-fallback', 'database_present_before': False,
+                    'metadata_present_before': False,
+                })
+                self.assertNotIn(SENSITIVE, output.getvalue())
+                self.assertNotIn(str(self.root), output.getvalue())
+
+    def test_fallback_attempt_logs_empty_cache_and_preserves_original_failure(self):
+        self.databases[evidence.DB_REPOSITORY] = dict(
+            self.db, NextUpdate=(self.now - timedelta(seconds=1)).isoformat())
+        self.databases[evidence.DB_FALLBACK_REPOSITORY] = None
+        output = io.StringIO()
+        with redirect_stdout(output):
+            with self.assertRaisesRegex(evidence.EvidenceError, '^database_expired$'):
+                evidence.prepare(self.root / 'diagnostic-private', self.cache)
+        prefix = 'Trivy database attempt: '
+        rows = [json.loads(line.removeprefix(prefix)) for line in output.getvalue().splitlines()
+                if line.startswith(prefix)]
+        self.assertEqual([row['repository'] for row in rows],
+                         [evidence.DB_REPOSITORY, evidence.DB_FALLBACK_REPOSITORY])
+        self.assertEqual([row['code'] for row in rows], ['database_expired', 'database_update_failed'])
+        self.assertFalse(rows[1]['database_present_before'])
+        self.assertFalse(rows[1]['metadata_present_before'])
+        self.assertIsNone(rows[1]['NextUpdate'])
+        self.assertNotIn(SENSITIVE, output.getvalue())
+
     def test_duplicate_scan_does_not_reuse_stale_report(self):
         self.assertEqual(evidence.scan_image(self.private, self.cache, 'php'), 0)
         self.assertEqual(evidence.scan_image(self.private, self.cache, 'php'), 1)

@@ -176,6 +176,35 @@ def identity(path, build_digest, source_sha):
     }
 
 
+def download_database(cache, repository):
+    require(repository in (DB_REPOSITORY, DB_FALLBACK_REPOSITORY), 'database_update_failed')
+    state = {
+        'repository': repository, 'download': 'failed', 'returncode': None,
+        'phase': 'download', 'code': None, 'NextUpdate': None,
+        'cache_role': 'isolated-fallback' if repository == DB_FALLBACK_REPOSITORY else 'primary',
+        'database_present_before': (cache / 'db' / 'trivy.db').exists(),
+        'metadata_present_before': (cache / 'db' / 'metadata.json').exists(),
+    }
+    try:
+        result = invoke(['trivy', 'image', '--cache-dir', str(cache),
+                         '--db-repository', repository, '--download-db-only'])
+        state['returncode'] = result.returncode
+        require(result.returncode == 0, 'database_update_failed')
+        state.update(download='success', phase='validation')
+        return scanner(cache, repository)
+    except FAILURES as error:
+        state['code'] = diagnostic(error)
+        raise
+    finally:
+        # Even a failed download can leave metadata. Read only a validated
+        # timestamp; malformed values and raw process diagnostics stay private.
+        try:
+            state['NextUpdate'] = timestamp(load(cache / 'db' / 'metadata.json').get('NextUpdate'))
+        except FAILURES:
+            pass
+        print('Trivy database attempt: ' + json.dumps(state, sort_keys=True))
+
+
 def prepare(private, cache):
     private.mkdir(mode=0o700, parents=True, exist_ok=False)
     version = invoke(['trivy', '--version'])
@@ -188,10 +217,8 @@ def prepare(private, cache):
         'configured_repository': DB_REPOSITORY,
         'cache_location': '$RUNNER_TEMP/shishli-trivy-cache/db',
     }, sort_keys=True))
-    require(invoke(['trivy', 'image', '--cache-dir', str(cache), '--db-repository',
-                    DB_REPOSITORY, '--download-db-only']).returncode == 0, 'database_update_failed')
     try:
-        scanner(cache, DB_REPOSITORY)
+        download_database(cache, DB_REPOSITORY)
     except EvidenceError as error:
         if error.args != ('database_expired',):
             raise
@@ -201,10 +228,7 @@ def prepare(private, cache):
         with tempfile.TemporaryDirectory(prefix='db-fallback-', dir=private) as directory:
             fallback = Path(directory)
             try:
-                require(invoke(['trivy', 'image', '--cache-dir', str(fallback),
-                                '--db-repository', DB_FALLBACK_REPOSITORY,
-                                '--download-db-only']).returncode == 0, 'database_update_failed')
-                scanner(fallback, DB_FALLBACK_REPOSITORY)
+                download_database(fallback, DB_FALLBACK_REPOSITORY)
             except FAILURES as failure:
                 announce('prepare', diagnostic(failure))
                 raise EvidenceError('database_expired') from None
