@@ -1,0 +1,61 @@
+name: PHP Runtime Integration
+
+on:
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: php-runtime-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Test integration orchestration contracts
+        run: |
+          python3 .github/scripts/test_php_runtime_ci.py
+          for fixture in .github/fixtures/php-runtime/*.php; do
+            php -l "$fixture"
+          done
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+      - name: Build production PHP without publishing
+        id: image
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          file: docker/php/Dockerfile
+          target: production
+          platforms: linux/amd64
+          pull: true
+          no-cache-filters: runtime
+          load: true
+          push: false
+          tags: shishli-php-ci:${{ github.run_id }}-${{ github.run_attempt }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+          cache-from: type=gha,scope=php-runtime-integration
+          cache-to: type=gha,mode=max,scope=php-runtime-integration
+      - name: Run isolated runtime integration
+        env:
+          CI_BUILD_DIGEST: ${{ steps.image.outputs.digest }}
+        run: python3 .github/scripts/php-runtime-ci.py test
+      - name: Clean only verified CI resources
+        if: always()
+        run: python3 .github/scripts/php-runtime-ci.py cleanup
+      - name: Upload sanitized runtime report only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: php-runtime-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/shishli-php-ci-${{ github.run_id }}-${{ github.run_attempt }}/report.json
+          if-no-files-found: error
+          retention-days: 7
