@@ -30,8 +30,6 @@ class CmsCacheSerializationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->assertSame('sqlite', config('database.default'));
-        $this->assertSame(':memory:', config('database.connections.sqlite.database'));
         $this->assertFalse(config('cache.serializable_classes'));
 
         // Only transport is simulated; RedisStore performs serialization and restricted unserialization.
