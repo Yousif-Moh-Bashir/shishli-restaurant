@@ -10,6 +10,7 @@ use App\Models\Branch;
 use App\Models\DriverCashCollection;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\PaymentTransaction;
 use App\Models\User;
 use App\Services\Admin\AdminAccessService;
 use Carbon\CarbonImmutable;
@@ -287,6 +288,84 @@ class InternalDeliveryTest extends TestCase
         $this->postJson($this->url($order, '/transition'), ['status' => 'delivered'])->assertConflict();
         $this->assertSame(OrderStatus::Completed, $order->fresh()->status);
         $this->assertDatabaseCount('order_delivery_histories', 4);
+    }
+
+    #[DataProvider('collectionMethods')]
+    public function test_driver_confirms_receipt_without_selecting_a_payment_method_and_can_complete(string $method): void
+    {
+        $driver = $this->driver();
+        $order = $this->order($driver, ['payment_method' => $method]);
+        $payment = Payment::factory()->create(['order_id' => $order->id, 'method' => $method, 'amount' => '85.00']);
+        $this->actingAs($driver)->postJson($this->url($order, '/accept'))->assertOk();
+        $this->postJson($this->url($order, '/transition'), ['status' => 'picked_up'])->assertOk();
+        $response = $this->postJson($this->url($order, '/transition'), ['status' => 'on_the_way'])->assertOk();
+        $this->assertContains('collect_payment', $response->json('data.available_actions'));
+        $this->assertNotContains('delivered', $response->json('data.available_actions'));
+
+        $receipt = $this->postJson($this->url($order, '/payment/collect'), ['amount' => '85.00'])->assertOk()
+            ->assertJsonPath('data.payment_status', 'paid')->assertJsonPath('data.payment_method', $method);
+        $this->assertContains('delivered', $receipt->json('data.available_actions'));
+        $this->assertNotContains('collect_payment', $receipt->json('data.available_actions'));
+        $this->assertSame(PaymentStatus::Paid, $payment->fresh()->status);
+        $this->assertSame($driver->id, PaymentTransaction::sole()->metadata['collected_by']);
+        $this->assertDatabaseCount('driver_cash_collections', 0);
+        $this->postJson($this->url($order, '/payment/collect'), ['amount' => '85.00'])->assertConflict();
+        $this->assertDatabaseCount('payments', 1);
+        $this->assertDatabaseCount('payment_transactions', 1);
+        $this->postJson($this->url($order, '/transition'), ['status' => 'delivered'])->assertOk()
+            ->assertJsonPath('data.delivery_status', 'delivered')->assertJsonPath('data.preparation_status', 'completed');
+        $this->assertSame(OrderStatus::Completed, $order->fresh()->status);
+    }
+
+    public static function collectionMethods(): array
+    {
+        return ['customer selected cash' => ['cash'], 'customer selected network' => ['network']];
+    }
+
+    public function test_receipt_requires_full_amount_and_rolls_back_when_payment_is_missing(): void
+    {
+        $driver = $this->driver();
+        $order = $this->order($driver, ['driver_id' => $driver->id, 'delivery_status' => 'on_the_way', 'status' => 'out_for_delivery']);
+        $this->actingAs($driver)->postJson($this->url($order, '/payment/collect'), ['amount' => '84.00'])
+            ->assertUnprocessable()->assertJsonValidationErrors('amount');
+        $this->postJson($this->url($order, '/payment/collect'), ['amount' => '85.00'])
+            ->assertUnprocessable()->assertJsonValidationErrors('payment');
+        $this->assertSame(PaymentStatus::Pending, $order->fresh()->payment_status);
+        $this->assertDatabaseCount('payment_transactions', 0);
+        $this->assertDatabaseCount('driver_cash_collections', 0);
+    }
+
+    public function test_receipt_rejects_guests_customers_and_other_drivers_without_writes(): void
+    {
+        $driver = $this->driver();
+        $order = $this->order($driver, ['driver_id' => $driver->id, 'delivery_status' => 'on_the_way', 'status' => 'out_for_delivery']);
+        Payment::factory()->create(['order_id' => $order->id, 'amount' => '85.00']);
+        $this->postJson($this->url($order, '/payment/collect'), ['amount' => '85.00'])->assertUnauthorized();
+        $this->actingAs(User::factory()->create())->postJson($this->url($order, '/payment/collect'), ['amount' => '85.00'])->assertForbidden();
+        $this->actingAs($this->driver())->postJson($this->url($order, '/payment/collect'), ['amount' => '85.00'])->assertNotFound();
+        $this->assertSame(PaymentStatus::Pending, $order->fresh()->payment_status);
+        $this->assertDatabaseCount('payment_transactions', 0);
+    }
+
+    #[DataProvider('invalidReceiptStates')]
+    public function test_receipt_rejects_invalid_states_without_changing_payment(array $attributes): void
+    {
+        $driver = $this->driver();
+        $order = $this->order($driver, array_merge(['driver_id' => $driver->id, 'delivery_status' => 'on_the_way',
+            'status' => 'out_for_delivery'], $attributes));
+        Payment::factory()->create(['order_id' => $order->id, 'method' => $order->payment_method, 'amount' => '85.00']);
+        $this->actingAs($driver)->postJson($this->url($order, '/payment/collect'), ['amount' => '85.00'])->assertConflict();
+        $this->assertDatabaseCount('payment_transactions', 0);
+        $this->assertDatabaseCount('driver_cash_collections', 0);
+        $this->assertDatabaseHas('payments', ['order_id' => $order->id, 'status' => 'pending']);
+    }
+
+    public static function invalidReceiptStates(): array
+    {
+        return ['not picked up' => [['delivery_status' => 'assigned']], 'failed delivery' => [['delivery_status' => 'failed']],
+            'cancelled' => [['status' => 'cancelled']], 'completed' => [['status' => 'completed']],
+            'already paid' => [['payment_status' => 'paid']], 'processing' => [['payment_status' => 'processing']],
+            'online card' => [['payment_method' => 'card']]];
     }
 
     #[DataProvider('invalidTransitions')]

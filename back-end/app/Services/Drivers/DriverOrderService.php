@@ -106,6 +106,11 @@ class DriverOrderService
             $actions[] = 'collect_cash';
         }
 
+        if ($order->payment_method->isOffline() && $order->payment_status->value === 'pending'
+            && in_array($order->delivery_status, [DeliveryStatus::PickedUp, DeliveryStatus::OnTheWay], true)) {
+            $actions[] = 'collect_payment';
+        }
+
         return $actions;
     }
 }

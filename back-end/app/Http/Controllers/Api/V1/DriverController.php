@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Actions\Drivers\AcceptDeliveryOrderAction;
 use App\Actions\Drivers\CollectDriverCashAction;
+use App\Actions\Drivers\CollectDriverPaymentAction;
 use App\Actions\Drivers\TransitionDeliveryAction;
 use App\Enums\DeliveryStatus;
 use App\Http\Controllers\Controller;
@@ -97,6 +98,11 @@ class DriverController extends Controller
     public function collect(DriverOperationRequest $request, Order $order, CollectDriverCashAction $collect): JsonResponse
     {
         return ApiResponse::success(new DriverCollectionResource($collect->handle($request->user(), $order, (string) $request->validated('amount'))->load(['order', 'settlement.cashier'])));
+    }
+
+    public function collectPayment(DriverOperationRequest $request, Order $order, CollectDriverPaymentAction $collect): JsonResponse
+    {
+        return $this->orderResponse($collect->handle($request->user(), $order, (string) $request->validated('amount')));
     }
 
     public function collections(DriverListRequest $request, DriverOrderService $orders): JsonResponse

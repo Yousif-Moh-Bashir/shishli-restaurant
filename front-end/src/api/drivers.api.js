@@ -10,6 +10,7 @@ export const driversApi = {
   accept: id => http.post(orderPath(id) + '/accept', {}).then(unwrap),
   transition: (id, status, reason) => http.post(orderPath(id) + '/transition', { status, reason: reason || null }).then(unwrap),
   collect: (id, amount) => http.post(orderPath(id) + '/cash/collect', { amount }).then(unwrap),
+  collectPayment: (id, amount) => http.post(orderPath(id) + '/payment/collect', { amount }).then(unwrap),
   collections: (params, signal) => http.get('/driver/collections', { params: cleanParams(params), signal }).then(page),
 }
 export const adminDriversApi = {
