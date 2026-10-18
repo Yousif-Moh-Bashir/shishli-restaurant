@@ -18,22 +18,33 @@ class CmsContentService
     public function page(string $key): Page
     {
         abort_unless(array_key_exists($key, app(CmsSectionDefinition::class)->pages()), 404);
-        $page = $this->fragment('cms:page:'.$key, fn (): ?Page => Page::where('key', $key)->with('sections')->first());
+        $snapshot = $this->fragment('cms:page:'.$key, function () use ($key): ?array {
+            $page = Page::where('key', $key)->with('sections')->first();
+
+            return $page === null ? null : [
+                'attributes' => $page->getAttributes(),
+                'sections' => $page->sections->map(fn (PageSection $section): array => $section->getAttributes())->all(),
+            ];
+        });
+        $page = $snapshot === null ? null : (new Page)->newFromBuilder($snapshot['attributes']);
         abort_unless($page instanceof Page && $page->isPublished(), 404);
-        $page = clone $page;
-        $page->setRelation('sections', $page->sections->filter(fn (PageSection $section): bool => $section->is_active && (app(CmsSectionDefinition::class)->sections($key)[$section->key] ?? null) === $section->type)->values());
+        $page->setRelation('sections', PageSection::hydrate($snapshot['sections'])->filter(fn (PageSection $section): bool => $section->is_active && (app(CmsSectionDefinition::class)->sections($key)[$section->key] ?? null) === $section->type)->values());
 
         return $page;
     }
 
     public function banners(BannerPlacement $placement): Collection
     {
-        return $this->fragment('cms:banners:'.$placement->value, fn (): Collection => Banner::where('placement', $placement->value)->orderBy('sort_order')->orderBy('id')->get())->filter(fn (Banner $banner): bool => $banner->isPublished())->values();
+        $rows = $this->fragment('cms:banners:'.$placement->value, fn (): array => Banner::where('placement', $placement->value)->orderBy('sort_order')->orderBy('id')->get()->map(fn (Banner $banner): array => $banner->getAttributes())->all());
+
+        return Banner::hydrate($rows)->filter(fn (Banner $banner): bool => $banner->isPublished())->values();
     }
 
     public function galleryPreview(int $limit): Collection
     {
-        return $this->fragment('cms:gallery:preview:'.$limit, fn (): Collection => GalleryItem::where('is_active', true)->where('published_at', '<=', now())->orderBy('sort_order')->orderBy('id')->limit($limit)->get(), $this->galleryTtl())->filter(fn (GalleryItem $item): bool => $item->isPublished())->values();
+        $rows = $this->fragment('cms:gallery:preview:'.$limit, fn (): array => GalleryItem::where('is_active', true)->where('published_at', '<=', now())->orderBy('sort_order')->orderBy('id')->limit($limit)->get()->map(fn (GalleryItem $item): array => $item->getAttributes())->all(), $this->galleryTtl());
+
+        return GalleryItem::hydrate($rows)->filter(fn (GalleryItem $item): bool => $item->isPublished())->values();
     }
 
     private function galleryTtl(): int
@@ -43,9 +54,18 @@ class CmsContentService
         return $next === null ? 300 : max(1, min(300, (int) ceil(now()->diffInSeconds(CarbonImmutable::parse($next)))));
     }
 
-    private function fragment(string $key, callable $loader, int $ttl = 300): mixed
+    private function fragment(string $key, callable $loader, int $ttl = 300): ?array
     {
-        return Cache::lock($key.':lock', 15)->block(5, fn (): mixed => Cache::remember($key, $ttl, $loader));
+        return Cache::lock($key.':lock', 15)->block(5, function () use ($key, $loader, $ttl): ?array {
+            $value = Cache::remember($key, $ttl, $loader);
+            if ($value !== null && ! is_array($value)) {
+                // Replace legacy object fragments without allowing cached PHP classes or flushing other keys.
+                Cache::forget($key);
+                $value = Cache::remember($key, $ttl, $loader);
+            }
+
+            return $value;
+        });
     }
 
     public function invalidate(Model $model): void
