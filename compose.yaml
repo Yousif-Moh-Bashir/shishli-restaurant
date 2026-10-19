@@ -23,7 +23,11 @@ services:
       start_period: 30s
   nginx:
     image: shishli-nginx:local
-    build: {context: ., dockerfile: docker/nginx/Dockerfile}
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+      args:
+        VITE_SITE_URL: ${SITE_URL:-https://shishlifresh.com}
     ports: ['127.0.0.1:${SHISHLI_HTTP_PORT:-8088}:80']
     restart: unless-stopped
     networks: [private, ingress]

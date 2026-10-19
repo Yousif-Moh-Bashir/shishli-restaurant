@@ -81,7 +81,7 @@ class KitchenOrdersTest extends TestCase
             ['kitchen', 'cancel', 'pickup', 'pending', 403],
             ['cashier', 'confirm', 'delivery', 'pending', 200],
             ['cashier', 'complete', 'pickup', 'ready', 200],
-            ['cashier', 'complete', 'delivery', 'out_for_delivery', 403],
+            ['cashier', 'complete', 'delivery', 'out_for_delivery', 409],
             ['cashier', 'start-preparing', 'pickup', 'confirmed', 403],
             ['cashier', 'mark-ready', 'pickup', 'preparing', 403],
             ['cashier', 'dispatch', 'delivery', 'ready', 403],
@@ -89,12 +89,17 @@ class KitchenOrdersTest extends TestCase
         ];
     }
 
-    public function test_kitchen_extra_explicit_permission_is_respected(): void
+    public function test_kitchen_cannot_exceed_preparation_even_with_extra_permissions(): void
     {
-        $kitchen = $this->staff('kitchen')->givePermissionTo('orders.confirm');
+        $kitchen = $this->staff('kitchen')->givePermissionTo(['orders.confirm', 'orders.complete']);
         $order = Order::factory()->create();
-        $this->actingAs($kitchen, 'sanctum')->postJson('/api/v1/admin/orders/'.$order->uuid.'/confirm')->assertOk();
-        $this->assertSame(OrderStatusSource::Kitchen, $order->statusHistory()->sole()->source);
+        $this->actingAs($kitchen, 'sanctum')->postJson('/api/v1/admin/orders/'.$order->uuid.'/confirm')->assertForbidden();
+        $order->update(['type' => 'pickup', 'status' => 'ready']);
+        $this->getJson('/api/v1/admin/orders/'.$order->uuid)->assertOk()->assertJsonPath('data.available_actions', []);
+        $this->postJson('/api/v1/admin/orders/'.$order->uuid.'/complete')->assertForbidden();
+        $this->assertSame('ready', $order->fresh()->status->value);
+        $this->assertNull($order->fresh()->completed_at);
+        $this->assertDatabaseCount('order_status_histories', 0);
     }
 
     public function test_queue_eager_loading_has_bounded_queries(): void

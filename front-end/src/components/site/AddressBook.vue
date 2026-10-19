@@ -9,7 +9,7 @@ import {addressForm,addressPayload} from '../../constants/addressFields'
 import AddressFields from './AddressFields.vue'
 import SiteIcon from './SiteIcon.vue'
 const props=defineProps({selectable:Boolean,selectedId:String,management:Boolean})
-const emit=defineEmits(['selected','changed'])
+const emit=defineEmits(['selected','changed','loaded','load-error'])
 const auth=useAuthStore(),state=useApiState(),mutation=useApiMutation(),recordLoading=ref(false),editing=ref(null),showForm=ref(false),form=reactive(addressForm()),deleting=ref(null),confirmation=ref(null)
 const {toast}=inject('site')
 const branches=useBranchStore()
@@ -18,6 +18,8 @@ const locationBusy=ref(false)
 function mapsUrl(item){const lat=item.location?.latitude,lng=item.location?.longitude;if(lat===null||lat===undefined||lng===null||lng===undefined||String(lat).trim()===''||String(lng).trim()==='')return null;const latitude=Number(lat),longitude=Number(lng);return Number.isFinite(latitude)&&Number.isFinite(longitude)&&Math.abs(latitude)<=90&&Math.abs(longitude)<=180?'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(latitude+','+longitude):null}
 let revision=0
 function load(){if(auth.isAuthenticated)return state.run(signal=>addressesApi.list(signal))}
+watch(state.data,items=>{if(Array.isArray(items))emit('loaded',items)})
+watch(state.error,error=>emit('load-error',error))
 defineExpose({reload:load})
 const addressLimit=3
 const limitReached=computed(()=>(state.data.value?.length||0)>=addressLimit)

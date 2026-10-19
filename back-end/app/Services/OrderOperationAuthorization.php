@@ -6,6 +6,7 @@ use App\Enums\DeliveryStatus;
 use App\Enums\OrderStatus;
 use App\Enums\OrderStatusSource;
 use App\Enums\OrderType;
+use App\Enums\PaymentStatus;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
@@ -34,12 +35,11 @@ class OrderOperationAuthorization
         if ($source === OrderStatusSource::Driver) {
             abort_unless($actor !== null && $actor->is_active && $actor->hasRole('driver') && $actor->can('driver.access')
                 && $order->driver_id === $actor->id && $order->branch_id === $actor->driver_branch_id, 403);
-            abort_unless(($target === OrderStatus::OutForDelivery && $order->delivery_status === DeliveryStatus::PickedUp)
-                || ($target === OrderStatus::Completed && $order->delivery_status === DeliveryStatus::OnTheWay), 403);
+            abort_unless($target === OrderStatus::OutForDelivery && $order->delivery_status === DeliveryStatus::PickedUp, 403);
 
             return;
         }
-        if ($order->driver_id !== null && in_array($target, [OrderStatus::OutForDelivery, OrderStatus::Completed], true)) {
+        if ($order->driver_id !== null && $target === OrderStatus::OutForDelivery) {
             abort(409);
         }
         if ($source === OrderStatusSource::Customer) {
@@ -56,6 +56,9 @@ class OrderOperationAuthorization
             return;
         }
         abort_unless($actor !== null && $source === $this->staffSource($actor), 403);
+        if ($source === OrderStatusSource::Kitchen) {
+            abort_unless(in_array($target, [OrderStatus::Preparing, OrderStatus::Ready], true), 403);
+        }
         $permission = match ($target) {
             OrderStatus::Confirmed => 'orders.confirm',
             OrderStatus::Preparing => 'orders.start_preparing',
@@ -69,9 +72,9 @@ class OrderOperationAuthorization
         if ($order->type === OrderType::Delivery && $target === OrderStatus::OutForDelivery) {
             abort(409, 'أسند الطلب إلى مندوب. يبدأ المندوب التوصيل بعد استلام الطلب من الفرع.');
         }
-        if ($target === OrderStatus::Completed && $order->type === OrderType::Delivery
-            && $actor->hasRole('cashier') && ! $actor->hasAnyRole(['super_admin', 'manager'])) {
-            abort(403);
+        if ($target === OrderStatus::Completed && $order->type === OrderType::Delivery && $order->status === OrderStatus::OutForDelivery) {
+            abort_unless($order->delivery_status === DeliveryStatus::Delivered
+                && $order->payment_status === PaymentStatus::Paid, 409);
         }
     }
 }

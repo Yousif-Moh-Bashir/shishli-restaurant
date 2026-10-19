@@ -29,9 +29,6 @@ onBeforeUnmount(() => { clearInterval(campaignTimer); document.removeEventListen
 const cartStore = useCartStore()
 if (!['order-success', 'customer-orders', 'account.orders', 'account.order', 'track-order', 'track-order.detail'].includes(route.name)) void cartStore.initializeCart()
 const searchRequest = ref(0)
-const originalTitle = document.title
-const descriptionMeta = document.getElementsByName('description')[0]
-const originalDescription = descriptionMeta?.content
 const cartDialog = ref(null), cartCloseButton = ref(null)
 const searchOpen = ref(false), toastVisible = ref(false), toastMessage = ref(''), header = ref(null)
 const toastKind = ref('info'), toastQuick = ref(false)
@@ -43,10 +40,6 @@ function updatePage() {
   document.body.classList.toggle('product-page', route.name === 'product')
   document.body.classList.toggle('checkout-page', route.name === 'checkout')
   document.body.classList.toggle('login-page', ['login', 'register'].includes(route.name))
-  const product = null
-  const titles = { menu: 'المنيو | اطلب من مطعم شيشلي', login: 'تسجيل الدخول | مطعم شيشلي', register: 'إنشاء حساب | مطعم شيشلي', cart: 'سلة طلباتك | مطعم شيشلي', checkout: 'إكمال الطلب | مطعم شيشلي', 'order-success': 'تفاصيل الطلب | مطعم شيشلي', 'track-order': 'تتبع الطلب | مطعم شيشلي' }
-  document.title = route.name === 'product' ? (product ? `${product.name} | مطعم شيشلي` : 'تفاصيل المنتج | مطعم شيشلي') : route.meta.title || titles[route.name] || originalTitle
-  if (descriptionMeta) descriptionMeta.content = product ? (product.description || product.name) : originalDescription
   searchOpen.value = false
   header.value?.closeMenu()
   cartDialog.value?.close()

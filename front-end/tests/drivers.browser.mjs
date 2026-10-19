@@ -8,7 +8,7 @@ const id = n => `${String(n).padStart(8,'0')}-1111-4111-8111-111111111111`
 const branch = { id:id(1), name:'فرع المصيف', location:{city:'تبوك',latitude:'28.4378538',longitude:'36.5455267'} }
 let mode = 'driver', accepted = false, stage = null, paid = false, acceptConflict = true, detailFailure = 0, settled = false
 const driver = { id:id(2),name:'مندوب الاختبار',phone:'+966551234567',email:null,enabled:true,available:true,account_active:true,branch,delivered_count:0,unsettled_cash:'85.00',current_order:null }
-const preparation = () => stage==='on_the_way'?'out_for_delivery':stage==='delivered'?'completed':'ready'
+const preparation = () => stage==='on_the_way'?'out_for_delivery':stage==='delivered'?'out_for_delivery':'ready'
 const actions = () => stage==='assigned'?['picked_up','failed']:stage==='picked_up'?['on_the_way','failed',...(!paid?['collect_cash']:[])]:stage==='on_the_way'?[...(paid?['delivered']:['collect_cash']),'failed']:[]
 const summary = () => ({ id:id(3),order_number:'SH-DRIVER',branch,preparation_status:preparation(),estimated_ready_at:'2026-10-08T12:30:00Z',district:'المصيف',delivery_zone:'المصيف',delivery_fee:'5.00',currency:'SAR',delivery_status:stage,available_actions:accepted?actions():driver.available&&driver.enabled?['accept']:[] })
 const detail = () => ({ ...summary(),customer:{name:'عميل خاص',phone:'0559999999'},address:{recipient_name:'عميل خاص',phone:'0559999999',city:'تبوك',district:'المصيف',street:'شارع الاختبار',building_number:'12',notes:'الجرس عند الباب',location:{latitude:'28.4378538',longitude:'36.5455267'}},branch_location:{latitude:'28.43',longitude:'36.54'},total:'85.00',payment_method:'cash',payment_status:paid?'paid':'pending',cash_due:paid?'0.00':'85.00',history:[{to_status:stage,actor:driver.name,at:'2026-10-08T12:00:00Z',reason:null}] })
@@ -28,6 +28,7 @@ browser.onEvent('Fetch.requestPaused', async ({requestId,request}) => {
     requests.push({path,method:request.method,body})
     let data={}, status=200, paginated=false
     if (request.method==='OPTIONS') {}
+    else if (path.endsWith('/login')) data={token:'driver-fixture-token',token_type:'Bearer'}
     else if (path==='/api/user') data={uuid:driver.id,name:driver.name,email:null,phone:driver.phone,is_driver:mode==='driver'}
     else if (path.endsWith('/admin/me')) { if(mode==='driver'||mode==='customer')status=403;else data={id:driver.id,name:'إدارة الاختبار',is_active:true,roles:['manager'],permissions} }
     else if (path.endsWith('/driver/me')) data=driver
@@ -59,11 +60,21 @@ try {
   await browser.send('Fetch.enable',{patterns:[{urlPattern:'*://*/api/*'},{urlPattern:'*://tile.openstreetmap.org/*'}]})
   await browser.send('Page.addScriptToEvaluateOnNewDocument',{source:"localStorage.setItem('shishli_auth_token','driver-fixture-token')"})
   driver.available=false
-  await browser.go(origin,'/driver/orders');await browser.wait('document.body.innerText.includes("SH-DRIVER")')
+  await browser.go(origin,'/');await browser.wait('location.pathname==="/driver/orders"');await browser.go(origin,'/');await browser.wait('location.pathname==="/driver/orders"');checks.push('driver restored session and root refresh redirect to driver dashboard');await browser.wait('document.body.innerText.includes("SH-DRIVER")')
   assert.equal(await browser.evaluate('document.querySelector(".driver-card button")?.disabled'),true)
   assert.equal(await browser.evaluate('document.body.innerText.includes("جاهز لدى المطعم") && document.body.innerText.includes("فعّل حالة التوفر")'),true)
   await browser.click('.driver-availability','غير متاح');await browser.wait('[...document.querySelectorAll(".driver-card button")].some(button=>!button.disabled)')
   checks.push('ready queue remains visible while unavailable, clear reason and acceptance after availability')
+
+  await browser.evaluate("(async()=>{const {useAuthStore}=await import('/src/stores/auth.js');useAuthStore().clearSession();await document.querySelector('#app').__vue_app__.config.globalProperties.$router.replace('/login?redirect=/menu')})()")
+  await browser.wait('document.querySelector("#login-phone")')
+  await browser.input('#login-phone','0551234567');await browser.input('#login-password','password')
+  await browser.click('#login-form button[type=submit]','تسجيل الدخول')
+  await browser.wait('location.pathname==="/driver/orders"')
+  assert.equal(requests.filter(row=>row.path.endsWith('/login')&&row.method==='POST').length,1)
+  checks.push('Driver login overrides customer intended route and lands in driver dashboard')
+  assert.equal(await browser.evaluate("(async()=>{const {authenticatedHome}=await import('/src/router/authGuards.js');const auth=(role,isDriver=false)=>({isDriver,hasAdminAccess:!!role,hasAnyRole:names=>names.includes(role),can:()=>true});return authenticatedHome(auth('manager',true))==='/admin'&&authenticatedHome(auth('cashier'))==='/admin'&&authenticatedHome(auth(null))==='/'})()"),true)
+
   assert.equal(requests.some(request=>request.path.endsWith('/driver/orders') && request.method==='GET'),true)
   assert.equal(await browser.evaluate('document.querySelector(".driver-workday-filter")'),null)
   assert.equal(await browser.evaluate('document.querySelector(".driver-history-date")'),null)
@@ -73,7 +84,7 @@ try {
   await browser.click('button','قبول الطلب');await browser.wait('location.pathname.includes("/orders/") && document.body.innerText.includes("عميل خاص")')
   await browser.go(origin,'/driver/orders');await browser.wait('document.querySelector(".driver-current-order")')
   await browser.click('.driver-current-order a','متابعة الطلب');await browser.wait('document.querySelector(".order-lifecycle")')
-  assert.equal(await browser.evaluate('document.querySelectorAll(".lifecycle-track").length'),2)
+  assert.equal(await browser.evaluate('document.querySelectorAll(".lifecycle-track").length'),1)
   checks.push('active order shortcut and separate preparation/delivery sequences')
   await browser.wait('document.querySelector(".leaflet-container")')
   assert.match(await browser.evaluate('[...document.querySelectorAll("a")].find(a=>a.textContent.includes("فتح الملاحة")).href'),/destination=28.4378538%2C36.5455267/)
@@ -87,11 +98,13 @@ try {
   checks.push('responsive driver details: 320,360,390,430,768,1280')
   await browser.click('button','استلام من الفرع');await browser.wait('document.body.innerText.includes("بدء التوصيل")')
   await browser.click('button','بدء التوصيل');await browser.wait('document.body.innerText.includes("في الطريق للعميل")')
-  assert.equal(await browser.evaluate('[...document.querySelectorAll("button")].some(b=>b.textContent.includes("تأكيد التسليم"))'),false)
-  await browser.click('button','تسجيل التحصيل النقدي');await browser.input('.driver-field input[type=number]','85.00');await browser.click('button','تأكيد استلام المبلغ');await browser.wait('document.body.innerText.includes("تأكيد التسليم")')
-  await browser.click('button','تأكيد التسليم');await browser.wait('document.body.innerText.includes("تم التسليم")')
+  assert.equal(await browser.evaluate('[...document.querySelectorAll("button")].some(b=>b.textContent.includes("تم التسليم")&&b.disabled)'),true)
+  await browser.click('button','تسجيل التحصيل النقدي');await browser.input('.driver-field input[type=number]','85.00');await browser.click('button','تأكيد استلام المبلغ');await browser.wait('[...document.querySelectorAll("button")].some(b=>b.textContent.trim()==="تم التسليم"&&!b.disabled)')
+  await browser.click('button','تم التسليم');await browser.wait('document.body.innerText.includes("تم التسليم")')
   assert.equal(requests.filter(request=>request.method==='POST' && request.path.endsWith('/cash/collect')).length,1)
-  checks.push('picked up, on the way, cash before delivered, no duplicate collection')
+  assert.equal(await browser.evaluate('document.body.innerText.includes("الإكمال النهائي للطلب لدى الكاشير")'),true)
+  assert.equal(await browser.evaluate('[...document.querySelectorAll("button")].some(b=>b.textContent.trim()==="تم التسليم")'),false)
+  checks.push('picked up, on the way, cash before delivered, no duplicate collection; delivery remains separate from cashier completion')
   await browser.go(origin,'/driver/collections');await browser.wait('document.body.innerText.includes("عهدة نقدية")')
   checks.push('driver unsettled collections')
   for (const code of [403,404,500]) { detailFailure=code;await browser.go(origin,'/driver/orders/'+id(3));await browser.wait('document.querySelector(".driver-error")');assert.equal(await browser.evaluate('document.body.innerText.includes("عميل خاص")'),false) }

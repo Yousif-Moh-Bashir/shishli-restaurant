@@ -114,7 +114,7 @@ class AdminListIntegrationTest extends TestCase
             ['manager', 'pending', 'pickup', 'cash', 'pending', ['confirm', 'cancel']], ['manager', 'pending', 'pickup', 'card', 'pending', ['cancel']], ['manager', 'pending', 'pickup', 'card', 'paid', ['confirm', 'cancel']],
             ['kitchen', 'confirmed', 'pickup', 'cash', 'pending', ['start_preparing']], ['kitchen', 'preparing', 'delivery', 'cash', 'pending', ['mark_ready']], ['cashier', 'pending', 'pickup', 'cash', 'pending', ['confirm']],
             ['manager', 'ready', 'delivery', 'cash', 'pending', ['cancel']], ['manager', 'ready', 'pickup', 'cash', 'pending', ['complete', 'cancel']], ['cashier', 'ready', 'pickup', 'cash', 'pending', ['complete']],
-            ['cashier', 'out_for_delivery', 'delivery', 'cash', 'pending', []], ['manager', 'out_for_delivery', 'delivery', 'cash', 'pending', ['complete']], ['manager', 'completed', 'pickup', 'cash', 'paid', []], ['manager', 'cancelled', 'pickup', 'cash', 'pending', []]];
+            ['cashier', 'out_for_delivery', 'delivery', 'cash', 'pending', []], ['manager', 'out_for_delivery', 'delivery', 'cash', 'pending', []], ['manager', 'completed', 'pickup', 'cash', 'paid', []], ['manager', 'cancelled', 'pickup', 'cash', 'pending', []]];
     }
 
     public function test_collect_cash_action_requires_matching_pending_cash_payment(): void

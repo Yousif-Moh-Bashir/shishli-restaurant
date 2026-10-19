@@ -36,10 +36,10 @@ class TransitionDeliveryAction
                 $locked = $this->transition->handle($locked, OrderStatus::OutForDelivery, $driver, OrderStatusSource::Driver, $reason);
             }
             if ($target === DeliveryStatus::Delivered) {
+                abort_unless($locked->status === OrderStatus::OutForDelivery, 409);
                 if ($locked->payment_status !== PaymentStatus::Paid) {
                     throw ValidationException::withMessages(['payment' => 'أكد تحصيل المبلغ قبل تسليم الطلب.']);
                 }
-                $locked = $this->transition->handle($locked, OrderStatus::Completed, $driver, OrderStatusSource::Driver, $reason);
             }
             $locked->delivery_status = $target;
             $locked->{'delivery_'.$target->value.'_at'} = now();
