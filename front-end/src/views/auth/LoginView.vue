@@ -14,7 +14,7 @@ function normalizeIdentity() { if (!form.phone.includes('@')) form.phone = local
     <RouterLink class="auth-back" to="/">→ العودة للرئيسية</RouterLink>
     <section class="auth-layout" aria-labelledby="login-title">
       <div class="auth-form-panel">
-        <span class="section-kicker">أهلاً بعودتك إلى شيشلي</span>
+        <span class="section-kicker">أهلاً بعودتك إلى شيشلي فرش</span>
         <h1 id="login-title">تسجيل الدخول</h1>
         <p class="auth-intro">وجبتك المفضلة بانتظارك.</p>
         <form id="login-form" novalidate @submit.prevent="submit" :aria-busy="isSubmitting">
@@ -28,7 +28,7 @@ function normalizeIdentity() { if (!form.phone.includes('@')) form.phone = local
         <p class="auth-switch">ليس لديك حساب؟ <RouterLink :to="{name:'register',query:route.query.redirect?{redirect:route.query.redirect}:{}}">إنشاء حساب</RouterLink></p>
         <div class="auth-guest"><span>تفضل التصفح الآن؟</span><RouterLink to="/menu">تصفح المنيو بدون حساب ←</RouterLink></div>
       </div>
-      <aside class="auth-visual" aria-label="مطعم شيشلي"><div class="auth-food" aria-hidden="true"></div><div class="auth-visual-copy"><span class="section-kicker">من الفحم… إلى قلبك</span><h2>طعم يجمعنا.<br>ومذاق نعود إليه.</h2><p>دجاج تركي وشيش ومشويات، تُحضّر بعناية لتكتمل لحظاتك الحلوة.</p><RouterLink class="button button-outline" to="/menu">اكتشف أطباقنا <SiteIcon name="arrow-left" /></RouterLink></div></aside>
+      <aside class="auth-visual" aria-label="مطعم شيشلي فرش"><div class="auth-food" aria-hidden="true"></div><div class="auth-visual-copy"><span class="section-kicker">من الفحم… إلى قلبك</span><h2>طعم يجمعنا.<br>ومذاق نعود إليه.</h2><p>دجاج تركي وشيش ومشويات، تُحضّر بعناية لتكتمل لحظاتك الحلوة.</p><RouterLink class="button button-outline" to="/menu">اكتشف أطباقنا <SiteIcon name="arrow-left" /></RouterLink></div></aside>
     </section>
   </main>
 </template>

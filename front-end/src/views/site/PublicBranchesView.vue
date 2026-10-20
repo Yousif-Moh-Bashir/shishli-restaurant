@@ -24,7 +24,7 @@ load()
 </script>
 <template>
   <main id="main" class="container section-space branches-page">
-    <div class="section-heading"><div><span class="eyebrow">زورونا في تبوك</span><h1>فروع شيشلي</h1><p>نكهات شيشلي بالقرب منك. اعرف عنوان الفرع وافتح موقعه للوصول إلينا بسهولة.</p></div><RouterLink class="button button-primary" to="/menu">تصفح المنيو</RouterLink></div>
+    <div class="section-heading"><div><span class="eyebrow">زورونا في تبوك</span><h1>فروع شيشلي فرش</h1><p>نكهات شيشلي فرش بالقرب منك. اعرف عنوان الفرع وافتح موقعه للوصول إلينا بسهولة.</p></div><RouterLink class="button button-primary" to="/menu">تصفح المنيو</RouterLink></div>
     <ApiFeedback variant="cards" :loading="list.loading.value" :error="list.error.value" @retry="load"/>
     <div class="branch-cards">
       <article v-for="branch in list.data.value || []" :key="branch.id" class="checkout-panel branch-card">

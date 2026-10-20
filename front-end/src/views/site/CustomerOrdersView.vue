@@ -17,7 +17,7 @@ watch(()=>auth.token,()=>{state.clear();if(auth.isAuthenticated)void load()},{im
 </script>
 <template>
  <main id="main" class="container my-orders-main">
-  <header class="my-orders-heading"><div><span class="section-kicker">{{ auth.isAuthenticated?'حسابي':'طلباتك من شيشلي' }}</span><h1>طلباتي</h1><p>تابع طلبك الحالي، وارجع إلى تفاصيل طلباتك بسهولة.</p></div><RouterLink class="my-orders-back" :to="auth.isAuthenticated?'/account/profile':'/menu'">{{ auth.isAuthenticated?'العودة لحسابي':'العودة للمنيو' }} <SiteIcon name="arrow-left"/></RouterLink></header>
+  <header class="my-orders-heading"><div><span class="section-kicker">{{ auth.isAuthenticated?'حسابي':'طلباتك من شيشلي فرش' }}</span><h1>طلباتي</h1><p>تابع طلبك الحالي، وارجع إلى تفاصيل طلباتك بسهولة.</p></div><RouterLink class="my-orders-back" :to="auth.isAuthenticated?'/account/profile':'/menu'">{{ auth.isAuthenticated?'العودة لحسابي':'العودة للمنيو' }} <SiteIcon name="arrow-left"/></RouterLink></header>
   <nav v-if="auth.isAuthenticated" class="my-orders-nav" aria-label="روابط حسابي"><RouterLink to="/account/profile"><SiteIcon name="user-round"/> حسابي</RouterLink><RouterLink to="/account/orders" aria-current="page"><SiteIcon name="shopping-bag"/> طلباتي</RouterLink><RouterLink to="/account/addresses"><SiteIcon name="map-pin"/> عناويني</RouterLink></nav>
   <template v-if="auth.isAuthenticated">
    <div class="my-orders-results-heading"><h2>طلباتك <span v-if="data?.meta?.total!=null">{{ data.meta.total }}</span></h2><button type="button" class="my-orders-refresh" :disabled="loading" @click="load()"><SiteIcon name="refresh"/> {{ loading?'جارٍ التحديث…':'تحديث الطلبات' }}</button></div>

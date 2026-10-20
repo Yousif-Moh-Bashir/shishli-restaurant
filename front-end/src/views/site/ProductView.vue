@@ -19,8 +19,8 @@ const metadata=useApiState()
 watch(()=>route.params.slug,async uuid=>{
   if(!uuid||route.name!=='product')return
   const result=await metadata.run(signal=>menuApi.publicProduct(uuid,signal))
-  if(result&&route.name==='product'&&route.params.slug===uuid)setPageSeo({...routeSeo(route),title:result.name+' | مطعم شيشلي',description:result.short_description||result.description||result.name,image:result.primary_image?.url})
-  else if(metadata.error.value?.status===404&&route.params.slug===uuid)setPageSeo({...routeSeo(route),title:'المنتج غير موجود | مطعم شيشلي',index:false})
+  if(result&&route.name==='product'&&route.params.slug===uuid)setPageSeo({...routeSeo(route),title:result.name+' | مطعم شيشلي فرش',description:result.short_description||result.description||result.name,image:result.primary_image?.url})
+  else if(metadata.error.value?.status===404&&route.params.slug===uuid)setPageSeo({...routeSeo(route),title:'المنتج غير موجود | مطعم شيشلي فرش',index:false})
 },{immediate:true})
 const product=computed(()=>state.data.value)
 const groups=computed(()=>product.value?.option_groups||[])

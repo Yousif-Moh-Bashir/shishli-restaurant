@@ -18,7 +18,7 @@ final class RestaurantSettingDefinition
         $define = fn (SettingType $type, mixed $default, array $rules, string $group, bool $public = true): array => ['type' => $type, 'default' => $default, 'rules' => $rules, 'group' => $group, 'is_public' => $public];
 
         return [
-            'restaurant.name' => $define($string, 'مطعم شيشلي للدجاج التركي', ['required', 'string', 'max:150'], 'general'),
+            'restaurant.name' => $define($string, 'مطعم شيشلي فرش', ['required', 'string', 'max:150'], 'general'),
             'restaurant.name_en' => $define($string, null, ['nullable', 'string', 'max:150'], 'general'),
             'restaurant.phone' => $define($string, null, ['nullable', 'string', 'max:20', 'regex:/^\\+?[0-9 ()-]+$/D'], 'contact'),
             'restaurant.whatsapp' => $define($string, null, ['nullable', 'string', 'max:20', 'regex:/^\\+?[0-9 ()-]+$/D'], 'contact'),

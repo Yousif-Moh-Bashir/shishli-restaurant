@@ -218,7 +218,7 @@ onBeforeRouteLeave(() => !cart.checkoutBusy&&!checking.value)
 <template>
   <main id="main" class="container checkout-main checkout-page" :aria-busy="cart.checkoutBusy">
     <RouterLink class="auth-back" to="/cart">→ العودة للسلة</RouterLink>
-    <div class="section-heading"><div><span class="section-kicker">طلبك من شيشلي</span><h1>تأكيد الطلب</h1><p>يراجع المطعم الأسعار والتوفر والتوصيل عند التأكيد.</p></div></div>
+    <div class="section-heading"><div><span class="section-kicker">طلبك من شيشلي فرش</span><h1>تأكيد الطلب</h1><p>يراجع المطعم الأسعار والتوفر والتوصيل عند التأكيد.</p></div></div>
     <AppSkeleton v-if="cart.isLoading || configLoading" variant="detail" label="جارٍ تحميل السلة وإعدادات الطلب…"/>
     <div v-if="configError" role="alert" class="auth-status is-error"><p>{{ configError.message }}</p><button class="button" @click="loadSettings">إعادة تحميل إعدادات الطلب</button></div>
     <div v-if="cart.error" role="alert"><p>{{ cart.error.message }}</p><button class="button" :disabled="cart.isLoading || cart.checkoutBusy" @click="cart.loadCart()">إعادة تحميل السلة</button></div>

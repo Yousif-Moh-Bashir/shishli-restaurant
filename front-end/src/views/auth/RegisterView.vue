@@ -14,7 +14,7 @@ const route = useRoute()
     <RouterLink class="auth-back" to="/">→ العودة للرئيسية</RouterLink>
     <section class="auth-layout" aria-labelledby="login-title">
       <div class="auth-form-panel">
-        <span class="section-kicker">أهلاً بك في عائلة شيشلي</span>
+        <span class="section-kicker">أهلاً بك في عائلة شيشلي فرش</span>
         <h1 id="login-title">إنشاء حساب</h1>
         <p class="auth-intro">خطوتك الأولى إلى مذاقك المفضل.</p>
         <RegistrationOffer :show-action="false"/>
@@ -31,7 +31,7 @@ const route = useRoute()
         <p class="auth-switch">لديك حساب بالفعل؟ <RouterLink :to="{name:'login',query:route.query.redirect?{redirect:route.query.redirect}:{}}">تسجيل الدخول</RouterLink></p>
         <div class="auth-guest"><span>تفضل التصفح الآن؟</span><RouterLink to="/menu">تصفح المنيو بدون حساب ←</RouterLink></div>
       </div>
-      <aside class="auth-visual" aria-label="مطعم شيشلي"><div class="auth-food" aria-hidden="true"></div><div class="auth-visual-copy"><span class="section-kicker">من الفحم… إلى قلبك</span><h2>طعم يجمعنا.<br>ومذاق نعود إليه.</h2><p>دجاج تركي وشيش ومشويات، تُحضّر بعناية لتكتمل لحظاتك الحلوة.</p><RouterLink class="button button-outline" to="/menu">اكتشف أطباقنا <SiteIcon name="arrow-left" /></RouterLink></div></aside>
+      <aside class="auth-visual" aria-label="مطعم شيشلي فرش"><div class="auth-food" aria-hidden="true"></div><div class="auth-visual-copy"><span class="section-kicker">من الفحم… إلى قلبك</span><h2>طعم يجمعنا.<br>ومذاق نعود إليه.</h2><p>دجاج تركي وشيش ومشويات، تُحضّر بعناية لتكتمل لحظاتك الحلوة.</p><RouterLink class="button button-outline" to="/menu">اكتشف أطباقنا <SiteIcon name="arrow-left" /></RouterLink></div></aside>
     </section>
   </main>
 </template>

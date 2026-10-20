@@ -13,9 +13,9 @@ const timezone = computed(() => settings.data?.restaurant?.timezone || 'Asia/Riy
 </script>
 
 <template>
-  <section v-if="cards.length" id="offers" class="offers-section site-offers container" aria-label="عروض شيشلي">
+  <section v-if="cards.length" id="offers" class="offers-section site-offers container" aria-label="عروض شيشلي فرش">
     <div v-if="showHeading" class="section-heading site-offers-heading">
-      <div><span v-if="subtitle" class="section-kicker">{{ subtitle }}</span><h2>{{ title || 'عروض شيشلي' }}</h2><p>اختر ما تحب، وتُحتسب الخصومات المؤهلة في السلة.</p></div>
+      <div><span v-if="subtitle" class="section-kicker">{{ subtitle }}</span><h2>{{ title || 'عروض شيشلي فرش' }}</h2><p>اختر ما تحب، وتُحتسب الخصومات المؤهلة في السلة.</p></div>
       <span class="site-offers-mark"><SiteIcon name="flame"/></span>
     </div>
     <div class="site-offers-grid">

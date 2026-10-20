@@ -1,19 +1,22 @@
 // Chrome integration with API fixtures, isolated from restaurant data.
 import assert from 'node:assert/strict'
 import {resolve} from 'node:path'
+import {tmpdir} from 'node:os'
 import {browserClient} from './browser-client.mjs'
 import {homeSeo} from '../src/utils/seo.js'
-const browser = await browserClient(9395, resolve('.performance-check/seo'))
-const origin = process.env.FRONTEND_ORIGIN || 'http://127.0.0.1:5176'
+import {brandName,brandTagline} from '../src/utils/branding.js'
+const browser = await browserClient(9395, resolve(tmpdir(),'shishli-brand-seo-browser'))
+const origin = process.env.FRONTEND_ORIGIN || 'http://127.0.0.1:5177'
 const uuid = '11111111-1111-4111-8111-111111111111'
 const success = data => ({success:true,data,message:'Success',errors:null})
 const product = {id:uuid,name:'شيش طاووق',short_description:'قطع الدجاج المشوية من قائمة المطعم.',description:'تفاصيل الطبق من المصدر.',primary_image:{url:'/storage/product.webp'},images:[],option_groups:[]}
 const paths=[]
 let homeStatus=200
+let settingsName='اسم المطعم من الإعدادات'
 browser.onEvent('Fetch.requestPaused', async ({requestId,request}) => {
   const path=new URL(request.url).pathname;paths.push(path)
   let status=200,data=[]
-  if(path.endsWith('/settings/public'))data={restaurant:{name:'اسم المطعم من الإعدادات',phone:'123',currency:'SAR',timezone:'Asia/Riyadh'},orders:{enabled:true}}
+  if(path.endsWith('/settings/public'))data={restaurant:{name:settingsName,phone:'123',currency:'SAR',timezone:'Asia/Riyadh'},orders:{enabled:true}}
   else if(path.endsWith('/branches'))data=[] // No selected branch or saved preference.
   else if(path.endsWith('/products/'+uuid))data=product
   else if(path.includes('/products/'))status=404
@@ -36,6 +39,7 @@ async function assertHomeSeo(){
   }
 }
 try {
+  await browser.send('Network.setBlockedURLs',{urls:['*://fonts.googleapis.com/*','*://fonts.gstatic.com/*']})
   await browser.send('Fetch.enable',{patterns:[{urlPattern:'*://*/api/v1/*'},{urlPattern:'*://*/api/user'}]})
   await browser.send('Page.addScriptToEvaluateOnNewDocument',{source:'localStorage.clear();sessionStorage.clear()'})
   await browser.send('Emulation.setScriptExecutionDisabled',{value:true})
@@ -48,6 +52,10 @@ try {
   await browser.wait('document.querySelector("#hero-title")?.textContent==="محتوى الرئيسية من CMS"')
   await assertHomeSeo()
   assert.equal((await head()).canonical,'https://shishlifresh.com/')
+  await browser.wait('document.querySelector("#restaurant-jsonld")')
+  assert.equal(await browser.evaluate('document.querySelector("header .brand").getAttribute("aria-label")'),settingsName+'، الرئيسية')
+  assert.equal(await browser.evaluate('document.querySelector(".footer-bottom").textContent.includes("اسم المطعم من الإعدادات")'),true)
+  assert.equal(await browser.evaluate(`document.querySelector('.footer-brand').textContent.includes(${JSON.stringify(brandTagline)})`),true)
   await browser.go(origin,'/product/'+uuid+'?cartItem=private')
   await browser.wait('document.title.includes("شيش طاووق")&&document.querySelector("#restaurant-jsonld")')
   let result=await head()
@@ -59,7 +67,7 @@ try {
   assert.ok(paths.includes('/api/v1/products/'+uuid))
   assert.equal(paths.some(path=>path.includes('/menu/products/')),false)
   await navigate('/product/'+uuid+'?cartItem=another')
-  assert.equal((await head()).title,'شيش طاووق | مطعم شيشلي')
+  assert.equal((await head()).title,'شيش طاووق | مطعم شيشلي فرش')
   await navigate('/about')
   await browser.wait('document.title==="قصتنا من إدارة المحتوى"')
   result=await head()
@@ -67,7 +75,7 @@ try {
   assert.equal(result.description,'وصف عربي محفوظ في إدارة المحتوى.')
   assert.equal(await browser.evaluate(`document.querySelector('meta[name="twitter:title"]').content`),'قصتنا من إدارة المحتوى')
   await navigate('/branches')
-  await browser.wait('document.title==="فروعنا | مطعم شيشلي"')
+  await browser.wait('document.title==="فروعنا | مطعم شيشلي فرش"')
   result=await head()
   assert.equal(result.image,undefined)
   assert.equal(result.canonicalCount,1)
@@ -78,13 +86,21 @@ try {
   await browser.wait('document.querySelector("main").textContent.includes("الصفحة غير منشورة")')
   assert.equal((await head()).robots,'noindex, follow')
   await navigate('/product/22222222-2222-4222-8222-222222222222')
-  await browser.wait('document.title==="المنتج غير موجود | مطعم شيشلي"')
+  await browser.wait('document.title==="المنتج غير موجود | مطعم شيشلي فرش"')
   assert.equal((await head()).robots,'noindex, follow')
   homeStatus=404
+  settingsName=brandName
   await browser.go(origin,'/')
   await browser.wait('document.querySelector("link[rel=canonical]")?.href==="https://shishlifresh.com/"')
   assert.equal((await head()).robots,'index, follow')
   await assertHomeSeo()
+  await browser.wait(String.raw`document.querySelector('#hero-title')?.textContent.replace(/\s+/g,' ').trim()===${JSON.stringify(brandName)}`)
+  assert.equal(JSON.parse((await head()).schema)['@graph'][0].name,brandName)
+  assert.equal(await browser.evaluate('document.querySelectorAll("script#restaurant-jsonld").length'),1)
+  const root=JSON.parse((await head()).schema)['@graph'][0]
+  assert.equal(root.logo,'https://shishlifresh.com/apple-touch-icon.png')
+  assert.equal(root.image,root.logo)
+  assert.equal(root.hasMenu,'https://shishlifresh.com/menu')
   assert.deepEqual(browser.diagnostics,[])
   console.log('PASS: product metadata without branch, CMS SEO, canonical normalization, query navigation, stale metadata removal, private/unpublished noindex, actual JSON-LD')
 } finally { browser.close() }

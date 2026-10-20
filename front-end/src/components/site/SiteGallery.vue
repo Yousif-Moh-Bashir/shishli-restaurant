@@ -58,14 +58,14 @@ onBeforeUnmount(()=>{clearInterval(autoTimer);observer?.disconnect()})
 
 <template>
   <div ref="galleryRoot" class="site-gallery" :class="{ 'site-gallery-carousel': carousel }" @pointerenter="event=>hovering=event.pointerType==='mouse'" @pointerleave="hovering=false" @focusin="focusWithin=true" @focusout="event=>focusWithin=galleryRoot?.contains(event.relatedTarget)||false">
-    <div ref="track" :class="carousel ? 'gallery-banner-photos' : 'site-gallery-grid'" :tabindex="carousel ? 0 : undefined" :role="carousel ? 'region' : undefined" aria-label="صور شيشلي" @scroll.passive="updatePosition" @keydown="keys">
+    <div ref="track" :class="carousel ? 'gallery-banner-photos' : 'site-gallery-grid'" :tabindex="carousel ? 0 : undefined" :role="carousel ? 'region' : undefined" aria-label="صور شيشلي فرش" @scroll.passive="updatePosition" @keydown="keys">
       <figure v-for="(item,index) in photos" :key="item.id || item.photo || index" class="gallery-banner-item">
-        <button class="gallery-photo-button" type="button" :aria-label="'تكبير الصورة: ' + (item.title || 'من أطباق شيشلي')" @click="open(index)">
-          <div v-if="item.photo" class="product-photo" :class="'photo-' + item.photo" role="img" :aria-label="item.alt_text || 'من أطباق شيشلي'"/>
+        <button class="gallery-photo-button" type="button" :aria-label="'تكبير الصورة: ' + (item.title || 'من أطباق شيشلي فرش')" @click="open(index)">
+          <div v-if="item.photo" class="product-photo" :class="'photo-' + item.photo" role="img" :aria-label="item.alt_text || 'من أطباق شيشلي فرش'"/>
           <img v-else class="cms-gallery-photo" :src="safeContentUrl(item.image_url)" :alt="item.alt_text || item.title || ''" loading="lazy" decoding="async">
           <span class="gallery-zoom"><SiteIcon name="search"/> عرض الصورة</span>
         </button>
-        <figcaption><div><h3>{{ item.title || 'من أطباق شيشلي' }}</h3><p v-if="item.description">{{ item.description }}</p></div><span class="gallery-photo-number">{{ String(index + 1).padStart(2,'0') }}</span></figcaption>
+        <figcaption><div><h3>{{ item.title || 'من أطباق شيشلي فرش' }}</h3><p v-if="item.description">{{ item.description }}</p></div><span class="gallery-photo-number">{{ String(index + 1).padStart(2,'0') }}</span></figcaption>
       </figure>
     </div>
     <div v-if="carousel && photos.length" class="gallery-bottom">
@@ -74,8 +74,8 @@ onBeforeUnmount(()=>{clearInterval(autoTimer);observer?.disconnect()})
     </div>
     <dialog ref="preview" class="gallery-lightbox" :aria-labelledby="titleId" @keydown="keys" @click="event => { if(event.target === preview) preview.close() }">
       <template v-if="current">
-        <div class="gallery-lightbox-head"><h2 :id="titleId">{{ current.title || 'من أطباق شيشلي' }}</h2><button class="icon-button" type="button" aria-label="إغلاق الصورة" @click="preview.close()"><SiteIcon name="x"/></button></div>
-        <div class="gallery-lightbox-image"><div v-if="current.photo" class="product-photo" :class="'photo-' + current.photo" role="img" :aria-label="current.alt_text || 'من أطباق شيشلي'"/><img v-else :src="safeContentUrl(current.image_url)" :alt="current.alt_text || current.title || ''"></div>
+        <div class="gallery-lightbox-head"><h2 :id="titleId">{{ current.title || 'من أطباق شيشلي فرش' }}</h2><button class="icon-button" type="button" aria-label="إغلاق الصورة" @click="preview.close()"><SiteIcon name="x"/></button></div>
+        <div class="gallery-lightbox-image"><div v-if="current.photo" class="product-photo" :class="'photo-' + current.photo" role="img" :aria-label="current.alt_text || 'من أطباق شيشلي فرش'"/><img v-else :src="safeContentUrl(current.image_url)" :alt="current.alt_text || current.title || ''"></div>
         <div class="gallery-lightbox-foot"><button class="icon-button" type="button" aria-label="الصورة السابقة" :disabled="photos.length<2" @click="change(-1)">→</button><div><p v-if="current.description">{{ current.description }}</p><span aria-live="polite">{{ selected + 1 }} / {{ photos.length }}</span></div><button class="icon-button" type="button" aria-label="الصورة التالية" :disabled="photos.length<2" @click="change(1)">←</button></div>
       </template>
     </dialog>

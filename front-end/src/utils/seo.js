@@ -1,4 +1,5 @@
 import {safeContentUrl} from './contentUrl.js'
+import {brandName} from './branding.js'
 export const siteUrl = (import.meta.env?.VITE_SITE_URL || 'https://shishlifresh.com').replace(/\/+$/, '')
 const defaultLogo = siteUrl + '/apple-touch-icon.png'
 function restaurantLogo(path) {
@@ -12,20 +13,20 @@ function restaurantLogo(path) {
     return url.protocol === 'https:' || (url.protocol === 'http:' && url.origin === new URL(siteUrl).origin) ? url.href : defaultLogo
   } catch { return defaultLogo }
 }
-export const defaultDescription = 'اكتشف قائمة مطعم شيشلي للدجاج التركي والشيش، وتصفح الأطباق والعروض والفروع واطلب وجبتك المفضلة.'
+export const defaultDescription = 'اكتشف قائمة مطعم شيشلي فرش للدجاج التركي والشيش، وتصفح الأطباق والعروض والفروع واطلب وجبتك المفضلة.'
 export const homeSeo = {
-  title: 'مطعم شيشلي فرش | مشويات ودجاج تركي في تبوك',
-  description: 'اكتشف منيو مطعم شيشلي فرش في تبوك، واستمتع بالمشويات والدجاج التركي والكباب والشيش طاووق. تصفح الأصناف والعروض واطلب عبر موقعنا الرسمي.',
+  title: brandName + ' | مشويات ودجاج تركي وكباب في تبوك',
+  description: 'استمتع بأشهى المشويات والدجاج التركي والكباب في مطعم شيشلي فرش بتبوك. تصفح قائمة الطعام واطلب وجبتك المفضلة مباشرة من موقعنا.',
 }
 export const publicPages = {
   home: [homeSeo.title, homeSeo.description],
-  menu: ['قائمة الطعام | مطعم شيشلي', 'تصفح أطباق الدجاج التركي والشيش والمشويات والإضافات في قائمة مطعم شيشلي.'],
-  branches: ['فروعنا | مطعم شيشلي', 'تعرف على فروع مطعم شيشلي ومواقعها ووسائل التواصل معها، واختر الفرع المناسب لطلبك.'],
-  offers: ['عروض شيشلي | مطعم شيشلي', 'اكتشف عروض مطعم شيشلي الحالية وشروط الخصومات والكوبونات وتواريخ صلاحيتها.'],
-  about: ['عن شيشلي | مطعم شيشلي', 'تعرف على مطعم شيشلي للدجاج التركي والشيش وقصتنا.'],
-  contact: ['تواصل معنا | مطعم شيشلي', 'تواصل مع مطعم شيشلي واطلع على بيانات الاتصال ومواقع فروعنا.'],
-  gallery: ['معرض الصور | مطعم شيشلي', 'شاهد صور مطعم شيشلي وأطباقنا في معرض الصور.'],
-  product: ['تفاصيل المنتج | مطعم شيشلي', 'تعرف على تفاصيل هذا الطبق من قائمة مطعم شيشلي.'],
+  menu: ['قائمة الطعام | مطعم شيشلي فرش', 'تصفح أطباق الدجاج التركي والشيش والمشويات والإضافات في قائمة مطعم شيشلي فرش.'],
+  branches: ['فروعنا | مطعم شيشلي فرش', 'تعرف على فروع مطعم شيشلي فرش ومواقعها ووسائل التواصل معها، واختر الفرع المناسب لطلبك.'],
+  offers: ['العروض | مطعم شيشلي فرش', 'اكتشف عروض مطعم شيشلي فرش الحالية وشروط الخصومات والكوبونات وتواريخ صلاحيتها.'],
+  about: ['عن المطعم | مطعم شيشلي فرش', 'تعرف على مطعم شيشلي فرش للدجاج التركي والشيش وقصتنا.'],
+  contact: ['تواصل معنا | مطعم شيشلي فرش', 'تواصل مع مطعم شيشلي فرش واطلع على بيانات الاتصال ومواقع فروعنا.'],
+  gallery: ['معرض الصور | مطعم شيشلي فرش', 'شاهد صور مطعم شيشلي فرش وأطباقنا في معرض الصور.'],
+  product: ['تفاصيل المنتج | مطعم شيشلي فرش', 'تعرف على تفاصيل هذا الطبق من قائمة مطعم شيشلي فرش.'],
 }
 export function canonicalUrl(path) {
   return siteUrl + '/' + String(path).split(/[?#]/)[0].replace(/^\/+|\/+$/g, '')
@@ -33,8 +34,8 @@ export function canonicalUrl(path) {
 export function routeSeo(route) {
   const key = route.meta?.cmsKey || route.name
   const page = publicPages[key]
-  const privateTitles = { login: 'تسجيل الدخول | مطعم شيشلي', register: 'إنشاء حساب | مطعم شيشلي', cart: 'سلة طلباتك | مطعم شيشلي', checkout: 'إكمال الطلب | مطعم شيشلي', 'order-success': 'تفاصيل الطلب | مطعم شيشلي', 'track-order': 'تتبع الطلب | مطعم شيشلي' }
-  const fallback = String(route.name).startsWith('admin.') ? 'لوحة شيشلي' : 'مطعم شيشلي'
+  const privateTitles = { login: 'تسجيل الدخول | مطعم شيشلي فرش', register: 'إنشاء حساب | مطعم شيشلي فرش', cart: 'سلة طلباتك | مطعم شيشلي فرش', checkout: 'إكمال الطلب | مطعم شيشلي فرش', 'order-success': 'تفاصيل الطلب | مطعم شيشلي فرش', 'track-order': 'تتبع الطلب | مطعم شيشلي فرش' }
+  const fallback = String(route.name).startsWith('admin.') ? 'لوحة شيشلي' : 'مطعم شيشلي فرش'
   return { title: page?.[0] || route.meta?.title || privateTitles[route.name] || fallback, description: page?.[1] || defaultDescription, path: route.path, index: !!page }
 }
 export function cmsPageSeo(route, page) {
@@ -65,7 +66,7 @@ export function setPageSeo({ title, description = defaultDescription, path = loc
   meta('og:url', canonical.href, true)
   meta('og:type', 'website', true)
   meta('og:locale', 'ar_SA', true)
-  meta('og:site_name', 'شيشلي فرش', true)
+  meta('og:site_name', brandName, true)
   meta('twitter:title', document.title)
   meta('twitter:description', description || defaultDescription)
   let safeImage

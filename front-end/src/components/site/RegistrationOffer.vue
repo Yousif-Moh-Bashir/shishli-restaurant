@@ -18,11 +18,11 @@ const destination = computed(() => ({ name: 'register', query: { redirect: props
       <template v-if="placement==='bar'">
         <span class="registration-offer-tag" aria-hidden="true">مكافأة التسجيل</span>
         <div class="registration-offer-ticker">
-          <span class="registration-offer-accessible">انضم إلى عائلة شيشلي واستمتع بخصم {{ discount }} على طلبك الأول عند إنشاء حسابك. سجّل الآن، واطلب أشهى وجباتك بسعر أقل!</span>
+          <span class="registration-offer-accessible">انضم إلى عائلة شيشلي فرش واستمتع بخصم {{ discount }} على طلبك الأول عند إنشاء حسابك. سجّل الآن، واطلب أشهى وجباتك بسعر أقل!</span>
           <div class="registration-offer-track" aria-hidden="true">
             <div v-for="group in 2" :key="group" class="registration-offer-group">
               <template v-for="item in 2" :key="item">
-                <span dir="rtl">انضم إلى عائلة <strong>شيشلي</strong> واستمتع بخصم <strong>{{ discount }} على طلبك الأول</strong> عند إنشاء حسابك <span class="registration-offer-dot">◆</span></span>
+                <span dir="rtl">انضم إلى عائلة <strong>شيشلي فرش</strong> واستمتع بخصم <strong>{{ discount }} على طلبك الأول</strong> عند إنشاء حسابك <span class="registration-offer-dot">◆</span></span>
                 <span dir="rtl">سجّل الآن، واطلب أشهى وجباتك <strong>بسعر أقل!</strong> <span class="registration-offer-dot">◆</span></span>
               </template>
             </div>

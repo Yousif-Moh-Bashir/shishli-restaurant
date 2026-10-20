@@ -24,16 +24,24 @@ class RestaurantSettingsTest extends TestCase
     public function test_defaults_are_typed_and_public_configuration_requires_no_authentication(): void
     {
         $service = app(RestaurantSettingsService::class);
-        $this->assertSame('مطعم شيشلي للدجاج التركي', $service->getString('restaurant.name'));
+        $this->assertSame('مطعم شيشلي فرش', $service->getString('restaurant.name'));
         $this->assertTrue($service->getBoolean('orders.enabled'));
         $this->assertFalse($service->getBoolean('orders.allow_scheduled_orders'));
         $this->assertSame(7, $service->getInteger('orders.max_scheduling_days'));
         $this->assertSame('0.00', $service->getDecimal('orders.minimum_amount'));
         $this->getJson('/api/v1/settings/public')->assertOk()->assertJsonPath('data.restaurant.currency', 'SAR')
             ->assertJsonPath('data.restaurant.timezone', 'Asia/Riyadh')
+            ->assertJsonPath('data.restaurant.name', 'مطعم شيشلي فرش')
             ->assertJsonPath('data.delivery.show_minimum_order', false)
             ->assertJsonPath('data.orders.enabled', true)->assertJsonMissingPath('data.orders.maintenance_message')
             ->assertJsonMissingPath('data.payments')->assertJsonMissingPath('data.notifications');
+    }
+
+    public function test_stored_restaurant_name_remains_authoritative_over_brand_defaults(): void
+    {
+        RestaurantSetting::create(['key' => 'restaurant.name', 'value' => 'اسم محفوظ من الإدارة', 'type' => 'string', 'group' => 'general', 'is_public' => true]);
+        $this->assertSame('اسم محفوظ من الإدارة', app(RestaurantSettingsService::class)->getString('restaurant.name'));
+        $this->getJson('/api/v1/settings/public')->assertOk()->assertJsonPath('data.restaurant.name', 'اسم محفوظ من الإدارة');
     }
 
     public function test_operational_schema_can_rollback_and_reapply_without_losing_existing_orders(): void

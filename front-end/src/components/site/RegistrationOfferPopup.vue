@@ -63,9 +63,9 @@ onBeforeUnmount(() => { clearTimeout(timer); close() })
     <div v-if="offer" class="welcome-popup-card">
       <button type="button" class="welcome-popup-close" aria-label="إغلاق عرض التسجيل" @click="dismiss"><SiteIcon name="x"/></button>
       <div class="welcome-popup-gift" aria-hidden="true">🎁</div>
-      <span class="welcome-popup-kicker">هدية ترحيبية من شيشلي</span>
+      <span class="welcome-popup-kicker">هدية ترحيبية من شيشلي فرش</span>
       <h2 id="welcome-offer-title">🎉 سجّل الآن واستمتع<br>بخصم <span>{{ discount }}</span>!</h2>
-      <p id="welcome-offer-description">انضم إلى عائلة <strong>شيشلي</strong> واستمتع بخصم <strong>{{ discount }} على طلبك الأول</strong> عند إنشاء حساب جديد.</p>
+      <p id="welcome-offer-description">انضم إلى عائلة <strong>شيشلي فرش</strong> واستمتع بخصم <strong>{{ discount }} على طلبك الأول</strong> عند إنشاء حساب جديد.</p>
       <p class="welcome-popup-invitation">🍽️ سجّل الآن، واطلب أشهى وجباتك بسعر أقل!</p>
       <RouterLink class="welcome-popup-action" :to="destination" @click="dismiss">سجّل الآن واحصل على خصمك 🎁</RouterLink>
       <button type="button" class="welcome-popup-later" @click="dismiss">لاحقًا، أكمل التصفح</button>

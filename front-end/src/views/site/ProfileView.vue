@@ -23,7 +23,7 @@ load()
 </script>
 <template>
  <main id="main" class="container account-main">
-  <header class="account-heading"><div><span class="section-kicker">أهلًا بك في شيشلي</span><h1>حسابي</h1><p>بياناتك وطلباتك وعناوينك، في مكان واحد.</p></div><RouterLink class="account-menu-link" to="/menu">العودة للمنيو <SiteIcon name="arrow-left"/></RouterLink></header>
+  <header class="account-heading"><div><span class="section-kicker">أهلًا بك في شيشلي فرش</span><h1>حسابي</h1><p>بياناتك وطلباتك وعناوينك، في مكان واحد.</p></div><RouterLink class="account-menu-link" to="/menu">العودة للمنيو <SiteIcon name="arrow-left"/></RouterLink></header>
   <ApiFeedback variant="detail" :loading="state.loading.value" :error="state.error.value" error-title="تعذر تحميل حسابك" @retry="load"/>
   <template v-if="state.data.value">
    <section class="account-welcome" aria-label="ملخص حسابك"><div class="account-identity"><span class="account-avatar" aria-hidden="true">{{ initial }}</span><div><span class="account-welcome-label">سعداء بوجودك معنا</span><h2>{{ state.data.value.name }}</h2><p v-if="state.data.value.phone" dir="ltr">{{ state.data.value.phone }}</p></div></div><div v-if="statistics" class="account-statistics"><div><strong>{{ statistics.orders_count }}</strong><span>طلباتي</span></div><div><strong>{{ statistics.completed_orders_count }}</strong><span>طلبات مكتملة</span></div></div></section>

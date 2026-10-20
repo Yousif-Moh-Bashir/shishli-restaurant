@@ -2,6 +2,16 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import {readFile} from 'node:fs/promises'
 import {canonicalUrl, routeSeo, restaurantSchema, homeSeo, cmsPageSeo, setRestaurantSchema, siteUrl} from '../src/utils/seo.js'
+import {brandName,brandTagline,restaurantDisplayName} from '../src/utils/branding.js'
+
+test('approved identity defaults agree with Laravel without replacing saved settings', async () => {
+  assert.equal(brandName,'مطعم شيشلي فرش')
+  assert.equal(brandTagline,'شيشلي فرش — نكهة المشويات التركية الأصيلة')
+  assert.equal(restaurantDisplayName(null),brandName)
+  assert.equal(restaurantDisplayName({restaurant:{name:'اسم محفوظ من الإدارة'}}),'اسم محفوظ من الإدارة')
+  const definition=await readFile(new URL('../../back-end/app/Services/RestaurantSettingDefinition.php',import.meta.url),'utf8')
+  assert.equal(definition.match(/'restaurant.name' => \$define\(\$string, '([^']+)'/)[1],brandName)
+})
 
 test('restaurant logo and image use the public icon by default and safe absolute branding URLs when configured', async () => {
   const settings={restaurant:{name:'شيشلي فرش'}}
@@ -21,8 +31,8 @@ test('restaurant logo and image use the public icon by default and safe absolute
 
 test('JSON-LD prefers only loaded images, retains fallback on errors and ignores outdated image loads', () => {
   const previousDocument=globalThis.document,previousImage=globalThis.Image,pending=[]
-  let script
-  globalThis.document={getElementById:()=>script,createElement:()=>({textContent:'',remove(){script=undefined}}),head:{append(element){script=element}}}
+  let script,created=0
+  globalThis.document={getElementById:()=>script,createElement:()=>{created++;return {textContent:'',remove(){script=undefined}}},head:{append(element){script=element}}}
   globalThis.Image=class{constructor(){this.naturalWidth=0;this.naturalHeight=0;pending.push(this)}}
   const schema=restaurantSchema({restaurant:{name:'الاسم الفعلي'},branding:{logo_path:'branding/logo.png'}},[{id:'a',name:'فرع',is_active:true,location:{city:'تبوك',address:'عنوان فعلي',latitude:28,longitude:36}}])
   const root=()=>JSON.parse(script.textContent)['@graph'][0]
@@ -32,8 +42,11 @@ test('JSON-LD prefers only loaded images, retains fallback on errors and ignores
     assert.equal(pending[0].src,siteUrl+'/storage/branding/logo.png')
     pending[0].naturalWidth=pending[0].naturalHeight=180;pending[0].onload()
     assert.equal(root().logo,schema['@graph'][0].logo);assert.equal(root().image,root().logo)
+    assert.equal(root().hasMenu,siteUrl+'/menu')
+    assert.equal(root().url,siteUrl+'/')
     assert.deepEqual(JSON.parse(script.textContent)['@graph'].slice(1),schema['@graph'].slice(1))
     setRestaurantSchema(schema);pending[1].onerror()
+    assert.equal(created,1,'Repeated updates must reuse one JSON-LD script')
     assert.equal(root().logo,siteUrl+'/apple-touch-icon.png')
     setRestaurantSchema(null)
     pending[1].naturalWidth=pending[1].naturalHeight=180;pending[1].onload()
@@ -42,14 +55,14 @@ test('JSON-LD prefers only loaded images, retains fallback on errors and ignores
 })
 
 test('initial HTML matches the exact homepage SEO, Open Graph and Twitter values', async () => {
-  assert.equal(homeSeo.title, 'مطعم شيشلي فرش | مشويات ودجاج تركي في تبوك')
-  assert.equal(homeSeo.description, 'اكتشف منيو مطعم شيشلي فرش في تبوك، واستمتع بالمشويات والدجاج التركي والكباب والشيش طاووق. تصفح الأصناف والعروض واطلب عبر موقعنا الرسمي.')
+  assert.equal(homeSeo.title, 'مطعم شيشلي فرش | مشويات ودجاج تركي وكباب في تبوك')
+  assert.equal(homeSeo.description, 'استمتع بأشهى المشويات والدجاج التركي والكباب في مطعم شيشلي فرش بتبوك. تصفح قائمة الطعام واطلب وجبتك المفضلة مباشرة من موقعنا.')
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8')
   assert.equal(html.match(/<title>(.*?)<\/title>/)[1], homeSeo.title)
   for (const [attribute, key, expected] of [
     ['name','description',homeSeo.description], ['property','og:title',homeSeo.title],
     ['property','og:description',homeSeo.description], ['name','twitter:title',homeSeo.title],
-    ['name','twitter:description',homeSeo.description], ['property','og:site_name','شيشلي فرش'],
+    ['name','twitter:description',homeSeo.description], ['property','og:site_name',brandName],
   ]) assert.equal(html.match(new RegExp(`<meta ${attribute}="${key}" content="([^"]*)"`))[1], expected)
 })
 test('homepage CMS and router titles cannot replace the required SEO; other CMS pages remain unique', () => {
@@ -83,7 +96,7 @@ test('public routes have distinct Arabic SEO and private routes are noindex', ()
     assert.equal(seo.index, true); assert.match(seo.description, /[\u0600-\u06ff]/); titles.add(seo.title)
   }
   assert.equal(titles.size, 8)
-  assert.equal(routeSeo({name:'login',path:'/login'}).title, 'تسجيل الدخول | مطعم شيشلي')
+  assert.equal(routeSeo({name:'login',path:'/login'}).title, 'تسجيل الدخول | مطعم شيشلي فرش')
   for (const name of ['login', 'register', 'cart', 'checkout', 'driver.home', 'admin.home', 'not-found', 'account.profile', 'track-order']) assert.equal(routeSeo({name, path:'/private'}).index, false)
 })
 test('schema uses actual settings and active branches without invented information', () => {
