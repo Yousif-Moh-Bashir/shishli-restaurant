@@ -74,10 +74,13 @@ class OrderLifecycleTest extends TestCase
             $this->postJson($driverUrl.'/transition', ['status' => 'picked_up'])->assertOk();
             $this->postJson($driverUrl.'/transition', ['status' => 'on_the_way'])->assertOk()->assertJsonPath('data.preparation_status', 'out_for_delivery');
             $this->postJson($driverUrl.'/cash/collect', ['amount' => $order->total])->assertOk();
-            $this->postJson($driverUrl.'/transition', ['status' => 'delivered'])->assertOk()->assertJsonPath('data.preparation_status', 'completed');
+            $this->postJson($driverUrl.'/transition', ['status' => 'delivered'])->assertOk()->assertJsonPath('data.preparation_status', 'out_for_delivery');
+            $this->assertNull($order->fresh()->completed_at);
+            $cashier = $this->staff('cashier');
+            $this->actingAs($cashier, 'sanctum')->postJson('/api/v1/admin/orders/'.$order->uuid.'/complete')->assertOk();
             $lastHistory = $order->statusHistory()->get()->last();
-            $this->assertSame(OrderStatusSource::Driver, $lastHistory->source);
-            $this->assertSame($driver->id, $lastHistory->changed_by);
+            $this->assertSame(OrderStatusSource::Cashier, $lastHistory->source);
+            $this->assertSame($cashier->id, $lastHistory->changed_by);
             $this->actingAs($manager, 'sanctum');
         }
         $transitionCount = count($commands) + ($type === 'delivery' ? 2 : 0);
@@ -104,7 +107,9 @@ class OrderLifecycleTest extends TestCase
     public function test_each_admin_command_requires_its_specific_permission(string $command, string $from, string $permission): void
     {
         $this->seed(RolePermissionSeeder::class);
-        $order = Order::factory()->create(['type' => 'delivery', 'status' => $from]);
+        $order = Order::factory()->create(['type' => 'delivery', 'status' => $from,
+            'delivery_status' => $command === 'complete' ? 'delivered' : null,
+            'payment_status' => $command === 'complete' ? 'paid' : 'pending']);
         $url = '/api/v1/admin/orders/'.$order->uuid.'/'.$command;
         $this->postJson($url, ['reason' => 'Customer requested'])->assertUnauthorized();
         $user = User::factory()->create()->givePermissionTo('orders.view');

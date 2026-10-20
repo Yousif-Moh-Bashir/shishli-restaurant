@@ -13,6 +13,9 @@ import { useAuthStore } from './stores/auth'
 import { useCartStore } from './stores/cart'
 import { configureHttpAuth } from './api/http'
 import { installAuthGuards } from './router/authGuards'
+import {setPageSeo,routeSeo,restaurantSchema,setRestaurantSchema} from './utils/seo'
+import {usePublicSettingsStore} from './stores/publicSettings'
+import {useBranchStore} from './stores/branch'
 const app = createApp(App), pinia = createPinia()
 app.directive('admin-table',adminTable)
 app.use(pinia)
@@ -25,4 +28,15 @@ configureHttpAuth(() => auth.token, expiredToken => {
   }
 })
 installAuthGuards(router, auth)
-app.use(router).mount('#app')
+app.use(router)
+const settings = usePublicSettingsStore(pinia), branches = useBranchStore(pinia)
+watch([() => router.currentRoute.value.path, () => router.currentRoute.value.name], () => {
+  const route = router.currentRoute.value
+  setPageSeo(routeSeo(route))
+  if (!routeSeo(route).index) setRestaurantSchema(null)
+  else setRestaurantSchema(restaurantSchema(settings.data, branches.branches))
+}, {flush:'post'})
+watch([() => settings.data, () => branches.branches], () => {
+  if (routeSeo(router.currentRoute.value).index) setRestaurantSchema(restaurantSchema(settings.data, branches.branches))
+}, {deep:true})
+app.mount('#app')

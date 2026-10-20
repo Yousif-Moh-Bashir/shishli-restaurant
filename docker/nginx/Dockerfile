@@ -5,6 +5,8 @@ RUN npm ci
 COPY front-end/index.html front-end/vite.config.js ./
 COPY front-end/src/ ./src/
 COPY front-end/public/ ./public/
+ARG VITE_SITE_URL=https://shishlifresh.com
+ENV VITE_SITE_URL=$VITE_SITE_URL
 ENV VITE_API_BASE_URL=/api/v1
 RUN npm run build
 FROM nginx:1.28-alpine

@@ -95,7 +95,7 @@ class DriverOrderService
         $actions = [];
         $next = $order->delivery_status?->next();
         if ($next !== null && ($next !== DeliveryStatus::PickedUp || $order->status === OrderStatus::Ready)
-            && ($next !== DeliveryStatus::Delivered || $order->payment_status->value === 'paid')) {
+            && ($next !== DeliveryStatus::Delivered || ($order->status === OrderStatus::OutForDelivery && $order->payment_status->value === 'paid'))) {
             $actions[] = $next->value;
         }
         if (in_array($order->delivery_status, [DeliveryStatus::Assigned, DeliveryStatus::PickedUp, DeliveryStatus::OnTheWay], true)) {

@@ -26,6 +26,15 @@ class CustomerAddressTest extends TestCase
         return [['GET', ''], ['POST', ''], ['GET', '/{uuid}'], ['PATCH', '/{uuid}'], ['DELETE', '/{uuid}'], ['PATCH', '/{uuid}/default']];
     }
 
+    public function test_empty_address_list_is_scoped_to_authenticated_customer(): void
+    {
+        CustomerAddress::factory()->create();
+        $user = User::factory()->create();
+        $this->actingAs($user, 'sanctum')->getJson('/api/v1/addresses')->assertOk()->assertJsonPath('data', []);
+        $address = CustomerAddress::factory()->for($user)->create();
+        $this->getJson('/api/v1/addresses')->assertOk()->assertJsonCount(1, 'data')->assertJsonPath('data.0.id', $address->uuid);
+    }
+
     public function test_creation_listing_default_switching_and_delete_preserve_ownership(): void
     {
         $user = User::factory()->create();

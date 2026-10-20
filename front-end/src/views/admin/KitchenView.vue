@@ -54,7 +54,7 @@ onBeforeUnmount(()=>{revision++;actionsDialog.value?.close();clearInterval(tick)
     <dialog ref="actionsDialog" class="info-dialog kitchen-actions" aria-labelledby="kitchen-actions-title" @cancel.prevent="event=>{if(event.target===actionsDialog)closeFocus()}" @close="closeFocus">
       <div class="kitchen-focused-heading"><h2 id="kitchen-actions-title">إجراءات الطلب</h2><button class="row-button" type="button" :disabled="active" aria-label="إغلاق إجراءات الطلب" @click="closeFocus"><AdminIcon name="x"/> إغلاق</button></div>
       <AppSkeleton v-if="focusLoading" variant="list" label="جارٍ تحميل الإجراءات المسموحة…"/><p v-if="focusError" role="alert">{{ focusError.message }}</p>
-      <template v-if="focused"><div class="kitchen-focused-heading"><OrderNumber :number="focused.order_number"/><OrderStatusBadge :status="focused.status"/></div><AdminOrderOperations :order="focused" :reload="reload" @active="active=$event"/></template>
+      <template v-if="focused"><div class="kitchen-focused-heading"><OrderNumber :number="focused.order_number"/><OrderStatusBadge :status="focused.status"/></div><AdminOrderOperations kitchen-only :order="focused" :reload="reload" @active="active=$event"/></template>
     </dialog>
     <ApiPagination v-if="data" :meta="data.meta" :links="data.links" :busy="refreshing||active" @page="load"/>
   </main>

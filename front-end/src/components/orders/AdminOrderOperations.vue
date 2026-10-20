@@ -6,11 +6,11 @@ import { orderOperations } from '../../constants/orderOperations'
 import { normalizeApiError } from '../../utils/apiError'
 import AdminIcon from '../admin/AdminIcon.vue'
 import AdminSectionHeading from '../admin/AdminSectionHeading.vue'
-const props=defineProps({order:Object,reload:Function,disabled:Boolean})
+const props=defineProps({order:Object,reload:Function,disabled:Boolean,kitchenOnly:Boolean})
 const emit=defineEmits(['changed','active'])
 const auth=useAuthStore(),dialog=ref(null),selected=ref(''),text=ref(''),busy=ref(false),error=ref(null),notice=ref('')
 let revision=0,disposed=false
-const actions=computed(()=>Object.keys(orderOperations).filter(action=>props.order?.available_actions?.includes(action)&&auth.can(orderOperations[action].permission)))
+const actions=computed(()=>Object.keys(orderOperations).filter(action=>(!props.kitchenOnly||['start_preparing','mark_ready'].includes(action))&&props.order?.available_actions?.includes(action)&&auth.can(orderOperations[action].permission)))
 const label=computed(()=>orderOperations[selected.value]?.label||'')
 function open(action){if(props.disabled||busy.value||!actions.value.includes(action))return;selected.value=action;text.value='';error.value=null;notice.value='';emit('active',true);dialog.value.showModal()}
 function close(){if(busy.value)return;dialog.value?.close();selected.value='';text.value='';emit('active',false)}
