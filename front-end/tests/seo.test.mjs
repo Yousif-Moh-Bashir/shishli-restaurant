@@ -1,6 +1,37 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import {canonicalUrl, routeSeo, restaurantSchema} from '../src/utils/seo.js'
+import {readFile} from 'node:fs/promises'
+import {canonicalUrl, routeSeo, restaurantSchema, homeSeo, cmsPageSeo} from '../src/utils/seo.js'
+
+test('initial HTML matches the exact homepage SEO, Open Graph and Twitter values', async () => {
+  assert.equal(homeSeo.title, 'مطعم شيشلي فرش | مشويات ودجاج تركي في تبوك')
+  assert.equal(homeSeo.description, 'اكتشف منيو مطعم شيشلي فرش في تبوك، واستمتع بالمشويات والدجاج التركي والكباب والشيش طاووق. تصفح الأصناف والعروض واطلب عبر موقعنا الرسمي.')
+  const html = await readFile(new URL('../index.html', import.meta.url), 'utf8')
+  assert.equal(html.match(/<title>(.*?)<\/title>/)[1], homeSeo.title)
+  for (const [attribute, key, expected] of [
+    ['name','description',homeSeo.description], ['property','og:title',homeSeo.title],
+    ['property','og:description',homeSeo.description], ['name','twitter:title',homeSeo.title],
+    ['name','twitter:description',homeSeo.description], ['property','og:site_name','شيشلي فرش'],
+  ]) assert.equal(html.match(new RegExp(`<meta ${attribute}="${key}" content="([^"]*)"`))[1], expected)
+})
+test('homepage CMS and router titles cannot replace the required SEO; other CMS pages remain unique', () => {
+  const page={title:'الرئيسية',seo:{title:'الرئيسية | مطعم شيشلي للدجاج التركي',description:'وصف قديم',og_image_url:'/storage/home.webp'}}
+  const home=cmsPageSeo({name:'home',path:'/',meta:{title:'عنوان قديم'}},page)
+  assert.equal(home.title,homeSeo.title); assert.equal(home.description,homeSeo.description)
+  assert.equal(home.image,page.seo.og_image_url)
+  const about=cmsPageSeo({name:'about',path:'/about'}, {...page,seo:{title:'قصة المطعم',description:'وصف قصتنا'}})
+  assert.equal(about.title,'قصة المطعم'); assert.equal(about.description,'وصف قصتنا')
+})
+test('structured data retains settings identity and each actual branch city instead of SEO targeting', () => {
+  const schema=restaurantSchema({restaurant:{name:'الاسم المسجل في الإعدادات',city:'تبوك',country:'SA'}},[
+    {id:'a',name:'الفرع الأول',is_active:true,location:{city:'تبوك',address:'عنوان الفرع الأول'}},
+    {id:'b',name:'الفرع الثاني',is_active:true,location:{city:'مدينة أخرى',address:'عنوان الفرع الثاني'}},
+  ])
+  assert.equal(schema['@graph'][0].name,'الاسم المسجل في الإعدادات')
+  assert.equal(schema['@graph'][0].address.addressLocality,'تبوك')
+  assert.equal(schema['@graph'][2].address.addressLocality,'مدينة أخرى')
+  assert.equal(schema['@graph'][2].address.streetAddress,'عنوان الفرع الثاني')
+})
 
 test('canonical URLs omit queries and fragments', () => {
   assert.equal(canonicalUrl('/product/uuid?cartItem=private#options'), 'https://shishlifresh.com/product/uuid')

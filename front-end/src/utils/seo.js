@@ -1,7 +1,11 @@
 export const siteUrl = (import.meta.env?.VITE_SITE_URL || 'https://shishlifresh.com').replace(/\/+$/, '')
 export const defaultDescription = 'اكتشف قائمة مطعم شيشلي للدجاج التركي والشيش، وتصفح الأطباق والعروض والفروع واطلب وجبتك المفضلة.'
+export const homeSeo = {
+  title: 'مطعم شيشلي فرش | مشويات ودجاج تركي في تبوك',
+  description: 'اكتشف منيو مطعم شيشلي فرش في تبوك، واستمتع بالمشويات والدجاج التركي والكباب والشيش طاووق. تصفح الأصناف والعروض واطلب عبر موقعنا الرسمي.',
+}
 export const publicPages = {
-  home: ['مطعم شيشلي | الدجاج التركي والشيش', defaultDescription],
+  home: [homeSeo.title, homeSeo.description],
   menu: ['قائمة الطعام | مطعم شيشلي', 'تصفح أطباق الدجاج التركي والشيش والمشويات والإضافات في قائمة مطعم شيشلي.'],
   branches: ['فروعنا | مطعم شيشلي', 'تعرف على فروع مطعم شيشلي ومواقعها ووسائل التواصل معها، واختر الفرع المناسب لطلبك.'],
   offers: ['عروض شيشلي | مطعم شيشلي', 'اكتشف عروض مطعم شيشلي الحالية وشروط الخصومات والكوبونات وتواريخ صلاحيتها.'],
@@ -19,6 +23,15 @@ export function routeSeo(route) {
   const privateTitles = { login: 'تسجيل الدخول | مطعم شيشلي', register: 'إنشاء حساب | مطعم شيشلي', cart: 'سلة طلباتك | مطعم شيشلي', checkout: 'إكمال الطلب | مطعم شيشلي', 'order-success': 'تفاصيل الطلب | مطعم شيشلي', 'track-order': 'تتبع الطلب | مطعم شيشلي' }
   const fallback = String(route.name).startsWith('admin.') ? 'لوحة شيشلي' : 'مطعم شيشلي'
   return { title: page?.[0] || route.meta?.title || privateTitles[route.name] || fallback, description: page?.[1] || defaultDescription, path: route.path, index: !!page }
+}
+export function cmsPageSeo(route, page) {
+  const defaults = routeSeo(route)
+  const isHome = (route.meta?.cmsKey || route.name) === 'home'
+  return { ...defaults,
+    title: isHome ? homeSeo.title : page.seo?.title || page.title || defaults.title,
+    description: isHome ? homeSeo.description : page.seo?.description || defaults.description,
+    image: page.seo?.og_image_url,
+  }
 }
 function meta(name, content, property = false) {
   const attribute = property ? 'property' : 'name'
@@ -39,11 +52,16 @@ export function setPageSeo({ title, description = defaultDescription, path = loc
   meta('og:url', canonical.href, true)
   meta('og:type', 'website', true)
   meta('og:locale', 'ar_SA', true)
-  meta('og:site_name', 'مطعم شيشلي', true)
+  meta('og:site_name', 'شيشلي فرش', true)
+  meta('twitter:title', document.title)
+  meta('twitter:description', description || defaultDescription)
   let safeImage
   try { const url = new URL(image, siteUrl); if (image && ['https:', 'http:'].includes(url.protocol)) safeImage = url.href } catch {}
   meta('og:image', safeImage, true)
   meta('og:image:alt', safeImage ? document.title : undefined, true)
+  meta('twitter:card', safeImage ? 'summary_large_image' : 'summary')
+  meta('twitter:image', safeImage)
+  meta('twitter:image:alt', safeImage ? document.title : undefined)
 }
 export function restaurantSchema(settings, branches = []) {
   const restaurant = settings?.restaurant
