@@ -1,7 +1,45 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {readFile} from 'node:fs/promises'
-import {canonicalUrl, routeSeo, restaurantSchema, homeSeo, cmsPageSeo} from '../src/utils/seo.js'
+import {canonicalUrl, routeSeo, restaurantSchema, homeSeo, cmsPageSeo, setRestaurantSchema, siteUrl} from '../src/utils/seo.js'
+
+test('restaurant logo and image use the public icon by default and safe absolute branding URLs when configured', async () => {
+  const settings={restaurant:{name:'شيشلي فرش'}}
+  const fallback=siteUrl+'/apple-touch-icon.png'
+  const root=path=>restaurantSchema({...settings,branding:{logo_path:path}})['@graph'][0]
+  for(const value of [undefined,null,'','javascript:alert(1)','data:image/png;base64,xxx','//evil.example/logo.png','../private/logo.png','/storage/../private.png','file:///logo.png','https://user:password@example.com/logo.png','https://example.com/a\nb.png','C:\\private\\logo.png']){
+    assert.equal(root(value).logo,fallback)
+    assert.equal(root(value).image,fallback)
+  }
+  for(const [value,expected] of [['branding/logo.png',siteUrl+'/storage/branding/logo.png'],['storage/branding/logo.webp',siteUrl+'/storage/branding/logo.webp'],['/assets/logo.svg',siteUrl+'/assets/logo.svg'],['https://cdn.example.com/logo.png','https://cdn.example.com/logo.png']]){
+    assert.equal(root(value).logo,expected); assert.equal(root(value).image,expected)
+  }
+  const icon=await readFile(new URL('../public/apple-touch-icon.png',import.meta.url))
+  assert.equal(icon.subarray(1,4).toString(),'PNG')
+  assert.ok(icon.readUInt32BE(16)>=112&&icon.readUInt32BE(20)>=112)
+})
+
+test('JSON-LD prefers only loaded images, retains fallback on errors and ignores outdated image loads', () => {
+  const previousDocument=globalThis.document,previousImage=globalThis.Image,pending=[]
+  let script
+  globalThis.document={getElementById:()=>script,createElement:()=>({textContent:'',remove(){script=undefined}}),head:{append(element){script=element}}}
+  globalThis.Image=class{constructor(){this.naturalWidth=0;this.naturalHeight=0;pending.push(this)}}
+  const schema=restaurantSchema({restaurant:{name:'الاسم الفعلي'},branding:{logo_path:'branding/logo.png'}},[{id:'a',name:'فرع',is_active:true,location:{city:'تبوك',address:'عنوان فعلي',latitude:28,longitude:36}}])
+  const root=()=>JSON.parse(script.textContent)['@graph'][0]
+  try{
+    setRestaurantSchema(schema)
+    assert.equal(root().logo,siteUrl+'/apple-touch-icon.png')
+    assert.equal(pending[0].src,siteUrl+'/storage/branding/logo.png')
+    pending[0].naturalWidth=pending[0].naturalHeight=180;pending[0].onload()
+    assert.equal(root().logo,schema['@graph'][0].logo);assert.equal(root().image,root().logo)
+    assert.deepEqual(JSON.parse(script.textContent)['@graph'].slice(1),schema['@graph'].slice(1))
+    setRestaurantSchema(schema);pending[1].onerror()
+    assert.equal(root().logo,siteUrl+'/apple-touch-icon.png')
+    setRestaurantSchema(null)
+    pending[1].naturalWidth=pending[1].naturalHeight=180;pending[1].onload()
+    assert.equal(script,undefined)
+  }finally{globalThis.document=previousDocument;globalThis.Image=previousImage}
+})
 
 test('initial HTML matches the exact homepage SEO, Open Graph and Twitter values', async () => {
   assert.equal(homeSeo.title, 'مطعم شيشلي فرش | مشويات ودجاج تركي في تبوك')

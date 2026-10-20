@@ -1,4 +1,17 @@
+import {safeContentUrl} from './contentUrl.js'
 export const siteUrl = (import.meta.env?.VITE_SITE_URL || 'https://shishlifresh.com').replace(/\/+$/, '')
+const defaultLogo = siteUrl + '/apple-touch-icon.png'
+function restaurantLogo(path) {
+  if (typeof path !== 'string' || !path || /[\u0000-\u0020\\]/.test(path) || path.split('/').some(part => part === '.' || part === '..')) return defaultLogo
+  if (!/^https?:\/\//.test(path) && !/^[a-zA-Z0-9_/.-]+$/.test(path)) return defaultLogo
+  const candidate = /^(?:https?:\/\/|\/)/.test(path) ? path : '/' + (path.startsWith('storage/') ? path : 'storage/' + path)
+  const safe = safeContentUrl(candidate)
+  if (!safe) return defaultLogo
+  try {
+    const url = new URL(safe, siteUrl + '/')
+    return url.protocol === 'https:' || (url.protocol === 'http:' && url.origin === new URL(siteUrl).origin) ? url.href : defaultLogo
+  } catch { return defaultLogo }
+}
 export const defaultDescription = 'اكتشف قائمة مطعم شيشلي للدجاج التركي والشيش، وتصفح الأطباق والعروض والفروع واطلب وجبتك المفضلة.'
 export const homeSeo = {
   title: 'مطعم شيشلي فرش | مشويات ودجاج تركي في تبوك',
@@ -67,6 +80,8 @@ export function restaurantSchema(settings, branches = []) {
   const restaurant = settings?.restaurant
   if (!restaurant?.name) return null
   const root = { '@type': 'Restaurant', '@id': siteUrl + '/#restaurant', name: restaurant.name, url: siteUrl + '/', hasMenu: siteUrl + '/menu' }
+  root.logo = restaurantLogo(settings.branding?.logo_path)
+  root.image = root.logo
   if (restaurant.phone) root.telephone = restaurant.phone
   if (restaurant.email) root.email = restaurant.email
   if (restaurant.city || restaurant.country) {
@@ -87,9 +102,25 @@ export function restaurantSchema(settings, branches = []) {
   })
   return { '@context': 'https://schema.org', '@graph': [root, ...locations] }
 }
+let restaurantSchemaRevision = 0
 export function setRestaurantSchema(schema) {
+  const revision = ++restaurantSchemaRevision
   let element = document.getElementById('restaurant-jsonld')
   if (!schema) { element?.remove(); return }
   if (!element) { element = document.createElement('script'); element.id = 'restaurant-jsonld'; element.type = 'application/ld+json'; document.head.append(element) }
-  element.textContent = JSON.stringify(schema).replace(/</g, '\\u003c')
+  const root = schema['@graph'][0], preferredLogo = root.logo
+  // Keep a known public image in the markup until the configured image actually loads.
+  const write = logo => {
+    if (revision !== restaurantSchemaRevision) return
+    const graph = [{ ...root, logo, image: logo }, ...schema['@graph'].slice(1)]
+    element.textContent = JSON.stringify({ ...schema, '@graph': graph }).replace(/</g, '\\u003c')
+  }
+  write(defaultLogo)
+  if (preferredLogo !== defaultLogo) {
+    const image = new Image()
+    image.referrerPolicy = 'no-referrer'
+    image.onload = () => { if (image.naturalWidth > 0 && image.naturalHeight > 0) write(preferredLogo) }
+    image.onerror = () => {} // The fallback already remains in the markup.
+    image.src = preferredLogo
+  }
 }
