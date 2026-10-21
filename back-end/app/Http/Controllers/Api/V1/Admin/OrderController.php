@@ -28,6 +28,6 @@ class OrderController extends Controller
 
     public function show(Order $order): JsonResponse
     {
-        return ApiResponse::success(data: new AdminOrderResource($order->load(['branch', 'items.options', 'address', 'payments', 'latestPayment', 'statusHistory.changedBy', 'driver', 'deliveryHistory.actor', 'deliveryHistory.driver'])));
+        return ApiResponse::success(data: new AdminOrderResource($order->load(['branch', 'items.options', 'address', 'payments', 'latestPayment', 'statusHistory.changedBy', 'cashCollections.driver', 'driver', 'deliveryHistory.actor', 'deliveryHistory.driver'])));
     }
 }

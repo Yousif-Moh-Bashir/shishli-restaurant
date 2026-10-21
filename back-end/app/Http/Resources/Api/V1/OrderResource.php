@@ -11,6 +11,8 @@ class OrderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return ['id' => $this->uuid, 'order_number' => $this->order_number, 'type' => $this->type->value, 'status' => $this->status->value,
+            'delivery_state' => ['status' => $this->delivery_status?->value, 'label' => $this->delivery_status?->label(),
+                'under_review' => $this->delivery_exception_requested_at !== null],
             'order_timing' => $this->order_timing->value, 'scheduled_for' => $this->scheduled_for?->toISOString(),
             'payment' => ['method' => $this->payment_method->value, 'status' => $this->payment_status->value],
             'latest_payment' => new PaymentResource($this->whenLoaded('latestPayment')),

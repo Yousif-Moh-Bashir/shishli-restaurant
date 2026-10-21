@@ -10,13 +10,14 @@ use App\Exceptions\PaymentException;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\User;
+use App\Services\Admin\AdminActivityService;
 use App\Services\Money;
 use App\Services\Payments\PaymentStatusWriter;
 use Illuminate\Support\Facades\DB;
 
 class CollectCashPaymentAction
 {
-    public function __construct(private PaymentStatusWriter $writer) {}
+    public function __construct(private PaymentStatusWriter $writer, private AdminActivityService $audit) {}
 
     public function handle(Order $order, User $actor): Payment
     {
@@ -49,6 +50,8 @@ class CollectCashPaymentAction
                 throw new PaymentException('PAYMENT_AMOUNT_MISMATCH');
             }
             $this->writer->apply($payment, $locked, PaymentStatus::Paid, actorId: $actor->id);
+            $this->audit->record($actor, $locked->payment_method === PaymentMethod::Network ? 'payments.confirm_network' : 'payments.collect_cash',
+                'order', $locked->uuid, ['payment_status' => $locked->payment_status->value], ['payment_status' => 'paid', 'amount' => $payment->amount]);
 
             return $payment;
         }, 3);

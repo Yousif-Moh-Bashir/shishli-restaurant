@@ -1,0 +1,11 @@
+# Overlay ONLY for production: selects immutable app/frontend images together.
+# Build with this overlay; it does not change networks, volumes, ports or secrets.
+services:
+  app:
+    image: ${SHISHLI_RELEASE_APP_IMAGE:?Set the reviewed release app image}
+  queue:
+    image: ${SHISHLI_RELEASE_APP_IMAGE:?Set the reviewed release app image}
+  scheduler:
+    image: ${SHISHLI_RELEASE_APP_IMAGE:?Set the reviewed release app image}
+  nginx:
+    image: ${SHISHLI_RELEASE_NGINX_IMAGE:?Set the reviewed release frontend image}

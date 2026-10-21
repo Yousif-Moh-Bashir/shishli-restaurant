@@ -27,6 +27,11 @@ class DriverCashCollection extends Model
         return $this->belongsTo(Order::class);
     }
 
+    public function driver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'driver_id');
+    }
+
     public function settlement(): BelongsTo
     {
         return $this->belongsTo(DriverCashSettlement::class, 'settlement_id');

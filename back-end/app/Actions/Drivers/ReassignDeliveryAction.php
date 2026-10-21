@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Services\Admin\AdminActivityService;
 use App\Services\Drivers\DriverOrderService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ReassignDeliveryAction
 {
@@ -18,12 +19,14 @@ class ReassignDeliveryAction
     public function handle(User $actor, Order $order, User $target, string $reason): Order
     {
         abort_unless($actor->can('drivers.reassign'), 403);
+        Validator::make(['reason' => trim($reason)], ['reason' => ['required', 'string', 'min:3', 'max:1000']])->validate();
 
         return DB::transaction(function () use ($actor, $order, $target, $reason): Order {
             $previousId = $order->driver_id;
             $drivers = User::whereIn('id', array_filter([$previousId, $target->id]))->orderBy('id')->lockForUpdate()->get()->keyBy('id');
             $locked = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
             abort_if($locked->driver_id !== $previousId, 409);
+            abort_if($locked->delivery_task_closed_at !== null || in_array($locked->delivery_status, [DeliveryStatus::Delivered, DeliveryStatus::Returning, DeliveryStatus::Returned, DeliveryStatus::Released], true), 409);
             $target = $drivers->get($target->id);
             abort_unless($target !== null && $this->orders->canAccept($target), 422);
             abort_unless($locked->branch_id === $target->driver_branch_id && $locked->type === OrderType::Delivery, 422);
@@ -36,6 +39,8 @@ class ReassignDeliveryAction
                 $status = DeliveryStatus::PickedUp;
             }
             $locked->driver_id = $target->id;
+            $locked->delivery_revision++;
+            $locked->delivery_exception_requested_at = null;
             $locked->delivery_status = $status;
             $locked->driver_accepted_at = now();
             $locked->delivery_failed_at = null;

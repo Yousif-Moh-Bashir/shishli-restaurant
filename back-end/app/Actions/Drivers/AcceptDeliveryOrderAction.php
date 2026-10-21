@@ -24,6 +24,7 @@ class AcceptDeliveryOrderAction
             abort_unless($this->orders->available($driver)->whereKey($locked->id)->exists(), 409);
             $locked->driver_id = $driver->id;
             $locked->delivery_status = DeliveryStatus::Assigned;
+            $locked->delivery_revision++;
             $locked->driver_accepted_at = now();
             $locked->save();
             $locked->deliveryHistory()->create(['driver_id' => $driver->id, 'changed_by' => $driver->id, 'to_status' => 'assigned']);

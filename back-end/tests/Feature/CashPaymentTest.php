@@ -56,6 +56,7 @@ class CashPaymentTest extends TestCase
 
         $response = $this->actingAs($actor, 'sanctum')->postJson($this->path($order), [
             'amount' => '1.00', 'status' => 'paid', 'paid_at' => '2000-01-01', 'metadata' => ['cvv' => '999'],
+            'network_verified' => true,
         ]);
         if (! $allowed) {
             $response->assertForbidden();

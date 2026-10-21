@@ -39,7 +39,8 @@ class TransitionOrderStatusAction
             if ($target === OrderStatus::Confirmed && ! $this->paymentPolicy->canConfirm($locked)) {
                 throw new PaymentException('ORDER_PAYMENT_REQUIRED');
             }
-            $locked->status = $this->machine->transition($from, $target, $locked->type);
+            $locked->status = $source === OrderStatusSource::DeliveryException && $from === OrderStatus::OutForDelivery
+                ? $target : $this->machine->transition($from, $target, $locked->type);
             $locked->{$target->value.'_at'} = now();
             if ($target === OrderStatus::Cancelled) {
                 $note = is_string($note) ? trim($note) : null;
@@ -55,7 +56,14 @@ class TransitionOrderStatusAction
                 $this->releaseStock->handle($locked, $actor);
             }
             $locked->save();
-            if ($target === OrderStatus::Cancelled && $locked->driver_id !== null) {
+            if ($target === OrderStatus::Cancelled) {
+                $locked->delivery_task_closed_at = now();
+                $locked->delivery_exception_requested_at = null;
+                $locked->delivery_revision++;
+                $locked->save();
+            }
+            if ($target === OrderStatus::Cancelled && $locked->driver_id !== null && $source !== OrderStatusSource::DeliveryException
+                && ! in_array($locked->delivery_status, [DeliveryStatus::Returned, DeliveryStatus::Released], true)) {
                 $deliveryFrom = $locked->delivery_status;
                 $locked->delivery_status = DeliveryStatus::Failed;
                 $locked->delivery_failed_at = now();

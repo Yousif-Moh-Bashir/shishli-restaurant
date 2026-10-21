@@ -58,6 +58,12 @@ class PaymentController extends Controller
 
     public function collect(Request $request, Order $order, CollectCashPaymentAction $collect): JsonResponse
     {
+        if ($order->payment_method->value === 'network' && $order->payment_status->value !== 'paid') {
+            $request->validate(['network_verified' => ['required', 'accepted']],
+                ['network_verified.required' => 'يجب التحقق من نجاح عملية جهاز الشبكة قبل تأكيد الدفع.',
+                    'network_verified.accepted' => 'أكد نجاح عملية جهاز الشبكة فعليًا.']);
+        }
+
         return ApiResponse::success(data: new PaymentResource($collect->handle($order, $request->user())));
     }
 }

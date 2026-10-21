@@ -23,6 +23,7 @@ class TransitionDeliveryAction
             $driver = User::whereKey($driver->id)->lockForUpdate()->firstOrFail();
             $locked = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
             $this->orders->owned($driver, $locked);
+            abort_if($locked->delivery_task_closed_at !== null, 409);
             abort_if(in_array($locked->status, [OrderStatus::Cancelled, OrderStatus::Completed], true), 409);
             $from = $locked->delivery_status;
             abort_unless($from !== null && ($target === $from->next() || ($target === DeliveryStatus::Failed && in_array($from, [DeliveryStatus::Assigned, DeliveryStatus::PickedUp, DeliveryStatus::OnTheWay], true))), 409);
@@ -42,6 +43,15 @@ class TransitionDeliveryAction
                 }
             }
             $locked->delivery_status = $target;
+            $locked->delivery_revision++;
+            if ($target === DeliveryStatus::Failed) {
+                $locked->delivery_exception_requested_at ??= now();
+                $locked->delivery_exception_reason = $reason;
+            }
+            if ($target === DeliveryStatus::Delivered) {
+                $locked->delivery_task_closed_at = now();
+                $locked->delivery_exception_requested_at = null;
+            }
             $locked->{'delivery_'.$target->value.'_at'} = now();
             $locked->save();
             $locked->deliveryHistory()->create(['driver_id' => $driver->id, 'changed_by' => $driver->id,

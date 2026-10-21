@@ -19,6 +19,7 @@ const DashboardView=()=>import('../views/admin/DashboardView.vue')
 const ReportsView=()=>import('../views/admin/ReportsView.vue')
 import { reportPermissions } from '../constants/reports'
 const OrdersView=()=>import('../views/admin/OrdersView.vue')
+const DeliveryExceptionsView=()=>import('../views/admin/DeliveryExceptionsView.vue')
 const ProductsView=()=>import('../views/admin/ProductsView.vue')
 const CategoriesView=()=>import('../views/admin/CategoriesView.vue')
 const OffersView=()=>import('../views/admin/PromotionsView.vue')
@@ -64,6 +65,7 @@ export default createRouter({
       { path: 'register', name: 'register', component: RegisterView, meta: { guestOnly: true } },
       { path: 'forbidden', name: 'forbidden', component: ForbiddenView, meta: { title: 'غير مصرح | مطعم شيشلي فرش' } },
       { path: 'cart', name: 'cart', component: CartView },
+      { path: 'delivery-exceptions', name: 'admin.delivery-exceptions', component: DeliveryExceptionsView, meta: { adminTitle: 'استثناءات التوصيل', permission: 'delivery_exceptions.view' } },
       { path: 'orders', name: 'customer-orders', component: CustomerOrdersView, meta: { title: 'طلباتي | مطعم شيشلي فرش' } },
       { path: 'account', redirect: '/account/profile', meta: { requiresAuth: true } },
       { path: 'account/profile', name:'account.profile',component:ProfileView,meta:{requiresAuth:true,title:'حسابي | مطعم شيشلي فرش'} },
@@ -83,6 +85,7 @@ export default createRouter({
     meta: { requiresAuth: true, requiresDriver: true },
     children: [
       { path: '', redirect: '/driver/orders' },
+      { path: 'delivery-exceptions', name: 'admin.delivery-exceptions', component: DeliveryExceptionsView, meta: { adminTitle: 'استثناءات التوصيل', permission: 'delivery_exceptions.view' } },
       { path: 'orders', name: 'driver.orders', component: () => import('../views/driver/DriverOrdersView.vue') },
       { path: 'orders/:id', name: 'driver.order', component: () => import('../views/driver/DriverOrderView.vue') },
       { path: 'collections', name: 'driver.collections', component: () => import('../views/driver/DriverCollectionsView.vue') },
@@ -106,6 +109,7 @@ export default createRouter({
       { path: 'product-options', name: 'admin.product-options', component: ProductOptionsView, meta: { adminTitle: 'خيارات المنتجات', permission: 'options.view' } },
       { path: 'product-options/:uuid', name: 'admin.option-group', component: OptionGroupDetailsView, meta: { adminTitle: 'قيم الخيارات', permission: 'options.view' } },
       { path: 'products/:uuid', name: 'admin.product', component: ProductDetailsView, meta: { adminTitle: 'إدارة المنتج', permission: 'products.view' } },
+      { path: 'delivery-exceptions', name: 'admin.delivery-exceptions', component: DeliveryExceptionsView, meta: { adminTitle: 'استثناءات التوصيل', permission: 'delivery_exceptions.view' } },
       { path: 'orders', name: 'admin.orders', component: OrdersView, meta: { title: 'الطلبات | لوحة شيشلي', adminTitle: 'الطلبات' } },
       { path: 'orders/:orderUuid', name: 'admin.order', component: AdminOrderDetailsView, meta: { adminTitle: 'تفاصيل الطلب', permission: 'orders.view' } },
       { path: 'kitchen', name: 'admin.kitchen', component: KitchenView, meta: { adminTitle: 'المطبخ', permission: 'orders.view' } },

@@ -45,6 +45,7 @@ use App\Http\Controllers\Api\V1\CheckoutController;
 use App\Http\Controllers\Api\V1\CmsController;
 use App\Http\Controllers\Api\V1\CustomerAddressController;
 use App\Http\Controllers\Api\V1\CustomerProfileController;
+use App\Http\Controllers\Api\V1\DeliveryExceptionController;
 use App\Http\Controllers\Api\V1\DeliveryQuoteController;
 use App\Http\Controllers\Api\V1\DriverController;
 use App\Http\Controllers\Api\V1\GuestOrderController;
@@ -86,6 +87,7 @@ Route::prefix('v1/driver')->name('api.v1.driver.')->middleware(['auth:sanctum', 
     Route::post('/orders/{order}/transition', [$controller, 'transition'])->whereUuid('order')->middleware('throttle:60,1')->name('orders.transition');
     Route::post('/orders/{order}/cash/collect', [$controller, 'collect'])->whereUuid('order')->middleware('throttle:30,1')->name('orders.collect');
     Route::get('/collections', [$controller, 'collections'])->name('collections');
+    Route::post('/orders/{order}/intervention', [DeliveryExceptionController::class, 'intervention'])->whereUuid('order')->middleware('throttle:30,1')->name('orders.intervention');
 });
 
 Route::prefix('v1/admin')->name('api.v1.admin.')->middleware(['auth:sanctum', EnsureAdminAccess::class])->group(function (): void {
@@ -97,6 +99,8 @@ Route::prefix('v1/admin')->name('api.v1.admin.')->middleware(['auth:sanctum', En
     Route::get('/drivers/{driver}/collections', [$controller, 'collections'])->whereUuid('driver')->middleware('permission:drivers.view')->name('drivers.collections');
     Route::post('/drivers/{driver}/settlements', [$controller, 'settle'])->whereUuid('driver')->middleware('permission:drivers.settle_cash')->name('drivers.settle');
     Route::post('/orders/{order}/reassign-driver', [$controller, 'reassign'])->whereUuid('order')->middleware('permission:drivers.reassign')->name('orders.reassign-driver');
+    Route::get('/delivery-exceptions', [DeliveryExceptionController::class, 'index'])->middleware(['permission:delivery_exceptions.view', 'permission:orders.view'])->name('delivery-exceptions.index');
+    Route::post('/orders/{order}/delivery-exception', [DeliveryExceptionController::class, 'manage'])->whereUuid('order')->middleware(['permission:orders.view', 'throttle:30,1'])->name('delivery-exceptions.manage');
 });
 
 Route::prefix('v1')->name('api.v1.')->group(function (): void {

@@ -30,7 +30,7 @@ class AdminActivityService
     private function sanitize(array $values): array
     {
         $safe = [];
-        foreach (Arr::only($values, self::SAFE_KEYS) as $key => $value) {
+        foreach (Arr::only($values, [...self::SAFE_KEYS, 'delivery_status']) as $key => $value) {
             if (in_array($key, ['roles', 'permissions', 'product_uuids'], true)) {
                 if (is_array($value)) {
                     $safe[$key] = array_values(array_filter($value, fn (mixed $item): bool => is_string($item)));

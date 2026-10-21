@@ -1,8 +1,8 @@
 export const preparationLabels = { pending: 'بانتظار تأكيد المطعم', confirmed: 'تم تأكيد الطلب', preparing: 'قيد التجهيز', ready: 'جاهز لدى المطعم', out_for_delivery: 'اكتمل التجهيز', completed: 'اكتمل التجهيز', cancelled: 'ملغي' }
-export const deliveryLabels = { unassigned: 'بانتظار المندوب', assigned: 'تم إسناد الطلب للمندوب', picked_up: 'استلم المندوب من الفرع', on_the_way: 'في الطريق للعميل', delivered: 'تم التسليم للعميل', failed: 'تعذر التسليم' }
+export const deliveryLabels = { unassigned: 'بانتظار المندوب', assigned: 'تم إسناد الطلب للمندوب', picked_up: 'استلم المندوب من الفرع', on_the_way: 'في الطريق للعميل', delivered: 'تم التسليم للعميل', failed: 'تعذر التسليم', returning: 'جارٍ الإرجاع للمطعم', returned: 'أُعيد للمطعم', released: 'انتهت العهدة دون تسليم' }
 export const deliveryActionLabels = { picked_up: 'استلام من الفرع', on_the_way: 'بدء التوصيل', delivered: 'تم التسليم' }
 export function isDriverOrderClosed(order) {
-  return order?.delivery_status === 'delivered' || ['completed', 'cancelled'].includes(order?.preparation_status)
+  return Boolean(order?.task_closed_at) || ['delivered', 'returned', 'released'].includes(order?.delivery_status) || ['completed', 'cancelled'].includes(order?.preparation_status)
 }
 export function driverError(error) {
   const status = error.response?.status || 0

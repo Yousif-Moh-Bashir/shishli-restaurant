@@ -67,7 +67,9 @@ class Order extends Model
 
     protected function casts(): array
     {
-        return ['delivery_status' => DeliveryStatus::class, 'driver_accepted_at' => 'immutable_datetime',
+        return ['delivery_revision' => 'integer', 'delivery_task_closed_at' => 'immutable_datetime',
+            'delivery_exception_requested_at' => 'immutable_datetime',
+            'delivery_status' => DeliveryStatus::class, 'driver_accepted_at' => 'immutable_datetime',
             'delivery_picked_up_at' => 'immutable_datetime', 'delivery_on_the_way_at' => 'immutable_datetime',
             'delivery_delivered_at' => 'immutable_datetime', 'delivery_failed_at' => 'immutable_datetime',
             'order_timing' => OrderTiming::class, 'scheduled_for' => 'immutable_datetime', 'type' => OrderType::class, 'status' => OrderStatus::class, 'payment_method' => PaymentMethod::class, 'payment_status' => PaymentStatus::class,
@@ -126,6 +128,11 @@ class Order extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class)->orderBy('id');
+    }
+
+    public function cashCollections(): HasMany
+    {
+        return $this->hasMany(DriverCashCollection::class)->orderBy('id');
     }
 
     public function latestPayment(): HasOne
