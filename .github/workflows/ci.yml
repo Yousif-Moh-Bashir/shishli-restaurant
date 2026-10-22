@@ -132,7 +132,20 @@ jobs:
       - name: Test MySQL and Redis integration through Laravel
         run: php artisan test --compact --group=ci-services --fail-on-skipped --log-junit=/tmp/services-junit.xml
       - name: Run Laravel unit, feature and MySQL concurrency tests
-        run: php artisan test --compact --exclude-group=ci-services --fail-on-skipped --log-junit=/tmp/laravel-junit.xml
+        run: php artisan test --compact --exclude-group=ci-services --exclude-group=delivery-mysql --fail-on-skipped --log-junit=/tmp/laravel-junit.xml
+      - name: Run isolated delivery MySQL concurrency tests
+        working-directory: ..
+        env:
+          DELIVERY_RELEASE_TAG: ci-${{ github.run_id }}-${{ github.run_attempt }}
+          DELIVERY_TEST_ROOT_PASSWORD: ci-only-password
+        run: docker compose -f docker/compose.delivery-release-test.yaml -p shishli-delivery-ci up --build --abort-on-container-exit --exit-code-from delivery-tests delivery-tests
+      - name: Clean up isolated delivery MySQL services
+        if: always()
+        working-directory: ..
+        env:
+          DELIVERY_RELEASE_TAG: ci-${{ github.run_id }}-${{ github.run_attempt }}
+          DELIVERY_TEST_ROOT_PASSWORD: ci-only-password
+        run: docker compose -f docker/compose.delivery-release-test.yaml -p shishli-delivery-ci down --volumes --remove-orphans
       - name: Require complete executed business and concurrency coverage
         run: |
           python3 ../.github/scripts/test_check_laravel_results.py

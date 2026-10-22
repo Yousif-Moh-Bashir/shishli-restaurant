@@ -17,12 +17,21 @@ if (! str_starts_with((string) $pdo->query('SELECT VERSION()')->fetchColumn(), '
 }
 $pdo = null;
 chdir(dirname(__DIR__, 2));
-$arguments = [PHP_BINARY, 'vendor/bin/phpunit', '--no-progress',
-    'tests/Feature/DeliveryExceptionsMysqlConcurrencyTest.php', 'tests/Feature/DriverAcceptanceConcurrencyTest.php',
-    'tests/Feature/DeliveryExceptionsTest.php', 'tests/Feature/InternalDeliveryTest.php',
-    'tests/Feature/CashPaymentTest.php', 'tests/Feature/PaymentWebhookTest.php', 'tests/Feature/OrderCancellationTest.php'];
-$process = proc_open($arguments, [0 => STDIN, 1 => STDOUT, 2 => STDERR], $pipes);
-if (! is_resource($process)) {
-    throw new RuntimeException('Cannot launch isolated delivery tests.');
+$commands = [
+    [PHP_BINARY, 'vendor/bin/phpunit', '--no-progress', '--fail-on-skipped',
+        'tests/Feature/DeliveryExceptionsMysqlConcurrencyTest.php', 'tests/Feature/DriverAcceptanceConcurrencyTest.php'],
+    [PHP_BINARY, 'vendor/bin/phpunit', '--no-progress', 'tests/Feature/DeliveryExceptionsTest.php',
+        'tests/Feature/InternalDeliveryTest.php', 'tests/Feature/CashPaymentTest.php',
+        'tests/Feature/PaymentWebhookTest.php', 'tests/Feature/OrderCancellationTest.php'],
+];
+foreach ($commands as $arguments) {
+    $process = proc_open($arguments, [0 => STDIN, 1 => STDOUT, 2 => STDERR], $pipes);
+    if (! is_resource($process)) {
+        throw new RuntimeException('Cannot launch isolated delivery tests.');
+    }
+    $exit = proc_close($process);
+    if ($exit !== 0) {
+        exit($exit);
+    }
 }
-exit(proc_close($process));
+exit(0);

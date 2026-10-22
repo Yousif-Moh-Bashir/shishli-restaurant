@@ -50,7 +50,12 @@ class CollectCashPaymentAction
                 throw new PaymentException('PAYMENT_AMOUNT_MISMATCH');
             }
             $this->writer->apply($payment, $locked, PaymentStatus::Paid, actorId: $actor->id);
-            $this->audit->record($actor, $locked->payment_method === PaymentMethod::Network ? 'payments.confirm_network' : 'payments.collect_cash',
+            $action = match (true) {
+                $locked->payment_method === PaymentMethod::Network => 'payments.confirm_network',
+                $actor->can('payments.collect_cash') => 'orders.payments.cash.collect',
+                default => 'payments.collect_cash',
+            };
+            $this->audit->record($actor, $action,
                 'order', $locked->uuid, ['payment_status' => $locked->payment_status->value], ['payment_status' => 'paid', 'amount' => $payment->amount]);
 
             return $payment;

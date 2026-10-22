@@ -30,7 +30,8 @@ class ReassignDeliveryAction
             $target = $drivers->get($target->id);
             abort_unless($target !== null && $this->orders->canAccept($target), 422);
             abort_unless($locked->branch_id === $target->driver_branch_id && $locked->type === OrderType::Delivery, 422);
-            abort_if(($locked->driver_id === $target->id && $locked->delivery_status !== DeliveryStatus::Failed) || $this->orders->active($target)->whereKeyNot($locked->id)->exists()
+            abort_if(($locked->driver_id === $target->id && $locked->delivery_status !== DeliveryStatus::Failed)
+                || $this->orders->activeForUpdate($target, $locked->id) !== null
                 || in_array($locked->status, [OrderStatus::Completed, OrderStatus::Cancelled], true), 409);
             abort_unless(in_array($locked->status, [OrderStatus::Preparing, OrderStatus::Ready, OrderStatus::OutForDelivery], true), 409);
             $from = $locked->delivery_status;

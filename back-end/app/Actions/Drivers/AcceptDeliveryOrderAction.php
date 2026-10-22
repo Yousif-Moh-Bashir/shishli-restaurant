@@ -20,7 +20,7 @@ class AcceptDeliveryOrderAction
             $locked = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
             abort_unless($locked->branch_id === $driver->driver_branch_id, 404);
             abort_unless($this->orders->canAccept($driver), 403);
-            abort_if($this->orders->active($driver)->exists() || $locked->driver_id !== null, 409);
+            abort_if($this->orders->activeForUpdate($driver) !== null || $locked->driver_id !== null, 409);
             abort_unless($this->orders->available($driver)->whereKey($locked->id)->exists(), 409);
             $locked->driver_id = $driver->id;
             $locked->delivery_status = DeliveryStatus::Assigned;

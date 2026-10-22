@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\TestCase;
 
 class DeliveryExceptionsMysqlConcurrencyTest extends TestCase
 {
+    #[Group('delivery-mysql')]
     #[DataProvider('scenarios')]
     public function test_mysql_84_migration_and_concurrent_delivery_operations(string $scenario): void
     {

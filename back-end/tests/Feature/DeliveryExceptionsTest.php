@@ -120,7 +120,9 @@ class DeliveryExceptionsTest extends TestCase
         $order = $this->order($driver, ['payment_method' => $method, 'payment_status' => $paymentStatus]);
         $payment = Payment::factory()->create(['order_id' => $order->id, 'method' => $method, 'status' => $paymentStatus, 'amount' => '57.00']);
         $before = $payment->fresh()->getRawOriginal();
-        $this->actingAs($this->staff());
+        $actor = $this->staff();
+        $actor->givePermissionTo('delivery_exceptions.cancel');
+        $this->actingAs($actor);
         $this->postJson($this->path($order), $this->payload($order, 'cancel'))->assertConflict();
         $this->postJson($this->path($order), $this->payload($order, 'fail'))->assertOk();
         $this->assertTrue(app(DriverOrderService::class)->active($driver)->exists());

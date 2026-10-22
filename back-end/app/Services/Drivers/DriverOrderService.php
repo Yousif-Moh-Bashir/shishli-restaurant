@@ -39,6 +39,16 @@ class DriverOrderService
             ->whereNotIn('status', [OrderStatus::Completed, OrderStatus::Cancelled]);
     }
 
+    public function activeForUpdate(User $driver, ?int $exceptOrderId = null): ?Order
+    {
+        $query = $this->active($driver)->lockForUpdate();
+        if ($exceptOrderId !== null) {
+            $query->whereKeyNot($exceptOrderId);
+        }
+
+        return $query->first();
+    }
+
     public function candidates(User $driver): Builder
     {
         return Order::without('promotions')->where('branch_id', $driver->driver_branch_id)->whereNotNull('branch_id')->where('type', OrderType::Delivery)->whereNull('driver_id')

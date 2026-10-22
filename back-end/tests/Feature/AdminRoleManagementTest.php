@@ -105,7 +105,7 @@ class AdminRoleManagementTest extends TestCase
         $this->putJson('/api/v1/admin/roles/cashier/permissions', ['permissions' => ['orders.view']])->assertOk();
         $this->seed(RolePermissionSeeder::class);
         $this->assertSame(['orders.view'], Role::findByName('cashier', 'web')->permissions->pluck('name')->all());
-        $this->assertSame(97, Role::findByName('super_admin', 'web')->permissions()->count());
+        $this->assertSame(102, Role::findByName('super_admin', 'web')->permissions()->count());
     }
 
     public function test_role_audit_failure_rolls_back_permissions_and_customization(): void
