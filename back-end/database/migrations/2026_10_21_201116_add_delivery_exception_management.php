@@ -53,6 +53,10 @@ return new class extends Migration
         foreach (['view', 'fail', 'return', 'release', 'cancel', 'resolve_custody'] as $ability) {
             $permission = Permission::findOrCreate('delivery_exceptions.'.$ability, 'web');
             foreach (Role::whereIn('name', ['super_admin', 'manager'])->where('guard_name', 'web')->get() as $role) {
+                if ($ability === 'cancel') {
+                    continue;
+                }
+
                 if ($role->name === 'super_admin' || (! $role->permissions_customized && $ability !== 'resolve_custody')) {
                     $role->givePermissionTo($permission);
                 }

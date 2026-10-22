@@ -345,4 +345,31 @@ class DeliveryExceptionsTest extends TestCase
         $defaultManager = $this->staff('manager');
         $this->assertFalse($defaultManager->can('delivery_exceptions.resolve_custody'));
     }
+
+    #[Group('delivery-sqlite')]
+    public function test_existing_roles_do_not_receive_cancel_automatically_and_keep_explicit_grants(): void
+    {
+        $this->assertSame('sqlite', DB::connection()->getDriverName());
+        $this->assertSame(':memory:', DB::connection()->getDatabaseName());
+
+        $superAdmin = Role::findByName('super_admin', 'web');
+        $manager = Role::findByName('manager', 'web');
+        $migration = require database_path('migrations/2026_10_21_201116_add_delivery_exception_management.php');
+        $migration->down();
+        $migration->up();
+
+        $this->assertFalse($superAdmin->fresh()->hasPermissionTo('delivery_exceptions.cancel'));
+        $this->assertFalse($manager->fresh()->hasPermissionTo('delivery_exceptions.cancel'));
+
+        $migration->down();
+        $cancel = Permission::findByName('delivery_exceptions.cancel', 'web');
+        $superAdmin->givePermissionTo($cancel);
+        $manager->givePermissionTo($cancel);
+
+        $migration->up();
+        $this->seed(RolePermissionSeeder::class);
+
+        $this->assertTrue($superAdmin->fresh()->hasPermissionTo('delivery_exceptions.cancel'));
+        $this->assertTrue($manager->fresh()->hasPermissionTo('delivery_exceptions.cancel'));
+    }
 }

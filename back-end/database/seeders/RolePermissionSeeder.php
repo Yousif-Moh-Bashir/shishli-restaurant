@@ -91,6 +91,11 @@ class RolePermissionSeeder extends Seeder
 
             foreach ($roles as $name => $rolePermissions) {
                 $role = Role::findOrCreate($name, 'web');
+                if (in_array($name, ['super_admin', 'manager'], true)
+                    && $role->hasPermissionTo('delivery_exceptions.cancel')) {
+                    $rolePermissions[] = 'delivery_exceptions.cancel';
+                }
+
                 if (in_array($name, ['super_admin', 'customer'], true) || ! $role->permissions_customized) {
                     $role->syncPermissions($rolePermissions);
                 }
