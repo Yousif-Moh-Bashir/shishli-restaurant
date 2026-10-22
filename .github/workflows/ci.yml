@@ -140,14 +140,14 @@ jobs:
           DB_URL: ''
         run: php artisan test --compact --group=delivery-sqlite --fail-on-skipped --log-junit=/tmp/delivery-sqlite-junit.xml
       - name: Run isolated delivery MySQL concurrency tests
-        working-directory: ..
+        working-directory: .
         env:
           DELIVERY_RELEASE_TAG: ci-${{ github.run_id }}-${{ github.run_attempt }}
           DELIVERY_TEST_ROOT_PASSWORD: ci-only-password
         run: docker compose -f docker/compose.delivery-release-test.yaml -p shishli-delivery-ci up --build --abort-on-container-exit --exit-code-from delivery-tests delivery-tests
       - name: Clean up isolated delivery MySQL services
         if: always()
-        working-directory: ..
+        working-directory: .
         env:
           DELIVERY_RELEASE_TAG: ci-${{ github.run_id }}-${{ github.run_attempt }}
           DELIVERY_TEST_ROOT_PASSWORD: ci-only-password
