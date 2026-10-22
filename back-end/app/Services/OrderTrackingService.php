@@ -60,6 +60,8 @@ class OrderTrackingService
 
         return new OrderTrackingData(
             ['uuid' => $order->uuid, 'number' => $order->order_number, 'type' => $order->type->value,
+                'delivery_state' => ['status' => $order->delivery_status?->value, 'label' => $order->delivery_status?->label(),
+                    'under_review' => $order->delivery_exception_requested_at !== null],
                 'status' => ['code' => $status, 'label' => $this->statuses->label($status)],
                 'order_timing' => $order->order_timing->value, 'scheduled_for' => $order->scheduled_for?->toISOString(),
                 'placed_at' => $order->placed_at?->toISOString(), 'completed_at' => $order->completed_at?->toISOString(),

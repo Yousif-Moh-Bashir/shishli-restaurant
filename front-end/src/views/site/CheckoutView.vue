@@ -68,6 +68,14 @@ watch(() => [branch.value?.id, branch.value?.name, branch.value?.location?.city,
   manual.recipient_name = customer.name; manual.phone = customer.phone
 }, { immediate: true, flush: 'post' })
 const availability = computed(() => cart.cart?.availability)
+const restaurantClosed = computed(() => ['BRANCH_CLOSED', 'BRANCH_TEMPORARILY_CLOSED'].includes(availability.value?.reason?.code))
+const nextOpening = computed(() => {
+  const value = availability.value?.next_opening_at
+  if (!value) return ''
+  try {
+    return new Intl.DateTimeFormat('ar', { dateStyle: 'full', timeStyle: 'short', timeZone: config.value?.restaurant?.timezone || 'UTC' }).format(new Date(value))
+  } catch { return '' }
+})
 const scheduled = computed(() => orderTiming.value === 'scheduled')
 const pickupAvailable = computed(() => branch.value?.supports_pickup === true && (scheduled.value ? config.value?.pickup?.enabled === true : availability.value?.pickup?.available === true))
 const deliveryAvailable = computed(() => branch.value?.supports_delivery === true && (scheduled.value ? config.value?.delivery?.enabled === true : availability.value?.delivery?.available === true))
@@ -219,6 +227,11 @@ onBeforeRouteLeave(() => !cart.checkoutBusy&&!checking.value)
   <main id="main" class="container checkout-main checkout-page" :aria-busy="cart.checkoutBusy">
     <RouterLink class="auth-back" to="/cart">→ العودة للسلة</RouterLink>
     <div class="section-heading"><div><span class="section-kicker">طلبك من شيشلي فرش</span><h1>تأكيد الطلب</h1><p>يراجع المطعم الأسعار والتوفر والتوصيل عند التأكيد.</p></div></div>
+    <section v-if="restaurantClosed" class="checkout-closed-notice" role="alert">
+      <h2>المطعم مغلق الآن</h2>
+      <p>{{ scheduled ? 'الطلبات الفورية غير متاحة حاليًا. يمكنك اختيار موعد مجدول خلال ساعات العمل، وسيتم التحقق من توفره عند التأكيد.' : 'لا يمكن إكمال الطلب الآن. يُرجى إكمال طلبك خلال ساعات عمل المطعم.' }}</p>
+      <p v-if="nextOpening">موعد الفتح القادم: {{ nextOpening }}</p>
+    </section>
     <AppSkeleton v-if="cart.isLoading || configLoading" variant="detail" label="جارٍ تحميل السلة وإعدادات الطلب…"/>
     <div v-if="configError" role="alert" class="auth-status is-error"><p>{{ configError.message }}</p><button class="button" @click="loadSettings">إعادة تحميل إعدادات الطلب</button></div>
     <div v-if="cart.error" role="alert"><p>{{ cart.error.message }}</p><button class="button" :disabled="cart.isLoading || cart.checkoutBusy" @click="cart.loadCart()">إعادة تحميل السلة</button></div>
@@ -288,6 +301,9 @@ onBeforeRouteLeave(() => !cart.checkoutBusy&&!checking.value)
   </main>
 </template>
 <style scoped>
+.checkout-closed-notice{margin:0 0 24px;padding:18px 20px;border:1px solid #eed9c5;border-inline-start:4px solid #99612b;border-radius:12px;background:#fff8f2;color:var(--primary-dark);overflow-wrap:anywhere}
+.checkout-closed-notice h2{margin:0 0 8px;font-size:18px;line-height:1.7}
+.checkout-closed-notice p{margin:6px 0 0;font-size:14px;line-height:1.8}
 .checkout-fields{border:0;padding:0;margin:0;min-width:0;width:100%}
 .checkout-fields :deep(.field){display:flex;flex-direction:column;align-items:stretch;gap:8px;min-width:0;margin:0}
 .checkout-fields>.field{margin-block:18px}

@@ -17,7 +17,7 @@ jobs:
   laravel:
     name: Laravel / PHP 8.3 / MySQL 8.4
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: back-end
@@ -132,7 +132,26 @@ jobs:
       - name: Test MySQL and Redis integration through Laravel
         run: php artisan test --compact --group=ci-services --fail-on-skipped --log-junit=/tmp/services-junit.xml
       - name: Run Laravel unit, feature and MySQL concurrency tests
-        run: php artisan test --compact --exclude-group=ci-services --fail-on-skipped --log-junit=/tmp/laravel-junit.xml
+        run: php artisan test --compact --exclude-group=ci-services --exclude-group=delivery-mysql --exclude-group=delivery-sqlite --fail-on-skipped --log-junit=/tmp/laravel-junit.xml
+      - name: Run SQLite-only delivery rollback and migration tests
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ':memory:'
+          DB_URL: ''
+        run: php artisan test --compact --group=delivery-sqlite --fail-on-skipped --log-junit=/tmp/delivery-sqlite-junit.xml
+      - name: Run isolated delivery MySQL concurrency tests
+        working-directory: .
+        env:
+          DELIVERY_RELEASE_TAG: ci-${{ github.run_id }}-${{ github.run_attempt }}
+          DELIVERY_TEST_ROOT_PASSWORD: ci-only-password
+        run: docker compose -f docker/compose.delivery-release-test.yaml -p shishli-delivery-ci up --build --abort-on-container-exit --exit-code-from delivery-tests delivery-tests
+      - name: Clean up isolated delivery MySQL services
+        if: always()
+        working-directory: .
+        env:
+          DELIVERY_RELEASE_TAG: ci-${{ github.run_id }}-${{ github.run_attempt }}
+          DELIVERY_TEST_ROOT_PASSWORD: ci-only-password
+        run: docker compose -f docker/compose.delivery-release-test.yaml -p shishli-delivery-ci down --volumes --remove-orphans
       - name: Require complete executed business and concurrency coverage
         run: |
           python3 ../.github/scripts/test_check_laravel_results.py
@@ -146,6 +165,7 @@ jobs:
             /tmp/migrations-status.txt
             /tmp/services-junit.xml
             /tmp/laravel-junit.xml
+            /tmp/delivery-sqlite-junit.xml
           retention-days: 7
           if-no-files-found: warn
 

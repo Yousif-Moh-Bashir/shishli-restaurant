@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Api\V1;
 
 use App\Services\Admin\AdminOrderActions;
+use App\Services\Drivers\DeliveryExceptionService;
 use Illuminate\Http\Request;
 
 class AdminOrderResource extends OrderResource
@@ -15,6 +16,21 @@ class AdminOrderResource extends OrderResource
         $data['available_actions'] = app(AdminOrderActions::class)->forOrder($this->resource, $actor);
         $data['created_at'] = $this->created_at?->toIso8601String();
         if (! $kitchen) {
+            $data['cash_collections'] = $this->whenLoaded('cashCollections', fn () => $this->cashCollections->map(fn ($collection): array => [
+                'amount' => $collection->amount, 'currency' => $collection->currency,
+                'collector' => $collection->driver?->name, 'collected_at' => $collection->collected_at?->toISOString(),
+                'settled_at' => $collection->settled_at?->toISOString(),
+            ])->all());
+            $data['delivery_exception'] = [
+                'revision' => $this->delivery_revision ?? 0,
+                'requested_at' => $this->delivery_exception_requested_at?->toISOString(),
+                'reason' => $this->delivery_exception_reason,
+                'task_closed_at' => $this->delivery_task_closed_at?->toISOString(),
+                'block' => app(DeliveryExceptionService::class)->block($this->resource),
+                'actions' => app(DeliveryExceptionService::class)->actions($this->resource, $actor),
+                'financial_review_required' => in_array($this->delivery_status?->value, ['returned', 'released'], true)
+                    && in_array($this->payment_status->value, ['paid', 'partially_refunded'], true),
+            ];
             $data['delivery'] = ['status' => $this->delivery_status?->value,
                 'driver' => $this->whenLoaded('driver', fn () => $this->driver ? ['id' => $this->driver->uuid, 'name' => $this->driver->name] : null),
                 'accepted_at' => $this->driver_accepted_at?->toISOString(),

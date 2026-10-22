@@ -18,7 +18,7 @@ class RecordAdminActivity
     {
         $route = $request->route();
         $name = $route?->getName() ?? '';
-        $tracked = in_array($name, ['api.v1.admin.orders.cancel', 'api.v1.admin.orders.payments.cash.collect', 'api.v1.admin.promotions.store', 'api.v1.admin.promotions.update', 'api.v1.admin.promotions.destroy'], true);
+        $tracked = in_array($name, ['api.v1.admin.orders.cancel', 'api.v1.admin.promotions.store', 'api.v1.admin.promotions.update', 'api.v1.admin.promotions.destroy'], true);
         $subject = $route?->parameter('promotion') ?? $route?->parameter('order');
         $old = $tracked && ($subject instanceof Order || $subject instanceof Promotion) ? $this->audit->values($subject) : [];
         $response = $next($request);
@@ -31,9 +31,6 @@ class RecordAdminActivity
                     }
                 }
                 $new = $subject instanceof Order || $subject instanceof Promotion ? $this->audit->values($subject->fresh() ?? $subject) : [];
-                if ($name === 'api.v1.admin.orders.payments.cash.collect' && $old === $new) {
-                    return $response;
-                }
                 $this->audit->record($request->user(), str_replace('api.v1.admin.', '', $name), $subject instanceof Order ? 'order' : 'promotion', $subject?->uuid, $old, $new);
             } catch (\Throwable $exception) {
                 report($exception);

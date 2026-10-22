@@ -1,0 +1,54 @@
+# Standalone file: never merge this with production compose.yaml.
+services:
+  delivery-mysql-test:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: shishli_delivery_release_test
+      MYSQL_ROOT_PASSWORD: ${DELIVERY_TEST_ROOT_PASSWORD:?Set a fresh test-only password}
+      MYSQL_ROOT_HOST: '%'
+    tmpfs: ['/var/lib/mysql:size=1073741824']
+    networks: [delivery-test]
+    mem_limit: 1536m
+    cpus: 1.0
+    healthcheck:
+      test: [CMD-SHELL, 'MYSQL_PWD="$$MYSQL_ROOT_PASSWORD" mysql -h 127.0.0.1 -u root -e "SELECT 1" >/dev/null']
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 60s
+  delivery-tests:
+    image: shishli-delivery-tests:${DELIVERY_RELEASE_TAG:?Set an immutable release tag}
+    build:
+      context: ..
+      dockerfile: docker/php/Dockerfile
+      target: testing
+    environment:
+      APP_ENV: testing
+      APP_KEY: base64:AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=
+      APP_DEBUG: 'false'
+      DB_CONNECTION: mysql
+      DB_HOST: delivery-mysql-test
+      DB_PORT: '3306'
+      DB_DATABASE: shishli_delivery_release_test
+      DB_USERNAME: root
+      DB_PASSWORD: ${DELIVERY_TEST_ROOT_PASSWORD:?Set a fresh test-only password}
+      DB_URL: ''
+      CACHE_STORE: array
+      CACHE_LIMITER: array
+      SESSION_DRIVER: array
+      QUEUE_CONNECTION: sync
+      NOTIFICATION_QUEUE_CONNECTION: database
+      MAIL_MAILER: array
+      BROADCAST_CONNECTION: 'null'
+      BCRYPT_ROUNDS: '4'
+      DELIVERY_MYSQL_CONCURRENCY: '1'
+      DRIVER_MYSQL_CONCURRENCY: '1'
+    entrypoint: [php, tests/Support/delivery-release-tests.php]
+    depends_on:
+      delivery-mysql-test: {condition: service_healthy}
+    networks: [delivery-test]
+    mem_limit: 1024m
+    cpus: 1.0
+networks:
+  delivery-test:
+    internal: true

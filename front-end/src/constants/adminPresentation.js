@@ -1,6 +1,6 @@
 const roleLabels={super_admin:'المدير العام',manager:'مدير',cashier:'كاشير',kitchen:'المطبخ',customer:'عميل',driver:'مندوب توصيل'}
 export const adminRoleLabel=value=>roleLabels[value]||value
-const domainLabels={dashboard:'لوحة التحكم',orders:'الطلبات',payments:'المدفوعات',products:'المنتجات',categories:'التصنيفات',options:'خيارات المنتجات',branches:'الفروع',delivery_zones:'مناطق التوصيل',inventory:'المخزون',promotions:'العروض',coupons:'الكوبونات',customers:'العملاء',notifications:'الإشعارات',reports:'التقارير',settings:'الإعدادات',cms:'المحتوى',staff:'الموظفون',roles:'الأدوار',activity_logs:'سجل النشاط',driver:'وصول المندوب',drivers:'مناديب التوصيل'}
+const domainLabels={delivery_exceptions:'استثناءات التوصيل',dashboard:'لوحة التحكم',orders:'الطلبات',payments:'المدفوعات',products:'المنتجات',categories:'التصنيفات',options:'خيارات المنتجات',branches:'الفروع',delivery_zones:'مناطق التوصيل',inventory:'المخزون',promotions:'العروض',coupons:'الكوبونات',customers:'العملاء',notifications:'الإشعارات',reports:'التقارير',settings:'الإعدادات',cms:'المحتوى',staff:'الموظفون',roles:'الأدوار',activity_logs:'سجل النشاط',driver:'وصول المندوب',drivers:'مناديب التوصيل'}
 export const adminDomainLabel=value=>domainLabels[value]||value
 
 const permissionSubjects={
@@ -25,6 +25,12 @@ const permissionSubjects={
 }
 const permissionActions={view:'عرض',create:'إضافة',update:'تعديل',delete:'حذف',manage:'إدارة',activate:'تفعيل',deactivate:'إيقاف'}
 const permissionLabels={
+  'delivery_exceptions.view':'عرض استثناءات التوصيل',
+  'delivery_exceptions.fail':'تسجيل تعذر التسليم إداريًا',
+  'delivery_exceptions.return':'إرجاع الطلب وتأكيد استلامه في المطعم',
+  'delivery_exceptions.release':'إنهاء عهدة المندوب قبل الاستلام',
+  'delivery_exceptions.cancel':'الإلغاء الاستثنائي بعد حسم العهدة',
+  'delivery_exceptions.resolve_custody':'حسم عهدة طلب مفقود أو تالف بعد التحقق',
   'driver.access':'الدخول إلى بوابة مندوب التوصيل',
   'drivers.reassign':'إعادة تعيين مندوب توصيل للطلب',
   'drivers.settle_cash':'تسوية المبالغ النقدية مع مناديب التوصيل',
@@ -41,7 +47,7 @@ const permissionLabels={
   'orders.mark_ready':'تحديد الطلبات كجاهزة',
   'orders.dispatch':'إرسال الطلبات للتوصيل',
   'orders.complete':'إكمال الطلبات',
-  'payments.collect_cash':'تحصيل المدفوعات النقدية',
+  'payments.collect_cash':'تأكيد التحصيل النقدي ودفع الشبكة',
   'branches.closures.create':'إضافة إغلاق مؤقت للفرع',
 }
 export function adminPermissionLabel(value){

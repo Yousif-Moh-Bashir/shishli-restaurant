@@ -10,4 +10,5 @@ enum OrderStatusSource: string
     case Kitchen = 'kitchen';
     case Customer = 'customer';
     case Driver = 'driver';
+    case DeliveryException = 'delivery_exception';
 }

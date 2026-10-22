@@ -25,6 +25,7 @@ class CollectDriverCashAction
             $driver = User::whereKey($driver->id)->lockForUpdate()->firstOrFail();
             $locked = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
             $this->orders->owned($driver, $locked);
+            abort_if($locked->delivery_task_closed_at !== null, 409);
             abort_unless($locked->payment_method === PaymentMethod::Cash
                 && in_array($locked->delivery_status, [DeliveryStatus::PickedUp, DeliveryStatus::OnTheWay], true)
                 && ! in_array($locked->status, [OrderStatus::Cancelled, OrderStatus::Completed], true), 409);

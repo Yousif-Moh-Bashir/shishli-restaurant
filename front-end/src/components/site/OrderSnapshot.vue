@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import OrderStatusBadge from '../orders/OrderStatusBadge.vue'
 import PaymentStatusBadge from '../payments/PaymentStatusBadge.vue'
 import { formatCurrency, formatDateTime } from '../../utils/formatters'
@@ -8,7 +8,7 @@ defineProps({ order: { type: Object, required: true } })
 <template>
   <div class="checkout-layout order-details-layout">
     <section class="checkout-panel">
-      <h2>تفاصيل الطلب</h2><strong class="order-number" dir="ltr">{{ order.order_number }}</strong>
+      <h2>تفاصيل الطلب</h2><p v-if="order.delivery_state?.label" role="status">{{ order.delivery_state.label }}<span v-if="order.delivery_state.under_review"> — قيد متابعة الإدارة.</span></p><strong class="order-number" dir="ltr">{{ order.order_number }}</strong>
       <dl class="order-facts"><dt>الحالة</dt><dd><OrderStatusBadge :status="order.status"/></dd><dt>طريقة الاستلام</dt><dd>{{ getOrderTypeLabel(order.type) }}</dd><dt>وقت الطلب</dt><dd>{{ formatDateTime(order.placed_at) }}</dd><dt>توقيت الاستلام</dt><dd>{{ order.order_timing==='scheduled' ? formatDateTime(order.scheduled_for) : 'في أقرب وقت' }}</dd><dt>الفرع</dt><dd>{{ order.branch?.name }}</dd><dt>العميل</dt><dd>{{ order.customer?.name }}</dd><dt>الهاتف</dt><dd dir="ltr">{{ order.customer?.phone }}</dd><template v-if="order.customer?.email"><dt>البريد الإلكتروني</dt><dd>{{ order.customer.email }}</dd></template><dt>طريقة الدفع</dt><dd>{{ getPaymentMethodLabel(order.payment?.method) }}</dd><dt>حالة الدفع</dt><dd><PaymentStatusBadge :status="order.payment?.status"/></dd></dl><p v-if="order.payment?.method==='cash' &amp;&amp; order.payment?.status==='pending'">بانتظار التحصيل النقدي من المطعم.</p><p v-if="order.payment?.method==='card' &amp;&amp; order.payment?.status!=='paid'">الدفع الإلكتروني غير متاح حاليًا؛ تواصل مع المطعم بشأن الطلب.</p>
       <section v-if="order.type==='delivery' && order.address" class="delivery-quote"><h3>عنوان التوصيل وقت الطلب</h3><p>{{ order.address.recipient_name }} · <span dir="ltr">{{ order.address.phone }}</span></p><p>{{ order.address.city }}، {{ order.address.district }}</p><p v-if="order.address.street">{{ order.address.street }}</p><p v-if="order.address.building_number">المبنى: {{ order.address.building_number }}</p><p v-if="order.address.floor">الطابق: {{ order.address.floor }}</p><p v-if="order.address.apartment">الشقة: {{ order.address.apartment }}</p><p v-if="order.address.landmark">{{ order.address.landmark }}</p><p v-if="order.address.notes">{{ order.address.notes }}</p><p v-if="order.address.delivery_zone_name">المنطقة: {{ order.address.delivery_zone_name }}</p><p v-if="order.address.location?.latitude!=null && order.address.location?.longitude!=null">الإحداثيات: <span dir="ltr">{{ order.address.location.latitude }}, {{ order.address.location.longitude }}</span></p></section>
       <section v-if="order.notes"><h3>ملاحظات الطلب</h3><p class="order-text">{{ order.notes }}</p></section>

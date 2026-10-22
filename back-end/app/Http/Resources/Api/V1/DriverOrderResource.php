@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Api\V1;
 
 use App\Enums\OrderStatus;
+use App\Services\Drivers\DeliveryExceptionService;
 use App\Services\Drivers\DriverOrderService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,6 +22,13 @@ class DriverOrderResource extends JsonResource
                 : (($this->status === OrderStatus::Ready && ($request->attributes->get('driver_listing_context')['can_accept'] ?? false)) ? ['accept'] : [])];
         if ($owned) {
             $data += ['customer' => ['name' => $this->customer_name, 'phone' => $this->customer_phone],
+                'delivery_revision' => $this->delivery_revision ?? 0,
+                'delivery_block' => app(DeliveryExceptionService::class)->block($this->resource),
+                'can_request_intervention' => $this->delivery_exception_requested_at === null && $this->delivery_task_closed_at === null
+                    && in_array($this->delivery_status?->value, DriverOrderService::ACTIVE_STATUSES, true)
+                    && ! in_array($this->status, [OrderStatus::Completed, OrderStatus::Cancelled], true),
+                'intervention_requested_at' => $this->delivery_exception_requested_at?->toISOString(),
+                'task_closed_at' => $this->delivery_task_closed_at?->toISOString(),
                 'address' => $this->address ? new OrderAddressResource($this->address) : null,
                 'branch_location' => ['latitude' => $this->branch->latitude, 'longitude' => $this->branch->longitude],
                 'total' => $this->total, 'payment_method' => $this->payment_method->value, 'payment_status' => $this->payment_status->value,

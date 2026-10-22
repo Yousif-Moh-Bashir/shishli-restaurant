@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "test:delivery-exceptions": "node tests/delivery-exceptions.test.mjs",
+    "test:delivery-exceptions:browser": "node --experimental-websocket tests/delivery-exceptions.browser.mjs",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

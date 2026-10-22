@@ -57,7 +57,7 @@ class AdminBootstrapTest extends TestCase
         $this->assertSame(['name', 'currency', 'timezone'], array_keys($data['restaurant']));
         $this->assertFalse($data['features']['contact_messages_enabled']);
         $this->assertTrue($data['features']['cms_enabled']);
-        $this->assertSame(97, count($data['permissions']));
+        $this->assertSame(102, count($data['permissions']));
         $this->assertContains('drivers.reassign', $data['permissions']);
         $this->assertContains('drivers.settle_cash', $data['permissions']);
     }

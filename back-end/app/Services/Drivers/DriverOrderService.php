@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class DriverOrderService
 {
-    public const ACTIVE_STATUSES = ['assigned', 'picked_up', 'on_the_way', 'failed'];
+    public const ACTIVE_STATUSES = ['assigned', 'picked_up', 'on_the_way', 'failed', 'returning'];
 
     public function __construct(private BranchScheduleService $schedule) {}
 
@@ -35,8 +35,18 @@ class DriverOrderService
 
     public function active(User $driver): Builder
     {
-        return Order::where('driver_id', $driver->id)->whereIn('delivery_status', self::ACTIVE_STATUSES)
+        return Order::where('driver_id', $driver->id)->whereNull('delivery_task_closed_at')->whereIn('delivery_status', self::ACTIVE_STATUSES)
             ->whereNotIn('status', [OrderStatus::Completed, OrderStatus::Cancelled]);
+    }
+
+    public function activeForUpdate(User $driver, ?int $exceptOrderId = null): ?Order
+    {
+        $query = $this->active($driver)->lockForUpdate();
+        if ($exceptOrderId !== null) {
+            $query->whereKeyNot($exceptOrderId);
+        }
+
+        return $query->first();
     }
 
     public function candidates(User $driver): Builder
@@ -64,7 +74,7 @@ class DriverOrderService
 
     public function listingContext(User $driver): array
     {
-        $active = $this->active($driver)->where('branch_id', $driver->driver_branch_id)->first();
+        $active = $this->active($driver)->first();
         $reason = match (true) {
             ! $driver->driver_enabled => 'حسابك موقوف عن استقبال الطلبات. تواصل مع إدارة الفرع.',
             $driver->driver_branch_id === null || $driver->driverBranch === null => 'لم تُربط بفرع. تواصل مع الإدارة لربط حسابك بالفرع الصحيح.',
@@ -89,6 +99,7 @@ class DriverOrderService
     public function actions(User $driver, Order $order): array
     {
         if ($order->driver_id !== $driver->id || $order->branch_id !== $driver->driver_branch_id
+            || $order->delivery_task_closed_at !== null
             || in_array($order->status, [OrderStatus::Cancelled, OrderStatus::Completed], true)) {
             return [];
         }

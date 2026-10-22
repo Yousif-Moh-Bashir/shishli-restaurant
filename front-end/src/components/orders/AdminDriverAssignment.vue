@@ -6,7 +6,7 @@ import { deliveryLabels, driverTime, driverError } from '../../constants/driverD
 const props = defineProps({ order: Object, reload: Function })
 const emit = defineEmits(['active'])
 const auth = useAuthStore(), admin = inject('admin'), candidates = ref([]), target = ref(''), reason = ref(''), busy = ref(false), loading = ref(false), error = ref(null), opened = ref(false), candidatePage = ref(1), candidateLastPage = ref(1)
-const canAssign = computed(() => auth.can('drivers.reassign') && props.order?.type === 'delivery' && !['completed','cancelled','pending','confirmed'].includes(props.order?.status))
+const canAssign = computed(() => !props.order?.delivery_exception?.task_closed_at && !['delivered','returning','returned','released'].includes(props.order?.delivery?.status) && auth.can('drivers.reassign') && props.order?.type === 'delivery' && !['completed','cancelled','pending','confirmed'].includes(props.order?.status))
 async function loadCandidates(page = 1) {
   loading.value = true; error.value = null
   try { const result = await adminDriversApi.list({ branch_uuid: props.order.branch?.id, available: 1, per_page: 100, page }); candidates.value = result.data; candidatePage.value = page; candidateLastPage.value = result.meta.last_page }

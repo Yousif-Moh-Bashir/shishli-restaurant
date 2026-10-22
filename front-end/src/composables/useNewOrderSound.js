@@ -1,10 +1,10 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-export function useNewOrderSound(allowed = () => true) {
+export function useNewOrderSound(allowed = () => true, { identity, storageKey = 'shishli.orderSoundMuted' } = {}) {
   const enabled = ref(false), message = ref('')
   let context, watermark = null, seen = new Set(), activating = false
-  function muted() { try { return localStorage.getItem('shishli.orderSoundMuted') === '1' } catch { return false } }
-  function saveMute(value) { try { localStorage.setItem('shishli.orderSoundMuted', value ? '1' : '0') } catch {} }
+  function muted() { try { return localStorage.getItem(storageKey) === '1' } catch { return false } }
+  function saveMute(value) { try { localStorage.setItem(storageKey, value ? '1' : '0') } catch {} }
   function reset() { watermark = null; seen.clear() }
   function ring() {
     if (!allowed() || !enabled.value || !context) return
@@ -41,6 +41,15 @@ export function useNewOrderSound(allowed = () => true) {
     finally { activating = false }
   }
   function observe(orders) {
+    // Driver listings have no creation timestamp; readiness is a new arrival too.
+    if (identity) {
+      const keys = orders.map(identity).filter(Boolean)
+      const arrived = watermark !== null && keys.some(key => !seen.has(key))
+      watermark = 0
+      seen = new Set([...seen, ...keys].slice(-500))
+      if (arrived) ring()
+      return
+    }
     const arrivalTime = order => Date.parse(order.created_at ?? order.placed_at)
     const rows = orders.filter(order => order.id && Number.isFinite(arrivalTime(order)))
     if (!rows.length) { if (watermark === null) watermark = 0; return }

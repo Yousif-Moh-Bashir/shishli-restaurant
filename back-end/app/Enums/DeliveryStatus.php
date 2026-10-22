@@ -9,6 +9,9 @@ enum DeliveryStatus: string
     case OnTheWay = 'on_the_way';
     case Delivered = 'delivered';
     case Failed = 'failed';
+    case Returning = 'returning';
+    case Returned = 'returned';
+    case Released = 'released';
 
     public function next(): ?self
     {
@@ -16,7 +19,7 @@ enum DeliveryStatus: string
             self::Assigned => self::PickedUp,
             self::PickedUp => self::OnTheWay,
             self::OnTheWay => self::Delivered,
-            self::Delivered, self::Failed => null,
+            self::Delivered, self::Failed, self::Returning, self::Returned, self::Released => null,
         };
     }
 
@@ -28,6 +31,9 @@ enum DeliveryStatus: string
             self::OnTheWay => 'في الطريق للعميل',
             self::Delivered => 'تم التسليم للعميل',
             self::Failed => 'تعذر التسليم',
+            self::Returning => 'جارٍ إرجاع الطلب للمطعم',
+            self::Returned => 'أُعيد الطلب للمطعم',
+            self::Released => 'انتهت عهدة المندوب دون تسليم',
         };
     }
 }
