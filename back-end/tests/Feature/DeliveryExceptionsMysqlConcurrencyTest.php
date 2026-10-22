@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class DeliveryExceptionsMysqlConcurrencyTest extends TestCase
@@ -58,7 +60,26 @@ class DeliveryExceptionsMysqlConcurrencyTest extends TestCase
             $admin = User::factory()->create()->assignRole('super_admin');
             $order = Order::factory()->delivery()->create(['branch_id' => $branch->id, 'driver_id' => $drivers[0]->id,
                 'status' => 'out_for_delivery', 'delivery_status' => $scenario === 'confirm_return' ? 'returning' : 'on_the_way',
-                'payment_status' => 'paid', 'payment_method' => 'network', 'total' => '57.00', 'delivery_picked_up_at' => now()]);
+                'payment_status' => $scenario === 'partial_upgrade' ? 'pending' : 'paid', 'payment_method' => 'network', 'total' => '57.00', 'delivery_picked_up_at' => now()]);
+            if ($scenario === 'partial_upgrade') {
+                $role = Role::findByName('manager', 'web');
+                $role->permissions_customized = true;
+                $role->save();
+                $role->syncPermissions(['orders.view']);
+                $before = $order->fresh()->getRawOriginal();
+                $migration = require base_path($migrationPath);
+                $migration->down();
+                Schema::table('orders', fn ($table) => $table->unsignedInteger('delivery_revision')->default(0));
+                $migration->up();
+                $migration->up();
+                $this->assertSame($before['payment_status'], $order->fresh()->payment_status->value);
+                $this->assertSame($before['delivery_status'], $order->fresh()->delivery_status->value);
+                $this->assertSame(['orders.view'], $role->fresh()->permissions->pluck('name')->all());
+                $this->assertSame(6, Permission::where('name', 'like', 'delivery_exceptions.%')->count());
+                $this->assertFalse(User::factory()->create()->assignRole('manager')->can('delivery_exceptions.resolve_custody'));
+
+                return;
+            }
             $payment = Payment::factory()->paid()->create(['order_id' => $order->id, 'method' => 'network', 'amount' => '57.00']);
             $sale = PaymentTransaction::factory()->sale()->succeeded()->create(['payment_id' => $payment->id, 'operation_key' => 'sale']);
             $paymentBefore = $payment->fresh()->getRawOriginal();
@@ -199,6 +220,6 @@ class DeliveryExceptionsMysqlConcurrencyTest extends TestCase
     public static function scenarios(): array
     {
         return array_map(fn (string $scenario): array => [$scenario], ['same_key', 'different_keys', 'different_intent',
-            'cross_order_key', 'deliver_return', 'reassign_accept', 'same_reassign', 'confirm_return', 'upgrade']);
+            'cross_order_key', 'deliver_return', 'reassign_accept', 'same_reassign', 'confirm_return', 'upgrade', 'partial_upgrade']);
     }
 }

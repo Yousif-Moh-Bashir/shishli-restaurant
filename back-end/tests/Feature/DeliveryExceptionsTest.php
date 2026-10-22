@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
@@ -218,11 +219,10 @@ class DeliveryExceptionsTest extends TestCase
         $this->assertArrayNotHasKey('reason', $tracking->order['delivery_state']);
     }
 
+    #[Group('delivery-sqlite')]
     public function test_audit_failure_rolls_back_task_history_and_idempotency_record(): void
     {
-        if (DB::connection()->getDriverName() !== 'sqlite') {
-            $this->markTestSkipped('SQLite trigger injects an audit failure without committing the test transaction.');
-        }
+        $this->assertSame('sqlite', DB::connection()->getDriverName());
         $driver = $this->driver();
         $order = $this->order($driver);
         $this->actingAs($this->staff());
@@ -276,11 +276,9 @@ class DeliveryExceptionsTest extends TestCase
         $this->assertDatabaseCount('payment_transactions', 0);
     }
 
+    #[Group('delivery-sqlite')]
     public function test_upgrade_preserves_existing_completed_and_active_order_rows(): void
     {
-        if (DB::connection()->getDriverName() !== 'sqlite') {
-            $this->markTestSkipped('Schema upgrade rehearsal is confined to an in-memory SQLite database.');
-        }
         $this->assertSame('sqlite', DB::connection()->getDriverName());
         $this->assertSame(':memory:', DB::connection()->getDatabaseName());
         $driver = $this->driver();
@@ -324,11 +322,11 @@ class DeliveryExceptionsTest extends TestCase
         $this->assertDatabaseCount('order_delivery_histories', 1);
     }
 
+    #[Group('delivery-sqlite')]
     public function test_partial_migration_can_be_resumed_without_resetting_old_data_or_custom_permissions(): void
     {
-        if (DB::connection()->getDriverName() !== 'sqlite') {
-            $this->markTestSkipped('MySQL has a separate isolated migration upgrade scenario.');
-        }
+        $this->assertSame('sqlite', DB::connection()->getDriverName());
+        $this->assertSame(':memory:', DB::connection()->getDatabaseName());
         $driver = $this->driver();
         $order = $this->order($driver);
         $role = Role::findByName('manager', 'web');

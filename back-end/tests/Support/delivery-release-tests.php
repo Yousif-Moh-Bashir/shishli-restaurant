@@ -20,7 +20,7 @@ chdir(dirname(__DIR__, 2));
 $commands = [
     [PHP_BINARY, 'vendor/bin/phpunit', '--no-progress', '--fail-on-skipped',
         'tests/Feature/DeliveryExceptionsMysqlConcurrencyTest.php', 'tests/Feature/DriverAcceptanceConcurrencyTest.php'],
-    [PHP_BINARY, 'vendor/bin/phpunit', '--no-progress', 'tests/Feature/DeliveryExceptionsTest.php',
+    [PHP_BINARY, 'vendor/bin/phpunit', '--no-progress', '--fail-on-skipped', '--exclude-group=delivery-sqlite', 'tests/Feature/DeliveryExceptionsTest.php',
         'tests/Feature/InternalDeliveryTest.php', 'tests/Feature/CashPaymentTest.php',
         'tests/Feature/PaymentWebhookTest.php', 'tests/Feature/OrderCancellationTest.php'],
 ];
