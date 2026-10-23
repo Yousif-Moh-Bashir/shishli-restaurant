@@ -8,7 +8,7 @@ const id = n => `${String(n).padStart(8,'0')}-1111-4111-8111-111111111111`
 const branch = { id:id(1), name:'فرع المصيف', location:{city:'تبوك',latitude:'28.4378538',longitude:'36.5455267'} }
 let mode = 'driver', accepted = false, stage = null, paid = false, acceptConflict = true, detailFailure = 0, settled = false
 const driver = { id:id(2),name:'مندوب الاختبار',phone:'+966551234567',email:null,enabled:true,available:true,account_active:true,branch,delivered_count:0,unsettled_cash:'85.00',current_order:null }
-const preparation = () => stage==='on_the_way'?'out_for_delivery':stage==='delivered'?'out_for_delivery':'ready'
+const preparation = () => stage==='on_the_way'?'out_for_delivery':stage==='delivered'?'completed':'ready'
 const actions = () => stage==='assigned'?['picked_up','failed']:stage==='picked_up'?['on_the_way','failed',...(!paid?['collect_cash']:[])]:stage==='on_the_way'?[...(paid?['delivered']:['collect_cash']),'failed']:[]
 const summary = () => ({ id:id(3),order_number:'SH-DRIVER',branch,preparation_status:preparation(),estimated_ready_at:'2026-10-08T12:30:00Z',district:'المصيف',delivery_zone:'المصيف',delivery_fee:'5.00',currency:'SAR',delivery_status:stage,available_actions:accepted?actions():driver.available&&driver.enabled?['accept']:[] })
 const detail = () => ({ ...summary(),customer:{name:'عميل خاص',phone:'0559999999'},address:{recipient_name:'عميل خاص',phone:'0559999999',city:'تبوك',district:'المصيف',street:'شارع الاختبار',building_number:'12',notes:'الجرس عند الباب',location:{latitude:'28.4378538',longitude:'36.5455267'}},branch_location:{latitude:'28.43',longitude:'36.54'},total:'85.00',payment_method:'cash',payment_status:paid?'paid':'pending',cash_due:paid?'0.00':'85.00',history:[{to_status:stage,actor:driver.name,at:'2026-10-08T12:00:00Z',reason:null}] })
@@ -35,7 +35,7 @@ browser.onEvent('Fetch.requestPaused', async ({requestId,request}) => {
     else if (path.endsWith('/driver/availability')) {driver.available=body.available;data=driver}
     else if (path.endsWith('/driver/orders')) {data=url.searchParams.get('period')==='history'?[{...summary(),id:id(30),order_number:'SH-PREVIOUS',preparation_status:'completed',delivery_status:'delivered',available_actions:[]}]:url.searchParams.get('scope')==='mine'?(accepted?[summary()]:[]):accepted?[]:[summary()];paginated=true}
     else if (path.endsWith('/accept')) {if(acceptConflict){status=409;acceptConflict=false}else{accepted=true;stage='assigned';data=detail()}}
-    else if (path.endsWith('/transition')) {stage=body.status;data=detail()}
+    else if (path.endsWith('/transition')) {stage=body.status;if(body.status==='delivered')stage='delivered';data=detail()}
     else if (path.endsWith('/cash/collect')) {paid=true;data=collection()}
     else if (path.includes('/driver/orders/')) {status=detailFailure||200;data=detail()}
     else if (path.endsWith('/driver/collections')) {data=paid && (url.searchParams.get('settled')!=='0'||!settled)?[collection()]:[];paginated=true}
@@ -102,9 +102,9 @@ try {
   await browser.click('button','تسجيل التحصيل النقدي');await browser.input('.driver-field input[type=number]','85.00');await browser.click('button','تأكيد استلام المبلغ');await browser.wait('[...document.querySelectorAll("button")].some(b=>b.textContent.trim()==="تم التسليم"&&!b.disabled)')
   await browser.click('button','تم التسليم');await browser.wait('document.body.innerText.includes("تم التسليم")')
   assert.equal(requests.filter(request=>request.method==='POST' && request.path.endsWith('/cash/collect')).length,1)
-  assert.equal(await browser.evaluate('document.body.innerText.includes("الإكمال النهائي للطلب لدى الكاشير")'),true)
+  assert.equal(await browser.evaluate('document.body.innerText.includes("تم تسليم الطلب وإكماله بنجاح")'),true)
   assert.equal(await browser.evaluate('[...document.querySelectorAll("button")].some(b=>b.textContent.trim()==="تم التسليم")'),false)
-  checks.push('picked up, on the way, cash before delivered, no duplicate collection; delivery remains separate from cashier completion')
+  checks.push('picked up, on the way, cash before delivered, no duplicate collection; driver delivery confirmation completes the order')
   await browser.go(origin,'/driver/collections');await browser.wait('document.body.innerText.includes("عهدة نقدية")')
   checks.push('driver unsettled collections')
   for (const code of [403,404,500]) { detailFailure=code;await browser.go(origin,'/driver/orders/'+id(3));await browser.wait('document.querySelector(".driver-error")');assert.equal(await browser.evaluate('document.body.innerText.includes("عميل خاص")'),false) }

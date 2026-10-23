@@ -1,9 +1,10 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 export function useNewOrderSound(allowed = () => true, { identity, storageKey = 'shishli.orderSoundMuted' } = {}) {
-  const enabled = ref(false), message = ref('')
+  function preference() { try { return localStorage.getItem(storageKey) } catch { return null } }
+  const enabled = ref(preference() === '0'), message = ref('')
   let context, watermark = null, seen = new Set(), activating = false
-  function muted() { try { return localStorage.getItem(storageKey) === '1' } catch { return false } }
+  function muted() { return preference() === '1' }
   function saveMute(value) { try { localStorage.setItem(storageKey, value ? '1' : '0') } catch {} }
   function reset() { watermark = null; seen.clear() }
   function ring() {
@@ -26,16 +27,26 @@ export function useNewOrderSound(allowed = () => true, { identity, storageKey = 
       oscillator.start(now + offset); oscillator.stop(now + offset + .3)
     }
   }
-  async function toggle() {
-    if (activating || !allowed()) return
-    if (enabled.value) { enabled.value = false; saveMute(true); message.value = ''; return }
-    activating = true
+  async function resumeAudio() {
     try {
       const Audio = window.AudioContext || window.webkitAudioContext
       if (!Audio) throw Error('AUDIO_UNAVAILABLE')
       context ||= new Audio()
       await context.resume()
       if (context.state !== 'running') throw Error('AUDIO_BLOCKED')
+      message.value = ''
+      return true
+    } catch {
+      message.value = 'اضغط على الصفحة للسماح بتشغيل صوت التنبيه.'
+      return false
+    }
+  }
+  async function toggle() {
+    if (activating || !allowed()) return
+    if (enabled.value) { enabled.value = false; saveMute(true); message.value = ''; return }
+    activating = true
+    try {
+      if (!await resumeAudio()) throw Error('AUDIO_BLOCKED')
       enabled.value = true; saveMute(false); message.value = ''
     } catch { enabled.value = false; message.value = 'تعذر تشغيل الصوت. اضغط تفعيل الصوت مرة أخرى.' }
     finally { activating = false }
@@ -60,8 +71,9 @@ export function useNewOrderSound(allowed = () => true, { identity, storageKey = 
     if (arrived) ring()
   }
   function unlock(event) {
-    if (!allowed() || event.target?.closest('.sidebar-sound-toggle') || muted() || enabled.value) return
-    void toggle()
+    if (!allowed() || event.target?.closest('.sidebar-sound-toggle') || muted()) return
+    if (!enabled.value) { void toggle(); return }
+    void resumeAudio()
   }
   onMounted(() => { document.addEventListener('pointerdown', unlock); document.addEventListener('keydown', unlock) })
   onBeforeUnmount(() => { document.removeEventListener('pointerdown', unlock); document.removeEventListener('keydown', unlock); enabled.value = false; void context?.close(); reset() })

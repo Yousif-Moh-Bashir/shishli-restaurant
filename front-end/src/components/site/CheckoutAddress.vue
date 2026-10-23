@@ -13,7 +13,7 @@ const { showMap, opened, locating, reverseGeocoding, moving, userLocation, messa
 const sheet = ref(null), sheetOpen = ref(false), query = ref(''), searching = ref(false), results = ref([]), searchMessage = ref('')
 let searchRevision = 0, searchController, searchTimer, autocompleteTimer
 const composing = ref(false)
-const mapLocked = ref(true)
+const mapLocked = ref(false)
 const publicSettings = usePublicSettingsStore()
 const countryCode = computed(() => publicSettings.data?.restaurant?.country || 'SA')
 const coveredDistricts = computed(() => props.coverage?.city ? props.coverage.districts || [] : [])
@@ -22,8 +22,8 @@ const addressSummary = computed(() => [props.form.city,props.form.district,props
 const validText = computed(() => Boolean(props.form.city?.trim() && props.form.district?.trim()))
 const canConfirm = computed(() => !props.disabled && !locating.value && !reverseGeocoding.value && !moving.value && !props.quoting && validText.value && validLocation(props.form.latitude, props.form.longitude))
 function cancelSearch() { searchRevision++; searchController?.abort(); clearTimeout(searchTimer); clearTimeout(autocompleteTimer); searching.value = false; results.value = [] }
-function openMap() { if (props.disabled) return; beginMap(); sheetOpen.value = true }
-function locate() { if (props.disabled) return; sheetOpen.value = true; beginMap(); beginLocate() }
+function openMap() { if (props.disabled) return; mapLocked.value = false; beginMap(); sheetOpen.value = true }
+function locate() { if (props.disabled) return; mapLocked.value = false; sheetOpen.value = true; beginMap(); beginLocate() }
 function closeSheet() { mapLocked.value = true; sheetOpen.value = false; moving.value = false; cancelSearch() }
 function enterManualAddress() {
   if (!manualAvailable.value) { openMap(); return }
@@ -46,9 +46,8 @@ async function search() {
   } catch { if (version === searchRevision) searchMessage.value = 'تعذر البحث الآن. يمكنك تحريك الخريطة أو استخدام موقعك الحالي.' }
   finally { if (version === searchRevision) { searching.value = false; clearTimeout(searchTimer) } }
 }
-function chooseResult(result) { mapLocked.value = true; cancelSearch(); query.value = ''; selectLocation(result) }
-function returnToUserLocation() { mapLocked.value = true; recenter() }
-watch(locating, value => { if (value) mapLocked.value = true })
+function chooseResult(result) { cancelSearch(); query.value = ''; selectLocation(result) }
+function returnToUserLocation() { recenter() }
 function scheduleSearch() {
   cancelSearch(); searchMessage.value = ''
   if (!sheetOpen.value || props.disabled || composing.value || query.value.trim().length < 3) return

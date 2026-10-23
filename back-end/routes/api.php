@@ -86,6 +86,7 @@ Route::prefix('v1/driver')->name('api.v1.driver.')->middleware(['auth:sanctum', 
     Route::post('/orders/{order}/accept', [$controller, 'accept'])->whereUuid('order')->middleware('throttle:60,1')->name('orders.accept');
     Route::post('/orders/{order}/transition', [$controller, 'transition'])->whereUuid('order')->middleware('throttle:60,1')->name('orders.transition');
     Route::post('/orders/{order}/cash/collect', [$controller, 'collect'])->whereUuid('order')->middleware('throttle:30,1')->name('orders.collect');
+    Route::post('/orders/{order}/network/confirm', [$controller, 'confirmNetwork'])->whereUuid('order')->middleware('throttle:30,1')->name('orders.confirm-network');
     Route::get('/collections', [$controller, 'collections'])->name('collections');
     Route::post('/orders/{order}/intervention', [DeliveryExceptionController::class, 'intervention'])->whereUuid('order')->middleware('throttle:30,1')->name('orders.intervention');
 });

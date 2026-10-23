@@ -65,19 +65,24 @@ class DeliveryExceptionsTest extends TestCase
         return '/api/v1/admin/orders/'.$order->uuid.'/delivery-exception';
     }
 
-    public function test_old_network_order_explains_cashier_confirmation_and_blocks_acceptance(): void
+    public function test_network_order_payment_is_confirmed_by_its_driver_without_cashier(): void
     {
         $this->freezeTime();
         $driver = $this->driver();
         $order = $this->order($driver, ['order_number' => 'SH-0002']);
         $this->actingAs($driver)->getJson('/api/v1/driver/orders/'.$order->uuid)->assertOk()
             ->assertJsonPath('data.delivery_block.code', 'NETWORK_CONFIRMATION_REQUIRED')
-            ->assertJsonPath('data.delivery_block.responsible', 'cashier')->assertJsonPath('data.cash_due', '0.00')
-            ->assertJsonPath('data.available_actions', ['failed'])->assertJsonPath('data.can_request_intervention', true);
+            ->assertJsonPath('data.delivery_block.responsible', 'driver')->assertJsonPath('data.cash_due', '0.00')
+            ->assertJsonPath('data.available_actions', ['failed', 'confirm_network'])->assertJsonPath('data.can_request_intervention', true);
         $this->postJson('/api/v1/driver/orders/'.$order->uuid.'/transition', ['status' => 'delivered'])->assertUnprocessable();
+        $this->postJson('/api/v1/driver/orders/'.$order->uuid.'/network/confirm')->assertUnprocessable()->assertJsonValidationErrors('network_verified');
+        $this->postJson('/api/v1/driver/orders/'.$order->uuid.'/network/confirm', ['network_verified' => true])->assertOk()
+            ->assertJsonPath('data.payment_status', 'paid')->assertJsonPath('data.available_actions', ['delivered', 'failed']);
+        $this->postJson('/api/v1/driver/orders/'.$order->uuid.'/transition', ['status' => 'delivered'])->assertOk()
+            ->assertJsonPath('data.preparation_status', 'completed')->assertJsonPath('data.delivery_status', 'delivered');
         $next = $this->order($driver, ['driver_id' => null, 'status' => 'ready', 'delivery_status' => null, 'placed_at' => now()]);
         $this->postJson('/api/v1/driver/orders/'.$next->uuid.'/accept')->assertConflict();
-        $this->assertSame('pending', $order->fresh()->payment_status->value);
+        $this->assertSame('paid', $order->fresh()->payment_status->value);
     }
 
     public function test_network_confirmation_requires_explicit_verification_and_preserves_single_sale(): void
@@ -85,17 +90,17 @@ class DeliveryExceptionsTest extends TestCase
         $driver = $this->driver();
         $order = $this->order($driver);
         Payment::factory()->cash()->create(['order_id' => $order->id, 'method' => 'network', 'amount' => '57.00', 'currency' => 'SAR']);
-        $url = '/api/v1/admin/orders/'.$order->uuid.'/payments/cash/collect';
-        $this->actingAs($this->staff('cashier'))->postJson($url)->assertUnprocessable()->assertJsonValidationErrors('network_verified');
+        $url = '/api/v1/driver/orders/'.$order->uuid.'/network/confirm';
+        $this->actingAs($driver)->postJson($url)->assertUnprocessable()->assertJsonValidationErrors('network_verified');
         $this->assertDatabaseCount('payment_transactions', 0);
-        $this->postJson($url, ['network_verified' => true])->assertOk();
+        $this->actingAs($driver)->postJson($url, ['network_verified' => true])->assertOk();
         $this->postJson($url, ['network_verified' => true])->assertOk();
         $this->assertDatabaseCount('payment_transactions', 1);
         $this->assertDatabaseHas('admin_activity_logs', ['action' => 'payments.confirm_network']);
         $this->assertSame(OrderStatus::OutForDelivery, $order->fresh()->status);
         $this->actingAs($driver)->postJson('/api/v1/driver/orders/'.$order->uuid.'/transition', ['status' => 'delivered'])->assertOk();
         $this->assertFalse(app(DriverOrderService::class)->active($driver)->exists());
-        $this->actingAs($this->staff('cashier'))->postJson('/api/v1/admin/orders/'.$order->uuid.'/complete')->assertOk();
+        $this->assertSame(OrderStatus::Completed, $order->fresh()->status);
     }
 
     public function test_intervention_is_owned_idempotent_and_does_not_change_payment(): void
@@ -264,7 +269,7 @@ class DeliveryExceptionsTest extends TestCase
         $this->assertTrue(app(DriverOrderService::class)->active($driver)->exists());
     }
 
-    public function test_card_cannot_be_confirmed_through_offline_collection_and_driver_cannot_confirm_network(): void
+    public function test_card_cannot_use_offline_collection_and_driver_cannot_use_admin_payment_endpoint(): void
     {
         $driver = $this->driver();
         $network = $this->order($driver);

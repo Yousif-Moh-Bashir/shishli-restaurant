@@ -15,8 +15,8 @@ function driverOrder() {
   return { id, order_number: 'SH-0002', preparation_status: status, delivery_status: stage,
     branch: { id: target, name: 'فرع الاختبار' }, delivery_revision: revision, estimated_ready_at: null,
     payment_method: method, payment_status: payment, total: '57.00', delivery_fee: '5.00', currency: 'SAR', cash_due: method === 'cash' && payment === 'pending' ? '57.00' : '0.00',
-    available_actions: stage === 'on_the_way' ? payment === 'paid' ? ['delivered', 'failed'] : ['failed'] : [],
-    delivery_block: method === 'network' && payment === 'pending' ? { code: 'NETWORK_CONFIRMATION_REQUIRED', responsible: 'cashier', message: 'دفع الشبكة يحتاج تأكيد الكاشير أو الموظف المخوّل بعد التحقق الفعلي.' } : null,
+    available_actions: stage === 'on_the_way' ? payment === 'paid' ? ['delivered', 'failed'] : method === 'network' ? ['failed', 'confirm_network'] : ['failed'] : [],
+    delivery_block: method === 'network' && payment === 'pending' ? { code: 'NETWORK_CONFIRMATION_REQUIRED', responsible: 'driver', message: 'دفع الشبكة يحتاج تأكيد المندوب بعد التحقق الفعلي.' } : null,
     can_request_intervention: !requested && !closed(), intervention_requested_at: requested ? '2026-10-21T10:00:00Z' : null,
     task_closed_at: closed() ? '2026-10-21T10:00:00Z' : null, customer: { name: 'عميل اختبار', phone: null }, address: null, history: [] }
 }

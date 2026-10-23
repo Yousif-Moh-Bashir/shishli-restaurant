@@ -43,7 +43,11 @@ class OrderOperationAuthorization
         if ($source === OrderStatusSource::Driver) {
             abort_unless($actor !== null && $actor->is_active && $actor->hasRole('driver') && $actor->can('driver.access')
                 && $order->driver_id === $actor->id && $order->branch_id === $actor->driver_branch_id, 403);
-            abort_unless($target === OrderStatus::OutForDelivery && $order->delivery_status === DeliveryStatus::PickedUp, 403);
+            $dispatching = $target === OrderStatus::OutForDelivery && $order->delivery_status === DeliveryStatus::PickedUp;
+            $completingDelivery = $target === OrderStatus::Completed && $order->type === OrderType::Delivery
+                && $order->status === OrderStatus::OutForDelivery && $order->delivery_status === DeliveryStatus::Delivered
+                && $order->payment_status === PaymentStatus::Paid;
+            abort_unless($dispatching || $completingDelivery, 403);
 
             return;
         }

@@ -116,6 +116,10 @@ class DriverOrderService
             && in_array($order->delivery_status, [DeliveryStatus::PickedUp, DeliveryStatus::OnTheWay], true)) {
             $actions[] = 'collect_cash';
         }
+        if ($order->payment_method->value === 'network' && $order->payment_status->value === 'pending'
+            && in_array($order->delivery_status, [DeliveryStatus::PickedUp, DeliveryStatus::OnTheWay], true)) {
+            $actions[] = 'confirm_network';
+        }
 
         return $actions;
     }

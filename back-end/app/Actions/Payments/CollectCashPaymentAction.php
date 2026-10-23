@@ -4,6 +4,7 @@ namespace App\Actions\Payments;
 
 use App\Enums\DeliveryStatus;
 use App\Enums\OrderStatus;
+use App\Enums\OrderType;
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use App\Exceptions\PaymentException;
@@ -27,7 +28,13 @@ class CollectCashPaymentAction
                 && $locked->driver_id === $actor->id && $locked->branch_id === $actor->driver_branch_id
                 && $locked->payment_method === PaymentMethod::Cash
                 && in_array($locked->delivery_status, [DeliveryStatus::PickedUp, DeliveryStatus::OnTheWay], true);
-            abort_unless($actor->can('payments.collect_cash') || $driverCollection, 403);
+            $driverNetworkConfirmation = $actor->is_active && $actor->hasRole('driver') && $actor->can('driver.access')
+                && $locked->driver_id === $actor->id && $locked->branch_id === $actor->driver_branch_id
+                && $locked->type === OrderType::Delivery && $locked->delivery_task_closed_at === null
+                && ! in_array($locked->status, [OrderStatus::Cancelled, OrderStatus::Completed], true)
+                && $locked->payment_method === PaymentMethod::Network
+                && in_array($locked->delivery_status, [DeliveryStatus::PickedUp, DeliveryStatus::OnTheWay], true);
+            abort_unless($actor->can('payments.collect_cash') || $driverCollection || $driverNetworkConfirmation, 403);
             if (! $locked->payment_method->isOffline()) {
                 throw new PaymentException('NOT_A_CASH_ORDER');
             }

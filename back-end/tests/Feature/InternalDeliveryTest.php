@@ -74,7 +74,7 @@ class InternalDeliveryTest extends TestCase
         $this->getJson('/api/v1/admin/me')->assertForbidden();
     }
 
-    public function test_delivery_and_final_completion_require_ownership_payment_and_delivery_confirmation(): void
+    public function test_driver_delivery_confirmation_also_completes_the_order(): void
     {
         $driver = $this->driver();
         $other = $this->driver($driver->driverBranch);
@@ -86,10 +86,10 @@ class InternalDeliveryTest extends TestCase
         $this->postJson('/api/v1/admin/orders/'.$order->uuid.'/complete')->assertConflict();
         $this->actingAs($driver)->getJson($this->url($order))->assertOk()->assertJsonFragment(['available_actions' => ['delivered', 'failed']]);
         $this->postJson($this->url($order, '/transition'), ['status' => 'delivered'])->assertOk()
-            ->assertJsonPath('data.preparation_status', 'out_for_delivery')->assertJsonPath('data.delivery_status', 'delivered');
+            ->assertJsonPath('data.preparation_status', 'completed')->assertJsonPath('data.delivery_status', 'delivered');
         $this->assertNotNull($order->fresh()->delivery_delivered_at);
-        $this->assertNull($order->fresh()->completed_at);
-        $this->actingAs($cashier)->postJson('/api/v1/admin/orders/'.$order->uuid.'/complete')->assertOk();
+        $this->assertNotNull($order->fresh()->completed_at);
+        $this->actingAs($cashier)->postJson('/api/v1/admin/orders/'.$order->uuid.'/complete')->assertConflict();
         $this->assertNotNull($order->fresh()->completed_at);
     }
 
@@ -326,13 +326,10 @@ class InternalDeliveryTest extends TestCase
         $this->getJson('/api/v1/driver/collections?settled=0')->assertJsonCount(1, 'data');
         $this->postJson($this->url($order, '/transition'), ['status' => 'delivered'])->assertOk()->assertJsonPath('data.delivery_status', 'delivered');
         $this->postJson($this->url($order, '/transition'), ['status' => 'delivered'])->assertConflict();
-        $this->assertSame(OrderStatus::OutForDelivery, $order->fresh()->status);
+        $this->assertSame(OrderStatus::Completed, $order->fresh()->status);
         $this->assertNotNull($order->fresh()->delivery_delivered_at);
-        $this->assertNull($order->fresh()->completed_at);
+        $this->assertNotNull($order->fresh()->completed_at);
         $this->getJson($this->url($order))->assertOk()->assertJsonPath('data.available_actions', []);
-        $cashier = User::factory()->create()->assignRole('cashier');
-        $this->actingAs($cashier)->getJson('/api/v1/admin/orders/'.$order->uuid)->assertOk()->assertJsonFragment(['available_actions' => ['complete']]);
-        $this->postJson('/api/v1/admin/orders/'.$order->uuid.'/complete')->assertOk()->assertJsonPath('data.status', 'completed');
         $this->postJson('/api/v1/admin/orders/'.$order->uuid.'/complete')->assertConflict();
         $this->assertDatabaseCount('order_delivery_histories', 4);
     }

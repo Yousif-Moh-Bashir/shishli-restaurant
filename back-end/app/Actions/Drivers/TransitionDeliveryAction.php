@@ -57,6 +57,10 @@ class TransitionDeliveryAction
             $locked->deliveryHistory()->create(['driver_id' => $driver->id, 'changed_by' => $driver->id,
                 'from_status' => $from->value, 'to_status' => $target->value, 'reason' => $reason]);
 
+            if ($target === DeliveryStatus::Delivered) {
+                return $this->transition->handle($locked, OrderStatus::Completed, $driver, OrderStatusSource::Driver);
+            }
+
             return $locked;
         }, 3);
     }

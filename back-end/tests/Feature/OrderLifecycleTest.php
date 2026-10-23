@@ -74,13 +74,13 @@ class OrderLifecycleTest extends TestCase
             $this->postJson($driverUrl.'/transition', ['status' => 'picked_up'])->assertOk();
             $this->postJson($driverUrl.'/transition', ['status' => 'on_the_way'])->assertOk()->assertJsonPath('data.preparation_status', 'out_for_delivery');
             $this->postJson($driverUrl.'/cash/collect', ['amount' => $order->total])->assertOk();
-            $this->postJson($driverUrl.'/transition', ['status' => 'delivered'])->assertOk()->assertJsonPath('data.preparation_status', 'out_for_delivery');
-            $this->assertNull($order->fresh()->completed_at);
+            $this->postJson($driverUrl.'/transition', ['status' => 'delivered'])->assertOk()->assertJsonPath('data.preparation_status', 'completed');
+            $this->assertNotNull($order->fresh()->completed_at);
             $cashier = $this->staff('cashier');
-            $this->actingAs($cashier, 'sanctum')->postJson('/api/v1/admin/orders/'.$order->uuid.'/complete')->assertOk();
+            $this->actingAs($cashier, 'sanctum')->postJson('/api/v1/admin/orders/'.$order->uuid.'/complete')->assertConflict();
             $lastHistory = $order->statusHistory()->get()->last();
-            $this->assertSame(OrderStatusSource::Cashier, $lastHistory->source);
-            $this->assertSame($cashier->id, $lastHistory->changed_by);
+            $this->assertSame(OrderStatusSource::Driver, $lastHistory->source);
+            $this->assertSame($driver->id, $lastHistory->changed_by);
             $this->actingAs($manager, 'sanctum');
         }
         $transitionCount = count($commands) + ($type === 'delivery' ? 2 : 0);

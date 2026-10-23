@@ -65,8 +65,8 @@ class DeliveryExceptionService
         }
 
         return match ($order->payment_method->value) {
-            'network' => ['code' => 'NETWORK_CONFIRMATION_REQUIRED', 'responsible' => 'cashier',
-                'message' => 'دفع الشبكة لم يُؤكد بعد. يجب على الكاشير أو الموظف المخوّل التحقق من نجاح العملية عبر جهاز الشبكة ثم تأكيد التحصيل. لا يستطيع المندوب تأكيده.'],
+            'network' => ['code' => 'NETWORK_CONFIRMATION_REQUIRED', 'responsible' => 'driver',
+                'message' => 'تحقق من نجاح عملية جهاز الشبكة المحمول مع العميل، ثم أكد التحصيل قبل تأكيد التسليم.'],
             'cash' => ['code' => 'CASH_COLLECTION_REQUIRED', 'responsible' => 'driver', 'message' => 'سجّل استلام كامل المبلغ نقدًا من العميل قبل تأكيد التسليم.'],
             default => ['code' => 'ONLINE_PAYMENT_REVIEW', 'responsible' => 'cashier', 'message' => 'الدفع الإلكتروني غير مؤكد. اطلب من الموظف المخوّل مراجعة نتيجة مزود الدفع؛ لا تسجّل تحصيلًا نقديًا بديلًا.'],
         };
