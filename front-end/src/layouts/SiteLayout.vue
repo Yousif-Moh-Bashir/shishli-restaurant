@@ -1,6 +1,6 @@
 <script setup>
 import { ref, provide, watch, onMounted, onBeforeUnmount } from 'vue'
-import { RouterView, useRoute } from 'vue-router'
+import { RouterView, useRoute, useRouter } from 'vue-router'
 import SiteHeader from '../components/site/SiteHeader.vue'
 import RegistrationOffer from '../components/site/RegistrationOffer.vue'
 import RegistrationOfferPopup from '../components/site/RegistrationOfferPopup.vue'
@@ -18,6 +18,7 @@ const cartSound = useCartClickSound()
 const restaurant=useRestaurantInfo()
 
 const route = useRoute()
+const router = useRouter()
 const campaign = useRegistrationOfferStore(), auth = useAuthStore(), branch = useBranchStore()
 watch([() => branch.selectedUuid, () => auth.token, () => route.fullPath], () => {
   if (!auth.token) void campaign.load(branch.selectedUuid)
@@ -72,6 +73,10 @@ function openDialog(dialog) {
   document.body.classList.add('dialog-open')
 }
 const openCart = () => openDialog(cartDialog.value)
+function continueToMenu() {
+  cartDialog.value?.close()
+  void router.push({ name: 'menu' })
+}
 function requestSearch() { searchOpen.value = true; searchRequest.value++ }
 function closeDialog(event) { event.currentTarget.closest('dialog').close() }
 function dialogClosed() {
@@ -102,7 +107,7 @@ onBeforeUnmount(() => {
 <RouterView :key="route.meta.cmsKey" />
 <SiteFooter/>
 <RegistrationOfferPopup/>
-  <dialog class="cart-dialog" id="cart-dialog" ref="cartDialog" @close="dialogClosed" @click="backdropClose" aria-labelledby="cart-title"><div class="dialog-heading"><div><span class="section-kicker">طعمك المفضل، في مكان واحد</span><h2 id="cart-title">سلة طلباتك</h2></div><button class="icon-button" type="button" ref="cartCloseButton" @click="closeDialog" aria-label="إغلاق السلة"><SiteIcon name="x" /></button></div><p class="demo-note">سلتك محفوظة لدى المطعم. تُراجع حالة الفرع والأسعار عند تأكيد الطلب.</p><CartItems @empty-focus="cartCloseButton?.focus()" /><CartSummary @continue="cartDialog.close()" /></dialog>
+  <dialog class="cart-dialog" id="cart-dialog" ref="cartDialog" @close="dialogClosed" @click="backdropClose" aria-labelledby="cart-title"><div class="dialog-heading"><div><span class="section-kicker">طعمك المفضل، في مكان واحد</span><h2 id="cart-title">سلة طلباتك</h2></div><button class="icon-button" type="button" ref="cartCloseButton" @click="closeDialog" aria-label="إغلاق السلة"><SiteIcon name="x" /></button></div><p class="demo-note">سلتك محفوظة لدى المطعم. تُراجع حالة الفرع والأسعار عند تأكيد الطلب.</p><CartItems @empty-focus="cartCloseButton?.focus()" /><CartSummary @continue="continueToMenu" /></dialog>
   <div class="toast cart-feedback-toast" id="toast" :class="[toastKind,{ visible: toastVisible, quick: toastQuick }]" :inert="!toastVisible" @mouseenter="pauseToast" @mouseleave="resumeToast" @focusin="pauseToast" @focusout="resumeToast"><SiteIcon :name="toastKind==='success'?'badge-check':toastKind==='error'?'x':'shopping-bag'"/><p role="status" :aria-live="toastKind==='error'?'assertive':'polite'" aria-atomic="true">{{ toastMessage }}</p><button v-if="!toastQuick" class="toast-close" type="button" aria-label="إغلاق الإشعار" @click="dismissToast"><SiteIcon name="x"/></button></div>
 </div>
 </template>
