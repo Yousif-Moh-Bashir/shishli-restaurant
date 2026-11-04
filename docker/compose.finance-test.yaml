@@ -1,0 +1,42 @@
+# Standalone, disposable tests. No production env files, networks or volumes.
+name: shishli-finance-test
+services:
+  finance-mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: shishli_finance_test
+      MYSQL_ROOT_PASSWORD: finance-test-only
+      MYSQL_ROOT_HOST: '%'
+    tmpfs: ['/var/lib/mysql:size=536870912']
+    healthcheck:
+      test: [CMD-SHELL, 'MYSQL_PWD="$$MYSQL_ROOT_PASSWORD" mysql -h 127.0.0.1 -u root -e "SELECT 1" >/dev/null']
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  finance-tests:
+    build:
+      context: ..
+      dockerfile: docker/php/Dockerfile
+      target: testing
+    environment:
+      APP_ENV: testing
+      APP_KEY: base64:AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=
+      DB_CONNECTION: mysql
+      DB_HOST: finance-mysql
+      DB_DATABASE: shishli_finance_test
+      DB_USERNAME: root
+      DB_PASSWORD: finance-test-only
+      DB_URL: ''
+      CACHE_STORE: array
+      SESSION_DRIVER: array
+      QUEUE_CONNECTION: sync
+      MAIL_MAILER: array
+      BCRYPT_ROUNDS: '4'
+      FINANCE_MYSQL_CONCURRENCY: '1'
+    depends_on:
+      finance-mysql: {condition: service_healthy}
+    volumes:
+      - ../back-end/tests:/var/www/html/tests:ro
+      - ../back-end/phpunit.finance.mysql.xml:/var/www/html/phpunit.finance.mysql.xml:ro
+      - ../docs/finance/evidence:/evidence
+    command: [php, vendor/bin/phpunit, -c, phpunit.finance.mysql.xml, --log-junit, /evidence/hardening-mysql.xml]

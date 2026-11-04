@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php" colors="true">
+  <testsuites><testsuite name="Finance MySQL"><file>tests/Feature/FinanceApiTest.php</file><file>tests/Feature/FinanceOperationalReviewTest.php</file><file>tests/Feature/FinanceHardeningTest.php</file><file>tests/Feature/FinanceSettingsMigrationTest.php</file><file>tests/Feature/FinanceMysqlConcurrencyTest.php</file></testsuite></testsuites>
+  <php>
+    <env name="APP_ENV" value="testing" force="true"/>
+    <env name="APP_KEY" value="base64:AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=" force="true"/>
+    <env name="DB_CONNECTION" value="mysql" force="true"/>
+    <env name="DB_HOST" value="finance-mysql" force="true"/>
+    <env name="DB_DATABASE" value="shishli_finance_test" force="true"/>
+    <env name="DB_USERNAME" value="root" force="true"/>
+    <env name="DB_PASSWORD" value="finance-test-only" force="true"/>
+    <env name="DB_URL" value="" force="true"/>
+    <env name="FINANCE_MYSQL_CONCURRENCY" value="1" force="true"/>
+    <env name="BCRYPT_ROUNDS" value="4" force="true"/>
+    <env name="CACHE_STORE" value="array" force="true"/>
+    <env name="SESSION_DRIVER" value="array" force="true"/>
+    <env name="QUEUE_CONNECTION" value="sync" force="true"/>
+    <env name="MAIL_MAILER" value="array" force="true"/>
+  </php>
+</phpunit>

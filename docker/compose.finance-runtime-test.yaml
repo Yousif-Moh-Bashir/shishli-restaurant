@@ -1,0 +1,58 @@
+name: shishli-finance-runtime-test
+x-test-environment: &test-environment
+  APP_ENV: testing
+  APP_DEBUG: 'false'
+  APP_KEY: base64:AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=
+  DB_CONNECTION: mysql
+  DB_HOST: finance-mysql
+  DB_DATABASE: shishli_finance_test
+  DB_USERNAME: root
+  DB_PASSWORD: finance-runtime-test-only
+  DB_URL: ''
+  CACHE_STORE: array
+  SESSION_DRIVER: array
+  QUEUE_CONNECTION: sync
+  MAIL_MAILER: array
+  BCRYPT_ROUNDS: '4'
+services:
+  finance-mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: shishli_finance_test
+      MYSQL_ROOT_PASSWORD: finance-runtime-test-only
+      MYSQL_ROOT_HOST: '%'
+    tmpfs: ['/var/lib/mysql:size=536870912']
+    healthcheck:
+      test: [CMD-SHELL, 'MYSQL_PWD="$$MYSQL_ROOT_PASSWORD" mysql -h 127.0.0.1 -u root -e "SELECT 1" >/dev/null']
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  app:
+    image: shishli-finance-runtime-app:test
+    build:
+      context: ..
+      dockerfile: docker/php/Dockerfile
+      target: testing
+    environment: *test-environment
+    depends_on:
+      finance-mysql: {condition: service_healthy}
+    command: [sh, -c, 'php tests/Support/finance-runtime-setup.php && exec php-fpm']
+    healthcheck:
+      test: [CMD-SHELL, 'SCRIPT_NAME=/fpm-ping SCRIPT_FILENAME=/fpm-ping REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 | grep -q pong']
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  finance-web:
+    build:
+      context: ..
+      dockerfile: docker/nginx/finance.Dockerfile
+    ports: ['127.0.0.1:18099:8080']
+    depends_on:
+      app: {condition: service_healthy}
+  customer-web:
+    build:
+      context: ..
+      dockerfile: docker/nginx/Dockerfile
+    ports: ['127.0.0.1:18100:80']
+    depends_on:
+      app: {condition: service_healthy}

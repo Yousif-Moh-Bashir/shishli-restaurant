@@ -1,0 +1,33 @@
+﻿{
+    "CurrentIndex":  [
+                         {
+                             "Path":  "front-end/.delivery-ux-check/live/profile",
+                             "TrackedFiles":  0,
+                             "PreservedLocally":  true
+                         },
+                         {
+                             "Path":  "front-end/.delivery-ux-check/profile",
+                             "TrackedFiles":  0,
+                             "PreservedLocally":  true
+                         },
+                         {
+                             "Path":  "Şişli/.preview/chrome-check",
+                             "TrackedFiles":  0,
+                             "PreservedLocally":  true
+                         },
+                         {
+                             "Path":  "Şişli/.preview/chrome",
+                             "TrackedFiles":  0,
+                             "PreservedLocally":  true
+                         }
+                     ],
+    "RemovedProfileFiles":  2003,
+    "FieldClassification":  {
+                                "ValuesEmitted":  false,
+                                "Sensitivity":  "Potential personal contact data",
+                                "Names":  3,
+                                "Phones":  3
+                            },
+    "HistoryRewritten":  false,
+    "IgnoreRulesStaged":  true
+}

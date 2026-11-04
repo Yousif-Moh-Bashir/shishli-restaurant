@@ -1,9 +1,12 @@
 <?php
 
 use App\Exceptions\PaymentException;
+use App\Http\Middleware\EnsureFinanceBoundary;
 use App\Http\Middleware\EnsureUserIsActive;
+use App\Http\Middleware\FinanceResponseHeaders;
 use App\Http\Middleware\RequestId;
 use App\Http\Responses\ApiResponse;
+use App\Services\Finance\FinanceSecurity;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -23,7 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->prepend(RequestId::class);
+        $middleware->prepend([RequestId::class, FinanceResponseHeaders::class, EnsureFinanceBoundary::class]);
         $middleware->appendToGroup('api', EnsureUserIsActive::class);
         $middleware->alias([
             'role' => RoleMiddleware::class,
@@ -43,6 +46,7 @@ return Application::configure(basePath: dirname(__DIR__))
         );
 
         $exceptions->respond(function (Response $response, Throwable $exception, Request $request): Response {
+            FinanceSecurity::headers($response, $request);
             if ($request->attributes->has('request_id')) {
                 $response->headers->set('X-Request-ID', $request->attributes->get('request_id'));
             }

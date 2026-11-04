@@ -4,6 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "dev:finance": "vite --config vite.finance.config.js",
+    "build:finance": "vite build --config vite.finance.config.js",
+    "test:finance": "node --test tests/finance.test.mjs tests/finance-dev.test.mjs tests/finance.repository.test.mjs",
+    "test:finance:browser": "node --experimental-websocket tests/finance.browser.mjs",
+    "test:finance:live": "node --experimental-websocket tests/finance.live.browser.mjs",
     "test:delivery-exceptions": "node tests/delivery-exceptions.test.mjs",
     "test:delivery-exceptions:browser": "node --experimental-websocket tests/delivery-exceptions.browser.mjs",
     "dev": "vite",

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "stack": "Chrome → local proxy → Docker Nginx → PHP-FPM/Laravel → isolated MySQL 8.4",
+  "mockedApi": false,
+  "checks": [
+    "finance login",
+    "server total",
+    "draft",
+    "approval",
+    "duplicate rejection",
+    "approved edit rejection",
+    "correction audit",
+    "expense",
+    "supplier",
+    "purchase",
+    "net flow",
+    "real PDF/XLSX",
+    "customer host blocked",
+    "logout revocation"
+  ],
+  "browserApiCalls": 37
+}

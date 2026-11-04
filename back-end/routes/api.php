@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__.'/finance.php';
+
 use App\Http\Controllers\Api\V1\Admin\ActivityLogController;
 use App\Http\Controllers\Api\V1\Admin\AdminSessionController;
 use App\Http\Controllers\Api\V1\Admin\BranchClosureController;

@@ -4,3 +4,9 @@
 docker/backups/
 docs/docker/evidence/private/
 .local-mobile-https/
+
+# Local browser sessions may contain personal form data and credentials.
+/front-end/.delivery-ux-check/live/profile/
+/front-end/.delivery-ux-check/profile/
+/Şişli/.preview/chrome-check/
+/Şişli/.preview/chrome/

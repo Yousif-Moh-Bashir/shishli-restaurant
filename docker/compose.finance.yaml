@@ -1,0 +1,18 @@
+# Optional overlay: docker compose -f compose.yaml -f docker/compose.finance.yaml ...
+# Build only until deployment has been explicitly authorized.
+services:
+  finance-web:
+    image: shishli-finance:local
+    build:
+      context: .
+      dockerfile: docker/nginx/finance.Dockerfile
+    ports: ['127.0.0.1:${SHISHLI_FINANCE_PORT:-8089}:8080']
+    restart: unless-stopped
+    networks: [private, ingress]
+    depends_on:
+      app: {condition: service_healthy}
+    healthcheck:
+      test: [CMD-SHELL, 'wget --header="Host: finance.shishlifresh.com" -q -O /dev/null http://127.0.0.1:8080/finance.html']
+      interval: 30s
+      timeout: 5s
+      retries: 3

@@ -1,0 +1,2 @@
+<script setup>defineProps({ meta: Object, busy: Boolean }); defineEmits(['page'])</script>
+<template><div class="pagination" v-if="meta && meta.last_page > 1"><button :disabled="busy || meta.current_page <= 1" @click="$emit('page', meta.current_page - 1)">السابق</button><span>{{ meta.current_page }} / {{ meta.last_page }} · {{ meta.total }} سجل</span><button :disabled="busy || meta.current_page >= meta.last_page" @click="$emit('page', meta.current_page + 1)">التالي</button></div></template>

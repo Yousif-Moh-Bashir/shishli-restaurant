@@ -1,0 +1,15 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { financeApi } from '../api'
+import { errorMessage } from '../utils'
+import Pagination from '../components/Pagination.vue'
+import FinanceFilterPanel from '../components/FinanceFilterPanel.vue'
+import FinanceAuditDetails from '../components/FinanceAuditDetails.vue'
+import { auditActions, auditDateTime } from '../auditPresentation'
+const rows = ref([]), meta = ref(null), loading = ref(false), error = ref(''), branch = ref('')
+import { useFinanceSession } from '../session'
+const session = useFinanceSession()
+async function load(page = 1) { loading.value = true; error.value = ''; try { const r = (await financeApi.list('audit', { page, branch_uuid: branch.value })).data; rows.value = r.data; meta.value = r } catch (e) { error.value = errorMessage(e) } finally { loading.value = false } }
+onMounted(load)
+</script>
+<template><div class="page-intro"><div><h2>كل عملية، وأثرها</h2><p class="muted">سجل للعمليات المالية المهمة، مع القيم السابقة والجديدة والمستخدم والتوقيت.</p></div></div><FinanceFilterPanel title="تصفية سجل التدقيق" :summary="session.branches.find(b => b.uuid === branch)?.name || 'جميع الفروع'"><div class="filters card"><label>الفرع<select v-model="branch" @change="load()"><option value="">الكل، بما فيه العمليات العامة</option><option v-for="b in session.branches" :key="b.uuid" :value="b.uuid">{{ b.name }}</option></select></label></div></FinanceFilterPanel><p v-if="error" class="notice danger" role="alert">{{ error }} <button @click="load()">إعادة المحاولة</button></p><section class="card"><div v-if="loading" class="loading" role="status">جارٍ تحميل سجل التدقيق…</div><div v-else-if="!rows.length" class="empty">لا توجد عمليات مسجلة.</div><div v-else class="table-wrap finance-responsive-wrap"><table class="finance-responsive-table" role="table"><thead role="rowgroup"><tr role="row"><th role="columnheader">التوقيت</th><th role="columnheader">المستخدم</th><th role="columnheader">العملية</th><th role="columnheader">السبب</th><th role="columnheader">تفاصيل التغيير</th></tr></thead><tbody role="rowgroup"><tr v-for="row in rows" :key="row.uuid" role="row"><td role="cell"><span class="finance-cell-label" aria-hidden="true">التوقيت</span><div class="finance-cell-value">{{ auditDateTime(row.created_at, session.timezone) }}</div></td><td role="cell"><span class="finance-cell-label" aria-hidden="true">المستخدم</span><div class="finance-cell-value">{{ row.actor?.name }}</div></td><td role="cell"><span class="finance-cell-label" aria-hidden="true">العملية</span><div class="finance-cell-value">{{ auditActions[row.action] || 'عملية مالية' }}</div></td><td role="cell"><span class="finance-cell-label" aria-hidden="true">السبب</span><div class="finance-cell-value">{{ row.reason || '—' }}</div></td><td class="finance-cell-actions" role="cell"><span class="finance-cell-label" aria-hidden="true">تفاصيل التغيير</span><div class="finance-cell-value"><FinanceAuditDetails :record="row"/></div></td></tr></tbody></table></div><Pagination :meta="meta" :busy="loading" @page="load"/></section></template>
