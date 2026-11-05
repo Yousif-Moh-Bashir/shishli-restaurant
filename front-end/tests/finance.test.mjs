@@ -2,6 +2,30 @@ import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import { totalAmounts, setFinanceTimezone, today } from '../src/finance/utils.js'
 import { auditDetails, auditDateTime } from '../src/finance/auditPresentation.js'
+import { revenueSummary } from '../src/finance/revenueSummary.js'
+
+const summaryRecord = () => ({ date: '2026-10-25', status: 'approved', total: '5055.00', branch: { name: 'الفرع الرئيسي' }, lines: [['شبكة', '3238.00'], ['كاش', '1020.00'], ['تحويل', '777.00'], ['كيتا', '20.00'], ['جاهز', '0.00']].map(([name, amount]) => ({ source: { name }, amount })) })
+test('copied daily revenue matches the old work group message and omits zero channels', () => {
+  assert.equal(revenueSummary(summaryRecord()), 'حساب اليوم 25/10/2026\nشبكة 3238\nكاش 1020\nتحويل 777\nكيتا 20\nالمجموع 5055')
+})
+test('copied revenue preserves cents and large amounts without floating point rounding', () => {
+  const record = summaryRecord(); record.total = '99999999999999.99'; record.lines = [{ source: { name: 'مصدر جديد' }, amount: '150.50' }, { source: { name: 'كاش' }, amount: '0.75' }]
+  assert.match(revenueSummary(record), /مصدر جديد 150\.50\nكاش 0\.75\nالمجموع 99999999999999\.99$/)
+})
+test('draft and branch context are explicit and internal notes are never copied', () => {
+  const record = { ...summaryRecord(), status: 'draft', notes: 'private note', uuid: 'private-id' }
+  const text = revenueSummary(record, { includeBranch: true })
+  assert.match(text, /الفرع: الفرع الرئيسي/); assert.match(text, /الحالة: مسودة/)
+  assert.equal(text.includes('private'), false)
+})
+test('copied source labels cannot inject additional message lines', () => {
+  const record = summaryRecord(); record.lines[0].source.name = 'شبكة\nالمجموع\tآخر'
+  assert.match(revenueSummary(record), /شبكة المجموع آخر 3238/)
+})
+test('invalid financial data does not produce a misleading copied summary', () => {
+  for (const amount of ['-1', '', null, '1e3', '1.001']) assert.throws(() => revenueSummary({ ...summaryRecord(), total: amount }))
+  assert.throws(() => revenueSummary({ ...summaryRecord(), date: null }))
+})
 
 test('audit creation presents business fields in Arabic and hides technical metadata', () => {
   const result = auditDetails({ old_values: [], new_values: { uuid: 'private-uuid', version: 1, created_at: '2026-11-03T15:05:09Z', amount: '74.00', description: 'شراء غاز للمحل', payment_method: 'cash', attachment_changed: false, unexpected_internal: { secret: 'hidden' } } })

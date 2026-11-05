@@ -61,7 +61,7 @@ const server = createServer(async (req, res) => {
         const id = path.split('/')[5], action = path.split('/')[6]
         if (kind === 'revenues') {
           if (action === 'approve') { Object.assign(rows.find(r => r.uuid === id), { status: 'approved', approver: user, version: 2 }); return send(rows.find(r => r.uuid === id)) }
-          const record = { uuid: id || uuid(50), branch, creator: user, date: body.date, total: action === 'correct' ? '150.30' : '100.30', status: action === 'correct' ? 'approved' : 'draft', version: action === 'correct' ? 3 : 1, notes: body.notes, lines: body.lines.map(l => ({ amount: l.amount, source: sources.find(s => s.uuid === l.source_uuid) })) }
+          const record = { uuid: id || uuid(50), branch, creator: user, date: body.date, total: action === 'correct' ? '150.30' : '100.30', status: action === 'correct' ? 'approved' : 'draft', version: action === 'correct' ? 3 : 1, notes: body.notes, lines: body.lines.map(l => ({ amount: l.amount === '' || l.amount == null ? '0.00' : l.amount, source: sources.find(s => s.uuid === l.source_uuid) })) }
           if (id) Object.assign(rows.find(r => r.uuid === id), record); else rows.push(record)
           return send(record, id ? 200 : 201)
         }
@@ -217,6 +217,12 @@ try {
   await browser.input('dialog .amount-field input', '100.10'); await browser.evaluate('(()=>{const e=document.querySelectorAll("dialog .amount-field input")[1];e.value="0.20";e.dispatchEvent(new Event("input",{bubbles:true}))})()')
   await browser.click('dialog button', 'حفظ المسودة'); await browser.wait('document.querySelector("tbody tr") && !document.querySelector("dialog")')
   assert.equal(revenues.length, 1); assert.equal(revenues[0].lines[0].amount, '100.10')
+  await browser.evaluate('Object.defineProperty(navigator,"clipboard",{configurable:true,value:{writeText:async text=>{window.copiedRevenueText=text}}})')
+  const beforeCopy = calls.length
+  await browser.click('.finance-revenue-copy', 'نسخ')
+  await browser.wait('document.querySelector(".finance-revenue-copy").textContent.includes("تم النسخ")')
+  assert.match(await browser.evaluate('window.copiedRevenueText'), /المجموع 100\.30\nالحالة: مسودة/)
+  assert.equal(calls.length, beforeCopy)
   await browser.click('tbody button', 'عرض وتعديل'); await browser.wait('document.querySelector("dialog[open]")')
   assert.equal(await browser.evaluate('document.querySelector("dialog .amount-field input").value'), '100.10')
   await checkAmountEditing(amountSelector)
@@ -226,6 +232,18 @@ try {
   await browser.click('tbody button', 'اعتماد'); await browser.wait('document.querySelector("dialog[open]")'); await browser.click('dialog button', 'تأكيد الاعتماد'); await browser.wait('document.querySelector("tbody .approved") && !document.querySelector("dialog")')
   await browser.click('tbody button', 'تصحيح موثق'); await browser.wait('document.querySelector("dialog[open]")'); await browser.input('dialog .amount-field input', '150.10'); await browser.input('dialog textarea[minlength]', 'تصحيح مبلغ الشبكة'); await browser.click('dialog button', 'حفظ التصحيح الموثق'); await browser.wait('!document.querySelector("dialog")')
   assert.equal(revenues[0].version, 3)
+  await browser.click('.finance-revenue-copy', 'نسخ')
+  await browser.wait('document.querySelector(".finance-revenue-copy").textContent.includes("تم النسخ")')
+  const approvedCopy = await browser.evaluate('window.copiedRevenueText')
+  assert.match(approvedCopy, /المجموع 150\.30$/); assert.equal(approvedCopy.includes('مسودة'), false)
+  await browser.evaluate('Object.defineProperty(navigator,"clipboard",{configurable:true,value:{writeText:async()=>{throw new Error("NotAllowedError")}}})')
+  await browser.click('.finance-revenue-copy', 'تم النسخ')
+  await browser.wait('document.querySelector(".finance-copy-text textarea")')
+  assert.equal(await browser.evaluate('document.querySelector(".finance-copy-text textarea").value'), approvedCopy)
+  assert.equal(await browser.evaluate('document.querySelector(".finance-copy-text textarea").readOnly'), true)
+  await browser.click('dialog button', 'تحديد النص')
+  assert.equal(await browser.evaluate('(()=>{const t=document.querySelector(".finance-copy-text textarea");return t.selectionStart===0&&t.selectionEnd===t.value.length})()'), true)
+  await browser.click('dialog button', 'إغلاق'); await browser.wait('!document.querySelector("dialog")')
   await browser.send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1050, deviceScaleFactor: 1, mobile: false })
   await browser.click('nav a', 'المصروفات'); await browser.wait('document.querySelector(".empty")'); await browser.click('button', 'إضافة مصروف'); await browser.wait('document.querySelector("dialog[open]")')
   assert.equal(await browser.evaluate('document.querySelector("dialog input[inputmode=decimal]").value'), '')
