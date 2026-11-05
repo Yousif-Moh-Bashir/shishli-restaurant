@@ -511,6 +511,27 @@ class FinanceApiTest extends TestCase
         $this->getJson('/api/v1/finance/reports')->assertOk()->assertJsonPath('data.filters.from', '2026-11-01')->assertJsonPath('data.today.revenues', '100.30')->assertJsonPath('data.month.revenues', '100.30');
     }
 
+    public function test_revenue_dates_reject_future_and_allow_today_and_past_in_finance_timezone(): void
+    {
+        config(['finance.timezone' => 'Asia/Riyadh']);
+        $this->travelTo(CarbonImmutable::parse('2026-11-04T20:59:00Z'));
+        $this->actor();
+        $data = $this->revenue(Branch::factory()->create());
+
+        $this->postJson('/api/v1/finance/revenues', [...$data, 'date' => '2026-11-05'])
+            ->assertUnprocessable()->assertJsonValidationErrors('date')
+            ->assertJsonPath('errors.date.0', 'التاريخ لا يمكن أن يكون في المستقبل.');
+        $this->assertDatabaseCount('finance_revenue_days', 0);
+        $this->assertDatabaseCount('finance_audit_logs', 0);
+
+        $this->postJson('/api/v1/finance/revenues', [...$data, 'date' => '2026-11-04'])->assertCreated();
+        $this->postJson('/api/v1/finance/revenues', [...$data, 'date' => '2026-11-03'])->assertCreated();
+        $this->travelTo(CarbonImmutable::parse('2026-11-04T21:00:00Z'));
+        $this->postJson('/api/v1/finance/revenues', [...$data, 'date' => '2026-11-05'])->assertCreated();
+        $this->assertDatabaseCount('finance_revenue_days', 3);
+        $this->assertDatabaseCount('finance_audit_logs', 3);
+    }
+
     public function test_date_filters_reject_reversed_periods_and_accept_end_date_only(): void
     {
         $this->actor();

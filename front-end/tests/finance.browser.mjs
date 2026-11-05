@@ -171,6 +171,15 @@ try {
   assert.deepEqual(await browser.evaluate('window.financeDownloads'), ['shishli-finance.pdf', 'shishli-finance.xlsx'])
   await browser.click('nav a', 'الإيرادات اليومية'); await browser.wait('document.querySelector(".empty")'); await browser.click('button', 'تسجيل يوم جديد'); await browser.wait('document.querySelector("dialog[open]")')
   const amountSelector = 'dialog .amount-field input'
+  const revenueRequests = calls.filter(c=>c.path==='/api/v1/finance/revenues' && c.method==='POST').length
+  const allowedDate = await browser.evaluate('document.querySelector("dialog input[type=date]").max')
+  assert.equal(await browser.evaluate('document.querySelector("dialog input[type=date]").value'), allowedDate)
+  await browser.input('dialog input[type=date]', '2099-01-01')
+  assert.equal(await browser.evaluate('document.querySelector("dialog input[type=date]").validity.rangeOverflow'), true)
+  await browser.evaluate('document.querySelector("dialog form").dispatchEvent(new Event("submit",{bubbles:true,cancelable:true}))')
+  await browser.wait('document.querySelector("dialog").textContent.includes("لا يمكن تسجيل إيرادات بتاريخ مستقبلي")')
+  assert.equal(calls.filter(c=>c.path==='/api/v1/finance/revenues' && c.method==='POST').length, revenueRequests)
+  await browser.input('dialog input[type=date]', allowedDate)
   assert.equal(await browser.evaluate('[...document.querySelectorAll("dialog .amount-field input")].every(e => e.value === "" && e.placeholder === "0.00")'), true)
   async function checkAmountEditing(selector) {
     for (const amount of ['5', '15', '150', '150.50', '0.75']) {

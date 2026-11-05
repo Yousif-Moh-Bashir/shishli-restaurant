@@ -30,6 +30,7 @@ function sourceAmount(uuid) { return form.lines.find(l => l.source_uuid === uuid
 function setAmount(uuid, value) { const line = sourceAmount(uuid); if (line) line.amount = value; else form.lines.push({ source_uuid: uuid, amount: value }) }
 async function save() {
   if (busy.value) return
+  if (form.date > today()) { errors.value = { date: ['لا يمكن تسجيل إيرادات بتاريخ مستقبلي. اختر اليوم أو تاريخًا سابقًا.'] }; error.value = 'راجع تاريخ الإيرادات.'; return }
   if (total.value === null || total.value === '0.00') { error.value = total.value === null ? 'أدخل مبالغ صحيحة غير سالبة بمنزلتين عشريتين كحد أقصى.' : 'أدخل مبلغ إيراد موجبًا في وسيلة واحدة على الأقل.'; return }
   busy.value = true; errors.value = {}; error.value = ''
   try { await financeApi.saveRevenue({ ...form }, selected.value?.uuid, correction.value); modal.value = false; notice.value = correction.value ? 'تم حفظ التصحيح وتوثيق سببه.' : 'تم حفظ مسودة الإيرادات.'; await load(meta.value?.current_page || 1) }
