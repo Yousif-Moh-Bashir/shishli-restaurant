@@ -51,7 +51,7 @@ onMounted(load)
   <template v-else-if="report">
     <div class="dashboard-scope"><span><FinanceIcon name="store" />{{ scope.branch }}</span><span>{{ scope.source }}</span><span class="badge approved">الإيرادات المعتمدة فقط</span></div>
     <section class="stats-grid dashboard-current-stats" aria-label="الإيرادات الحالية">
-      <article class="stat card"><div><span>إيرادات اليوم</span><span class="stat-symbol"><FinanceIcon name="wallet" /></span></div><strong>{{ currency(report.today.revenues) }}</strong><small>{{ today() }}</small></article>
+      <article class="stat card"><div><span>إيرادات اليوم السابق</span><span class="stat-symbol"><FinanceIcon name="wallet" /></span></div><strong>{{ currency(report.yesterday.revenues) }}</strong><small>{{ report.yesterday.date }}</small></article>
       <article class="stat card"><div><span>إيرادات الشهر الحالي</span><span class="stat-symbol"><FinanceIcon name="history" /></span></div><strong>{{ currency(report.month.revenues) }}</strong><small>من أول الشهر إلى اليوم</small></article>
     </section>
     <section class="card dashboard-period-overview" aria-labelledby="period-overview-title">
