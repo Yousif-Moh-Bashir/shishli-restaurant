@@ -272,6 +272,34 @@ class FinanceApiTest extends TestCase
     }
 
     #[DataProvider('emptyPurchaseSuppliers')]
+    public function test_purchase_invoice_number_and_description_are_optional(?string $value): void
+    {
+        $this->actor();
+        $data = $this->outflow(Branch::factory()->create(), 'purchases');
+        if ($value === 'omit') {
+            unset($data['invoice_number'], $data['description']);
+        } else {
+            $data['invoice_number'] = $value;
+            $data['description'] = $value;
+        }
+        for ($i = 0; $i < 2; $i++) {
+            $this->postJson('/api/v1/finance/purchases', $data)->assertCreated()
+                ->assertJsonPath('data.amount', '20.25');
+        }
+        $this->assertDatabaseCount('finance_purchases', 2);
+        $this->assertDatabaseHas('finance_purchases', ['invoice_number' => null, 'description' => '']);
+        $record = Purchase::firstOrFail();
+        $full = [...$data, 'invoice_number' => 'OPTIONAL-1', 'description' => 'Optional details', 'version' => 1, 'reason' => 'Add optional details'];
+        $this->postJson('/api/v1/finance/purchases/'.$record->uuid, $full)->assertOk();
+        $this->postJson('/api/v1/finance/purchases/'.$record->uuid, [...$data, 'version' => 2, 'reason' => 'Clear optional details'])->assertOk();
+        $this->assertNull($record->fresh()->invoice_number);
+        $this->assertSame('', $record->fresh()->description);
+        $this->postJson('/api/v1/finance/purchases', [...$data, 'amount' => '0'])->assertUnprocessable()->assertJsonValidationErrors('amount');
+        unset($data['amount']);
+        $this->postJson('/api/v1/finance/purchases', $data)->assertUnprocessable()->assertJsonValidationErrors('amount');
+    }
+
+    #[DataProvider('emptyPurchaseSuppliers')]
     public function test_direct_purchase_without_supplier_is_saved_and_included_in_reports(?string $supplier): void
     {
         $this->actor();

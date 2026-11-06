@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { totalAmounts, setFinanceTimezone, today } from '../src/finance/utils.js'
+import { totalAmounts, setFinanceTimezone, today, normalizeAmount, normalizeAmountInput } from '../src/finance/utils.js'
 import { auditDetails, auditDateTime } from '../src/finance/auditPresentation.js'
 import { revenueSummary } from '../src/finance/revenueSummary.js'
 
@@ -57,6 +57,17 @@ test('audit source amounts, roles and report filters resolve names instead of JS
   assert.equal(result.fields.find(field => field.key === 'filter:group').after, 'شهري')
   assert.equal(result.fields.find(field => field.key === 'format').after, 'Excel')
   assert.equal(auditDateTime('not-a-date'), 'غير مسجل')
+})
+
+test('Arabic amount entry and paste normalize before browser validation and submission', () => {
+  for (const input of ['١٢٣٫٤٥', '۱۲۳٫۴۵', '1٢۳.٤5']) {
+    const event = { target: { value: input } }
+    assert.equal(normalizeAmountInput(event), '123.45')
+    assert.equal(event.target.value, '123.45')
+  }
+  assert.equal(normalizeAmount(''), '')
+  assert.equal(totalAmounts([{ amount: '١٢٣٫٤٥' }, { amount: '۰٫۵۵' }]), '124.00')
+  for (const input of ['١٫٢٣٤', '-١', '١e٣', '١٬٢٣٤']) assert.equal(totalAmounts([{ amount: input }]), null)
 })
 
 test('revenue inputs add decimal fractions exactly', () => {

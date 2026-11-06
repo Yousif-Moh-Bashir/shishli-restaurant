@@ -5,10 +5,18 @@ export const today = () => {
   const parts = Object.fromEntries(new Intl.DateTimeFormat('en', { timeZone: financeTimezone, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date()).map(p => [p.type, p.value]))
   return `${parts.year}-${parts.month}-${parts.day}`
 }
+export function normalizeAmount(value) {
+  return String(value ?? '').replace(/[\u0660-\u0669\u06f0-\u06f9]/g, digit => String(digit.charCodeAt(0) - (digit.charCodeAt(0) >= 0x06f0 ? 0x06f0 : 0x0660))).replace(/\u066b/g, '.')
+}
+export function normalizeAmountInput(event) {
+  const value = normalizeAmount(event.target.value)
+  event.target.value = value
+  return value
+}
 export function totalAmounts(lines) {
   let total = 0n
   for (const line of lines) {
-    const value = String(line.amount ?? '').trim() || '0'
+    const value = normalizeAmount(line.amount).trim() || '0'
     if (!/^\d{1,12}(\.\d{1,2})?$/.test(value)) return null
     const [whole, fraction = ''] = value.split('.')
     total += BigInt(whole) * 100n + BigInt(fraction.padEnd(2, '0'))

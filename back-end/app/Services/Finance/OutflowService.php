@@ -38,6 +38,10 @@ class OutflowService
                     abort_unless($record->version === (int) $data['version'], 409);
                 }
                 $purchase = $kind === 'purchases';
+                if ($purchase) {
+                    $data['invoice_number'] = $data['invoice_number'] ?? null;
+                    $data['description'] = $data['description'] ?? '';
+                }
                 $lookup = $purchase ? Supplier::class : ExpenseCategory::class;
                 $referenceUuid = $data[$purchase ? 'supplier_uuid' : 'category_uuid'] ?? null;
                 $reference = $purchase && ($referenceUuid === null || $referenceUuid === '')
@@ -46,7 +50,7 @@ class OutflowService
                 if ($reference && ! $reference->is_active && $reference->id !== $record->$foreignKey) {
                     throw ValidationException::withMessages([$purchase ? 'supplier_uuid' : 'category_uuid' => 'العنصر معطّل.']);
                 }
-                if ($purchase && $reference && Purchase::where('supplier_id', $reference->id)->where('invoice_number', $data['invoice_number'])->when($record->exists, fn ($query) => $query->whereKeyNot($record->id))->lockForUpdate()->first() !== null) {
+                if ($purchase && $reference && $data['invoice_number'] !== null && Purchase::where('supplier_id', $reference->id)->where('invoice_number', $data['invoice_number'])->when($record->exists, fn ($query) => $query->whereKeyNot($record->id))->lockForUpdate()->first() !== null) {
                     throw ValidationException::withMessages(['invoice_number' => 'رقم الفاتورة مسجل لهذا المورد.']);
                 }
                 $record->fill(Arr::only($data, ['date', 'description', 'payment_method', ...($purchase ? ['invoice_number'] : [])]));
