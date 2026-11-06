@@ -77,6 +77,7 @@ class ReportService
         $days = (int) $from->diffInDays($to) + 1;
         $previous = [...$filters, 'from' => $from->subDays($days)->toDateString(), 'to' => $from->subDay()->toDateString()];
         $today = $now->toDateString();
+        $yesterday = $now->subDay()->toDateString();
 
         return [
             'scope' => [
@@ -88,6 +89,7 @@ class ReportService
             'filters' => $filters, ...$result,
             'previous' => ['from' => $previous['from'], 'to' => $previous['to'], ...$this->aggregate($request, $previous, false)['totals']],
             'today' => $this->aggregate($request, [...$filters, 'from' => $today, 'to' => $today], false)['totals'],
+            'yesterday' => ['date' => $yesterday, ...$this->aggregate($request, [...$filters, 'from' => $yesterday, 'to' => $yesterday], false)['totals']],
             'month' => $this->aggregate($request, [...$filters, 'from' => $now->startOfMonth()->toDateString(), 'to' => $today], false)['totals'],
             'basis' => 'الإيرادات المعتمدة فقط. المصروفات والمشتريات مدفوعات مسجلة يدويًا وتُطرح كل فئة مرة واحدة. فلتر المصدر يخص الإيرادات فقط. صافي التدفق المسجل ليس صافي ربح محاسبيًا.',
         ];
