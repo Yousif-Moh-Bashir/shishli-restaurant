@@ -23,6 +23,48 @@ class StaffService
         return $this->query()->with('roles.permissions')->where('uuid', $uuid)->firstOrFail();
     }
 
+    private function customerQuery(): Builder
+    {
+        return User::where('is_active', true)->where('driver_enabled', false)
+            ->whereDoesntHave('roles', fn (Builder $roles): Builder => $roles->where(fn (Builder $role): Builder => $role->where('name', '!=', 'customer')->orWhere('guard_name', '!=', 'web')))
+            ->whereDoesntHave('permissions');
+    }
+
+    public function findCustomer(string $phone): User
+    {
+        $aliases = [$phone, '00'.substr($phone, 1)];
+        if (preg_match('/^\+9665[0-9]{8}$/D', $phone)) {
+            $aliases[] = '0'.substr($phone, 4);
+            $aliases[] = substr($phone, 1);
+        }
+        $matches = User::where(fn (Builder $query): Builder => $query->where('phone_normalized', $phone)->orWhereIn('phone', $aliases))->limit(2)->pluck('id');
+        if ($matches->count() > 1) {
+            throw ValidationException::withMessages(['phone' => 'الرقم مرتبط بأكثر من حساب بصيغ مختلفة. راجع مسؤول النظام لتحديد الحساب الصحيح؛ لم يتم تعديل أي حساب.']);
+        }
+
+        return $this->customerQuery()->whereKey($matches->first())->firstOrFail();
+    }
+
+    public function fromCustomer(User $actor, #[\SensitiveParameter] array $data): User
+    {
+        return DB::transaction(function () use ($actor, $data): User {
+            $this->lockSystemRole();
+            $this->authorizeRoles($actor, $data['roles']);
+            $user = $this->customerQuery()->where('uuid', $data['customer_uuid'])->lockForUpdate()->firstOrFail();
+            $this->authorizeTarget($actor, $user);
+            $old = $this->audit->values($user);
+            $user->assignRole(['customer', ...$data['roles']]);
+            $user->password = $data['password'];
+            $user->save();
+            $user->tokens()->delete();
+            $user->unsetRelation('roles');
+            $new = [...$this->audit->values($user), 'password_changed' => true];
+            $this->audit->record($actor, 'staff.from_customer', 'user', $user->uuid, $old, $new, 'إضافة حساب عميل موجود إلى الموظفين وتغيير كلمة مروره وإنهاء جلساته السابقة.');
+
+            return $user->load('roles.permissions');
+        });
+    }
+
     private function lockSystemRole(): void
     {
         Role::where('name', 'super_admin')->where('guard_name', 'web')->lockForUpdate()->firstOrFail();
@@ -80,7 +122,7 @@ class StaffService
                 if ($user->hasRole('super_admin') && ! in_array('super_admin', $data['roles'], true) && $user->is_active) {
                     $this->assertAnotherSuperAdmin($user);
                 }
-                $user->syncRoles($data['roles']);
+                $user->syncRoles([...$data['roles'], ...($user->hasRole('customer') ? ['customer'] : [])]);
                 $user->unsetRelation('roles');
                 $user->tokens()->delete();
             }

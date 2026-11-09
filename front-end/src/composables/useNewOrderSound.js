@@ -2,11 +2,16 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 export function useNewOrderSound(allowed = () => true, { identity, storageKey = 'shishli.orderSoundMuted' } = {}) {
   function preference() { try { return localStorage.getItem(storageKey) } catch { return null } }
-  const enabled = ref(preference() === '0'), message = ref('')
+  const enabled = ref(preference() === '0'), message = ref(''), ready = ref(false)
   let context, watermark = null, seen = new Set(), activating = false
+  const oscillators = new Set()
+  function stop() {
+    for (const oscillator of oscillators) { try { oscillator.stop() } catch {} }
+    oscillators.clear()
+  }
   function muted() { return preference() === '1' }
   function saveMute(value) { try { localStorage.setItem(storageKey, value ? '1' : '0') } catch {} }
-  function reset() { watermark = null; seen.clear() }
+  function reset() { stop(); watermark = null; seen.clear() }
   function ring() {
     if (!allowed() || !enabled.value || !context) return
     if (context.state !== 'running') {
@@ -24,6 +29,8 @@ export function useNewOrderSound(allowed = () => true, { identity, storageKey = 
       gain.gain.linearRampToValueAtTime(.16, now + offset + .01)
       gain.gain.exponentialRampToValueAtTime(.001, now + offset + .28)
       oscillator.connect(gain); gain.connect(context.destination)
+      oscillators.add(oscillator)
+      oscillator.onended = () => oscillators.delete(oscillator)
       oscillator.start(now + offset); oscillator.stop(now + offset + .3)
     }
   }
@@ -34,16 +41,18 @@ export function useNewOrderSound(allowed = () => true, { identity, storageKey = 
       context ||= new Audio()
       await context.resume()
       if (context.state !== 'running') throw Error('AUDIO_BLOCKED')
+      ready.value = true
       message.value = ''
       return true
     } catch {
+      ready.value = false
       message.value = 'اضغط على الصفحة للسماح بتشغيل صوت التنبيه.'
       return false
     }
   }
   async function toggle() {
     if (activating || !allowed()) return
-    if (enabled.value) { enabled.value = false; saveMute(true); message.value = ''; return }
+    if (enabled.value) { enabled.value = false; stop(); saveMute(true); message.value = ''; return }
     activating = true
     try {
       if (!await resumeAudio()) throw Error('AUDIO_BLOCKED')
@@ -75,7 +84,12 @@ export function useNewOrderSound(allowed = () => true, { identity, storageKey = 
     if (!enabled.value) { void toggle(); return }
     void resumeAudio()
   }
-  onMounted(() => { document.addEventListener('pointerdown', unlock); document.addEventListener('keydown', unlock) })
-  onBeforeUnmount(() => { document.removeEventListener('pointerdown', unlock); document.removeEventListener('keydown', unlock); enabled.value = false; void context?.close(); reset() })
-  return { enabled, message, toggle, observe, reset }
+  function syncPreference(event) {
+    if (event.key !== storageKey) return
+    enabled.value = event.newValue === '0'
+    if (!enabled.value) stop()
+  }
+  onMounted(() => { document.addEventListener('pointerdown', unlock); document.addEventListener('keydown', unlock); window.addEventListener('storage', syncPreference) })
+  onBeforeUnmount(() => { document.removeEventListener('pointerdown', unlock); document.removeEventListener('keydown', unlock); window.removeEventListener('storage', syncPreference); enabled.value = ready.value = false; void context?.close(); reset() })
+  return { enabled, message, ready, toggle, observe, reset, play: ring, stop }
 }

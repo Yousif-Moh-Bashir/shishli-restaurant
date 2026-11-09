@@ -3,7 +3,7 @@ import { validLocation } from '../utils/location.js'
 export const masifLocation = Object.freeze({
   latitude: 28.4378538,
   longitude: 36.5455267,
-  mapUrl: 'https://maps.app.goo.gl/CdZ7w1xxKYsLiaqk9',
+  mapUrl: 'https://maps.app.goo.gl/EHBxe84VrzEMAR4AA',
 })
 
 export function branchDefaultLocation(branch) {

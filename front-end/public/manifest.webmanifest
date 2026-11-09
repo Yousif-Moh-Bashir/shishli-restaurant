@@ -1,0 +1,16 @@
+{
+  "id": "/admin/",
+  "name": "شيشلي - إدارة الطلبات",
+  "short_name": "شيشلي",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/admin/orders",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#351017",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

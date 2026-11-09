@@ -2,6 +2,7 @@
 import { ref, provide, watch, onMounted, onBeforeUnmount } from 'vue'
 import { RouterView, useRoute, useRouter } from 'vue-router'
 import SiteHeader from '../components/site/SiteHeader.vue'
+import OrderingPauseNotice from '../components/site/OrderingPauseNotice.vue'
 import RegistrationOffer from '../components/site/RegistrationOffer.vue'
 import RegistrationOfferPopup from '../components/site/RegistrationOfferPopup.vue'
 import { useRegistrationOfferStore } from '../stores/registrationOffer'
@@ -103,6 +104,7 @@ onBeforeUnmount(() => {
 <div class="site-layout" :class="{'menu-page':route.name==='menu','product-page':route.name==='product','checkout-page':route.name==='checkout','login-page':['login','register'].includes(route.name)}">
 <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
 <SiteHeader ref="header" @search="requestSearch" />
+<OrderingPauseNotice />
 <RegistrationOffer v-show="route.name!=='register'" placement="bar"/>
 <RouterView :key="route.meta.cmsKey" />
 <SiteFooter/>

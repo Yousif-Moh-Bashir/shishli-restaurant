@@ -3,10 +3,12 @@ import { defineStore } from 'pinia'
 import { authApi } from '../api/auth.api'
 import { driversApi } from '../api/drivers.api'
 import { normalizeApiError } from '../utils/apiError'
-import { readAuthToken, writeAuthToken } from '../utils/authToken'
+import { readAuthSession, writeAuthToken } from '../utils/authToken'
+import { clearStaffPushSession } from '../utils/staffPushSession'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref(null), token = ref(readAuthToken()), adminProfile = ref(null)
+  const stored = readAuthSession()
+  const user = ref(null), token = ref(stored.token), expiresAt = ref(stored.expiresAt), adminProfile = ref(null)
   const isLoading = ref(false), isInitialized = ref(false), error = ref(null), persistenceWarning = ref('')
   const driverProfile = ref(null)
   const isDriver = computed(() => isAuthenticated.value && driverProfile.value !== null)
@@ -21,7 +23,9 @@ export const useAuthStore = defineStore('auth', () => {
   let bootstrapPromise, revision = 0
   function clearSession(expectedToken) {
     if (expectedToken && expectedToken !== token.value) return false
+    clearStaffPushSession()
     revision++; user.value = adminProfile.value = driverProfile.value = token.value = null
+    expiresAt.value = null
     writeAuthToken(null); persistenceWarning.value = ''; isInitialized.value = true
     return true
   }
@@ -51,6 +55,13 @@ export const useAuthStore = defineStore('auth', () => {
       driverProfile.value = null
       if (cause.response?.status !== 403) throw cause
     }
+    if (revision !== currentRevision || token.value !== currentToken) return
+    const sessionOnly = adminProfile.value?.is_active === true
+    if (sessionOnly || !expiresAt.value && !driverProfile.value) {
+      const limit = Date.now() + (sessionOnly ? 8 : 7 * 24) * 60 * 60 * 1000
+      expiresAt.value = new Date(expiresAt.value ? Math.min(Date.parse(expiresAt.value), limit) : limit).toISOString()
+    }
+    persistenceWarning.value = writeAuthToken(currentToken, { sessionOnly, expiresAt: expiresAt.value }) ? '' : 'التخزين المحلي غير متاح؛ ستنتهي الجلسة عند إعادة تحميل الصفحة.'
     return user.value
   }
   function initialize() {
@@ -77,7 +88,7 @@ export const useAuthStore = defineStore('auth', () => {
       if (result?.token_type !== 'Bearer' || typeof result.token !== 'string' || !result.token) throw new Error('INVALID_AUTH_RESPONSE')
       revision++; token.value = result.token; user.value = null; adminProfile.value = null; driverProfile.value = null
       issuedToken = result.token
-      persistenceWarning.value = writeAuthToken(result.token) ? '' : 'التخزين المحلي غير متاح؛ ستنتهي الجلسة عند إعادة تحميل الصفحة.'
+      expiresAt.value = result.expires_at || null
       await fetchMe(); isInitialized.value = true
       return true
     } catch (cause) {
@@ -104,5 +115,5 @@ export const useAuthStore = defineStore('auth', () => {
       throw cause // Do not claim token revocation after a network/server failure.
     } finally { isLoading.value = false }
   }
-  return { user, token, adminProfile, driverProfile, isDriver, isLoading, isInitialized, error, persistenceWarning, isAuthenticated, hasAdminAccess, roles, permissions, hasRole, hasAnyRole, can, initialize, fetchMe, login, register, logout, clearSession }
+  return { user, token, expiresAt, adminProfile, driverProfile, isDriver, isLoading, isInitialized, error, persistenceWarning, isAuthenticated, hasAdminAccess, roles, permissions, hasRole, hasAnyRole, can, initialize, fetchMe, login, register, logout, clearSession }
 })

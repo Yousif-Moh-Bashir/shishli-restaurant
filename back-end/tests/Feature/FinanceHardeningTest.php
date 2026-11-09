@@ -62,7 +62,7 @@ class FinanceHardeningTest extends TestCase
         return $this->withToken($token);
     }
 
-    public function test_finance_token_expires_after_eight_hours_but_customer_token_does_not(): void
+    public function test_finance_token_expires_after_eight_hours_while_customer_token_lasts_seven_days(): void
     {
         $manager = $this->prepare();
         $financial = $this->login($manager);
@@ -71,7 +71,7 @@ class FinanceHardeningTest extends TestCase
         $this->assertSame(now()->addHours(8)->toDateTimeString(), $record->expires_at->toDateTimeString());
         $customer = User::factory()->create(['password' => 'HardeningPassword123'])->assignRole('customer');
         $ordinary = $this->login($customer, false);
-        $this->assertNull(PersonalAccessToken::findToken($ordinary)->expires_at);
+        $this->assertSame(now()->addDays(7)->toDateTimeString(), PersonalAccessToken::findToken($ordinary)->expires_at->toDateTimeString());
         $this->travel(481)->minutes();
         $this->asToken($financial)->getJson('/api/v1/finance/me')->assertUnauthorized();
         $this->asToken($ordinary)->getJson('/api/user')->assertOk();
@@ -94,14 +94,18 @@ class FinanceHardeningTest extends TestCase
     }
 
     #[DataProvider('legacyRoles')]
-    public function test_legacy_login_token_name_abilities_and_expiration_remain_unchanged(string $role): void
+    public function test_api_token_name_and_abilities_remain_unchanged_with_role_specific_expiration(string $role): void
     {
         $user = $this->prepare($role);
         $token = $this->login($user, false);
         $record = PersonalAccessToken::findToken($token);
         $this->assertSame('api', $record->name);
         $this->assertSame(['*'], $record->abilities);
-        $this->assertNull($record->expires_at);
+        if ($role === 'driver') {
+            $this->assertNull($record->expires_at);
+        } else {
+            $this->assertSame(now()->addMinutes($role === 'customer' ? 10080 : 480)->toDateTimeString(), $record->expires_at->toDateTimeString());
+        }
         $this->asToken($token)->getJson('/api/user')->assertOk();
     }
 

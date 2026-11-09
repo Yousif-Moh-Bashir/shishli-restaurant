@@ -3,6 +3,7 @@
 namespace App\Actions\Auth;
 
 use App\Models\User;
+use App\Services\Auth\TokenLifetime;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +12,7 @@ class LoginUserAction
 {
     /**
      * @param  array{email?: ?string, phone?: ?string, password: string}  $data
-     * @return array{user: User, token: string}
+     * @return array{user: User, token: string, expires_at?: ?string, session_only?: bool}
      */
     public function handle(array $data, bool $finance = false): array
     {
@@ -28,7 +29,16 @@ class LoginUserAction
                 return ['user' => $user, 'token' => $user->createToken('finance', ['finance'], now()->addMinutes(config('finance.token_minutes')))->plainTextToken];
             }
 
-            return ['user' => $user, 'token' => $user->createToken('api')->plainTextToken];
+            $lifetime = app(TokenLifetime::class);
+            $minutes = $lifetime->minutes($user);
+            $expiresAt = $minutes === null ? null : now()->addMinutes($minutes);
+
+            return [
+                'user' => $user,
+                'token' => $user->createToken('api', ['*'], $expiresAt)->plainTextToken,
+                'expires_at' => $expiresAt?->toISOString(),
+                'session_only' => $lifetime->sessionOnly($user),
+            ];
         }, 3);
     }
 }

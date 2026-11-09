@@ -19,6 +19,8 @@ class LoginController extends Controller
             'user' => new UserResource($result['user']),
             'token' => $result['token'],
             'token_type' => 'Bearer',
+            'expires_at' => $result['expires_at'],
+            'session_only' => $result['session_only'],
         ]);
     }
 }

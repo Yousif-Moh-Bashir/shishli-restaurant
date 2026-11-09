@@ -20,6 +20,9 @@ export const adminOrdersApi = {
   kitchen: (params, signal) => http.get('/admin/kitchen/orders', { params: cleanParams(params), signal }).then(page),
   operate: (id, action, body) => {
     if (!Object.hasOwn(operations, action)) throw new Error('INVALID_ORDER_ACTION')
-    return http.post('/admin' + path(id) + '/' + operations[action], body).then(unwrap)
+    return http.post('/admin' + path(id) + '/' + operations[action], body).then(unwrap).then(order => {
+      window.dispatchEvent(new CustomEvent('shishli-order-updated', { detail: { id, status: order.status } }))
+      return order
+    })
   },
 }

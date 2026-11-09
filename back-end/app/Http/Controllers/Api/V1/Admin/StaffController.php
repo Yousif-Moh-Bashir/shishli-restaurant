@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Admin\AdminListRequest;
+use App\Http\Requests\Api\V1\Admin\StaffCustomerRequest;
 use App\Http\Requests\Api\V1\Admin\StaffRequest;
 use App\Http\Resources\Api\V1\AdminProfileResource;
 use App\Http\Responses\ApiResponse;
@@ -34,6 +35,18 @@ class StaffController extends Controller
     public function store(StaffRequest $request, StaffService $staff): JsonResponse
     {
         return ApiResponse::success(new AdminProfileResource($staff->create($request->user(), $request->validated())), statusCode: 201);
+    }
+
+    public function customerLookup(StaffCustomerRequest $request, StaffService $staff): JsonResponse
+    {
+        $customer = $staff->findCustomer($request->validated('phone'));
+
+        return ApiResponse::success(['id' => $customer->uuid, 'name' => $customer->name, 'phone' => $customer->phone]);
+    }
+
+    public function fromCustomer(StaffCustomerRequest $request, StaffService $staff): JsonResponse
+    {
+        return ApiResponse::success(new AdminProfileResource($staff->fromCustomer($request->user(), $request->validated())));
     }
 
     public function update(StaffRequest $request, User $staffUser, StaffService $staff): JsonResponse

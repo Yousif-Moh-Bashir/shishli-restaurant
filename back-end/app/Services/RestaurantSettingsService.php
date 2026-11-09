@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Enums\SettingType;
 use App\Models\RestaurantSetting;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Cache;
 
 class RestaurantSettingsService
@@ -85,6 +86,12 @@ class RestaurantSettingsService
         }
         if ($values['orders.maintenance_mode']) {
             $public['orders']['maintenance_message'] = $values['orders.maintenance_message'];
+        }
+        if ((! $values['orders.enabled'] || $values['orders.maintenance_mode']) && $values['orders.expected_resume_at'] !== null) {
+            $resume = CarbonImmutable::parse($values['orders.expected_resume_at']);
+            if ($resume->isFuture()) {
+                $public['orders']['expected_resume_at'] = $resume->utc()->toISOString();
+            }
         }
 
         return $public;

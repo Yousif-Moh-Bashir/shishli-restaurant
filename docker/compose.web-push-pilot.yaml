@@ -1,0 +1,23 @@
+# Production overlay: reviewed release images, no database/storage definitions.
+# Invoke only explicitly selected services. The pilot command is readiness-only by default.
+services:
+  app:
+    image: ${SHISHLI_WEB_PUSH_APP_IMAGE:?Set the reviewed immutable release image}
+  nginx:
+    image: ${SHISHLI_WEB_PUSH_WEB_IMAGE:?Set the reviewed immutable release image}
+  web-push-pilot-once:
+    profiles: [web-push-pilot]
+    image: ${SHISHLI_WEB_PUSH_APP_IMAGE:?Set the reviewed immutable release image}
+    env_file: .env.docker
+    user: www-data
+    entrypoint: [php]
+    command: [artisan, 'staff-notifications:pilot-web-push', --no-interaction]
+    environment:
+      APP_ENV: production
+      APP_DEBUG: 'false'
+      LOG_CHANNEL: 'null'
+      CACHE_STORE: redis
+      QUEUE_CONNECTION: redis
+      STAFF_NOTIFICATIONS_ENABLED: 'false'
+    networks: [private, ingress]
+    restart: 'no'

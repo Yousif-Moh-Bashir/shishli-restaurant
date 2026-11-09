@@ -114,4 +114,9 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    'token_lifetimes' => [
+        'admin_minutes' => 480,
+        'customer_minutes' => 10080,
+    ],
+
 ];

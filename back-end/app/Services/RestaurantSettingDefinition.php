@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\SettingType;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -31,6 +32,7 @@ final class RestaurantSettingDefinition
             'branding.logo_path' => $define($string, null, ['nullable', 'string', 'max:500', 'regex:/^[a-zA-Z0-9_\\/.-]+$/D', 'not_regex:/\\.\\./'], 'branding'),
             'branding.primary_color' => $define($string, null, ['nullable', 'string', 'regex:/^#[0-9a-fA-F]{6}$/D'], 'branding'),
             'orders.enabled' => $define($boolean, true, ['required', 'boolean'], 'orders'),
+            'orders.expected_resume_at' => $define($string, null, ['nullable', 'date_format:Y-m-d\TH:i'], 'orders', false),
             'orders.minimum_amount' => $define($decimal, '0.00', ['required', 'regex:/^[0-9]{1,8}(\\.[0-9]{1,2})?$/D'], 'orders'),
             'orders.maximum_items_per_order' => $define($integer, 1000, ['required', 'integer', 'min:1', 'max:10000'], 'orders'),
             'orders.allow_guest_checkout' => $define($boolean, true, ['required', 'boolean'], 'orders'),
@@ -74,6 +76,17 @@ final class RestaurantSettingDefinition
                 continue;
             }
             $result[$key] = $this->cast($definition['type'], $value);
+        }
+        if (isset($result['orders.expected_resume_at'])) {
+            $timezone = $result['restaurant.timezone'] ?? app(RestaurantSettingsService::class)->getString('restaurant.timezone');
+            if (! isset($errors['settings.restaurant.timezone'])) {
+                $resume = CarbonImmutable::createFromFormat('!Y-m-d\TH:i', $result['orders.expected_resume_at'], $timezone);
+                if ($resume->format('Y-m-d\TH:i') !== $result['orders.expected_resume_at'] || ! $resume->isFuture()) {
+                    $errors['settings.orders.expected_resume_at'] = ['اختر موعدًا مستقبليًا صحيحًا لاستئناف استقبال الطلبات بتوقيت المطعم.'];
+                } else {
+                    $result['orders.expected_resume_at'] = $resume->utc()->toISOString();
+                }
+            }
         }
         if ($errors !== []) {
             throw ValidationException::withMessages($errors);

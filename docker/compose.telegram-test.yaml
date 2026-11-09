@@ -1,0 +1,26 @@
+# Use with: docker compose -f compose.yaml -f docker/compose.telegram-test.yaml
+# All relative paths resolve against the primary compose.yaml at the project root.
+services:
+  telegram-test:
+    profiles: [telegram-diagnostic]
+    image: shishli-telegram-diagnostic:local
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      target: production
+    env_file: .env.docker
+    environment:
+      APP_ENV: local
+      APP_DEBUG: 'false'
+      CACHE_STORE: redis
+      LOG_CHANNEL: 'null'
+      STAFF_NOTIFICATIONS_QUEUE_CONNECTION: redis
+      STAFF_NOTIFICATIONS_ENABLED: 'false'
+      STAFF_NOTIFICATIONS_TELEGRAM_ENABLED: 'false'
+      STAFF_NOTIFICATIONS_PUSH_ENABLED: 'false'
+      STAFF_NOTIFICATIONS_SOUND_ENABLED: 'false'
+    user: www-data
+    entrypoint: [php]
+    command: [artisan, 'staff-notifications:test-telegram']
+    restart: 'no'
+    networks: [private, ingress]

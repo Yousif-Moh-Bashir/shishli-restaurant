@@ -112,6 +112,8 @@ export default createRouter({
       { path: 'delivery-exceptions', name: 'admin.delivery-exceptions', component: DeliveryExceptionsView, meta: { adminTitle: 'استثناءات التوصيل', permission: 'delivery_exceptions.view' } },
       { path: 'orders', name: 'admin.orders', component: OrdersView, meta: { title: 'الطلبات | لوحة شيشلي', adminTitle: 'الطلبات' } },
       { path: 'orders/:orderUuid', name: 'admin.order', component: AdminOrderDetailsView, meta: { adminTitle: 'تفاصيل الطلب', permission: 'orders.view' } },
+      { path: 'web-push-pilot', name: 'admin.web-push-pilot', component: () => import('../views/admin/WebPushPilotView.vue'), meta: { adminTitle: 'تجربة إشعارات الجهاز', permission: 'orders.view' } },
+      { path: 'push-diagnostics', name: 'admin.push-diagnostics', component: () => import('../views/admin/PushDiagnosticsView.vue'), meta: { adminTitle: 'اختبار إشعارات الجهاز', permission: 'orders.view' } },
       { path: 'kitchen', name: 'admin.kitchen', component: KitchenView, meta: { adminTitle: 'المطبخ', permission: 'orders.view' } },
       { path: 'kitchen/:orderUuid', name: 'admin.kitchen.order', component: AdminOrderDetailsView, meta: { adminTitle: 'تفاصيل التجهيز', permission: 'orders.view', kitchen: true } },
       { path: 'payments', name: 'admin.payments', component: PaymentsView, meta: { adminTitle: 'المدفوعات', permission: 'payments.view' } },

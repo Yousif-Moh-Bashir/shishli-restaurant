@@ -22,11 +22,23 @@ app.use(pinia)
 const auth = useAuthStore(pinia)
 const cart = useCartStore(pinia)
 watch(() => auth.token, () => { void cart.sessionChanged() })
-configureHttpAuth(() => auth.token, expiredToken => {
+function expireSession(expiredToken) {
   if (auth.clearSession(expiredToken) && router.currentRoute.value.meta.requiresAuth) {
     void router.replace({ name: 'login', query: { redirect: router.currentRoute.value.fullPath } })
   }
-})
+}
+configureHttpAuth(() => auth.token, expireSession)
+function checkSessionExpiry() {
+  if (auth.token && auth.expiresAt && Date.parse(auth.expiresAt) <= Date.now()) expireSession(auth.token)
+}
+watch(() => auth.expiresAt, (expiresAt, previous, onCleanup) => {
+  if (!expiresAt) return
+  const timer = setTimeout(checkSessionExpiry, Math.max(0, Date.parse(expiresAt) - Date.now()))
+  onCleanup(() => clearTimeout(timer))
+}, { immediate: true })
+document.addEventListener('visibilitychange', () => { if (!document.hidden) checkSessionExpiry() })
+window.addEventListener('pageshow', checkSessionExpiry)
+window.addEventListener('focus', checkSessionExpiry)
 installAuthGuards(router, auth)
 app.use(router)
 const settings = usePublicSettingsStore(pinia), branches = useBranchStore(pinia)

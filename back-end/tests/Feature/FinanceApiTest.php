@@ -537,6 +537,13 @@ class FinanceApiTest extends TestCase
         $uuid = $this->postJson('/api/v1/finance/revenues', $data)->assertCreated()->json('data.uuid');
         $this->postJson('/api/v1/finance/revenues/'.$uuid.'/approve', ['version' => 1])->assertOk();
         $this->getJson('/api/v1/finance/reports')->assertOk()->assertJsonPath('data.filters.from', '2026-11-01')->assertJsonPath('data.today.revenues', '100.30')->assertJsonPath('data.month.revenues', '100.30');
+        $this->getJson('/api/v1/finance/reports')->assertOk()->assertJsonPath('data.yesterday.date', '2026-10-31')->assertJsonPath('data.yesterday.revenues', '0.00');
+        $yesterday = [...$data, 'date' => '2026-10-31'];
+        $uuid = $this->postJson('/api/v1/finance/revenues', $yesterday)->assertCreated()->json('data.uuid');
+        $this->postJson('/api/v1/finance/revenues/'.$uuid.'/approve', ['version' => 1])->assertOk();
+        $this->getJson('/api/v1/finance/reports?from=2026-11-01&to=2026-11-01')->assertOk()
+            ->assertJsonPath('data.yesterday.date', '2026-10-31')->assertJsonPath('data.yesterday.revenues', '100.30')
+            ->assertJsonPath('data.month.revenues', '100.30');
     }
 
     public function test_revenue_dates_reject_future_and_allow_today_and_past_in_finance_timezone(): void

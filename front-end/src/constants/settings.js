@@ -21,6 +21,7 @@ export const settingFields={
  'branding.logo_path':{label:'مسار الشعار',max:500,nullable:true,note:'مسار موجود لدى الخادم؛ رفع الوسائط خارج نطاق هذه المرحلة.'},
  'branding.primary_color':{label:'لون الهوية (#RRGGBB)',max:7,nullable:true},
  'orders.enabled':{label:'استقبال الطلبات في المطعم',sensitive:true},
+ 'orders.expected_resume_at':{label:'موعد معاودة استقبال الطلبات المتوقع',type:'datetime-local',nullable:true,note:'بتوقيت المطعم. يظهر للعملاء عند إيقاف الاستقبال فقط؛ الموعد تقديري ولا يعيد فتح الاستقبال تلقائيًا.'},
  'orders.minimum_amount':{label:'الحد الأدنى العام للطلب',type:'number',min:0,maxValue:99999999.99,step:'0.01',required:true},
  'orders.maximum_items_per_order':{label:'الحد الأقصى لعدد القطع',type:'number',min:1,maxValue:10000,required:true},
  'orders.allow_guest_checkout':{label:'السماح بطلبات الزوار'},

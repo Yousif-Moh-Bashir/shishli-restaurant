@@ -10,7 +10,7 @@
     offers:[{id:1,productId:4,title:'عرض الشيش التجريبي',price:16,active:true}],
     customers:[{id:1,name:'عميل تجريبي ١',phone:'غير متوفر'},{id:2,name:'عميل تجريبي ٢',phone:'غير متوفر'}],
     orders:[{id:1001,customerId:1,status:'جديد',delivery:'استلام',items:[{name:'شيش طاووق',quantity:2,price:16}],date:'2026-09-22'},{id:1002,customerId:2,status:'قيد التحضير',delivery:'توصيل',items:[{name:'مشكل مشويات',quantity:1,price:45}],date:'2026-09-22'},{id:1003,customerId:1,status:'مكتمل',delivery:'استلام',items:[{name:'كباب لحم',quantity:2,price:25}],date:'2026-09-21'}],
-    settings:{name:'مطعم شيشلي',phone:'0551040122',address:'المصيف - بجوار إشارة المصيف',map:'https://maps.app.goo.gl/yS1bHr8mAG1dNf2t9',open:'11:00',close:'02:00'}
+    settings:{name:'مطعم شيشلي',phone:'0551040122',address:'المصيف - بجوار إشارة المصيف',map:'https://maps.app.goo.gl/EHBxe84VrzEMAR4AA',open:'11:00',close:'02:00'}
   };
   const key = 'shishli.dashboard.v1';
   let data = structuredClone(initial);

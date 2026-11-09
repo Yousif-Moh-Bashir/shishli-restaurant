@@ -2,11 +2,14 @@
 
 namespace App\Providers;
 
+use App\Services\Auth\TokenLifetime;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\PersonalAccessToken;
+use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Sanctum::authenticateAccessTokensUsing(fn (PersonalAccessToken $token, bool $valid): bool => app(TokenLifetime::class)->valid($token, $valid));
+
         foreach (config('rate_limiting') as $name => $settings) {
             RateLimiter::for($name, function (Request $request) use ($name, $settings): array {
                 $limits = [

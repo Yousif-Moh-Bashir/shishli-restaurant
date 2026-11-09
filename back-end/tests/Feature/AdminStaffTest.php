@@ -2,13 +2,20 @@
 
 namespace Tests\Feature;
 
+use App\Actions\Customers\ActivateCustomerAction;
+use App\Actions\Customers\DeactivateCustomerAction;
 use App\Models\AdminActivityLog;
+use App\Models\CustomerAddress;
+use App\Models\Order;
 use App\Models\User;
 use App\Services\Admin\AdminActivityService;
 use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class AdminStaffTest extends TestCase
@@ -165,6 +172,29 @@ class AdminStaffTest extends TestCase
         $this->postJson('/api/v1/admin/staff', $this->payload(['email' => 'staff@example.com']))->assertUnprocessable()->assertJsonValidationErrors(['phone', 'email']);
     }
 
+    public function test_staff_validation_messages_are_arabic_and_include_password_length(): void
+    {
+        $this->actor();
+        User::factory()->create(['phone' => '+249912345678', 'email' => 'staff@example.com']);
+        $response = $this->postJson('/api/v1/admin/staff', $this->payload(['email' => 'staff@example.com', 'password' => 'short']))->assertUnprocessable();
+        $this->assertContains('رقم الجوال مستخدم بالفعل. استخدم خيار إضافة من حساب عميل موجود إذا كان الرقم مسجلًا كعميل.', $response->json('errors.phone'));
+        $this->assertContains('البريد الإلكتروني مستخدم بالفعل.', $response->json('errors.email'));
+        $this->assertContains('كلمة المرور يجب ألا تقل عن 12 حرفًا.', $response->json('errors.password'));
+        $this->assertContains('كلمة المرور يجب أن تحتوي على أحرف كبيرة وصغيرة.', $response->json('errors.password'));
+        $this->assertContains('كلمة المرور يجب أن تحتوي على رقم واحد على الأقل.', $response->json('errors.password'));
+        $this->assertStringNotContainsString('validation.', json_encode($response->json('errors')));
+    }
+
+    public function test_existing_customer_staff_form_inherits_readable_password_validation(): void
+    {
+        $this->actor();
+        $customer = User::factory()->create()->assignRole('customer');
+        $response = $this->postJson('/api/v1/admin/staff/from-customer', ['customer_uuid' => $customer->uuid, 'roles' => ['cashier'], 'password' => 'short', 'confirmed' => true])->assertUnprocessable();
+        $this->assertContains('كلمة المرور يجب ألا تقل عن 12 حرفًا.', $response->json('errors.password'));
+        $this->assertStringNotContainsString('validation.', json_encode($response->json('errors')));
+        $this->assertSame(['customer'], $customer->fresh()->getRoleNames()->all());
+    }
+
     public function test_staff_filters_and_sort_are_validated_and_paginated(): void
     {
         $this->actor();
@@ -178,6 +208,147 @@ class AdminStaffTest extends TestCase
         $actor = User::factory()->create()->assignRole('cashier');
         $actor->givePermissionTo('staff.update');
         $this->actingAs($actor, 'sanctum')->patchJson('/api/v1/admin/staff/'.$target->uuid, ['password' => 'TakeoverSecure123'])->assertForbidden();
+    }
+
+    public function test_customer_lookup_matches_normalized_phone_and_exposes_only_identity_preview(): void
+    {
+        $this->actor();
+        $customer = User::factory()->create(['phone' => '0551234567'])->assignRole('customer');
+        $this->postJson('/api/v1/admin/staff/customer-lookup', ['phone' => '+966551234567'])->assertOk()
+            ->assertExactJson(['success' => true, 'message' => 'Success', 'data' => ['id' => $customer->uuid, 'name' => $customer->name, 'phone' => $customer->phone], 'errors' => null]);
+    }
+
+    public function test_existing_customer_can_be_added_to_staff_without_duplicate_or_lost_orders_or_addresses(): void
+    {
+        $actor = $this->actor();
+        $customer = User::factory()->create(['phone' => '+966551234567'])->assignRole('customer');
+        $order = Order::factory()->create(['user_id' => $customer->id]);
+        $address = CustomerAddress::factory()->forUser($customer)->create();
+        $originalOrder = $order->fresh()->getAttributes();
+        $originalAddress = $address->fresh()->getAttributes();
+        $oldToken = $customer->createToken('api')->plainTextToken;
+        $this->postJson('/api/v1/admin/staff/from-customer', ['customer_uuid' => $customer->uuid, 'roles' => ['cashier'], 'password' => 'PromotedStaff123', 'confirmed' => true])
+            ->assertOk()->assertJsonPath('data.id', $customer->uuid)->assertJsonPath('data.roles', ['cashier', 'customer']);
+        $this->assertDatabaseCount('users', 2);
+        $this->assertSame($originalOrder, $order->fresh()->getAttributes());
+        $this->assertSame($originalAddress, $address->fresh()->getAttributes());
+        $this->assertTrue(Hash::check('PromotedStaff123', $customer->fresh()->password));
+        $this->assertNull(PersonalAccessToken::findToken($oldToken));
+        $log = AdminActivityLog::where('action', 'staff.from_customer')->sole();
+        $this->assertSame($actor->id, $log->user_id);
+        $this->assertSame($customer->uuid, $log->subject_uuid);
+        $this->assertTrue($log->new_values['password_changed']);
+        $this->assertStringNotContainsString('PromotedStaff123', json_encode($log->new_values));
+        $this->getJson('/api/v1/admin/staff/'.$customer->uuid)->assertOk();
+        $this->patchJson('/api/v1/admin/staff/'.$customer->uuid, ['roles' => ['kitchen']])->assertOk()->assertJsonPath('data.roles', ['customer', 'kitchen']);
+        $this->postJson('/api/v1/admin/staff/from-customer', ['customer_uuid' => $customer->uuid, 'roles' => ['cashier'], 'password' => 'PromotedStaff123', 'confirmed' => true])->assertNotFound();
+        $this->assertSame(1, AdminActivityLog::where('action', 'staff.from_customer')->count());
+    }
+
+    public function test_customer_promotion_requires_both_staff_permissions_and_authentication(): void
+    {
+        $this->postJson('/api/v1/admin/staff/customer-lookup', ['phone' => '+966551234567'])->assertUnauthorized();
+        $actor = $this->actor('cashier');
+        $actor->givePermissionTo('staff.create');
+        $this->postJson('/api/v1/admin/staff/customer-lookup', ['phone' => '+966551234567'])->assertForbidden();
+        $this->postJson('/api/v1/admin/staff/from-customer', ['customer_uuid' => $actor->uuid])->assertForbidden();
+    }
+
+    public function test_customer_lookup_refuses_ambiguous_legacy_phone_aliases_without_picking_an_account(): void
+    {
+        $this->actor();
+        User::factory()->create(['phone' => '0551234567'])->assignRole('customer');
+        User::factory()->create(['phone' => '+966551234567'])->assignRole('customer');
+        $this->postJson('/api/v1/admin/staff/customer-lookup', ['phone' => '+966551234567'])->assertUnprocessable()->assertJsonValidationErrors('phone');
+        $this->assertSame(0, AdminActivityLog::where('action', 'staff.from_customer')->count());
+    }
+
+    public function test_customer_promotion_cannot_assign_higher_or_financial_roles(): void
+    {
+        $this->actor('manager');
+        $customer = User::factory()->create()->assignRole('customer');
+        $payload = ['customer_uuid' => $customer->uuid, 'roles' => ['super_admin'], 'password' => 'PromotedStaff123', 'confirmed' => true];
+        $this->postJson('/api/v1/admin/staff/from-customer', $payload)->assertForbidden();
+        $this->postJson('/api/v1/admin/staff/from-customer', [...$payload, 'roles' => ['finance_manager']])->assertUnprocessable()->assertJsonValidationErrors('roles.0');
+        $this->assertSame(['customer'], $customer->fresh()->getRoleNames()->all());
+    }
+
+    public function test_existing_privileged_and_inactive_accounts_are_not_customer_promotion_candidates(): void
+    {
+        $this->actor();
+        $finance = Role::findOrCreate('finance_manager', 'web');
+        $targets = [User::factory()->create(['phone' => '+966551234561'])->assignRole('manager'),
+            User::factory()->create(['phone' => '+966551234562'])->assignRole('driver'),
+            User::factory()->create(['phone' => '+966551234563'])->assignRole($finance),
+            User::factory()->create(['phone' => '+966551234564', 'is_active' => false])->assignRole('customer'),
+            User::factory()->create(['phone' => '+966551234565'])->givePermissionTo('orders.view')];
+        foreach ($targets as $target) {
+            $this->postJson('/api/v1/admin/staff/customer-lookup', ['phone' => $target->phone])->assertNotFound();
+            $this->postJson('/api/v1/admin/staff/from-customer', ['customer_uuid' => $target->uuid, 'roles' => ['cashier'], 'password' => 'PromotedStaff123', 'confirmed' => true])->assertNotFound();
+        }
+        $this->assertSame(0, AdminActivityLog::where('action', 'staff.from_customer')->count());
+    }
+
+    public function test_delegated_staff_cannot_reset_a_customer_with_higher_inherited_permissions(): void
+    {
+        Role::findByName('customer', 'web')->givePermissionTo('roles.update_permissions');
+        $customer = User::factory()->create()->assignRole('customer');
+        $actor = $this->actor('cashier')->givePermissionTo(['staff.create', 'staff.update']);
+        $this->postJson('/api/v1/admin/staff/from-customer', ['customer_uuid' => $customer->uuid, 'roles' => ['cashier'], 'password' => 'PromotedStaff123', 'confirmed' => true])->assertForbidden();
+        $this->assertTrue(Hash::check('password', $customer->fresh()->password));
+        $this->assertSame(['customer'], $customer->fresh()->getRoleNames()->all());
+    }
+
+    public function test_customer_promotion_requires_confirmation_strong_password_and_rejects_identity_overwrites(): void
+    {
+        $this->actor();
+        $customer = User::factory()->create()->assignRole('customer');
+        $payload = ['customer_uuid' => $customer->uuid, 'roles' => ['cashier'], 'password' => 'PromotedStaff123', 'confirmed' => true];
+        foreach ([['confirmed' => false], ['password' => 'weak'], ['phone' => '+966551234567'], ['email' => 'overwrite@example.test'], ['permissions' => ['settings.update']]] as $override) {
+            $this->postJson('/api/v1/admin/staff/from-customer', [...$payload, ...$override])->assertUnprocessable();
+        }
+        $this->assertSame(['customer'], $customer->fresh()->getRoleNames()->all());
+        $this->assertTrue(Hash::check('password', $customer->fresh()->password));
+    }
+
+    public function test_customer_promotion_is_rolled_back_when_audit_fails(): void
+    {
+        $this->actor();
+        $customer = User::factory()->create()->assignRole('customer');
+        $customer->createToken('api');
+        $this->mock(AdminActivityService::class)->shouldReceive('values')->andReturn(['name' => 'Customer']);
+        $this->app->make(AdminActivityService::class)->shouldReceive('record')->andThrow(new \RuntimeException('Audit unavailable'));
+        $this->postJson('/api/v1/admin/staff/from-customer', ['customer_uuid' => $customer->uuid, 'roles' => ['cashier'], 'password' => 'PromotedStaff123', 'confirmed' => true])->assertStatus(500);
+        $this->assertSame(['customer'], $customer->fresh()->getRoleNames()->all());
+        $this->assertTrue(Hash::check('password', $customer->fresh()->password));
+        $this->assertSame(1, $customer->tokens()->count());
+    }
+
+    public function test_stale_customer_deactivation_cannot_disable_an_account_after_staff_promotion(): void
+    {
+        $this->actor();
+        $customer = User::factory()->create()->assignRole('customer');
+        $this->postJson('/api/v1/admin/staff/from-customer', ['customer_uuid' => $customer->uuid, 'roles' => ['cashier'], 'password' => 'PromotedStaff123', 'confirmed' => true])->assertOk();
+        $this->expectException(ModelNotFoundException::class);
+        try {
+            app(DeactivateCustomerAction::class)->handle($customer);
+        } finally {
+            $this->assertTrue($customer->fresh()->is_active);
+        }
+    }
+
+    public function test_stale_customer_activation_cannot_reactivate_a_disabled_staff_account(): void
+    {
+        $this->actor();
+        $customer = User::factory()->create()->assignRole('customer');
+        $this->postJson('/api/v1/admin/staff/from-customer', ['customer_uuid' => $customer->uuid, 'roles' => ['cashier'], 'password' => 'PromotedStaff123', 'confirmed' => true])->assertOk();
+        $this->postJson('/api/v1/admin/staff/'.$customer->uuid.'/deactivate')->assertOk();
+        $this->expectException(ModelNotFoundException::class);
+        try {
+            app(ActivateCustomerAction::class)->handle($customer);
+        } finally {
+            $this->assertFalse($customer->fresh()->is_active);
+        }
     }
 
     public function test_audit_failure_rolls_back_staff_creation(): void

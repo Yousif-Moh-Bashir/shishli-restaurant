@@ -3,11 +3,14 @@
 namespace Tests\Feature;
 
 use App\Actions\Settings\UpdateRestaurantSettingsAction;
+use App\Models\Branch;
 use App\Models\Order;
 use App\Models\RestaurantSetting;
 use App\Models\SettingChangeLog;
 use App\Models\User;
+use App\Services\BranchAvailabilityService;
 use App\Services\RestaurantSettingsService;
+use Carbon\CarbonImmutable;
 use Database\Seeders\RestaurantSettingsSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
@@ -80,7 +83,7 @@ class RestaurantSettingsTest extends TestCase
         $this->assertFalse($log->new_value);
         $this->assertSame($actor->id, $log->changed_by);
         $this->assertNotNull($log->created_at);
-        $this->getJson('/api/v1/admin/settings')->assertOk()->assertJsonCount(27, 'data')->assertJsonMissingPath('data.0.id');
+        $this->getJson('/api/v1/admin/settings')->assertOk()->assertJsonCount(28, 'data')->assertJsonMissingPath('data.0.id');
     }
 
     #[DataProvider('invalidSettings')]
@@ -124,7 +127,7 @@ class RestaurantSettingsTest extends TestCase
         $user = User::factory()->create();
         app(UpdateRestaurantSettingsAction::class)->handle(['restaurant.name' => 'اسم جديد'], $user);
         $this->seed(RestaurantSettingsSeeder::class);
-        $this->assertDatabaseCount('restaurant_settings', 27);
+        $this->assertDatabaseCount('restaurant_settings', 28);
         $this->assertSame('اسم جديد', app(RestaurantSettingsService::class)->getString('restaurant.name'));
         $this->assertDatabaseCount('setting_change_logs', 1);
     }
@@ -211,6 +214,66 @@ class RestaurantSettingsTest extends TestCase
         $this->actingAs($user, 'sanctum')->getJson('/api/v1/admin/settings')->assertOk();
         $this->getJson('/api/v1/admin/settings/audit')->assertOk();
         $this->patchJson('/api/v1/admin/settings', ['settings' => ['orders.enabled' => false]])->assertForbidden();
+    }
+
+    public function test_pausing_orders_stores_resume_estimate_in_utc_and_publishes_it_without_changing_orders(): void
+    {
+        $this->travelTo(CarbonImmutable::parse('2026-11-05T12:00:00Z'));
+        $actor = $this->admin();
+        $order = Order::factory()->create();
+        $original = $order->fresh()->getAttributes();
+        $this->patchJson('/api/v1/admin/settings', ['settings' => ['orders.enabled' => false, 'orders.expected_resume_at' => '2026-11-05T18:30']])->assertOk();
+        $this->getJson('/api/v1/settings/public')->assertOk()->assertJsonPath('data.orders.enabled', false)
+            ->assertJsonPath('data.orders.expected_resume_at', '2026-11-05T15:30:00.000000Z');
+        $log = SettingChangeLog::where('setting_key', 'orders.expected_resume_at')->firstOrFail();
+        $this->assertSame($actor->id, $log->changed_by);
+        $this->assertSame('2026-11-05T15:30:00.000000Z', $log->new_value);
+        $this->assertSame($original, $order->fresh()->getAttributes());
+    }
+
+    public function test_resume_estimate_rejects_invalid_and_past_restaurant_local_times_atomically(): void
+    {
+        $this->travelTo(CarbonImmutable::parse('2026-11-05T12:00:00Z'));
+        $this->admin();
+        foreach (['not-a-date', '2026-11-05T14:00', '2026-02-30T18:30'] as $value) {
+            $this->patchJson('/api/v1/admin/settings', ['settings' => ['orders.enabled' => false, 'orders.expected_resume_at' => $value]])
+                ->assertUnprocessable()->assertJsonValidationErrors('settings.orders.expected_resume_at');
+        }
+        $this->assertTrue(app(RestaurantSettingsService::class)->getBoolean('orders.enabled'));
+        $this->assertDatabaseCount('setting_change_logs', 0);
+    }
+
+    public function test_passing_the_estimated_time_does_not_reopen_orders_or_publish_a_stale_promise(): void
+    {
+        $this->travelTo(CarbonImmutable::parse('2026-11-05T12:00:00Z'));
+        $this->admin();
+        $this->patchJson('/api/v1/admin/settings', ['settings' => ['orders.enabled' => false, 'orders.expected_resume_at' => '2026-11-05T18:30']])->assertOk();
+        $branch = Branch::factory()->create();
+        $this->travelTo(CarbonImmutable::parse('2026-11-05T15:30:00Z'));
+        $this->getJson('/api/v1/settings/public')->assertOk()->assertJsonPath('data.orders.enabled', false)->assertJsonMissingPath('data.orders.expected_resume_at');
+        $this->assertFalse(app(BranchAvailabilityService::class)->evaluate($branch)->acceptsOrders);
+    }
+
+    public function test_reopening_clears_estimate_and_a_later_pause_does_not_reuse_it(): void
+    {
+        $this->travelTo(CarbonImmutable::parse('2026-11-05T12:00:00Z'));
+        $this->admin();
+        $this->patchJson('/api/v1/admin/settings', ['settings' => ['orders.enabled' => false, 'orders.expected_resume_at' => '2026-11-05T18:30']])->assertOk();
+        $this->patchJson('/api/v1/admin/settings', ['settings' => ['orders.enabled' => true]])->assertOk();
+        $this->getJson('/api/v1/settings/public')->assertOk()->assertJsonMissingPath('data.orders.expected_resume_at');
+        $this->assertNull(app(RestaurantSettingsService::class)->getString('orders.expected_resume_at'));
+        $this->patchJson('/api/v1/admin/settings', ['settings' => ['orders.enabled' => false]])->assertOk();
+        $this->getJson('/api/v1/settings/public')->assertOk()->assertJsonMissingPath('data.orders.expected_resume_at');
+    }
+
+    public function test_maintenance_can_publish_and_clear_an_optional_estimate(): void
+    {
+        $this->travelTo(CarbonImmutable::parse('2026-11-05T12:00:00Z'));
+        $this->admin();
+        $this->patchJson('/api/v1/admin/settings', ['settings' => ['orders.maintenance_mode' => true, 'orders.expected_resume_at' => '2026-11-05T18:30']])->assertOk();
+        $this->getJson('/api/v1/settings/public')->assertOk()->assertJsonPath('data.orders.expected_resume_at', '2026-11-05T15:30:00.000000Z');
+        $this->patchJson('/api/v1/admin/settings', ['settings' => ['orders.expected_resume_at' => null]])->assertOk();
+        $this->getJson('/api/v1/settings/public')->assertOk()->assertJsonPath('data.orders.maintenance_mode', true)->assertJsonMissingPath('data.orders.expected_resume_at');
     }
 
     private function admin(): User

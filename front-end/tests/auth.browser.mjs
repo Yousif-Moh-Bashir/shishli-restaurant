@@ -21,14 +21,18 @@ try {
   }
   socket = new WebSocket(pages.find(page => page.type === 'page').webSocketDebuggerUrl)
   await new Promise(resolve => socket.addEventListener('open', resolve, { once: true }))
-  let sequence = 0, mode = 'live', staff = true, limited = false, authFailure = null, hold = false, heldRequest, loginSequence = 0
+  let sequence = 0, mode = skipLive ? 'mock' : 'live', staff = true, limited = false, authFailure = null, hold = false, heldRequest, loginSequence = 0, shortSession = false
   const pending = new Map(), requests = []
   const send = (method, params = {}) => new Promise((resolve, reject) => { const id = ++sequence; pending.set(id, { resolve, reject }); socket.send(JSON.stringify({ id, method, params })) })
   const payload = (data, status = 200, errors) => status < 400 ? { success: true, message: 'Success', data, errors: null } : { success: false, message: status === 422 ? 'البيانات المدخلة غير صحيحة' : 'تعذر تنفيذ الطلب', ...(errors ? { errors } : {}) }
   async function fulfill(id, status, body) {
-    await send('Fetch.fulfillRequest', { requestId: id, responseCode: status, responseHeaders: [{ name: 'Content-Type', value: 'application/json' }, { name: 'Access-Control-Allow-Origin', value: '*' }, { name: 'Access-Control-Allow-Headers', value: 'Authorization,Content-Type' }, { name: 'Access-Control-Allow-Methods', value: 'GET,POST,OPTIONS' }], body: Buffer.from(JSON.stringify(body)).toString('base64') })
+    await send('Fetch.fulfillRequest', { requestId: id, responseCode: status, responseHeaders: [{ name: 'Content-Type', value: 'application/json' }, { name: 'Access-Control-Allow-Origin', value: '*' }, { name: 'Access-Control-Allow-Headers', value: 'Authorization,Content-Type' }, { name: 'Access-Control-Allow-Methods', value: 'GET,POST,PATCH,OPTIONS' }], body: Buffer.from(JSON.stringify(body)).toString('base64') })
   }
-  const permissions = ['dashboard.view', 'orders.view', 'products.view', 'categories.view', 'promotions.view', 'customers.view', 'settings.view']
+  const permissions = ['dashboard.view', 'orders.view', 'products.view', 'categories.view', 'promotions.view', 'customers.view', 'settings.view', 'settings.update', 'staff.view', 'staff.create', 'staff.update']
+  const customerCandidate = { id: '77777777-7777-4777-8777-777777777777', name: 'حساب العميل التجريبي', phone: '+966551234567' }, staffRows = []
+  let rejectPromotion = true, promotionCount = 0, lookupPhone
+  const settingValues = { 'restaurant.timezone': 'Asia/Riyadh', 'orders.enabled': true, 'orders.maintenance_mode': false, 'orders.expected_resume_at': null }
+  let lastSettingsPatch
   const customer = { uuid: 'test-user-uuid', name: 'مستخدم الاختبار', email: 'fixture@example.invalid', phone: null, email_verified_at: null, created_at: null, updated_at: null }
   const admin = () => ({ id: customer.uuid, name: customer.name, email: customer.email, phone: null, is_active: true, roles: limited ? ['kitchen'] : ['manager'], permissions: limited ? ['orders.view'] : permissions, capabilities: {} })
   socket.addEventListener('message', async ({ data }) => {
@@ -41,6 +45,40 @@ try {
     requests.push({ path, method: request.method, bearer: Boolean(request.headers.Authorization), keys: request.postData ? Object.keys(JSON.parse(request.postData)) : [], phone: mode === 'mock' && request.postData ? JSON.parse(request.postData).phone : undefined })
     if (mode === 'live') { await send('Fetch.continueRequest', { requestId }); return }
     if (request.method === 'OPTIONS') { await fulfill(requestId, 200, {}); return }
+    if (path.endsWith('/admin/staff/customer-lookup')) {
+      lookupPhone = JSON.parse(request.postData).phone
+      await fulfill(requestId, lookupPhone === customerCandidate.phone ? 200 : 404, payload(lookupPhone === customerCandidate.phone ? customerCandidate : null, lookupPhone === customerCandidate.phone ? 200 : 404)); return
+    }
+    if (path.endsWith('/admin/staff/from-customer')) {
+      promotionCount++
+      if (rejectPromotion) { await fulfill(requestId, 422, payload(null, 422, { password: ['راجع كلمة المرور الإدارية الجديدة.'] })); return }
+      const body = JSON.parse(request.postData)
+      assert.equal(body.customer_uuid, customerCandidate.id)
+      assert.deepEqual(body.roles, ['cashier']); assert.equal(body.confirmed, true)
+      staffRows.push({ ...customerCandidate, roles: ['cashier', 'customer'], permissions: ['orders.view'], is_active: true })
+      await fulfill(requestId, 200, payload(staffRows[0])); return
+    }
+    if (path.endsWith('/admin/staff')) {
+      if (request.method === 'POST') { await fulfill(requestId, 422, payload(null, 422, { phone: ['validation.unique', 'validation.unique'], password: ['validation.min.string'] })); return }
+      await fulfill(requestId, 200, { ...payload(staffRows), meta: { current_page: 1, last_page: 1, per_page: 20, total: staffRows.length }, links: {} }); return
+    }
+    if (path.endsWith('/admin/staff/' + customerCandidate.id)) { await fulfill(requestId, 200, payload(staffRows[0])); return }
+    if (path.endsWith('/settings/public')) {
+      const orders = { enabled: settingValues['orders.enabled'], maintenance_mode: settingValues['orders.maintenance_mode'], allow_guest_checkout: true, allow_scheduled_orders: false }
+      if ((!orders.enabled || orders.maintenance_mode) && Date.parse(settingValues['orders.expected_resume_at']) > Date.now()) orders.expected_resume_at = settingValues['orders.expected_resume_at']
+      await fulfill(requestId, 200, payload({ restaurant: { timezone: 'Asia/Riyadh', currency: 'SAR' }, orders, pickup: { enabled: true }, delivery: { enabled: true } })); return
+    }
+    if (path.endsWith('/admin/settings')) {
+      if (request.method === 'PATCH') {
+        lastSettingsPatch = JSON.parse(request.postData).settings
+        Object.assign(settingValues, lastSettingsPatch)
+        if (lastSettingsPatch['orders.expected_resume_at']) settingValues['orders.expected_resume_at'] = new Date(lastSettingsPatch['orders.expected_resume_at'] + ':00+03:00').toISOString()
+        if (settingValues['orders.enabled'] && !settingValues['orders.maintenance_mode']) settingValues['orders.expected_resume_at'] = null
+        await fulfill(requestId, 200, payload(null)); return
+      }
+      const rows = Object.entries(settingValues).map(([key, value]) => ({ key, value, type: typeof value === 'boolean' ? 'boolean' : 'string', group: key.startsWith('restaurant.') ? 'general' : 'orders' }))
+      await fulfill(requestId, 200, payload(rows)); return
+    }
     if (path.endsWith('/protected-test') && hold) { heldRequest = requestId; return }
     if (path.endsWith('/login') && authFailure) {
       if (authFailure === 'network') await send('Fetch.failRequest', { requestId, errorReason: 'Failed' })
@@ -48,7 +86,7 @@ try {
       return
     }
     if (path.endsWith('/user') && authFailure === 'expired') { await fulfill(requestId, 401, payload(null, 401)); return }
-    if (path.endsWith('/login')) await fulfill(requestId, 200, payload({ user: customer, token: `synthetic-test-token-${++loginSequence}`, token_type: 'Bearer' }))
+    if (path.endsWith('/login')) await fulfill(requestId, 200, payload({ user: customer, token: `synthetic-test-token-${++loginSequence}`, token_type: 'Bearer', expires_at: new Date(Date.now() + (shortSession ? 5000 : staff ? 8 * 3600000 : 7 * 86400000)).toISOString(), session_only: staff }))
     else if (path.endsWith('/register')) await fulfill(requestId, 201, payload(customer))
     else if (path.endsWith('/user')) await fulfill(requestId, 200, payload(customer))
     else if (path.endsWith('/admin/me')) await fulfill(requestId, staff ? 200 : 403, payload(staff ? admin() : null, staff ? 200 : 403))
@@ -124,7 +162,17 @@ try {
   await navigate('/admin/orders'); await login('٠٥٥١٢٣٤٥٦٧')
   assert.equal(requests.filter(item => item.path.endsWith('/login') && item.method === 'POST').at(-1).phone, '+966551234567')
   assert.equal(await evaluate('location.pathname'), '/admin/orders')
-  assert.deepEqual(await evaluate(`[...document.querySelectorAll('.sidebar nav a')].map(a=>a.getAttribute('href')).sort()`),['/admin','/admin/orders','/admin/kitchen','/admin/products','/admin/categories','/admin/offers','/admin/customers','/admin/settings'].sort())
+  assert.equal(await evaluate("localStorage.getItem('shishli_auth_token')"), null)
+  assert.ok(await evaluate("sessionStorage.getItem('shishli_auth_token')"))
+  await evaluate("localStorage.setItem('shishli_auth_token',sessionStorage.getItem('shishli_auth_token'));sessionStorage.removeItem('shishli_auth_token')")
+  await navigate('/admin/orders')
+  assert.equal(await evaluate("localStorage.getItem('shishli_auth_token')"), null)
+  assert.ok(await evaluate("sessionStorage.getItem('shishli_auth_token')"))
+  await evaluate('sessionStorage.clear()')
+  await navigate('/admin/orders'); assert.equal(await evaluate('location.pathname'), '/login')
+  await login()
+  report.simulated.push('Admin tokens use session storage, legacy tokens migrate, and closing the browser session requires login')
+  assert.deepEqual(await evaluate(`[...document.querySelectorAll('.sidebar nav a')].map(a=>a.getAttribute('href')).sort()`),['/admin','/admin/orders','/admin/kitchen','/admin/products','/admin/categories','/admin/offers','/admin/customers','/admin/settings','/admin/staff'].sort())
   assert.ok(await evaluate(`document.querySelector('.admin').textContent.includes('مستخدم الاختبار')`))
   report.simulated.push('Staff login, real header binding, eight permitted links including kitchen, intended Orders route')
   authFailure = 401
@@ -139,6 +187,79 @@ try {
   await navigate('/admin/orders'); assert.equal(await evaluate('location.pathname'), '/admin/orders')
   assert.equal(requests.filter(item => item.path === '/api/user').length, before + 1)
   report.simulated.push('Bootstrap deduplication and authorized refresh')
+  await navigate('/admin/settings')
+  await evaluate('[...document.querySelectorAll(".settings-tabs button")].find(b=>b.textContent==="استقبال الطلبات").click()')
+  await waitFor('document.getElementsByName("orders.enabled")[0]')
+  assert.equal(await evaluate('!!document.getElementsByName("orders.expected_resume_at")[0]'), false)
+  await evaluate('document.getElementsByName("orders.enabled")[0].click()')
+  await waitFor('document.getElementsByName("orders.expected_resume_at")[0]')
+  const expectedInput = await evaluate('import("/src/utils/formDates.js").then(({zonedDateTimeInput})=>zonedDateTimeInput(new Date(Date.now()+86400000).toISOString(),"Asia/Riyadh"))')
+  await evaluate(`(()=>{const e=document.querySelector('input[type="datetime-local"]');e.value=${JSON.stringify(expectedInput)};e.dispatchEvent(new Event('input',{bubbles:true}));document.querySelector('#settings-form').requestSubmit()})()`)
+  await waitFor('document.querySelector("dialog[open]")')
+  await evaluate('document.querySelector("dialog[open] button[type=submit]").click()')
+  await waitFor('!document.querySelector("dialog[open]") && document.querySelector(".settings-save").textContent.includes("حفظ جميع التغييرات") && document.querySelector(".settings-save").disabled')
+  assert.equal(lastSettingsPatch['orders.enabled'], false)
+  assert.equal(lastSettingsPatch['orders.expected_resume_at'], expectedInput)
+  await navigate('/')
+  await waitFor('document.querySelector(".ordering-pause-notice")?.textContent.includes("سنعاود استقبال الطلبات")')
+  for (const width of [320, 390, 1440]) {
+    await send('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: width < 800 })
+    assert.equal(await evaluate('document.documentElement.scrollWidth <= innerWidth'), true)
+    await capture(`ordering-resume-${width}`)
+  }
+  settingValues['orders.expected_resume_at'] = new Date(Date.now()-60000).toISOString()
+  await navigate('/menu'); await waitFor('document.querySelector(".ordering-pause-notice")')
+  assert.equal(await evaluate('document.querySelector(".ordering-pause-notice").textContent.includes("سنعاود استقبال الطلبات")'), false)
+  await navigate('/admin/settings')
+  await evaluate('[...document.querySelectorAll(".settings-tabs button")].find(b=>b.textContent==="استقبال الطلبات").click()')
+  await waitFor('document.getElementsByName("orders.enabled")[0]')
+  await evaluate('document.getElementsByName("orders.enabled")[0].click()')
+  await waitFor('!document.getElementsByName("orders.expected_resume_at")[0]')
+  await evaluate('document.querySelector("#settings-form").requestSubmit()')
+  await waitFor('document.querySelector(".settings-save").disabled && !document.querySelector(".settings-page").textContent.includes("جارٍ الحفظ")')
+  await navigate('/'); assert.equal(await evaluate('!!document.querySelector(".ordering-pause-notice")'), false)
+  report.simulated.push('Global pause captures a restaurant-local resume estimate, shows it at 320/390/1440px, hides expired promises, and removes the notice after reopening')
+  await send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1050, deviceScaleFactor: 1, mobile: false })
+  await navigate('/admin/staff')
+  await evaluate('[...document.querySelectorAll(".page-heading button")].find(b=>b.textContent==="إضافة موظف").click()')
+  await waitFor('document.querySelector("dialog[open] input[type=tel]")')
+  await evaluate('(()=>{const e=document.querySelector("dialog[open] input[type=tel]");e.value="0551234567";e.dispatchEvent(new Event("input",{bubbles:true}))})()')
+  await evaluate('document.querySelector("dialog[open] form").dispatchEvent(new Event("submit",{bubbles:true,cancelable:true}))')
+  await waitFor('document.querySelector("dialog[open] .admin-feedback-error")')
+  assert.equal(await evaluate('document.querySelector("dialog[open]").textContent.includes("validation.")'), false)
+  assert.deepEqual(await evaluate('[...document.querySelectorAll("dialog[open] .admin-feedback-error li")].map(e=>e.textContent)'), ['رقم الجوال مستخدم بالفعل.', 'كلمة المرور أقصر من الحد المطلوب. راجع الحد الأدنى الموضّح بجانب الحقل.'])
+  report.simulated.push('Raw duplicate validation.unique and validation.min.string render as distinct readable Arabic field errors without technical keys')
+  await evaluate('[...document.querySelectorAll("dialog[open] button")].find(b=>b.textContent.includes("الرقم مسجّل مسبقًا")).click()')
+  await waitFor('document.querySelector("dialog[open] h2")?.textContent==="إضافة موظف من حساب عميل موجود"')
+  assert.equal(await evaluate('document.querySelector("dialog[open] input[type=tel]").value'), '0551234567')
+  await evaluate('document.querySelector("dialog[open] form").requestSubmit()')
+  await waitFor('document.querySelector(".staff-existing-customer")')
+  assert.equal(lookupPhone, '+966551234567')
+  assert.equal(await evaluate('document.querySelector(".staff-existing-customer strong").textContent'), customerCandidate.name)
+  assert.equal(await evaluate('!!document.querySelector("dialog[open] input[value=finance_manager]")'), false)
+  assert.equal(await evaluate('document.querySelector("dialog[open] button[type=submit]").disabled'), true)
+  await evaluate('document.querySelector("dialog[open] input[value=cashier]").click();const e=document.querySelector("dialog[open] input[type=password]");e.value="BrowserStaff123";e.dispatchEvent(new Event("input",{bubbles:true}));document.querySelector("dialog[open] input[required][type=checkbox]").click()')
+  for (const width of [320, 390, 1440]) {
+    await send('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: width < 800 })
+    assert.equal(await evaluate('document.documentElement.scrollWidth<=innerWidth'), true)
+    assert.equal(await evaluate('(()=>{const d=document.querySelector("dialog[open]"),r=d.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth+1&&d.scrollWidth<=d.clientWidth+1})()'), true)
+    await capture(`existing-customer-staff-${width}`)
+  }
+  await evaluate('document.querySelector("dialog[open] form").requestSubmit()')
+  await waitFor('document.querySelector("dialog[open]")?.textContent.includes("راجع كلمة المرور الإدارية الجديدة")')
+  assert.equal(staffRows.length, 0)
+  rejectPromotion = false
+  await evaluate('const f=document.querySelector("dialog[open] form");f.requestSubmit();f.requestSubmit()')
+  await waitFor('!document.querySelector("dialog[open]") && document.querySelector("tbody")?.textContent.includes("حساب العميل التجريبي")')
+  assert.equal(promotionCount, 2)
+  assert.equal(await evaluate('!!document.querySelector(".admin-feedback-error")'), false)
+  await evaluate('[...document.querySelectorAll("tbody button")].find(b=>b.textContent==="تعديل").click()')
+  await waitFor('document.querySelector("dialog[open]")')
+  assert.deepEqual(await evaluate('[...document.querySelectorAll("dialog[open] .domain-checks input:checked")].map(e=>e.value)'), ['cashier'])
+  await evaluate('document.querySelector("dialog[open] .dialog-head button").click()')
+  await waitFor('!document.querySelector("dialog[open]")')
+  report.simulated.push('Existing customer phone prefills from staff creation; identity preview, explicit confirmation, 422 recovery, single submission, responsive modal, and customer role preservation are verified')
+  await send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1050, deviceScaleFactor: 1, mobile: false })
   for (const [width, height] of [[1440,1100], [768,1024], [390,844]]) {
     await send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false })
     for (const path of ['/admin','/admin/orders','/admin/products','/admin/categories','/admin/offers','/admin/customers','/admin/settings','/','/menu','/product/turkish-chicken','/cart','/checkout','/order-success','/track-order','/about','/gallery','/contact']) {
@@ -161,6 +282,11 @@ try {
   await evaluate('window.__authTest.logout().then(()=>true)'); limited = false; staff = false
   await navigate('/login'); await login(); await push('/admin'); assert.equal(await evaluate('location.pathname'), '/forbidden')
   report.simulated.push('Customer admin 403 is not a session expiry')
+  assert.ok(await evaluate("localStorage.getItem('shishli_auth_token')"))
+  assert.equal(await evaluate("sessionStorage.getItem('shishli_auth_token')"), null)
+  await evaluate('sessionStorage.clear()'); await navigate('/menu')
+  assert.equal(await evaluate('window.__authTest.isAuthenticated'), true)
+  report.simulated.push('Customer login persists across browser sessions with a stored seven-day expiration')
   await evaluate('window.__authTest.logout().then(()=>true)'); staff = true
   for (const failure of [401, 403, 422, 429, 500, 'network']) {
     authFailure = failure; await navigate('/login'); await login()
@@ -193,6 +319,16 @@ try {
   assert.equal(await evaluate(`localStorage.getItem('shishli.cart.v1')`), null)
   report.simulated.push('Protected 401 clears credentials and redirects once; obsolete demo cart storage stays removed')
   authFailure = null
+  shortSession = true; staff = true
+  await navigate('/login'); await login()
+  await waitFor('location.pathname === "/login" && !window.__authTest.token')
+  assert.equal(await evaluate("sessionStorage.getItem('shishli_auth_token')"), null)
+  report.simulated.push('Absolute session deadline clears an idle admin session without waiting for an API request')
+  shortSession = false
+  await login()
+  await evaluate('window.__authTest.expiresAt=new Date(Date.now()-1000).toISOString();window.dispatchEvent(new Event("pageshow"))')
+  await waitFor('location.pathname === "/login" && !window.__authTest.token')
+  report.simulated.push('Restoring a sleeping page checks the deadline immediately')
   for (const path of ['/login', '/register']) {
     await push(path); await capture(path.slice(1) + '-390')
     assert.ok(await evaluate(`document.documentElement.scrollWidth <= innerWidth`))

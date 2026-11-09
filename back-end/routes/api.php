@@ -31,6 +31,9 @@ use App\Http\Controllers\Api\V1\Admin\ReportController;
 use App\Http\Controllers\Api\V1\Admin\RestaurantSettingsController;
 use App\Http\Controllers\Api\V1\Admin\RoleController;
 use App\Http\Controllers\Api\V1\Admin\StaffController;
+use App\Http\Controllers\Api\V1\Admin\StaffNotificationController;
+use App\Http\Controllers\Api\V1\Admin\StaffPushDiagnosticController;
+use App\Http\Controllers\Api\V1\Admin\StaffWebPushPilotController;
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\LogoutController;
 use App\Http\Controllers\Api\V1\Auth\ProfileController;
@@ -166,6 +169,22 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
     Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
 
     Route::prefix('admin')->name('admin.')->middleware(['auth:sanctum', EnsureAdminAccess::class, RecordAdminActivity::class])->group(function (): void {
+        Route::prefix('web-push-pilot')->name('web-push-pilot.')->middleware(['permission:orders.view', 'throttle:10,1'])->group(function (): void {
+            Route::get('/', [StaffWebPushPilotController::class, 'index'])->name('index');
+            Route::post('/subscriptions', [StaffWebPushPilotController::class, 'store'])->name('subscribe');
+            Route::delete('/subscriptions/{subscription}', [StaffWebPushPilotController::class, 'destroy'])->whereUuid('subscription')->name('unsubscribe');
+        });
+        Route::prefix('push-diagnostics')->name('push-diagnostics.')->middleware('permission:orders.view')->group(function (): void {
+            Route::get('/', [StaffPushDiagnosticController::class, 'index'])->name('index');
+            Route::post('/subscriptions', [StaffPushDiagnosticController::class, 'store'])->middleware('throttle:10,1')->name('subscribe');
+            Route::delete('/subscriptions/{subscription}', [StaffPushDiagnosticController::class, 'destroy'])->whereUuid('subscription')->middleware('throttle:10,1')->name('unsubscribe');
+        });
+        Route::prefix('staff-notifications')->name('staff-notifications.')->middleware('permission:orders.view')->group(function (): void {
+            Route::get('/', [StaffNotificationController::class, 'index'])->name('index');
+            Route::post('/subscriptions', [StaffNotificationController::class, 'store'])->middleware('throttle:30,1')->name('subscribe');
+            Route::delete('/subscriptions', [StaffNotificationController::class, 'destroyCurrent'])->middleware('throttle:30,1')->name('unsubscribe-current');
+            Route::delete('/subscriptions/{subscription}', [StaffNotificationController::class, 'destroy'])->whereUuid('subscription')->middleware('throttle:30,1')->name('unsubscribe');
+        });
         Route::get('/me', [AdminSessionController::class, 'me'])->name('me');
         Route::get('/bootstrap', [AdminSessionController::class, 'bootstrap'])->name('bootstrap');
         Route::get('/navigation', [AdminSessionController::class, 'navigation'])->name('navigation');
@@ -175,6 +194,8 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
         Route::get('/permissions', [RoleController::class, 'permissions'])->middleware('permission:roles.view')->name('permissions.index');
         Route::put('/roles/{role}/permissions', [RoleController::class, 'update'])->middleware(['permission:roles.update_permissions', 'throttle:admin-roles'])->name('roles.permissions.update');
         Route::prefix('staff')->name('staff.')->group(function (): void {
+            Route::post('/customer-lookup', [StaffController::class, 'customerLookup'])->middleware(['permission:staff.create', 'permission:staff.update', 'throttle:admin-sensitive'])->name('customer_lookup');
+            Route::post('/from-customer', [StaffController::class, 'fromCustomer'])->middleware(['permission:staff.create', 'permission:staff.update', 'throttle:admin-sensitive'])->name('from_customer');
             Route::get('/', [StaffController::class, 'index'])->middleware('permission:staff.view')->name('index');
             Route::post('/', [StaffController::class, 'store'])->middleware(['permission:staff.create', 'throttle:admin-sensitive'])->name('store');
             Route::get('/{staffUser}', [StaffController::class, 'show'])->whereUuid('staffUser')->middleware('permission:staff.view')->name('show');
