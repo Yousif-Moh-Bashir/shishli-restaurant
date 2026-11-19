@@ -71,6 +71,8 @@ export default createRouter({
       { path: 'account/profile', name:'account.profile',component:ProfileView,meta:{requiresAuth:true,title:'حسابي | مطعم شيشلي فرش'} },
       { path: 'account/addresses', name: 'account.addresses', component: AddressesView, meta: { requiresAuth: true, title: 'عناويني | مطعم شيشلي فرش' } },
       { path: 'account/orders', name: 'account.orders', component: CustomerOrdersView, meta: { requiresAuth: true, title: 'طلباتي | مطعم شيشلي فرش' } },
+      { path: 'account/notifications/open/:notificationUuid', name: 'account.notification-open', component: () => import('../views/site/CustomerNotificationOpenView.vue'), meta: { requiresAuth: true, title: 'تحديث الطلب | شيشلي' } },
+      { path: 'account/notifications', name: 'account.notifications', component: () => import('../views/site/CustomerNotificationsView.vue'), meta: { requiresAuth: true, title: 'إشعارات الطلبات | مطعم شيشلي فرش' } },
       { path: 'account/orders/:orderUuid', name: 'account.order', component: CustomerOrderView, meta: { requiresAuth: true, title: 'تفاصيل الطلب | مطعم شيشلي فرش' } },
       { path: 'checkout', name: 'checkout', component: CheckoutView },
       { path: 'order-success/:orderUuid?', name: 'order-success', component: OrderSuccessView },

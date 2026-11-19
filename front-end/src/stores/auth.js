@@ -4,6 +4,7 @@ import { authApi } from '../api/auth.api'
 import { driversApi } from '../api/drivers.api'
 import { normalizeApiError } from '../utils/apiError'
 import { readAuthSession, writeAuthToken } from '../utils/authToken'
+import { clearCustomerPushSession } from '../utils/customerPushSession'
 import { clearStaffPushSession } from '../utils/staffPushSession'
 
 export const useAuthStore = defineStore('auth', () => {
@@ -24,6 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
   function clearSession(expectedToken) {
     if (expectedToken && expectedToken !== token.value) return false
     clearStaffPushSession()
+    void clearCustomerPushSession()
     revision++; user.value = adminProfile.value = driverProfile.value = token.value = null
     expiresAt.value = null
     writeAuthToken(null); persistenceWarning.value = ''; isInitialized.value = true
@@ -86,6 +88,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const result = await authApi.login(payload)
       if (result?.token_type !== 'Bearer' || typeof result.token !== 'string' || !result.token) throw new Error('INVALID_AUTH_RESPONSE')
+      await clearCustomerPushSession()
       revision++; token.value = result.token; user.value = null; adminProfile.value = null; driverProfile.value = null
       issuedToken = result.token
       expiresAt.value = result.expires_at || null
@@ -108,10 +111,17 @@ export const useAuthStore = defineStore('auth', () => {
     if (isLoading.value) return false
     isLoading.value = true; error.value = null
     const expectedToken = token.value
-    try { if (expectedToken) await authApi.logout(); clearSession(expectedToken); return true }
+    try {
+      if (expectedToken) await authApi.logout()
+      await clearStaffPushSession({ unregister: true })
+      clearSession(expectedToken); return true
+    }
     catch (cause) {
       error.value = normalizeApiError(cause)
-      if (cause.response?.status === 401) { clearSession(expectedToken); return true }
+      if (cause.response?.status === 401) {
+        await clearStaffPushSession({ unregister: true })
+        clearSession(expectedToken); return true
+      }
       throw cause // Do not claim token revocation after a network/server failure.
     } finally { isLoading.value = false }
   }

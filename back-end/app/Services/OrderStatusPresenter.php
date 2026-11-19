@@ -12,7 +12,7 @@ class OrderStatusPresenter
         $code = $status instanceof OrderStatus ? $status->value : $status;
 
         return match ($code) {
-            'pending' => 'تم استلام الطلب', 'confirmed' => 'تم تأكيد الطلب', 'preparing' => 'جاري التحضير',
+            'pending' => 'بانتظار مراجعة المطعم', 'confirmed' => 'قبِل المطعم الطلب', 'preparing' => 'جاري التحضير',
             'ready' => 'الطلب جاهز', 'out_for_delivery' => 'خرج للتوصيل', 'completed' => 'مكتمل', 'cancelled' => 'ملغي',
             default => 'حالة الطلب: '.$code,
         };

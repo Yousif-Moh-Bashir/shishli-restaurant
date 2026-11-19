@@ -1,6 +1,7 @@
 const roleLabels={super_admin:'المدير العام',manager:'مدير',cashier:'كاشير',kitchen:'المطبخ',customer:'عميل',driver:'مندوب توصيل'}
 export const adminRoleLabel=value=>roleLabels[value]||value
 const domainLabels={delivery_exceptions:'استثناءات التوصيل',dashboard:'لوحة التحكم',orders:'الطلبات',payments:'المدفوعات',products:'المنتجات',categories:'التصنيفات',options:'خيارات المنتجات',branches:'الفروع',delivery_zones:'مناطق التوصيل',inventory:'المخزون',promotions:'العروض',coupons:'الكوبونات',customers:'العملاء',notifications:'الإشعارات',reports:'التقارير',settings:'الإعدادات',cms:'المحتوى',staff:'الموظفون',roles:'الأدوار',activity_logs:'سجل النشاط',driver:'وصول المندوب',drivers:'مناديب التوصيل'}
+domainLabels.printing='طباعة الطلبات'
 export const adminDomainLabel=value=>domainLabels[value]||value
 
 const permissionSubjects={
@@ -25,6 +26,8 @@ const permissionSubjects={
 }
 const permissionActions={view:'عرض',create:'إضافة',update:'تعديل',delete:'حذف',manage:'إدارة',activate:'تفعيل',deactivate:'إيقاف'}
 const permissionLabels={
+  'printing.reprint':'إعادة طباعة الطلبات',
+  'printing.manage_agents':'إدارة وكلاء الطباعة',
   'delivery_exceptions.view':'عرض استثناءات التوصيل',
   'delivery_exceptions.fail':'تسجيل تعذر التسليم إداريًا',
   'delivery_exceptions.return':'إرجاع الطلب وتأكيد استلامه في المطعم',

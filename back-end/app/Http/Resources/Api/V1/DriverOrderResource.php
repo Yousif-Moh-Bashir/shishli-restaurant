@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources\Api\V1;
 
+use App\Enums\DeliveryStatus;
 use App\Enums\OrderStatus;
 use App\Services\Drivers\DeliveryExceptionService;
+use App\Services\Drivers\DeliveryProgressService;
 use App\Services\Drivers\DriverOrderService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -21,7 +23,16 @@ class DriverOrderResource extends JsonResource
             'available_actions' => $owned ? app(DriverOrderService::class)->actions($request->user(), $this->resource)
                 : (($this->status === OrderStatus::Ready && ($request->attributes->get('driver_listing_context')['can_accept'] ?? false)) ? ['accept'] : [])];
         if ($owned) {
+            $tripToolsAvailable = ($this->status === OrderStatus::OutForDelivery && in_array($this->delivery_status,
+                [DeliveryStatus::OnTheWay, DeliveryStatus::Failed, DeliveryStatus::Returning, DeliveryStatus::Returned, DeliveryStatus::Released], true))
+                || ($this->status === OrderStatus::Completed && $this->delivery_status === DeliveryStatus::Delivered);
+            $address = $this->address ? (new OrderAddressResource($this->address))->toArray($request) : null;
+            if ($address !== null && ! $tripToolsAvailable) {
+                $address['location'] = null;
+            }
             $data += ['customer' => ['name' => $this->customer_name, 'phone' => $this->customer_phone],
+                'trip_tools_available' => $tripToolsAvailable,
+                'progress_reminder' => app(DeliveryProgressService::class)->forOrder($this->resource),
                 'delivery_revision' => $this->delivery_revision ?? 0,
                 'delivery_block' => app(DeliveryExceptionService::class)->block($this->resource),
                 'can_request_intervention' => $this->delivery_exception_requested_at === null && $this->delivery_task_closed_at === null
@@ -29,7 +40,7 @@ class DriverOrderResource extends JsonResource
                     && ! in_array($this->status, [OrderStatus::Completed, OrderStatus::Cancelled], true),
                 'intervention_requested_at' => $this->delivery_exception_requested_at?->toISOString(),
                 'task_closed_at' => $this->delivery_task_closed_at?->toISOString(),
-                'address' => $this->address ? new OrderAddressResource($this->address) : null,
+                'address' => $address,
                 'branch_location' => ['latitude' => $this->branch->latitude, 'longitude' => $this->branch->longitude],
                 'total' => $this->total, 'payment_method' => $this->payment_method->value, 'payment_status' => $this->payment_status->value,
                 'cash_due' => $this->payment_method->value === 'cash' && $this->payment_status->value === 'pending' ? $this->total : '0.00',

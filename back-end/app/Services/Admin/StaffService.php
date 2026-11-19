@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin;
 
+use App\Models\StaffPushSubscription;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -57,6 +58,7 @@ class StaffService
             $user->password = $data['password'];
             $user->save();
             $user->tokens()->delete();
+            StaffPushSubscription::where('user_id', $user->id)->delete();
             $user->unsetRelation('roles');
             $new = [...$this->audit->values($user), 'password_changed' => true];
             $this->audit->record($actor, 'staff.from_customer', 'user', $user->uuid, $old, $new, 'إضافة حساب عميل موجود إلى الموظفين وتغيير كلمة مروره وإنهاء جلساته السابقة.');
@@ -125,10 +127,12 @@ class StaffService
                 $user->syncRoles([...$data['roles'], ...($user->hasRole('customer') ? ['customer'] : [])]);
                 $user->unsetRelation('roles');
                 $user->tokens()->delete();
+                StaffPushSubscription::where('user_id', $user->id)->delete();
             }
             $user->fill(Arr::only($data, ['name', 'email', 'phone', 'password']))->save();
             if (isset($data['password'])) {
                 $user->tokens()->delete();
+                StaffPushSubscription::where('user_id', $user->id)->delete();
             }
             $new = $this->audit->values($user);
             if (isset($data['password'])) {
@@ -167,6 +171,7 @@ class StaffService
             $user->save();
             if (! $active) {
                 $user->tokens()->delete();
+                StaffPushSubscription::where('user_id', $user->id)->delete();
             }
             $this->audit->record($actor, $active ? 'staff.activate' : 'staff.deactivate', 'user', $user->uuid, $old, $this->audit->values($user));
 

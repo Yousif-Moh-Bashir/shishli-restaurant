@@ -22,6 +22,7 @@ use App\Services\CartResolver;
 use App\Services\DeliveryAddressData;
 use App\Services\DeliveryService;
 use App\Services\Money;
+use App\Services\Notifications\CustomerOrderNotifications;
 use App\Services\OrderEstimateService;
 use App\Services\OrderNumberGenerator;
 use App\Services\OrderTimingService;
@@ -149,10 +150,11 @@ class PlaceOrderAction
                     'amount' => $order->total, 'currency' => $order->currency, 'idempotency_key' => 'checkout_cash',
                 ]);
             }
-            $order->statusHistory()->create([
+            $history = $order->statusHistory()->create([
                 'from_status' => null, 'to_status' => OrderStatus::Pending,
                 'source' => OrderStatusSource::System, 'changed_by' => null, 'note' => null,
             ]);
+            app(CustomerOrderNotifications::class)->stage($order, $history);
             if ($address !== null) {
                 $order->address()->create($address + ['delivery_zone_name' => $quote->zoneName, 'delivery_zone_uuid' => $quote->zoneUuid]);
             }

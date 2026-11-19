@@ -1,6 +1,6 @@
 // Match Laravel's OrderStatusPresenter and supported enums.
 export const orderStatusLabels = Object.freeze({
-  pending: 'تم استلام الطلب', confirmed: 'تم تأكيد الطلب', preparing: 'جاري التحضير',
+  pending: 'بانتظار مراجعة المطعم', confirmed: 'قبِل المطعم الطلب', preparing: 'جاري التحضير',
   ready: 'الطلب جاهز', out_for_delivery: 'خرج للتوصيل', completed: 'مكتمل', cancelled: 'ملغي',
 })
 export const orderTypeLabels = Object.freeze({ pickup: 'استلام من الفرع', delivery: 'توصيل' })

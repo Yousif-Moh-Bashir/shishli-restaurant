@@ -2,8 +2,10 @@
 
 namespace App\Actions\Auth;
 
+use App\Models\StaffPushSubscription;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\PersonalAccessToken;
 
 class LogoutUserAction
@@ -16,6 +18,10 @@ class LogoutUserAction
             throw new AuthenticationException;
         }
 
-        $token->delete();
+        DB::transaction(function () use ($user, $token): void {
+            StaffPushSubscription::where('user_id', $user->id)
+                ->where('personal_access_token_id', $token->id)->delete();
+            $token->delete();
+        });
     }
 }

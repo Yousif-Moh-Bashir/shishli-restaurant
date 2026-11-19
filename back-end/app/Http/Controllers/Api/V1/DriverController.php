@@ -29,6 +29,8 @@ class DriverController extends Controller
         $driver = $request->user();
         $orders->authorize($driver);
 
+        $driver->setRelation('deliveries', $orders->active($driver)->get());
+
         return ApiResponse::success(new DriverResource($driver->load('driverBranch')));
     }
 
@@ -92,7 +94,12 @@ class DriverController extends Controller
 
     public function transition(DriverOperationRequest $request, Order $order, TransitionDeliveryAction $transition): JsonResponse
     {
-        return $this->orderResponse($transition->handle($request->user(), $order, DeliveryStatus::from($request->validated('status')), $request->validated('reason')));
+        return $this->orderResponse($transition->handle($request->user(), $order, DeliveryStatus::from($request->validated('status')), $request->validated('reason'), $request->has('expected_revision') ? $request->integer('expected_revision') : null));
+    }
+
+    public function start(DriverOperationRequest $request, Order $order, TransitionDeliveryAction $transition): JsonResponse
+    {
+        return $this->orderResponse($transition->start($request->user(), $order, $request->validated()));
     }
 
     public function collect(DriverOperationRequest $request, Order $order, CollectDriverCashAction $collect): JsonResponse

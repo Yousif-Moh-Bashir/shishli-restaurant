@@ -39,6 +39,13 @@ class StaffOrderNotifications
 
     public function subscriptionEligible(StaffPushSubscription $subscription): bool
     {
+        // A registered device may receive alerts after its login session expires.
+        // It grants no API access; current account permissions still govern delivery.
+        return $this->eligible($subscription->user);
+    }
+
+    public function sessionSubscriptionEligible(StaffPushSubscription $subscription): bool
+    {
         $token = $subscription->accessToken;
 
         return $this->eligible($subscription->user) && $token !== null
@@ -81,7 +88,7 @@ class StaffOrderNotifications
                 return;
             }
             if ($this->channelEnabled('push')) {
-                StaffPushSubscription::with(['user.roles.permissions', 'user.permissions', 'accessToken'])->chunkById(100, function ($subscriptions) use ($notification): void {
+                StaffPushSubscription::with(['user.roles.permissions', 'user.permissions'])->chunkById(100, function ($subscriptions) use ($notification): void {
                     foreach ($subscriptions as $subscription) {
                         if ($this->subscriptionEligible($subscription)) {
                             $this->createDelivery($notification, 'push', $subscription->uuid);

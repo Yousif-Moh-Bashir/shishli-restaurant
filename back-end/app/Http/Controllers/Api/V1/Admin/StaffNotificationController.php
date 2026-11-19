@@ -37,7 +37,7 @@ class StaffNotificationController extends Controller
                 'user_id' => $request->user()->id, 'personal_access_token_id' => $token->id, 'subscription' => $data,
             ]);
             $subscription = StaffPushSubscription::whereKey($subscription->id)->lockForUpdate()->firstOrFail();
-            abort_unless($subscription->user_id === $request->user()->id, 409);
+            abort_unless($subscription->user_id === $request->user()->id, 409, '', ['X-Staff-Push-Conflict' => 'ownership']);
             $subscription->update(['personal_access_token_id' => $token->id, 'subscription' => $data]);
 
             return $subscription;

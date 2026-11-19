@@ -1,4 +1,6 @@
 <script setup>
+import { computed } from 'vue'
+import { customerOrderMessage } from '../../utils/customerOrderProgress'
 import AppSkeleton from "../../components/common/AppSkeleton.vue"
 import { RouterLink } from 'vue-router'
 import { useOrderDetails } from '../../composables/useOrderDetails'
@@ -9,15 +11,16 @@ import { readOrderAccess, orderAccessIsPersistent } from '../../utils/orderAcces
 import CustomerPayments from '../../components/payments/CustomerPayments.vue'
 const auth = useAuthStore()
 const { data: order, loading: isLoading, error, load } = useOrderDetails()
+const message = computed(() => customerOrderMessage(order.value?.status))
 function paymentUpdated(value){if(order.value?.id===value.id)order.value={...order.value,payment:value.payment}}
 </script>
 <template>
   <main id="main" class="container checkout-main order-success-page">
     <RouterLink class="auth-back" to="/menu">→ العودة للمنيو</RouterLink>
-    <div class="section-heading"><div><span class="section-kicker">طلبك من شيشلي فرش</span><h1>تأكيد استلام الطلب</h1></div></div>
+    <div class="section-heading"><div><span class="section-kicker">طلبك من شيشلي فرش</span><h1>متابعة طلبك</h1></div></div>
     <AppSkeleton v-if="isLoading" variant="detail" label="جارٍ تحميل الطلب…"/>
     <section v-else-if="error" class="checkout-empty" role="alert"><h2>تعذر عرض الطلب</h2><p>{{ error.message }}</p><p v-if="[401,403,404].includes(error.status)">تعذر الوصول إلى هذا الطلب. يمكنك العودة إليه من صفحة «طلباتي».</p><button class="button button-primary" @click="load">إعادة المحاولة</button><RouterLink v-if="auth.isAuthenticated" to="/account/orders">طلباتي</RouterLink></section>
-    <template v-else-if="order"><section class="checkout-confirmation"><span class="success-check"><SiteIcon name="badge-check"/></span><h2>تم استلام طلبك</h2><p class="success-description">شكرًا لطلبك من شيشلي فرش. تابع حالة الطلب ومراحل تجهيزه من صفحة التتبع.</p><p>رقم طلبك لدى المطعم</p><strong class="success-order-number" dir="ltr">{{ order.order_number }}</strong><div class="success-actions"><RouterLink class="button button-primary" :to="'/track-order/'+order.id"><SiteIcon name="map-pin"/> تتبع الطلب</RouterLink><RouterLink class="button success-menu-link" to="/menu">العودة إلى المنيو</RouterLink></div></section><p v-if="readOrderAccess(order.id) && !orderAccessIsPersistent(order.id)" role="alert">تعذر حفظ رمز الوصول. احتفظ بهذه الصفحة؛ تحديثها قد يمنع استعادة الطلب.</p><OrderSnapshot :order="order"/><CustomerPayments v-if="auth.isAuthenticated &amp;&amp; !readOrderAccess(order.id)" :order-id="order.id" @order-updated="paymentUpdated"/><RouterLink class="button button-primary" to="/orders">طلباتي</RouterLink></template>
+    <template v-else-if="order"><section class="checkout-confirmation"><span class="success-check"><SiteIcon :name="order.status==='pending'?'clock':order.status==='cancelled'?'x':'badge-check'"/></span><h2>{{ message.title }}</h2><p class="success-description" role="status">{{ message.description }}</p><p>رقم طلبك لدى المطعم</p><strong class="success-order-number" dir="ltr">{{ order.order_number }}</strong><div class="success-actions"><RouterLink class="button button-primary" :to="'/track-order/'+order.id"><SiteIcon name="map-pin"/> تتبع الطلب</RouterLink><RouterLink class="button success-menu-link" to="/menu">العودة إلى المنيو</RouterLink></div></section><p v-if="readOrderAccess(order.id) && !orderAccessIsPersistent(order.id)" role="alert">تعذر حفظ رمز الوصول. احتفظ بهذه الصفحة؛ تحديثها قد يمنع استعادة الطلب.</p><OrderSnapshot :order="order"/><CustomerPayments v-if="auth.isAuthenticated &amp;&amp; !readOrderAccess(order.id)" :order-id="order.id" @order-updated="paymentUpdated"/><RouterLink class="button button-primary" to="/orders">طلباتي</RouterLink></template>
   </main>
 </template>
 <style scoped>

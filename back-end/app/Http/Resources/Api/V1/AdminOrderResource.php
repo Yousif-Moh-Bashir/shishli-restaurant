@@ -4,6 +4,7 @@ namespace App\Http\Resources\Api\V1;
 
 use App\Services\Admin\AdminOrderActions;
 use App\Services\Drivers\DeliveryExceptionService;
+use App\Services\Drivers\DeliveryProgressService;
 use Illuminate\Http\Request;
 
 class AdminOrderResource extends OrderResource
@@ -32,6 +33,7 @@ class AdminOrderResource extends OrderResource
                     && in_array($this->payment_status->value, ['paid', 'partially_refunded'], true),
             ];
             $data['delivery'] = ['status' => $this->delivery_status?->value,
+                'progress_reminder' => app(DeliveryProgressService::class)->forOrder($this->resource),
                 'driver' => $this->whenLoaded('driver', fn () => $this->driver ? ['id' => $this->driver->uuid, 'name' => $this->driver->name] : null),
                 'accepted_at' => $this->driver_accepted_at?->toISOString(),
                 'history' => $this->whenLoaded('deliveryHistory', fn () => $this->deliveryHistory->map(fn ($entry): array => [

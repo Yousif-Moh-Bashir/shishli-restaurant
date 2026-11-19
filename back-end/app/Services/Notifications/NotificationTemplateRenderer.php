@@ -11,8 +11,8 @@ class NotificationTemplateRenderer
     public function render(NotificationType $type, NotificationChannel $channel, NotificationContext $context): RenderedNotification
     {
         $label = match ($type) {
-            NotificationType::OrderPlaced => 'تم استلام طلبك',
-            NotificationType::OrderConfirmed => 'تم تأكيد طلبك',
+            NotificationType::OrderPlaced => 'تم استلام طلبك للمراجعة؛ الإرسال لا يعني قبول المطعم',
+            NotificationType::OrderConfirmed => 'قبِل المطعم طلبك',
             NotificationType::OrderPreparing => 'بدأ فريق شيشلي تجهيز طلبك',
             NotificationType::OrderReady => $context->orderType === OrderType::Pickup ? 'طلبك جاهز للاستلام' : 'تم تجهيز طلبك',
             NotificationType::OrderOutForDelivery => 'طلبك خرج للتوصيل',

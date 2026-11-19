@@ -17,7 +17,10 @@ class DriverOperationRequest extends FormRequest
     {
         return match ($this->route()->getActionMethod()) {
             'availability' => ['available' => ['required', 'boolean']],
-            'transition' => ['status' => ['required', Rule::enum(DeliveryStatus::class)], 'reason' => ['required_if:status,failed', 'nullable', 'string', 'min:3', 'max:1000']],
+            'start' => ['operation_key' => ['required', 'uuid'], 'expected_revision' => ['required', 'integer', 'min:0'],
+                'picked_up_and_departing' => ['required', 'accepted']],
+            'transition' => ['status' => ['required', Rule::enum(DeliveryStatus::class)], 'reason' => ['required_if:status,failed', 'nullable', 'string', 'min:3', 'max:1000'],
+                'expected_revision' => ['sometimes', 'integer', 'min:0']],
             'collect' => ['amount' => ['required', 'numeric', 'decimal:0,2', 'min:0', 'max:9999999999.99']],
             'confirmNetwork' => ['network_verified' => ['required', 'accepted']],
             default => [],

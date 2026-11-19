@@ -83,15 +83,6 @@ const addressReady = computed(() => addressMode.value === 'saved' ? !!selectedAd
 const source = computed(() => orderType.value !== 'delivery' ? null : addressMode.value === 'saved' ? selectedAddress.value ? { address_uuid: selectedAddress.value.id } : null : { address: quoteAddress(manual) })
 const { quote, quoteError, isQuoting, requestQuote, invalidate } = useDeliveryQuote(source, orderType)
 const outsideDeliveryArea = computed(() => quote.value?.issue?.code === 'ADDRESS_OUTSIDE_DELIVERY_AREA')
-const deliveryDuration = computed(() => {
-  const estimate = quote.value?.estimated_delivery
-  const minutes = value => value != null && value !== '' && Number.isFinite(Number(value)) && Number(value) > 0 ? Number(value) : null
-  const min = minutes(estimate?.min_minutes), max = minutes(estimate?.max_minutes)
-  if (min !== null && max !== null) return min === max ? `${min} دقيقة` : `${min}–${max} دقيقة`
-  if (min !== null) return `من ${min} دقيقة`
-  if (max !== null) return `حتى ${max} دقيقة`
-  return ''
-})
 const fieldErrors = computed(() => submitError.value?.errors || {})
 const addressCheckErrors = ref({}), addressCheckMessage = ref('')
 const deliveryFieldsErrors = computed(() => ({ ...quoteError.value?.errors, ...fieldErrors.value, ...addressCheckErrors.value }))
@@ -184,7 +175,7 @@ async function submit() {
     }
   }
   if (!(preparationReady.value || recoveryReady.value)) {
-    notice.value = orderType.value === 'delivery' && !addressReady.value ? 'اختر عنوان التوصيل أو أكمل بيانات العنوان المطلوبة.' : orderType.value === 'delivery' && quote.value?.available !== true ? 'تحقق من إمكانية التوصيل إلى العنوان قبل تأكيد الطلب.' : 'راجع حالة الفرع وطريقة الاستلام قبل تأكيد الطلب.'
+    notice.value = orderType.value === 'delivery' && !addressReady.value ? 'اختر عنوان التوصيل أو أكمل بيانات العنوان المطلوبة.' : orderType.value === 'delivery' && quote.value?.available !== true ? 'تحقق من إمكانية التوصيل إلى العنوان قبل إرسال الطلب.' : 'راجع حالة الفرع وطريقة الاستلام قبل إرسال الطلب.'
     return
   }
   if(!pending.value){
@@ -226,10 +217,10 @@ onBeforeRouteLeave(() => !cart.checkoutBusy&&!checking.value)
 <template>
   <main id="main" class="container checkout-main checkout-page" :aria-busy="cart.checkoutBusy">
     <RouterLink class="auth-back" to="/cart">→ العودة للسلة</RouterLink>
-    <div class="section-heading"><div><span class="section-kicker">طلبك من شيشلي فرش</span><h1>تأكيد الطلب</h1><p>يراجع المطعم الأسعار والتوفر والتوصيل عند التأكيد.</p></div></div>
+    <div class="section-heading"><div><span class="section-kicker">طلبك من شيشلي فرش</span><h1>إرسال الطلب للمراجعة</h1><p>إرسال الطلب لا يعني قبوله. يتأكد الطلب فقط بعد قبول المطعم.</p></div></div>
     <section v-if="restaurantClosed" class="checkout-closed-notice" role="alert">
       <h2>المطعم مغلق الآن</h2>
-      <p>{{ scheduled ? 'الطلبات الفورية غير متاحة حاليًا. يمكنك اختيار موعد مجدول خلال ساعات العمل، وسيتم التحقق من توفره عند التأكيد.' : 'لا يمكن إكمال الطلب الآن. يُرجى إكمال طلبك خلال ساعات عمل المطعم.' }}</p>
+      <p>{{ scheduled ? 'الطلبات الفورية غير متاحة حاليًا. يمكنك اختيار موعد مجدول خلال ساعات العمل، وسيتم التحقق من توفره عند الإرسال.' : 'لا يمكن إكمال الطلب الآن. يُرجى إكمال طلبك خلال ساعات عمل المطعم.' }}</p>
       <p v-if="nextOpening">موعد الفتح القادم: {{ nextOpening }}</p>
     </section>
     <AppSkeleton v-if="cart.isLoading || configLoading" variant="detail" label="جارٍ تحميل السلة وإعدادات الطلب…"/>
@@ -258,19 +249,18 @@ onBeforeRouteLeave(() => !cart.checkoutBusy&&!checking.value)
               <AddressBook v-if="auth.isAuthenticated" v-show="addressMode==='saved'" @load-error="addressesError=$event" @loaded="loadedAddresses" ref="addressBook" selectable :selected-id="selectedAddress?.id" @selected="selectAddress" @changed="invalidate" />
               <CheckoutAddress v-if="addressMode==='manual' && (!auth.isAuthenticated || addressesLoaded || addressesError)" ref="locationEditor" :key="cart.cart?.branch.id + auth.token" :form="manual" :errors="deliveryFieldsErrors" :center="branch?.location" :coverage="branch?.delivery_coverage" :require-coordinates="config?.delivery?.require_coordinates === true" :quote="quote" :quote-error="quoteError" :quoting="isQuoting" :disabled="checking || cart.checkoutBusy || pending && !!retryBody" @busy="locationBusy=$event" @changed="invalidate" @confirm="verify" />
               <p class="catalog-note">العنوان اليدوي لهذا الطلب فقط، ولا يُحفظ في حسابك.</p>
-              <AppSkeleton v-if="isQuoting" variant="inline" label="جارٍ تحميل رسوم ومدة التوصيل…"/><button v-if="!pending && addressMode==='saved'" type="button" class="button button-primary" :disabled="locationBusy || !deliveryAvailable || isQuoting || cart.checkoutBusy || cart.isLoading || cart.isMutating" @click="verify">{{ isQuoting ? 'جارٍ التحقق من التوصيل…' : 'التحقق من إمكانية التوصيل' }}</button>
-              <p v-if="addressCheckMessage" class="field-error" role="alert">{{ addressCheckMessage }}</p><p>النتيجة تقديرية؛ يُعاد حساب رسوم التوصيل عند تأكيد الطلب.</p>
+              <AppSkeleton v-if="isQuoting" variant="inline" label="جارٍ تحميل رسوم التوصيل…"/><button v-if="!pending && addressMode==='saved'" type="button" class="button button-primary" :disabled="locationBusy || !deliveryAvailable || isQuoting || cart.checkoutBusy || cart.isLoading || cart.isMutating" @click="verify">{{ isQuoting ? 'جارٍ التحقق من التوصيل…' : 'التحقق من إمكانية التوصيل' }}</button>
+              <p v-if="addressCheckMessage" class="field-error" role="alert">{{ addressCheckMessage }}</p><p>النتيجة تقديرية؛ يُعاد حساب رسوم التوصيل عند إرسال الطلب.</p>
               <div v-if="quoteError" role="alert"><h3>تعذر التحقق من التوصيل</h3><p>{{ quoteError.message }}</p><p v-for="(messages,key) in quoteError.errors" :key="key">{{ messages.join(' ') }}</p><p>هذا خطأ تحقق أو اتصال، ولا يعني أن العنوان خارج النطاق.</p></div>
               <section v-if="quote" class="delivery-quote checkout-delivery-result" :class="quote.available ? 'is-available' : 'is-unavailable'" role="status">
                 <div class="delivery-result-heading">
                   <span class="delivery-result-icon"><SiteIcon :name="quote.available ? 'badge-check' : 'map-pin'"/></span>
                   <div><h3>{{ quote.available ? 'التوصيل متاح لهذا العنوان' : 'لا يمكن التوصيل إلى هذا العنوان حاليًا' }}</h3><p v-if="quote.issue">{{ outsideDeliveryArea ? (pickupAvailable ? 'موقعك خارج منطقة توصيل الفرع. اختر موقعًا آخر أو استلم طلبك من الفرع.' : 'موقعك خارج منطقة توصيل الفرع. اختر موقعًا آخر.') : quote.issue.message }}</p></div>
                 </div>
-                <dl v-if="!outsideDeliveryArea && (quote.zone || quote.available || Number(quote.minimum_order)>0 || deliveryDuration)" class="delivery-result-details">
+                <dl v-if="!outsideDeliveryArea && (quote.zone || quote.available || Number(quote.minimum_order)>0)" class="delivery-result-details">
                   <div v-if="quote.zone"><dt>منطقة التوصيل</dt><dd>{{ quote.zone.name }}</dd></div>
                   <div v-if="quote.available && quote.delivery_fee!=null" class="delivery-result-fee"><dt>رسوم التوصيل</dt><dd>{{ Number(quote.delivery_fee)===0 ? 'مجانًا' : formatCurrency(quote.delivery_fee) }}</dd></div>
                   <div v-if="config?.delivery?.show_minimum_order === true && Number(quote.minimum_order)>0"><dt>الحد الأدنى للطلب</dt><dd>{{ formatCurrency(quote.minimum_order) }}</dd></div>
-                  <div v-if="deliveryDuration"><dt>مدة التوصيل المتوقعة</dt><dd>{{ deliveryDuration }}</dd></div>
                 </dl>
                 <p v-if="config?.delivery?.show_minimum_order === true && !outsideDeliveryArea && quote.minimum_order_met===false && Number(quote.remaining_amount)>0" class="delivery-result-note">أضف {{ formatCurrency(quote.remaining_amount) }} لإكمال الحد الأدنى للطلب.</p>
                 <p v-if="!outsideDeliveryArea && quote.free_delivery_applied" class="delivery-result-note">التوصيل مجاني لطلبك.</p>
@@ -285,7 +275,7 @@ onBeforeRouteLeave(() => !cart.checkoutBusy&&!checking.value)
           <p v-if="!auth.isAuthenticated && config?.orders?.allow_guest_checkout===false" role="alert">يلزم تسجيل الدخول لإتمام الطلب. <RouterLink to="/login?redirect=/checkout">تسجيل الدخول</RouterLink></p>
           <div v-if="submitError" role="alert" class="auth-status is-error"><p>{{ submitError.message }}</p><p v-for="(messages,key) in fieldErrors" :key="key">{{ messages.join(' ') }}</p><p v-for="(issue,index) in businessIssues" :key="index">{{ issue.message }}</p><p v-if="submitError.retryAfter">انتظر {{ submitError.retryAfter }} ثانية قبل إعادة المحاولة.</p></div>
           <p v-for="(issue,index) in cart.issues" :key="index" role="alert">{{ issue.message }}</p><template v-for="item in cart.items" :key="item.id"><p v-for="(issue,index) in item.issues" :key="index" role="alert">{{ item.product?.name }}: {{ issue.message }}</p></template>
-          <form id="checkout-submit-form" novalidate @submit.prevent="submit"><p class="checkout-confirm-hint">راجع بيانات الطلب وطريقة الاستلام، ثم أكد طلبك.</p><button class="button button-primary auth-submit" type="submit" :disabled="locationBusy || (!pending && orderType==='delivery' && (!addressReady || quote?.available!==true)) || checking || cart.checkoutBusy || isQuoting || retrySeconds>0 || (!pending && (!cartReady || !orderType || configLoading || !config || configError))"><SiteIcon name="badge-check"/>{{ checking ? 'جارٍ التحقق من حالة الفرع…' : cart.checkoutBusy ? 'جارٍ تأكيد الطلب…' : pending ? 'التحقق من نتيجة الطلب' : 'تأكيد الطلب' }}</button></form><p v-if="retrySeconds" role="status">يمكن إعادة المحاولة بعد {{ retrySeconds }} ثانية.</p>
+          <form id="checkout-submit-form" novalidate @submit.prevent="submit"><p class="checkout-confirm-hint">راجع بيانات الطلب وطريقة الاستلام، ثم أرسله للمراجعة. إرسال الطلب لا يعني قبوله؛ انتظر قبول المطعم. لا يُعرض وقت تجهيز أو توصيل قبل القبول.</p><button class="button button-primary auth-submit" type="submit" :disabled="locationBusy || (!pending && orderType==='delivery' && (!addressReady || quote?.available!==true)) || checking || cart.checkoutBusy || isQuoting || retrySeconds>0 || (!pending && (!cartReady || !orderType || configLoading || !config || configError))"><SiteIcon name="badge-check"/>{{ checking ? 'جارٍ التحقق من حالة الفرع…' : cart.checkoutBusy ? 'جارٍ إرسال الطلب…' : pending ? 'التحقق من نتيجة الطلب' : 'إرسال الطلب للمراجعة' }}</button></form><p v-if="retrySeconds" role="status">يمكن إعادة المحاولة بعد {{ retrySeconds }} ثانية.</p>
           <p role="status">{{ notice }}</p>
         </div>
       </section>
@@ -293,9 +283,9 @@ onBeforeRouteLeave(() => !cart.checkoutBusy&&!checking.value)
         <div class="checkout-review-heading"><span><SiteIcon name="shopping-bag"/></span><div><h2>مراجعة طلبك</h2><p>{{ cart.itemsCount }} قطعة{{ cart.cart?.branch.name?' · '+cart.cart.branch.name:'' }}</p></div><RouterLink v-if="!pending&&!cart.checkoutBusy" class="text-button" to="/cart">تعديل</RouterLink></div>
         <div class="checkout-review-items"><article v-for="item in cart.items" :key="item.id" class="checkout-review-item"><span class="checkout-review-quantity">{{ item.quantity }}×</span><div><h3>{{ item.product?.name }}</h3><p v-for="(option,index) in item.options" :key="index">{{ option.group.name }}: {{ option.value.name }}</p></div><strong>{{ formatCurrency(item.pricing.line_total_after_discount??item.pricing.line_total) }}</strong></article></div>
         <dl v-if="cart.cart" class="checkout-review-pricing"><div><dt>إجمالي المنتجات</dt><dd>{{ formatCurrency(cart.subtotal) }}</dd></div><div v-if="Number(cart.discount)>0" class="checkout-review-discount"><dt>الخصم</dt><dd>− {{ formatCurrency(cart.discount) }}</dd></div><div v-if="orderType==='delivery'&& quote?.available"><dt>التوصيل المقدر</dt><dd>{{ formatCurrency(quote.delivery_fee) }}</dd></div></dl>
-        <div v-if="cart.cart" class="checkout-review-total"><div><span>{{ orderType==='delivery'&& quote?.available?'الإجمالي التقديري':'إجمالي السلة' }}</span><small>{{ orderType==='delivery'&&!quote?.available?'رسوم التوصيل بعد التحقق من العنوان':'تُراجع الأسعار عند التأكيد' }}</small></div><strong>{{ formatCurrency(orderType==='delivery'&& quote?.available?quote.estimated_total:cart.total) }}</strong></div>
+        <div v-if="cart.cart" class="checkout-review-total"><div><span>{{ orderType==='delivery'&& quote?.available?'الإجمالي التقديري':'إجمالي السلة' }}</span><small>{{ orderType==='delivery'&&!quote?.available?'رسوم التوصيل بعد التحقق من العنوان':'تُراجع الأسعار عند الإرسال' }}</small></div><strong>{{ formatCurrency(orderType==='delivery'&& quote?.available?quote.estimated_total:cart.total) }}</strong></div>
         <div v-if="orderType" class="checkout-review-method"><SiteIcon :name="orderType==='delivery'?'truck':'shopping-bag'"/><span>{{ orderType==='delivery'?'توصيل إلى عنوانك':'استلام من الفرع' }}</span><small>{{ getPaymentMethodLabel(paymentMethod) }}</small></div>
-        <p class="checkout-review-note">راجع الأطباق وبيانات الاستلام قبل التأكيد. يعتمد الطلب على الأسعار والتوفر الحاليين لدى المطعم.</p>
+        <p class="checkout-review-note">راجع الأطباق وبيانات الاستلام قبل الإرسال. يعتمد الطلب على الأسعار والتوفر الحاليين لدى المطعم.</p>
       </aside>
     </div>
   </main>

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\SendStaffTelegramTest;
+use App\Services\Notifications\StaffOrderNotifications;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
@@ -17,7 +18,7 @@ class TestStaffTelegram extends Command
 {
     public function handle(): int
     {
-        if (app()->isProduction()) {
+        if (app()->isProduction() && $this->option('send')) {
             $this->error('Diagnostic sending is not allowed in production.');
 
             return self::FAILURE;
@@ -26,9 +27,11 @@ class TestStaffTelegram extends Command
         $hasToken = is_string(config('staff_notifications.telegram.token')) && trim(config('staff_notifications.telegram.token')) !== '';
         $connection = (string) config('staff_notifications.connection');
         $isRedis = config('queue.connections.'.$connection.'.driver') === 'redis';
-        $this->line('Chat ID: '.$chatId);
+        $this->line('Group Chat ID configured: '.(preg_match('/^-\d+$/D', $chatId) ? 'yes' : 'no'));
         $this->line('Secret available: '.($hasToken ? 'yes' : 'no'));
         $this->line('Queue driver: '.($isRedis ? 'redis' : 'not redis'));
+        $this->line('Order notifications active: '.(app(StaffOrderNotifications::class)->activation() !== null ? 'yes' : 'no'));
+        $this->line('Telegram enabled: '.(config('staff_notifications.telegram.enabled') === true ? 'yes' : 'no'));
         if (! $this->option('send')) {
             $this->info('Readiness only. No queue access, message, order, or migration was performed.');
 

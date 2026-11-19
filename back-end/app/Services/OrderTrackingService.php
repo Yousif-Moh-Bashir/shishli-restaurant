@@ -22,17 +22,17 @@ class OrderTrackingService
         $position = array_search($status, $flow, true);
         $step = $position === false ? null : $position + 1;
         $timeline = [];
-        foreach ($flow as $index => $code) {
+        foreach ($flow as $code) {
             $history = $histories->get($code)?->first();
-            if ($cancelled && $history === null) {
+            if ($history === null && $code !== $status) {
                 continue;
             }
-            $state = $cancelled ? 'completed' : ($code === $status ? 'current' : ($step !== null && $index + 1 < $step ? 'completed' : 'upcoming'));
+            $state = $code === $status ? 'current' : 'completed';
             if ($status === 'completed') {
                 $state = 'completed';
             }
             $timeline[] = ['status' => $code, 'label' => $this->statuses->label($code), 'state' => $state,
-                'is_completed' => $state === 'completed', 'occurred_at' => $state === 'upcoming' ? null : $history?->created_at?->toISOString()];
+                'is_completed' => $state === 'completed', 'occurred_at' => $history?->created_at?->toISOString()];
         }
         $known = [...$flow, 'cancelled'];
         foreach ($order->statusHistory as $history) {
@@ -57,6 +57,7 @@ class OrderTrackingService
         }
         $phone = $order->customer_phone;
         $masked = mb_strlen($phone) > 6 ? mb_substr($phone, 0, 3).str_repeat('*', mb_strlen($phone) - 6).mb_substr($phone, -3) : '***';
+        $showEstimates = in_array($status, ['confirmed', 'preparing', 'ready', 'out_for_delivery'], true);
 
         return new OrderTrackingData(
             ['uuid' => $order->uuid, 'number' => $order->order_number, 'type' => $order->type->value,
@@ -69,8 +70,9 @@ class OrderTrackingService
             ['current_step' => $cancelled ? null : $step, 'total_steps' => count($flow),
                 'percentage' => $cancelled || $step === null ? null : (int) round($step / count($flow) * 100), 'is_cancelled' => $cancelled],
             $timeline,
-            ['ready_at' => $order->estimated_ready_at?->toISOString(), 'delivery_from' => $order->estimated_delivery_from?->toISOString(),
-                'delivery_to' => $order->estimated_delivery_to?->toISOString(), 'is_estimated' => true],
+            ['ready_at' => $showEstimates ? $order->estimated_ready_at?->toISOString() : null,
+                'delivery_from' => $showEstimates ? $order->estimated_delivery_from?->toISOString() : null,
+                'delivery_to' => $showEstimates ? $order->estimated_delivery_to?->toISOString() : null, 'is_estimated' => true],
             ['id' => $order->branch->uuid, 'name' => $order->branch->name, 'phone' => $order->branch->phone, 'address' => $order->branch->address],
             ['method' => $order->payment_method->value, 'status' => $order->payment_status->value],
             ['phone_masked' => $masked],

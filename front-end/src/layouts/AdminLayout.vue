@@ -1,4 +1,5 @@
 ﻿<script setup>
+import DeliveryProgressAlert from '../components/admin/DeliveryProgressAlert.vue'
 import '../assets/css/admin.css'
 import '../assets/css/details.css'
 import '../assets/css/audit-modules.css'
@@ -68,7 +69,7 @@ onBeforeUnmount(() => {
     <a class="skip" href="#main">انتقل للمحتوى</a>
     <AdminSidebar ref="sidebar" :open="sidebarOpen" @navigate="closeSidebar" />
     <button v-if="sidebarOpen" type="button" class="sidebar-backdrop" tabindex="-1" aria-label="إغلاق قائمة الإدارة" @click="closeSidebar"/>
-    <div class="workspace" :inert="sidebarOpen||undefined"><AdminHeader ref="header" :sidebar-open="sidebarOpen" :title="title" @toggle-sidebar="sidebarOpen = !sidebarOpen" /><RouterView /><footer>شيشلي © 2026 · لوحة التحكم</footer></div>
+    <div class="workspace" :inert="sidebarOpen||undefined"><AdminHeader ref="header" :sidebar-open="sidebarOpen" :title="title" @toggle-sidebar="sidebarOpen = !sidebarOpen" /><DeliveryProgressAlert/><RouterView /><footer>شيشلي © 2026 · لوحة التحكم</footer></div>
     <div id="toast" role="status" class="toast" :hidden="!toastMessage">{{ toastMessage }}</div>
     <AdminConfirmDialog :message="confirmMessage" @answer="answerConfirmation"/>
   </div>

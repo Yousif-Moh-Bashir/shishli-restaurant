@@ -1,6 +1,7 @@
 <?php
 
 require __DIR__.'/finance.php';
+require __DIR__.'/printing.php';
 
 use App\Http\Controllers\Api\V1\Admin\ActivityLogController;
 use App\Http\Controllers\Api\V1\Admin\AdminSessionController;
@@ -49,7 +50,9 @@ use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\CheckoutController;
 use App\Http\Controllers\Api\V1\CmsController;
 use App\Http\Controllers\Api\V1\CustomerAddressController;
+use App\Http\Controllers\Api\V1\CustomerNotificationController;
 use App\Http\Controllers\Api\V1\CustomerProfileController;
+use App\Http\Controllers\Api\V1\CustomerPushController;
 use App\Http\Controllers\Api\V1\DeliveryExceptionController;
 use App\Http\Controllers\Api\V1\DeliveryQuoteController;
 use App\Http\Controllers\Api\V1\DriverController;
@@ -89,6 +92,7 @@ Route::prefix('v1/driver')->name('api.v1.driver.')->middleware(['auth:sanctum', 
     Route::get('/orders', [$controller, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [$controller, 'show'])->whereUuid('order')->name('orders.show');
     Route::post('/orders/{order}/accept', [$controller, 'accept'])->whereUuid('order')->middleware('throttle:60,1')->name('orders.accept');
+    Route::post('/orders/{order}/start', [$controller, 'start'])->whereUuid('order')->middleware('throttle:60,1')->name('orders.start');
     Route::post('/orders/{order}/transition', [$controller, 'transition'])->whereUuid('order')->middleware('throttle:60,1')->name('orders.transition');
     Route::post('/orders/{order}/cash/collect', [$controller, 'collect'])->whereUuid('order')->middleware('throttle:30,1')->name('orders.collect');
     Route::post('/orders/{order}/network/confirm', [$controller, 'confirmNetwork'])->whereUuid('order')->middleware('throttle:30,1')->name('orders.confirm-network');
@@ -105,6 +109,7 @@ Route::prefix('v1/admin')->name('api.v1.admin.')->middleware(['auth:sanctum', En
     Route::get('/drivers/{driver}/collections', [$controller, 'collections'])->whereUuid('driver')->middleware('permission:drivers.view')->name('drivers.collections');
     Route::post('/drivers/{driver}/settlements', [$controller, 'settle'])->whereUuid('driver')->middleware('permission:drivers.settle_cash')->name('drivers.settle');
     Route::post('/orders/{order}/reassign-driver', [$controller, 'reassign'])->whereUuid('order')->middleware('permission:drivers.reassign')->name('orders.reassign-driver');
+    Route::get('/delivery-progress-alerts', [DeliveryExceptionController::class, 'alerts'])->middleware(['permission:delivery_exceptions.view', 'permission:orders.view', 'throttle:120,1'])->name('delivery-progress-alerts.index');
     Route::get('/delivery-exceptions', [DeliveryExceptionController::class, 'index'])->middleware(['permission:delivery_exceptions.view', 'permission:orders.view'])->name('delivery-exceptions.index');
     Route::post('/orders/{order}/delivery-exception', [DeliveryExceptionController::class, 'manage'])->whereUuid('order')->middleware(['permission:orders.view', 'throttle:30,1'])->name('delivery-exceptions.manage');
 });
@@ -129,6 +134,19 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
     Route::post('/orders/track', [OrderTrackingController::class, 'guest'])
         ->middleware('throttle:order-tracking')->name('orders.track');
     Route::middleware('auth:sanctum')->group(function (): void {
+        Route::prefix('customer/push')->middleware('throttle:60,1')->group(function (): void {
+            $controller = CustomerPushController::class;
+            Route::get('/', [$controller, 'index'])->name('customer.push.index');
+            Route::post('/subscriptions', [$controller, 'store'])->name('customer.push.store');
+            Route::delete('/subscriptions/{subscription}', [$controller, 'destroy'])->whereUuid('subscription')->name('customer.push.destroy');
+        });
+        Route::prefix('customer/notifications')->middleware('throttle:120,1')->group(function (): void {
+            $controller = CustomerNotificationController::class;
+            Route::get('/', [$controller, 'index'])->name('customer.notifications.index');
+            Route::get('/unread-count', [$controller, 'unreadCount'])->name('customer.notifications.unread-count');
+            Route::get('/{notification}', [$controller, 'show'])->whereUuid('notification')->name('customer.notifications.show');
+            Route::patch('/{notification}/read', [$controller, 'read'])->whereUuid('notification')->name('customer.notifications.read');
+        });
         Route::get('/orders/{order}/tracking', [OrderTrackingController::class, 'show'])
             ->whereUuid('order')->name('orders.tracking');
         Route::get('/orders/{order}/payments', [OrderPaymentController::class, 'index'])->whereUuid('order')->name('orders.payments.index');

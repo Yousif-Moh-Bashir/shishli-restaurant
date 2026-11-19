@@ -128,7 +128,7 @@ class StaffPushDiagnostics
         $subscription->setRelation('user', $user);
         $subscription->setRelation('accessToken', $token);
 
-        return app(StaffOrderNotifications::class)->subscriptionEligible($subscription) ? $record : null;
+        return app(StaffOrderNotifications::class)->sessionSubscriptionEligible($subscription) ? $record : null;
     }
 
     /** @return array<string,mixed>|null */

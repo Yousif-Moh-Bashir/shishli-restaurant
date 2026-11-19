@@ -10,19 +10,56 @@ use App\Enums\PaymentStatus;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\Drivers\DriverOrderService;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class TransitionDeliveryAction
 {
     public function __construct(private DriverOrderService $orders, private TransitionOrderStatusAction $transition) {}
 
-    public function handle(User $driver, Order $order, DeliveryStatus $target, ?string $reason): Order
+    public function start(User $driver, Order $order, array $data): Order
     {
-        return DB::transaction(function () use ($driver, $order, $target, $reason): Order {
+        Validator::make($data, ['operation_key' => ['required', 'uuid'], 'expected_revision' => ['required', 'integer', 'min:0'],
+            'picked_up_and_departing' => ['required', 'accepted']])->validate();
+
+        try {
+            return DB::transaction(function () use ($driver, $order, $data): Order {
+                $driver = User::whereKey($driver->id)->lockForUpdate()->firstOrFail();
+                $locked = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
+                $this->orders->owned($driver, $locked);
+                $fingerprint = hash('sha256', json_encode([$locked->id, $driver->id, 'start_delivery', (int) $data['expected_revision']], JSON_THROW_ON_ERROR));
+                $previous = DB::table('delivery_operations')->where('operation_key', $data['operation_key'])->lockForUpdate()->first();
+                if ($previous !== null) {
+                    abort_unless(hash_equals($previous->fingerprint, $fingerprint), 409);
+
+                    return $locked;
+                }
+                abort_unless($locked->type->value === 'delivery' && $locked->status === OrderStatus::Ready
+                    && $locked->delivery_task_closed_at === null
+                    && in_array($locked->delivery_status, [DeliveryStatus::Assigned, DeliveryStatus::PickedUp], true)
+                    && $locked->delivery_revision === (int) $data['expected_revision'], 409, 'تغيرت المهمة. حدّث الطلب قبل بدء التوصيل.');
+                DB::table('delivery_operations')->insert(['order_id' => $locked->id, 'actor_id' => $driver->id,
+                    'operation_key' => $data['operation_key'], 'fingerprint' => $fingerprint, 'action' => 'start_delivery', 'created_at' => now()]);
+                if ($locked->delivery_status === DeliveryStatus::Assigned) {
+                    $locked = $this->handle($driver, $locked, DeliveryStatus::PickedUp, 'أقر المندوب باستلام الطلب والانطلاق الآن.');
+                }
+
+                return $this->handle($driver, $locked, DeliveryStatus::OnTheWay, 'بدأ المندوب التوصيل فعليًا.');
+            }, 3);
+        } catch (UniqueConstraintViolationException) {
+            abort(409, 'مفتاح العملية مستخدم بالفعل. حدّث الطلب للتحقق من النتيجة.');
+        }
+    }
+
+    public function handle(User $driver, Order $order, DeliveryStatus $target, ?string $reason, ?int $expectedRevision = null): Order
+    {
+        return DB::transaction(function () use ($driver, $order, $target, $reason, $expectedRevision): Order {
             $driver = User::whereKey($driver->id)->lockForUpdate()->firstOrFail();
             $locked = Order::whereKey($order->id)->lockForUpdate()->firstOrFail();
             $this->orders->owned($driver, $locked);
+            abort_if($expectedRevision !== null && $locked->delivery_revision !== $expectedRevision, 409, 'تغيرت المهمة. حدّث الطلب قبل المتابعة.');
             abort_if($locked->delivery_task_closed_at !== null, 409);
             abort_if(in_array($locked->status, [OrderStatus::Cancelled, OrderStatus::Completed], true), 409);
             $from = $locked->delivery_status;

@@ -1,5 +1,7 @@
 <script setup>
-import { ref, computed, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onBeforeUnmount } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useAuthStore } from '../../stores/auth'
 import { deliveryExceptionsApi } from '../../api/deliveryExceptions.api'
 import { useOrderPolling } from '../../composables/useOrderPolling'
 import { normalizeApiError } from '../../utils/apiError'
@@ -9,11 +11,15 @@ import ApiPagination from '../../components/admin/catalog/ApiPagination.vue'
 import DeliveryExceptionActions from '../../components/orders/DeliveryExceptionActions.vue'
 import CashCollection from '../../components/payments/CashCollection.vue'
 
-const page = ref(1), busy = ref(false)
-const state = useOrderPolling(signal => deliveryExceptionsApi.list({ page: page.value, per_page: 20 }, signal), { paused: () => busy.value, normalizeError: normalizeApiError })
+const page = ref(1), busy = ref(false), route = useRoute(), router = useRouter(), auth = useAuthStore()
+const attention = computed(() => ['stalled','escalated'].includes(route.query.attention) ? route.query.attention : 'all')
+const allowed = computed(() => auth.can('orders.view') && auth.can('delivery_exceptions.view'))
+const state = useOrderPolling(signal => deliveryExceptionsApi.list({ page: page.value, per_page: 20, attention: attention.value }, signal), { enabled: () => allowed.value, paused: () => busy.value, normalizeError: normalizeApiError })
 const orders = computed(() => state.data.value?.data || [])
 const interventionCount = computed(() => orders.value.filter(order => order.delivery_exception?.requested_at).length)
-const reload = () => state.load(true, true)
+const reload = () => allowed.value ? state.load(true, true) : null
+watch([attention, () => auth.token, allowed], () => { page.value = 1; state.reset(); if (allowed.value) void reload() }, { immediate: true })
+function filterAttention(event) { void router.replace({ query: { ...route.query, attention: event.target.value } }) }
 function changePage(value) { page.value = value; void reload() }
 onBeforeUnmount(() => { busy.value = false })
 </script>
@@ -42,10 +48,18 @@ onBeforeUnmount(() => { busy.value = false })
       </div>
       <div class="overview-note">
         <span class="overview-note-mark" aria-hidden="true">i</span>
-        <p>تظهر الحالات من جميع الأيام، بما فيها التعذر والإرجاع والمهام المسندة منذ أكثر من ساعتين. لا تُغلق أي مهمة تلقائيًا بسبب عمرها.</p>
+        <p>تظهر الحالات من جميع الأيام، بما فيها التعذر والإرجاع والمهام التي لم تتقدم خلال المدة المضبوطة لكل مرحلة. لا تُغلق أي مهمة تلقائيًا بسبب عمرها.</p>
       </div>
     </section>
 
+    <label class="attention-filter">متابعة التوصيل
+      <select :value="attention" :disabled="busy" @change="filterAttention">
+        <option value="all">جميع الحالات التي تحتاج متابعة</option>
+        <option value="stalled">طلبات تجاوزت مدة التذكير</option>
+        <option value="escalated">طلبات تجاوزت مدة التصعيد</option>
+      </select>
+    </label>
+    <p v-if="state.error.value && orders.length" class="list-feedback" role="status">هذه آخر بيانات مؤكدة؛ تُراجع الحالة عند عودة الاتصال.</p>
     <p v-if="state.loading.value" class="list-feedback" role="status">جارٍ تحميل حالات التوصيل…</p>
     <p v-if="state.error.value" class="list-feedback list-feedback--error" role="alert">{{ state.error.value.message }}</p>
 
@@ -66,6 +80,7 @@ onBeforeUnmount(() => { busy.value = false })
           <div class="fact-item"><span class="fact-icon" aria-hidden="true">▣</span><div><small>إجمالي الطلب</small><strong>{{ formatCurrency(order.pricing.total) }}</strong></div></div>
         </div>
 
+        <p v-if="order.delivery?.progress_reminder?.stalled" class="list-feedback list-feedback--error" role="status">{{ order.delivery.progress_reminder.escalated ? 'تنبيه للمشرف: ' : 'تذكير للمندوب: ' }}{{ order.delivery.progress_reminder.message }} آخر تقدم: {{ formatDateTime(order.delivery.progress_reminder.last_progress_at) }} · {{ order.delivery.progress_reminder.elapsed_minutes }} دقيقة دون تقدم</p>
         <div class="payment-strip">
           <span class="payment-label">طريقة الدفع</span>
           <strong>{{ { cash: 'نقدي', network: 'الشبكة', card: 'إلكتروني' }[order.payment?.method] || 'غير محدد' }}</strong>
@@ -102,6 +117,7 @@ onBeforeUnmount(() => { busy.value = false })
 </template>
 
 <style scoped>
+.attention-filter{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px;font-size:13px}.attention-filter select{min-height:44px;max-width:100%;padding:8px 12px;border:1px solid #eadfd8;border-radius:8px;background:white;font:inherit}
 .delivery-exceptions-page{--exception-ink:#42151f;--exception-muted:#806c70;--exception-line:#eadfd8;--exception-cream:#fbf6f0;min-width:0;color:var(--exception-ink)}
 .exceptions-hero{position:relative;display:flex;align-items:center;justify-content:space-between;gap:20px;overflow:hidden;padding:27px 30px;margin-bottom:20px;border:1px solid #eadbd0;border-radius:16px;background:radial-gradient(ellipse at 5% 10%,#fff9 0 2%,transparent 45%),linear-gradient(120deg,#f8eee5,#fffaf4 65%,#f4e8de)}
 .exceptions-hero:after{content:"";position:absolute;inset-inline-end:-32px;bottom:-78px;width:220px;height:220px;border:1px solid #a77b4630;border-radius:50%;box-shadow:0 0 0 18px #a77b4608,0 0 0 38px #a77b4608;pointer-events:none}

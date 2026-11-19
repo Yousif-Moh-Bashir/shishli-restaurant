@@ -3,6 +3,7 @@ import { staffNotificationsApi } from '../api/staffNotifications.api'
 import { useOrderPolling } from './useOrderPolling'
 import { useNewOrderSound } from './useNewOrderSound'
 import { PendingOrderAlerts, claimOrderReminder } from '../utils/pendingOrderAlerts'
+import { restoreStaffPushSubscription } from '../utils/staffPushSession'
 
 export function useStaffNotifications(auth) {
   const allowed = () => auth.isAuthenticated && auth.can('orders.view')
@@ -107,7 +108,7 @@ export function useStaffNotifications(auth) {
       if (!subscription || disposed || current !== revision) return
       registration = reg
       if (diagnostic.value) diagnosticSubscription = await staffNotificationsApi.subscribeDiagnostic(subscription.toJSON())
-      else await staffNotificationsApi.subscribe(subscription.toJSON())
+      else await restoreStaffPushSubscription(subscription, data => staffNotificationsApi.subscribe(data), () => current === revision && !disposed)
       if (current === revision && !disposed) pushEnabled.value = true
     } catch {
       pushEnabled.value = false

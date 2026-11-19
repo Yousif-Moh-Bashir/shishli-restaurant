@@ -2,6 +2,7 @@
 import { ref, onMounted, onBeforeUnmount, inject } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import SiteIcon from './SiteIcon.vue'
+import CustomerNotificationBell from './CustomerNotificationBell.vue'
 import { useCartStore } from '../../stores/cart'
 import { useRestaurantInfo } from '../../composables/useRestaurantInfo'
 const restaurant=useRestaurantInfo()
@@ -31,6 +32,7 @@ onBeforeUnmount(() => {desktop?.removeEventListener('change',closeMenu); window.
         <RouterLink to="/#home" :class="{ active: route.name === 'home' }" :aria-current="route.name === 'home' ? 'page' : undefined">الرئيسية</RouterLink><RouterLink to="/#about">من نحن</RouterLink><RouterLink to="/menu" :class="{ active: route.name === 'menu' }" :aria-current="route.name === 'menu' ? 'page' : undefined">المنيو</RouterLink><RouterLink to="/orders" :class="{active: ['customer-orders','account.orders','account.order','track-order','track-order.detail'].includes(route.name)}">طلباتي</RouterLink><RouterLink to="/#gallery">معرض الصور</RouterLink><RouterLink to="/branches" :class="{ active: route.name === 'branches' }" :aria-current="route.name === 'branches' ? 'page' : undefined">فروعنا</RouterLink><RouterLink to="/#contact">تواصل معنا</RouterLink>
       <RouterLink v-if="auth.isAuthenticated" class="mobile-account-link" to="/account/profile">حسابي</RouterLink><RouterLink v-if="auth.isAuthenticated" class="mobile-account-link" to="/account/addresses">عناويني</RouterLink><RouterLink v-if="!auth.isAuthenticated" class="mobile-account-link" to="/login">تسجيل الدخول</RouterLink><button v-else class="mobile-account-link" type="button" :disabled="auth.isLoading" @click="logout">{{ auth.user.name }} · خروج</button></nav>
       <div class="header-actions">
+        <CustomerNotificationBell v-if="auth.isAuthenticated"/>
         <RouterLink v-if="!['home', 'menu'].includes(route.name)" class="icon-button desktop-action" to="/menu" aria-label="البحث في الأطباق"><SiteIcon name="search" /></RouterLink>
         <button v-else class="icon-button desktop-action" type="button" data-search-open ref="searchButton" @click="emit('search')" aria-label="البحث في الأطباق"><SiteIcon name="search" /></button>
         <button class="icon-button cart-toggle" type="button" @click="openCart" :aria-label="`فتح السلة، ${cartStore.itemsCount} منتجات`"><SiteIcon name="shopping-bag" /><span class="cart-count" id="cart-count">{{ cartStore.itemsCount }}</span></button>

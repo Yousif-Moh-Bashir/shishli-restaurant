@@ -47,6 +47,7 @@ class RolePermissionSeeder extends Seeder
                 'branches.delete',
                 'branches.products.manage',
                 'orders.view',
+                'printing.view', 'printing.reprint', 'printing.manage_agents',
                 'orders.create',
                 'orders.update_status',
                 'orders.cancel',

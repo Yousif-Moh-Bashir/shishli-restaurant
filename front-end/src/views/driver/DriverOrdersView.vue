@@ -8,6 +8,13 @@ import { preparationLabels, deliveryLabels, driverTime, driverError, isDriverOrd
 import { formatCurrency } from '../../utils/formatters'
 const router = useRouter(), auth = useAuthStore(), scope = ref('available'), page = ref(1), busy = ref(false), error = ref(null)
 const list = useOrderPolling(signal => driversApi.orders({ scope: scope.value, page: page.value, period: 'current' }, signal), { paused: () => busy.value, normalizeError: driverError })
+let restored = false
+watch(list.data, value => {
+  if (!value || restored) return
+  restored = true
+  const current = value.driver_context?.active_order
+  if (current?.id && /^[0-9a-f-]{36}$/i.test(current.id)) void router.replace('/driver/orders/' + current.id)
+})
 watch([scope, page, () => auth.driverProfile?.available], () => { list.reset(); void list.load() })
 async function accept(order) {
   if (busy.value) return

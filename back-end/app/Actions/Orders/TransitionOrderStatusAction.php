@@ -13,6 +13,7 @@ use App\Events\OrderStatusChanged;
 use App\Exceptions\PaymentException;
 use App\Models\Order;
 use App\Models\User;
+use App\Services\Notifications\CustomerOrderNotifications;
 use App\Services\OrderOperationAuthorization;
 use App\Services\OrderStateMachine;
 use App\Services\Payments\OrderPaymentPolicy;
@@ -79,10 +80,11 @@ class TransitionOrderStatusAction
                 }
                 $locked = $this->syncPayments->handle($locked);
             }
-            $locked->statusHistory()->create([
+            $history = $locked->statusHistory()->create([
                 'from_status' => $from, 'to_status' => $target, 'changed_by' => $actor?->id,
                 'source' => $source, 'note' => $note, 'metadata' => null,
             ]);
+            app(CustomerOrderNotifications::class)->stage($locked, $history);
             OrderStatusChanged::dispatch($locked, $from, $target, $actor?->id, $source);
 
             return $locked->load(['branch', 'items.options', 'address']);

@@ -36,7 +36,7 @@ class StaffNotificationSender
         if ($delivery->channel !== 'push') {
             return ['status' => 'failed', 'error_code' => 'unknown_channel'];
         }
-        $subscription = StaffPushSubscription::with(['user', 'accessToken'])->where('uuid', $delivery->destination)->first();
+        $subscription = StaffPushSubscription::with('user')->where('uuid', $delivery->destination)->first();
         if ($subscription === null || ! $notifications->subscriptionEligible($subscription)) {
             return ['status' => 'cancelled', 'error_code' => 'recipient_revoked'];
         }
