@@ -1,0 +1,81 @@
+.site-layout .site-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: var(--primary-dark);
+  pointer-events: none;
+}
+
+.site-splash img {
+  display: block;
+  width: clamp(132px, 32vw, 220px);
+  height: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-splash img {
+    animation: site-reveal 240ms ease-out;
+  }
+
+  .site-splash-leave-active {
+    transition: opacity 180ms ease-out;
+  }
+
+  .site-splash-leave-to {
+    opacity: 0;
+  }
+
+  .site-layout .site-page-enter-active,
+  .site-layout .cart-dialog[open],
+  .site-layout .cart-dialog[open]::backdrop {
+    animation: site-fade 160ms ease-out;
+  }
+
+  .site-layout .site-revealed {
+    animation: site-reveal 300ms ease-out;
+  }
+
+  .site-layout .category-filters button {
+    transition: background-color 150ms, border-color 150ms, color 150ms, scale 120ms;
+  }
+
+  .site-layout :is(.button, .add-button, .cart-toggle, .quantity-controls button) {
+    transition: background-color 150ms, color 150ms, box-shadow 150ms, scale 120ms;
+  }
+
+  .site-layout :is(.button, .add-button, .cart-toggle, .quantity-controls button, .category-filters button):active:not(:disabled) {
+    scale: 0.98;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .site-layout .product-photo img {
+    transition: scale 220ms ease-out;
+  }
+
+  .site-layout .product-image-link:hover img {
+    scale: 1.035;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-layout .site-splash {
+    display: none;
+  }
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .site-layout .product-card:hover {
+    transform: none;
+  }
+}
+
+@keyframes site-fade {
+  from { opacity: 0.75; }
+}
+
+@keyframes site-reveal {
+  from { opacity: 0.82; translate: 0 6px; }
+}

@@ -1,3 +1,7 @@
+<script>
+let splashShown = false
+</script>
+
 <script setup>
 import { ref, provide, watch, onMounted, onBeforeUnmount } from 'vue'
 import { RouterView, useRoute, useRouter } from 'vue-router'
@@ -15,11 +19,39 @@ import CartSummary from '../components/site/CartSummary.vue'
 import { useCartStore } from '../stores/cart'
 import { useRestaurantInfo } from '../composables/useRestaurantInfo'
 import { useCartClickSound } from '../composables/useCartClickSound'
+import logo from '../assets/images/logo/shishli-logo.webp'
+import '../assets/css/site-motion.css'
 const cartSound = useCartClickSound()
 const restaurant=useRestaurantInfo()
 
 const route = useRoute()
 const router = useRouter()
+const showSplash = ref(false)
+let splashTimer
+
+function dismissSplash() {
+  showSplash.value = false
+  clearTimeout(splashTimer)
+  window.removeEventListener('pointerdown', dismissSplash)
+  window.removeEventListener('keydown', dismissSplash)
+}
+
+onMounted(() => {
+  if (splashShown) return
+  splashShown = true
+  try {
+    if (sessionStorage.getItem('shishli.splash-seen')) return
+    sessionStorage.setItem('shishli.splash-seen', '1')
+  } catch {
+    // The layout can still use the in-memory flag when storage is unavailable.
+  }
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  showSplash.value = true
+  splashTimer = setTimeout(dismissSplash, 480)
+  window.addEventListener('pointerdown', dismissSplash, { once: true })
+  window.addEventListener('keydown', dismissSplash, { once: true })
+})
+onBeforeUnmount(dismissSplash)
 const campaign = useRegistrationOfferStore(), auth = useAuthStore(), branch = useBranchStore()
 watch([() => branch.selectedUuid, () => auth.token, () => route.fullPath], () => {
   if (!auth.token) void campaign.load(branch.selectedUuid)
@@ -106,9 +138,18 @@ onBeforeUnmount(() => {
 <SiteHeader ref="header" @search="requestSearch" />
 <OrderingPauseNotice />
 <RegistrationOffer v-show="route.name!=='register'" placement="bar"/>
-<RouterView :key="route.meta.cmsKey" />
+<RouterView v-slot="{ Component }">
+  <Transition name="site-page">
+    <component :is="Component" :key="route.meta.cmsKey" />
+  </Transition>
+</RouterView>
 <SiteFooter/>
 <RegistrationOfferPopup/>
+  <Transition name="site-splash">
+    <div v-if="showSplash" class="site-splash" aria-hidden="true">
+      <img :src="logo" alt="" fetchpriority="high">
+    </div>
+  </Transition>
   <dialog class="cart-dialog" id="cart-dialog" ref="cartDialog" @close="dialogClosed" @click="backdropClose" aria-labelledby="cart-title"><div class="dialog-heading"><div><span class="section-kicker">طعمك المفضل، في مكان واحد</span><h2 id="cart-title">سلة طلباتك</h2></div><button class="icon-button" type="button" ref="cartCloseButton" @click="closeDialog" aria-label="إغلاق السلة"><SiteIcon name="x" /></button></div><p class="demo-note">سلتك محفوظة لدى المطعم. تُراجع حالة الفرع والأسعار عند تأكيد الطلب.</p><CartItems @empty-focus="cartCloseButton?.focus()" /><CartSummary @continue="continueToMenu" /></dialog>
   <div class="toast cart-feedback-toast" id="toast" :class="[toastKind,{ visible: toastVisible, quick: toastQuick }]" :inert="!toastVisible" @mouseenter="pauseToast" @mouseleave="resumeToast" @focusin="pauseToast" @focusout="resumeToast"><SiteIcon :name="toastKind==='success'?'badge-check':toastKind==='error'?'x':'shopping-bag'"/><p role="status" :aria-live="toastKind==='error'?'assertive':'polite'" aria-atomic="true">{{ toastMessage }}</p><button v-if="!toastQuick" class="toast-close" type="button" aria-label="إغلاق الإشعار" @click="dismissToast"><SiteIcon name="x"/></button></div>
 </div>

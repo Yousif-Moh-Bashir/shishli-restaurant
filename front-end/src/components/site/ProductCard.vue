@@ -4,6 +4,7 @@ import { RouterLink, useRouter } from 'vue-router'
 import SiteIcon from './SiteIcon.vue'
 import { useCartStore } from '../../stores/cart'
 import { useCartFeedback } from '../../composables/useCartFeedback'
+import { vSiteReveal } from '../../directives/siteReveal'
 
 defineProps({ product: { type: Object, required: true } })
 const { notifyCartResult } = inject('site')
@@ -19,7 +20,7 @@ async function addProduct(product) {
 </script>
 
 <template>
-  <article class="product-card">
+  <article v-site-reveal class="product-card">
     <RouterLink class="product-image-link" :to="{ name: 'product', params: { slug: product.id } }" :aria-label="`تفاصيل ${product.name}`"><div class="product-photo api-product-photo" role="img" :aria-label="product.name"><img v-if="product.image" :src="product.image" alt="" loading="lazy"><span v-else class="api-no-image">لا توجد صورة للمنتج</span><span v-if="product.is_featured" class="product-tag">مميز</span></div></RouterLink>
     <div class="product-content">
       <h3><RouterLink :to="{ name: 'product', params: { slug: product.id } }">{{ product.name }}</RouterLink></h3>

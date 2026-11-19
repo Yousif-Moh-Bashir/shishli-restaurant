@@ -20,11 +20,13 @@ class MenuController extends Controller
     {
         $filters = $request->validated();
         $branch = $menu->branch($filters['branch']);
+        $products = $menu->products($branch, $filters);
 
         return ApiResponse::success(data: [
             'branch' => new BranchResource($branch),
             'availability' => new BranchAvailabilityResource(app(BranchAvailabilityService::class)->evaluate($branch)),
-            'categories' => MenuCategoryResource::collection($menu->categories($branch, $filters)),
+            'categories' => MenuCategoryResource::collection($menu->groupCategories($products)),
+            'product_order' => $products->pluck('product.uuid'),
         ]);
     }
 

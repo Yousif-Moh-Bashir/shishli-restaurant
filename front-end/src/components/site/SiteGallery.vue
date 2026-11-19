@@ -1,4 +1,5 @@
 <script setup>
+import { vSiteReveal } from '../../directives/siteReveal'
 import { computed, ref, watch, nextTick, useId, onMounted, onBeforeUnmount } from 'vue'
 import SiteIcon from './SiteIcon.vue'
 import { safeContentUrl } from '../../utils/contentUrl'
@@ -59,7 +60,7 @@ onBeforeUnmount(()=>{clearInterval(autoTimer);observer?.disconnect()})
 <template>
   <div ref="galleryRoot" class="site-gallery" :class="{ 'site-gallery-carousel': carousel }" @pointerenter="event=>hovering=event.pointerType==='mouse'" @pointerleave="hovering=false" @focusin="focusWithin=true" @focusout="event=>focusWithin=galleryRoot?.contains(event.relatedTarget)||false">
     <div ref="track" :class="carousel ? 'gallery-banner-photos' : 'site-gallery-grid'" :tabindex="carousel ? 0 : undefined" :role="carousel ? 'region' : undefined" aria-label="صور شيشلي فرش" @scroll.passive="updatePosition" @keydown="keys">
-      <figure v-for="(item,index) in photos" :key="item.id || item.photo || index" class="gallery-banner-item">
+      <figure v-site-reveal v-for="(item,index) in photos" :key="item.id || item.photo || index" class="gallery-banner-item">
         <button class="gallery-photo-button" type="button" :aria-label="'تكبير الصورة: ' + (item.title || 'من أطباق شيشلي فرش')" @click="open(index)">
           <div v-if="item.photo" class="product-photo" :class="'photo-' + item.photo" role="img" :aria-label="item.alt_text || 'من أطباق شيشلي فرش'"/>
           <img v-else class="cms-gallery-photo" :src="safeContentUrl(item.image_url)" :alt="item.alt_text || item.title || ''" loading="lazy" decoding="async">

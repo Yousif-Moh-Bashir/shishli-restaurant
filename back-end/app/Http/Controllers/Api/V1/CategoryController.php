@@ -16,9 +16,9 @@ class CategoryController extends Controller
     public function index(): JsonResponse
     {
         $categories = Category::active()->whereNull('parent_id')
-            ->with(['children' => fn (HasMany $query): HasMany => $query->active()->orderBy('sort_order')->orderBy('name')->orderBy('id')])
+            ->with(['children' => fn (HasMany $query): HasMany => $query->active()->orderBy('sort_order')->orderBy('id')])
             ->withCount(['products' => fn (Builder $query): Builder => $query->where('is_active', true)])
-            ->orderBy('sort_order')->orderBy('name')->orderBy('id')->get();
+            ->orderBy('sort_order')->orderBy('id')->get();
 
         return ApiResponse::success(data: CategoryResource::collection($categories));
     }
@@ -28,7 +28,7 @@ class CategoryController extends Controller
         abort_unless($category->is_active, 404);
         $category->load([
             'parent' => fn (BelongsTo $query): BelongsTo => $query->active(),
-            'children' => fn (HasMany $query): HasMany => $query->active()->orderBy('sort_order')->orderBy('name')->orderBy('id'),
+            'children' => fn (HasMany $query): HasMany => $query->active()->orderBy('sort_order')->orderBy('id'),
         ]);
 
         return ApiResponse::success(data: new CategoryResource($category));

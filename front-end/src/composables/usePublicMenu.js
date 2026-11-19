@@ -15,9 +15,19 @@ export function usePublicMenu({categoriesEnabled=true,shouldLoad=()=>true}={}){
   watch(()=>branch.selectedUuid,()=>{category.value=''})
   watch([()=>branch.selectedBranch,query,category,featured,available],(values,previous)=>{
     state.clear();clearTimeout(timer)
-    if(ready)timer=setTimeout(load,values[0]!==previous[0]?0:300)
+    if (ready) timer = setTimeout(load, values[1] !== previous[1] ? 300 : 0)
   })
-  const products=computed(()=>state.data.value?.categories.flatMap(group=>group.products.map(product=>menuProduct(product,branch.selectedUuid)))||[])
+  const products = computed(() => {
+    const data = state.data.value
+    if (!data) return []
+
+    const groupedProducts = data.categories.flatMap(group => group.products)
+    const byId = new Map(groupedProducts.map(product => [product.id, product]))
+    const orderedProducts = data.product_order
+      ? data.product_order.map(id => byId.get(id))
+      : groupedProducts
+    return orderedProducts.map(product => menuProduct(product, branch.selectedUuid))
+  })
   branch.load().then(()=>{if(disposed)return;ready=true;clearTimeout(timer);load()});if(categoriesEnabled)loadCategories()
   onBeforeUnmount(()=>{disposed=true;clearTimeout(timer)})
   return {branch,state,query,category,featured,available,categories,categoriesError,categoriesLoading,products,load,loadCategories}

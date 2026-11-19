@@ -1,4 +1,5 @@
-﻿<script setup>
+<script setup>
+import { vSiteReveal } from '../../directives/siteReveal'
 import AppSkeleton from "../../components/common/AppSkeleton.vue"
 import {computed,inject,ref,watch,nextTick} from 'vue'
 import {RouterLink} from 'vue-router'
@@ -15,7 +16,7 @@ function resetFilters(){menu.query.value='';menu.category.value='';menu.availabl
 watch(searchRequest,async()=>{await nextTick();catalogElement.value?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});searchInput.value?.focus({preventScroll:true})})
 </script>
 <template><main id="main" class="site-menu">
-<section class="menu-intro"><div class="container"><RouterLink class="menu-breadcrumb" to="/">الرئيسية / المنيو</RouterLink><span class="section-kicker">طازج من شوايتنا</span><h1>اختر وجبتك… على ذوقك</h1><p>دجاج تركي، شيش ومشويات على الفحم. أضف أطباقك المفضلة وراجع طلبك في السلة.</p></div></section>
+<section v-site-reveal class="menu-intro"><div class="container"><RouterLink class="menu-breadcrumb" to="/">الرئيسية / المنيو</RouterLink><span class="section-kicker">طازج من شوايتنا</span><h1>اختر وجبتك… على ذوقك</h1><p>دجاج تركي، شيش ومشويات على الفحم. أضف أطباقك المفضلة وراجع طلبك في السلة.</p></div></section>
 <section id="popular" ref="catalogElement" class="container section-space menu-catalog" aria-labelledby="catalog-title">
 <div class="section-heading"><div><span class="section-kicker">أطباقك المفضلة، على ذوقك</span><h2 id="catalog-title">منيو شيشلي فرش</h2></div><button class="button button-primary menu-cart-button" type="button" @click="openCart"><SiteIcon name="shopping-bag"/> مراجعة الطلب <span v-if="cart.itemsCount" class="menu-cart-count">{{ cart.itemsCount }}</span></button></div>
 <div class="menu-browse-panel">

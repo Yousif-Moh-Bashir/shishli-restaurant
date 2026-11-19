@@ -31,6 +31,12 @@ class MenuService
     /** @return Collection<int, Category> */
     public function categories(Branch $branch, array $filters): Collection
     {
+        return $this->groupCategories($this->products($branch, $filters));
+    }
+
+    /** @return Collection<int, BranchProduct> */
+    public function products(Branch $branch, array $filters): Collection
+    {
         $query = $this->query($branch)
             ->whereHas('product', fn (Builder $query): Builder => $this->filters->handle(
                 $query, array_filter(Arr::only($filters, ['category', 'search', 'featured']), fn (mixed $value): bool => $value !== null)
@@ -41,15 +47,22 @@ class MenuService
             $assignments = $assignments->filter(fn (BranchProduct $assignment): bool => $this->availability->isAvailable($assignment->product, $branch, $assignment) === (bool) $filters['available']);
         }
 
-        return $assignments->groupBy(fn (BranchProduct $assignment): int => $assignment->product->category_id)
+        return $assignments->sortBy([['product.sort_order', 'asc'], ['product.id', 'asc']])->values();
+    }
+
+    /**
+     * @param  Collection<int, BranchProduct>  $products
+     * @return Collection<int, Category>
+     */
+    public function groupCategories(Collection $products): Collection
+    {
+        return $products->groupBy(fn (BranchProduct $assignment): int => $assignment->product->category_id)
             ->map(function (Collection $items): Category {
                 $category = clone $items->first()->product->category;
-                $category->setRelation('menuProducts', $items->sortBy([
-                    ['product.sort_order', 'asc'], ['product.name', 'asc'], ['product.id', 'asc'],
-                ])->values());
+                $category->setRelation('menuProducts', $items);
 
                 return $category;
-            })->sortBy([['sort_order', 'asc'], ['name', 'asc'], ['id', 'asc']])->values();
+            })->sortBy([['sort_order', 'asc'], ['id', 'asc']])->values();
     }
 
     public function product(Branch $branch, Product $product): BranchProduct

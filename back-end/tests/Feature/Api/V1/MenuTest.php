@@ -9,7 +9,9 @@ use App\Models\OptionGroup;
 use App\Models\OptionValue;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\User;
 use App\Services\RestaurantSettingsService;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -75,22 +77,39 @@ class MenuTest extends TestCase
             ->assertJsonMissingPath('data.categories.0.products.0.option_groups');
     }
 
-    public function test_categories_and_products_sort_by_order_then_name(): void
+    public function test_menu_follows_saved_admin_sort_order_across_categories_and_breaks_ties_by_id(): void
     {
         $branch = Branch::factory()->create();
         $lastCategory = Category::factory()->create(['sort_order' => 2, 'name' => 'A']);
+        $firstCategory = Category::factory()->create(['sort_order' => 1, 'name' => 'Z']);
         $secondCategory = Category::factory()->create(['sort_order' => 1, 'name' => 'B']);
-        $firstCategory = Category::factory()->create(['sort_order' => 1, 'name' => 'A']);
-        foreach ([$lastCategory, $secondCategory] as $category) {
-            $branch->products()->attach(Product::factory()->for($category)->create());
-        }
-        $last = Product::factory()->for($firstCategory)->create(['sort_order' => 2, 'name' => 'A']);
+        $other = Product::factory()->for($lastCategory)->create(['sort_order' => 0]);
+        $first = Product::factory()->for($firstCategory)->create(['sort_order' => 1, 'name' => 'Z']);
         $second = Product::factory()->for($firstCategory)->create(['sort_order' => 1, 'name' => 'B']);
-        $first = Product::factory()->for($firstCategory)->create(['sort_order' => 1, 'name' => 'A']);
-        $branch->products()->attach([$last->id, $second->id, $first->id]);
+        $last = Product::factory()->for($firstCategory)->create(['sort_order' => 2, 'name' => 'A']);
+        $extra = Product::factory()->for($secondCategory)->create(['sort_order' => 3]);
+        $branch->products()->attach([$last->id, $second->id, $first->id, $other->id, $extra->id]);
         $response = $this->getJson($this->menu($branch))->assertOk();
         $this->assertSame([$firstCategory->uuid, $secondCategory->uuid, $lastCategory->uuid], array_column($response->json('data.categories'), 'id'));
         $this->assertSame([$first->uuid, $second->uuid, $last->uuid], array_column($response->json('data.categories.0.products'), 'id'));
+        $response->assertJsonPath('data.product_order', [$other->uuid, $first->uuid, $second->uuid, $last->uuid, $extra->uuid]);
+        $this->getJson('/api/v1/categories')->assertOk()
+            ->assertJsonPath('data.0.id', $firstCategory->uuid)
+            ->assertJsonPath('data.1.id', $secondCategory->uuid);
+
+        $this->seed(RolePermissionSeeder::class);
+        $editor = User::factory()->create()->givePermissionTo(['products.update', 'categories.update']);
+        $this->withToken($editor->createToken('catalog')->plainTextToken)
+            ->patchJson('/api/v1/admin/products/'.$last->uuid, ['sort_order' => 0])
+            ->assertOk()->assertJsonPath('data.sort_order', 0);
+        $this->patchJson('/api/v1/admin/categories/'.$lastCategory->uuid, ['sort_order' => 0])
+            ->assertOk()->assertJsonPath('data.sort_order', 0);
+
+        $this->getJson($this->menu($branch))->assertOk()
+            ->assertJsonPath('data.categories.0.id', $lastCategory->uuid)
+            ->assertJsonPath('data.product_order', [$other->uuid, $last->uuid, $first->uuid, $second->uuid, $extra->uuid]);
+        $this->getJson($this->menu($branch).'&category='.$firstCategory->uuid)->assertOk()
+            ->assertJsonPath('data.product_order', [$last->uuid, $first->uuid, $second->uuid]);
     }
 
     public function test_menu_price_is_branch_specific_and_primary_image_is_loaded(): void
