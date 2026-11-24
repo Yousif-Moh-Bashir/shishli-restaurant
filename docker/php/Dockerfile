@@ -9,7 +9,9 @@ RUN mkdir -p storage/app/public storage/framework/cache/data storage/framework/s
 COPY docker/php/php.ini /usr/local/etc/php/conf.d/shishli.ini
 COPY docker/php/pool.conf /usr/local/etc/php-fpm.d/zz-shishli.conf
 COPY docker/php/entrypoint.sh /usr/local/bin/shishli-entrypoint
-RUN chmod +x /usr/local/bin/shishli-entrypoint
+RUN php -r 'if (str_contains(file_get_contents($argv[1]), chr(13))) { fwrite(STDERR, "docker/php/entrypoint.sh must have LF line endings\n"); exit(1); }' /usr/local/bin/shishli-entrypoint \
+    && /bin/sh -n /usr/local/bin/shishli-entrypoint \
+    && chmod +x /usr/local/bin/shishli-entrypoint
 ENTRYPOINT ["shishli-entrypoint"]
 CMD ["php-fpm"]
 FROM base AS testing

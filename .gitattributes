@@ -1,0 +1,22 @@
+# Linux scripts and container build inputs must retain LF in Windows checkouts.
+.[gG]itattributes text eol=lf
+*.[sS][hH] text eol=lf
+*.[bB][aA][sS][hH] text eol=lf
+*.[dD][aA][sS][hH] text eol=lf
+*.[aA][sS][hH] text eol=lf
+*.[kK][sS][hH] text eol=lf
+*.[zZ][sS][hH] text eol=lf
+*.[bB][aA][tT][sS] text eol=lf
+Dockerfile text eol=lf
+Dockerfile.* text eol=lf
+*.Dockerfile text eol=lf
+*.Dockerfile.* text eol=lf
+*.dockerignore text eol=lf
+compose*.yaml text eol=lf
+compose*.yml text eol=lf
+docker-compose*.yaml text eol=lf
+docker-compose*.yml text eol=lf
+compose*.json text eol=lf
+docker-compose*.json text eol=lf
+docker/**/*.conf text eol=lf
+docker/**/*.ini text eol=lf
