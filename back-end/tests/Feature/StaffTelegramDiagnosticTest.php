@@ -26,6 +26,7 @@ class StaffTelegramDiagnosticTest extends TestCase
         ]);
         Http::preventStrayRequests();
         DB::shouldReceive('connection')->never();
+        DB::shouldReceive('getConnections')->andReturn([]);
     }
 
     public function test_readiness_does_not_send_or_access_the_queue_or_expose_secret(): void

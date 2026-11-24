@@ -15,4 +15,5 @@ CMD ["php-fpm"]
 FROM base AS testing
 RUN touch .env && composer install --no-interaction --prefer-dist --no-progress && chown -R www-data:www-data storage bootstrap/cache
 FROM base AS production
-RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader && chown -R www-data:www-data storage bootstrap/cache
+# Bound download concurrency and allow large archives on slower build links.
+RUN COMPOSER_MAX_PARALLEL_HTTP=3 php -d default_socket_timeout=1200 /usr/local/bin/composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader && chown -R www-data:www-data storage bootstrap/cache

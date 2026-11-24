@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\PageStatus;
 use App\Models\Page;
 use App\Models\Product;
+use App\Services\PublicPageContent;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -23,10 +24,13 @@ class SeoController extends Controller
                 echo '</url>';
             };
             echo '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-            foreach (['/', '/menu', '/branches', '/offers'] as $path) {
+            foreach (PublicPageContent::STATIC_PATHS as $path) {
                 $entry($path);
             }
-            foreach (Page::query()->whereIn('key', ['about', 'contact', 'gallery'])
+            foreach (PublicPageContent::categories()->cursor() as $category) {
+                $entry('/menu/category/'.$category->slug);
+            }
+            foreach (Page::query()->whereIn('key', PublicPageContent::CMS)
                 ->where('status', PageStatus::Published)
                 ->where(fn ($query) => $query->whereNull('published_at')->orWhere('published_at', '<=', now()))
                 ->orderBy('id')->cursor() as $page) {

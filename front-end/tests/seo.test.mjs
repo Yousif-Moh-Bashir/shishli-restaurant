@@ -55,8 +55,9 @@ test('JSON-LD prefers only loaded images, retains fallback on errors and ignores
 })
 
 test('initial HTML matches the exact homepage SEO, Open Graph and Twitter values', async () => {
-  assert.equal(homeSeo.title, 'مطعم شيشلي فرش | مشويات ودجاج تركي وكباب في تبوك')
-  assert.equal(homeSeo.description, 'استمتع بأشهى المشويات والدجاج التركي والكباب في مطعم شيشلي فرش بتبوك. تصفح قائمة الطعام واطلب وجبتك المفضلة مباشرة من موقعنا.')
+  assert.equal(homeSeo.title, 'مطعم مشويات في تبوك | شيشلي فرش')
+  assert.equal(homeSeo.heading, 'مطعم شيشلي فرش للمشويات والكباب في تبوك')
+  assert.match(homeSeo.description, /مطعم مشويات وكباب في تبوك/)
   const html = await readFile(new URL('../index.html', import.meta.url), 'utf8')
   assert.equal(html.match(/<title>(.*?)<\/title>/)[1], homeSeo.title)
   for (const [attribute, key, expected] of [
@@ -88,6 +89,11 @@ test('canonical URLs omit queries and fragments', () => {
   assert.equal(canonicalUrl('/product/uuid?cartItem=private#options'), 'https://shishlifresh.com/product/uuid')
   assert.equal(canonicalUrl('/'), 'https://shishlifresh.com/')
   assert.equal(canonicalUrl('//menu/'), 'https://shishlifresh.com/menu')
+})
+
+test('public page canonicals match sitemap paths for alternate path spelling', () => {
+  assert.equal(canonicalUrl(routeSeo({ name: 'menu', path: '/MENU/' }).path), siteUrl + '/menu')
+  assert.equal(canonicalUrl(routeSeo({ name: 'gallery', meta: { cmsKey: 'gallery' }, path: '/Gallery/' }).path), siteUrl + '/gallery')
 })
 test('public routes have distinct Arabic SEO and private routes are noindex', () => {
   const titles = new Set()
