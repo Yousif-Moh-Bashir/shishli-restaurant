@@ -330,7 +330,9 @@ class InternalDeliveryTest extends TestCase
         $this->assertNotNull($order->fresh()->delivery_delivered_at);
         $this->assertNotNull($order->fresh()->completed_at);
         $this->getJson($this->url($order))->assertOk()->assertJsonPath('data.available_actions', []);
-        $this->postJson('/api/v1/admin/orders/'.$order->uuid.'/complete')->assertConflict();
+        $complete = '/api/v1/admin/orders/'.$order->uuid.'/complete';
+        $this->postJson($complete)->assertForbidden();
+        $this->actingAs(User::factory()->create()->assignRole('cashier'))->postJson($complete)->assertConflict();
         $this->assertDatabaseCount('order_delivery_histories', 4);
     }
 
@@ -449,6 +451,8 @@ class InternalDeliveryTest extends TestCase
         $order->address->update(['latitude' => '28.4378538', 'longitude' => '36.5455267']);
         $this->actingAs($other)->postJson($this->url($order, '/cash/collect'), ['amount' => '85.00'])->assertNotFound();
         $this->postJson($this->url($order, '/transition'), ['status' => 'on_the_way'])->assertNotFound();
+        $this->actingAs($owner)->getJson($this->url($order))->assertOk()->assertJsonPath('data.address.location', null);
+        $this->postJson($this->url($order, '/transition'), ['status' => 'on_the_way'])->assertOk();
         $this->actingAs($owner)->getJson($this->url($order))->assertOk()->assertJsonPath('data.address.location.latitude', '28.4378538');
     }
 

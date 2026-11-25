@@ -33,7 +33,9 @@ class StaffTelegramDiagnosticTest extends TestCase
     {
         Queue::fake();
         $this->artisan('staff-notifications:test-telegram')
-            ->expectsOutput('Chat ID: -5486298549')
+            ->expectsOutput('Group Chat ID configured: yes')
+            ->doesntExpectOutputToContain('-5486298549')
+            ->doesntExpectOutputToContain('diagnostic-secret')
             ->expectsOutput('Secret available: yes')
             ->expectsOutput('Queue driver: redis')
             ->expectsOutput('Readiness only. No queue access, message, order, or migration was performed.')
