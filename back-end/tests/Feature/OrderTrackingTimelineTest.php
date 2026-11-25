@@ -29,13 +29,11 @@ class OrderTrackingTimelineTest extends TestCase
         }
         $response = $this->response($order)->assertJsonPath('data.progress.current_step', $step)
             ->assertJsonPath('data.progress.total_steps', $total)->assertJsonPath('data.progress.percentage', $percentage)
-            ->assertJsonPath('data.order.status.code', $status)->assertJsonCount($total, 'data.timeline');
-        $this->assertSame($flow, array_column($response->json('data.timeline'), 'status'));
+            ->assertJsonPath('data.order.status.code', $status)->assertJsonCount($step, 'data.timeline');
+        $this->assertSame(array_slice($flow, 0, $step), array_column($response->json('data.timeline'), 'status'));
         foreach ($response->json('data.timeline') as $index => $entry) {
-            if ($index + 1 > $step) {
-                $this->assertSame('upcoming', $entry['state']);
-                $this->assertNull($entry['occurred_at']);
-            } elseif ($index + 1 === $step && $status !== 'completed') {
+            $this->assertNotNull($entry['occurred_at']);
+            if ($index + 1 === $step && $status !== 'completed') {
                 $this->assertSame('current', $entry['state']);
             } else {
                 $this->assertSame('completed', $entry['state']);
@@ -75,7 +73,8 @@ class OrderTrackingTimelineTest extends TestCase
     {
         $order = Order::factory()->create(['status' => 'preparing', 'access_token' => str_repeat('a', 64)]);
         $this->response($order)->assertJsonPath('data.order.status.label', 'جاري التحضير')
-            ->assertJsonPath('data.timeline.0.label', 'تم استلام الطلب')->assertJsonPath('data.timeline.0.occurred_at', null);
+            ->assertJsonCount(1, 'data.timeline')->assertJsonPath('data.timeline.0.status', 'preparing')
+            ->assertJsonPath('data.timeline.0.label', 'جاري التحضير')->assertJsonPath('data.timeline.0.occurred_at', null);
     }
 
     public function test_unknown_historical_and_current_statuses_do_not_fail_or_hide_the_code(): void

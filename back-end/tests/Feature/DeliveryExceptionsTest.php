@@ -82,7 +82,7 @@ class DeliveryExceptionsTest extends TestCase
         $this->postJson('/api/v1/driver/orders/'.$order->uuid.'/transition', ['status' => 'delivered'])->assertOk()
             ->assertJsonPath('data.preparation_status', 'completed')->assertJsonPath('data.delivery_status', 'delivered');
         $next = $this->order($driver, ['driver_id' => null, 'status' => 'ready', 'delivery_status' => null, 'placed_at' => now()]);
-        $this->postJson('/api/v1/driver/orders/'.$next->uuid.'/accept')->assertConflict();
+        $this->postJson('/api/v1/driver/orders/'.$next->uuid.'/accept')->assertOk()->assertJsonPath('data.delivery_status', 'assigned');
         $this->assertSame('paid', $order->fresh()->payment_status->value);
     }
 

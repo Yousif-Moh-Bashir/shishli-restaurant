@@ -69,7 +69,7 @@ class NotificationEventsTest extends TestCase
 
     public static function statusEvents(): array
     {
-        return [['confirmed', 'pickup', 'order_confirmed', 'تم تأكيد'], ['preparing', 'pickup', 'order_preparing', 'تجهيز'],
+        return [['confirmed', 'pickup', 'order_confirmed', 'قبِل المطعم طلبك'], ['preparing', 'pickup', 'order_preparing', 'تجهيز'],
             ['ready', 'pickup', 'order_ready', 'جاهز للاستلام'], ['ready', 'delivery', 'order_ready', 'تم تجهيز'],
             ['out_for_delivery', 'delivery', 'order_out_for_delivery', 'خرج للتوصيل'], ['completed', 'pickup', 'order_completed', 'اكتمل'],
             ['cancelled', 'pickup', 'order_cancelled', 'تم إلغاء']];

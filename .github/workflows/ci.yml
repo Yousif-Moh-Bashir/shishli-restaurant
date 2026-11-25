@@ -52,6 +52,7 @@ jobs:
       DRIVER_MYSQL_CONCURRENCY: '1'
       SEO_PRERENDER: 'false'
       FINANCE_TEST_FILTER: 'Finance(?:Api|Hardening|OperationalReview|SettingsMigration|MysqlConcurrency)Test::'
+      PRINTING_TEST_FILTER: 'OrderPrintingTest::test_mysql_concurrent_capture_and_claim_use_real_independent_connections$'
     services:
       mysql:
         image: mysql:8.4
@@ -168,7 +169,22 @@ jobs:
           vendor/bin/phpunit --filter "~${FINANCE_TEST_FILTER}~" --fail-on-empty-test-suite --fail-on-skipped --log-junit=/tmp/finance-junit.xml
       - name: Run Laravel unit, feature and MySQL concurrency tests
         if: ${{ !cancelled() && steps.ci_services.outcome == 'success' }}
-        run: php artisan test --compact --filter "~^(?!.*${FINANCE_TEST_FILTER})~" --exclude-group=ci-services --exclude-group=delivery-mysql --exclude-group=delivery-sqlite --fail-on-skipped --log-junit=/tmp/laravel-junit.xml
+        run: php artisan test --compact --filter "~^(?!.*(?:${FINANCE_TEST_FILTER}|${PRINTING_TEST_FILTER}))~" --exclude-group=ci-services --exclude-group=delivery-mysql --exclude-group=delivery-sqlite --fail-on-skipped --log-junit=/tmp/laravel-junit.xml
+      - name: Run printing concurrency against an isolated MySQL schema
+        if: ${{ !cancelled() && steps.ci_services.outcome == 'success' }}
+        env:
+          DB_DATABASE: shishli_printing_test
+        run: |
+          php <<'PHP'
+          <?php
+          if (getenv('APP_ENV') !== 'testing' || getenv('GITHUB_ACTIONS') !== 'true'
+              || getenv('DB_HOST') !== '127.0.0.1' || getenv('DB_DATABASE') !== 'shishli_printing_test') {
+              throw new RuntimeException('Refusing a non-CI printing database.');
+          }
+          $pdo = new PDO('mysql:host=127.0.0.1;port=3306;dbname=shishli_ci_test', 'root', getenv('DB_PASSWORD'), [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+          $pdo->exec('CREATE DATABASE shishli_printing_test');
+          PHP
+          vendor/bin/phpunit --filter "~${PRINTING_TEST_FILTER}~" --fail-on-empty-test-suite --fail-on-skipped --log-junit=/tmp/printing-junit.xml
       - name: Run SQLite-only delivery rollback and migration tests
         env:
           DB_CONNECTION: sqlite
@@ -202,6 +218,7 @@ jobs:
             /tmp/services-junit.xml
             /tmp/laravel-junit.xml
             /tmp/finance-junit.xml
+            /tmp/printing-junit.xml
             /tmp/delivery-sqlite-junit.xml
           retention-days: 7
           if-no-files-found: warn

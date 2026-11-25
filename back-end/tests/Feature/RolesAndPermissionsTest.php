@@ -42,6 +42,7 @@ class RolesAndPermissionsTest extends TestCase
     {
         return [
             'administrator' => ['super_admin', [
+                'printing.view', 'printing.reprint', 'printing.manage_agents',
                 'delivery_exceptions.view', 'delivery_exceptions.fail', 'delivery_exceptions.return',
                 'delivery_exceptions.release', 'delivery_exceptions.resolve_custody',
                 'driver.access', 'drivers.view', 'drivers.manage', 'drivers.reassign', 'drivers.settle_cash',
@@ -72,6 +73,7 @@ class RolesAndPermissionsTest extends TestCase
                 'options.view', 'options.create', 'options.update', 'options.delete',
             ]],
             'manager' => ['manager', [
+                'printing.view', 'printing.reprint', 'printing.manage_agents',
                 'delivery_exceptions.view', 'delivery_exceptions.fail', 'delivery_exceptions.return', 'delivery_exceptions.release',
                 'driver.access', 'drivers.view', 'drivers.manage', 'drivers.reassign', 'drivers.settle_cash',
                 'staff.view', 'staff.create', 'staff.update', 'staff.activate', 'staff.deactivate', 'roles.view',
@@ -116,7 +118,7 @@ class RolesAndPermissionsTest extends TestCase
         $this->seed(RolesAndPermissionsSeeder::class);
 
         $this->assertDatabaseCount('roles', 6);
-        $this->assertDatabaseCount('permissions', 103);
+        $this->assertDatabaseCount('permissions', 106);
         $this->assertDatabaseCount('model_has_roles', 1);
         $this->assertSame(['cashier'], $user->fresh()->getRoleNames()->all());
         $this->assertDatabaseHas('model_has_roles', ['model_id' => $user->id, 'model_type' => User::class]);
