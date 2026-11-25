@@ -68,6 +68,7 @@ use App\Http\Controllers\Api\V1\PaymentWebhookController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\PromotionController;
 use App\Http\Controllers\Api\V1\PublicConfigurationController;
+use App\Http\Controllers\PublicHtmlController;
 use App\Http\Middleware\EnsureAdminAccess;
 use App\Http\Middleware\OptionalCartAuthentication;
 use App\Http\Middleware\RecordAdminActivity;
@@ -179,6 +180,8 @@ Route::prefix('v1')->name('api.v1.')->group(function (): void {
         Route::patch('/items/{cartItem}', [CartItemController::class, 'update'])->whereUuid('cartItem')->name('items.update');
         Route::delete('/items/{cartItem}', [CartItemController::class, 'destroy'])->whereUuid('cartItem')->name('items.destroy');
     });
+    Route::get('/catalog-page/{catalogPath}', [PublicHtmlController::class, 'catalog'])
+        ->where('catalogPath', 'menu|grills-tabuk|menu/category/[a-z0-9-]+')->name('catalog-page');
     Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
     Route::get('/menu/products/{product}', [MenuController::class, 'show'])->name('menu.show');
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');

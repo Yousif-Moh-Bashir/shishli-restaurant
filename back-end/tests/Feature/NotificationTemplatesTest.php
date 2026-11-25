@@ -84,7 +84,7 @@ class NotificationTemplatesTest extends TestCase
 
     public static function templates(): array
     {
-        return [['order_placed', 'pickup', 'تم استلام'], ['order_confirmed', 'pickup', 'تم تأكيد'], ['order_preparing', 'pickup', 'تجهيز'],
+        return [['order_placed', 'pickup', 'تم استلام'], ['order_confirmed', 'pickup', 'قبِل المطعم طلبك'], ['order_preparing', 'pickup', 'تجهيز'],
             ['order_ready', 'pickup', 'جاهز للاستلام'], ['order_ready', 'delivery', 'تم تجهيز'], ['order_out_for_delivery', 'delivery', 'خرج للتوصيل'],
             ['order_completed', 'pickup', 'اكتمل'], ['order_cancelled', 'pickup', 'تم إلغاء'], ['payment_succeeded', 'pickup', 'بنجاح'], ['payment_failed', 'pickup', 'تعذر']];
     }

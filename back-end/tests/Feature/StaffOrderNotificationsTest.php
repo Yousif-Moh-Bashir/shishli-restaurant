@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Actions\Auth\LogoutUserAction;
 use App\Enums\OrderStatus;
 use App\Events\OrderPlaced;
 use App\Jobs\SendStaffOrderNotification;
@@ -266,7 +267,7 @@ class StaffOrderNotificationsTest extends TestCase
         Http::assertNothingSent();
     }
 
-    public function test_revoked_permission_and_logged_out_token_cancel_push_before_sending(): void
+    public function test_revoked_permission_and_explicit_logout_cancel_push_before_sending(): void
     {
         $this->enable();
         Queue::fake();
@@ -281,7 +282,7 @@ class StaffOrderNotificationsTest extends TestCase
         $user->assignRole('cashier');
         $this->capture();
         $next = StaffNotificationDelivery::latest('id')->firstOrFail();
-        $subscription->accessToken->delete();
+        app(LogoutUserAction::class)->handle($user->withAccessToken($subscription->accessToken));
         $this->assertDatabaseMissing('staff_push_subscriptions', ['id' => $subscription->id]);
         $this->work($next);
         $this->assertSame('cancelled', $next->fresh()->status);
@@ -368,7 +369,7 @@ class StaffOrderNotificationsTest extends TestCase
         Http::assertSentCount(1);
     }
 
-    public function test_inactive_or_expired_admin_and_disabled_channel_cannot_register_or_receive_push(): void
+    public function test_expired_session_preserves_push_but_disabled_channel_and_inactive_account_remain_blocked(): void
     {
         $this->enable();
         $user = $this->staff();
@@ -376,7 +377,7 @@ class StaffOrderNotificationsTest extends TestCase
         $subscription->accessToken->forceFill(['expires_at' => now()->subMinute()])->save();
         Queue::fake();
         $this->capture();
-        $this->assertSame(0, StaffNotificationDelivery::where('channel', 'push')->count());
+        $this->assertSame(1, StaffNotificationDelivery::where('channel', 'push')->count());
         $this->signIn($user);
         config(['staff_notifications.push.enabled' => false]);
         $this->postJson('/api/v1/admin/staff-notifications/subscriptions', $subscription->subscription)->assertConflict();

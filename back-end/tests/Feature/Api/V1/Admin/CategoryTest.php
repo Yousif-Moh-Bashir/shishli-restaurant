@@ -18,10 +18,10 @@ class CategoryTest extends TestCase
 
     public function test_public_tree_contains_only_active_roots_and_sorted_active_children(): void
     {
-        $last = Category::factory()->create(['name' => 'Z', 'sort_order' => 1]);
-        $first = Category::factory()->create(['name' => 'A', 'sort_order' => 1]);
-        $childLast = Category::factory()->childOf($first)->create(['name' => 'Z', 'sort_order' => 0]);
-        $childFirst = Category::factory()->childOf($first)->create(['name' => 'A', 'sort_order' => 0]);
+        $first = Category::factory()->create(['name' => 'Z', 'sort_order' => 1]);
+        $last = Category::factory()->create(['name' => 'A', 'sort_order' => 1]);
+        $childFirst = Category::factory()->childOf($first)->create(['name' => 'Z', 'sort_order' => 0]);
+        $childLast = Category::factory()->childOf($first)->create(['name' => 'A', 'sort_order' => 0]);
         Category::factory()->childOf($first)->inactive()->create();
         Category::factory()->inactive()->create();
         $deleted = Category::factory()->childOf($first)->create();

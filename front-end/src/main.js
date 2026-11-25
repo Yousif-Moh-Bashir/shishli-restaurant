@@ -13,9 +13,10 @@ import { useAuthStore } from './stores/auth'
 import { useCartStore } from './stores/cart'
 import { configureHttpAuth } from './api/http'
 import { installAuthGuards } from './router/authGuards'
-import {setPageSeo,routeSeo,restaurantSchema,setRestaurantSchema} from './utils/seo'
+import {setPageSeo,routeSeo,restaurantSchema,setRestaurantSchema,setCatalogSchema} from './utils/seo'
 import {usePublicSettingsStore} from './stores/publicSettings'
 import {useBranchStore} from './stores/branch'
+import { hydratePrerender } from './utils/prerender'
 const app = createApp(App), pinia = createPinia()
 app.directive('admin-table',adminTable)
 app.use(pinia)
@@ -40,11 +41,16 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) chec
 window.addEventListener('pageshow', checkSessionExpiry)
 window.addEventListener('focus', checkSessionExpiry)
 installAuthGuards(router, auth)
+const prerender = hydratePrerender(router)
+app.provide('prerender', prerender)
 app.use(router)
 const settings = usePublicSettingsStore(pinia), branches = useBranchStore(pinia)
 watch([() => router.currentRoute.value.path, () => router.currentRoute.value.name], () => {
   const route = router.currentRoute.value
-  setPageSeo(routeSeo(route))
+  if (prerender.value?.path !== route.path) {
+    setPageSeo(routeSeo(route))
+    setCatalogSchema(null)
+  }
   if (!routeSeo(route).index) setRestaurantSchema(null)
   else setRestaurantSchema(restaurantSchema(settings.data, branches.branches))
 }, {flush:'post'})

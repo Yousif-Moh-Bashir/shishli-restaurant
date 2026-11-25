@@ -15,12 +15,15 @@ function restaurantLogo(path) {
 }
 export const defaultDescription = 'اكتشف قائمة مطعم شيشلي فرش للدجاج التركي والشيش، وتصفح الأطباق والعروض والفروع واطلب وجبتك المفضلة.'
 export const homeSeo = {
-  title: brandName + ' | مشويات ودجاج تركي وكباب في تبوك',
-  description: 'استمتع بأشهى المشويات والدجاج التركي والكباب في مطعم شيشلي فرش بتبوك. تصفح قائمة الطعام واطلب وجبتك المفضلة مباشرة من موقعنا.',
+  title: 'مطعم مشويات في تبوك | شيشلي فرش',
+  heading: brandName + ' للمشويات والكباب في تبوك',
+  description: 'شيشلي فرش مطعم مشويات وكباب في تبوك. تصفح الدجاج التركي على الفحم والشيش وأطباق المشكل، وتحقق من خيارات الاستلام والتوصيل عند الطلب.',
 }
 export const publicPages = {
   home: [homeSeo.title, homeSeo.description],
   menu: ['قائمة الطعام | مطعم شيشلي فرش', 'تصفح أطباق الدجاج التركي والشيش والمشويات والإضافات في قائمة مطعم شيشلي فرش.'],
+  'grills-tabuk': ['مشاوي وكباب في تبوك | شيشلي فرش', 'تصفح أصناف المشويات المنشورة من شيشلي فرش، من الكباب والشيش إلى الدجاج التركي وأطباق المشكل.'],
+  'menu-category': ['أقسام المنيو | مطعم شيشلي فرش', 'تصفح الأطباق المنشورة في منيو شيشلي فرش.'],
   branches: ['فروعنا | مطعم شيشلي فرش', 'تعرف على فروع مطعم شيشلي فرش ومواقعها ووسائل التواصل معها، واختر الفرع المناسب لطلبك.'],
   offers: ['العروض | مطعم شيشلي فرش', 'اكتشف عروض مطعم شيشلي فرش الحالية وشروط الخصومات والكوبونات وتواريخ صلاحيتها.'],
   about: ['عن المطعم | مطعم شيشلي فرش', 'تعرف على مطعم شيشلي فرش للدجاج التركي والشيش وقصتنا.'],
@@ -36,7 +39,8 @@ export function routeSeo(route) {
   const page = publicPages[key]
   const privateTitles = { login: 'تسجيل الدخول | مطعم شيشلي فرش', register: 'إنشاء حساب | مطعم شيشلي فرش', cart: 'سلة طلباتك | مطعم شيشلي فرش', checkout: 'إكمال الطلب | مطعم شيشلي فرش', 'order-success': 'تفاصيل الطلب | مطعم شيشلي فرش', 'track-order': 'تتبع الطلب | مطعم شيشلي فرش' }
   const fallback = String(route.name).startsWith('admin.') ? 'لوحة شيشلي' : 'مطعم شيشلي فرش'
-  return { title: page?.[0] || route.meta?.title || privateTitles[route.name] || fallback, description: page?.[1] || defaultDescription, path: route.path, index: !!page }
+  const path = page && !['product', 'menu-category'].includes(key) ? (key === 'home' ? '/' : '/' + key) : route.path
+  return { title: page?.[0] || route.meta?.title || privateTitles[route.name] || fallback, description: page?.[1] || defaultDescription, path, index: !!page }
 }
 export function cmsPageSeo(route, page) {
   const defaults = routeSeo(route)
@@ -81,6 +85,7 @@ export function restaurantSchema(settings, branches = []) {
   const restaurant = settings?.restaurant
   if (!restaurant?.name) return null
   const root = { '@type': 'Restaurant', '@id': siteUrl + '/#restaurant', name: restaurant.name, url: siteUrl + '/', hasMenu: siteUrl + '/menu' }
+  root.servesCuisine = ['مشويات', 'دجاج تركي']
   root.logo = restaurantLogo(settings.branding?.logo_path)
   root.image = root.logo
   if (restaurant.phone) root.telephone = restaurant.phone
@@ -102,6 +107,18 @@ export function restaurantSchema(settings, branches = []) {
     return data
   })
   return { '@context': 'https://schema.org', '@graph': [root, ...locations] }
+}
+
+export function setCatalogSchema(schema) {
+  let element = document.getElementById('catalog-jsonld')
+  if (!schema) { element?.remove(); return }
+  if (!element) {
+    element = document.createElement('script')
+    element.id = 'catalog-jsonld'
+    element.type = 'application/ld+json'
+    document.head.append(element)
+  }
+  element.textContent = JSON.stringify(schema).replace(/</g, '\\u003c')
 }
 let restaurantSchemaRevision = 0
 export function setRestaurantSchema(schema) {

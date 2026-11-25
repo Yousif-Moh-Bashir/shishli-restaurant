@@ -18,8 +18,8 @@ class AcceptedOrderPrinting
         if (! config('printing.enabled')) {
             return;
         }
-        $history = OrderStatusHistory::findOrFail($historyId);
-        if ($history->from_status !== OrderStatus::Pending || $history->to_status !== OrderStatus::Confirmed) {
+        $history = OrderStatusHistory::staffAcceptance()->find($historyId);
+        if ($history === null) {
             return;
         }
         DB::transaction(function () use ($history): void {
@@ -46,8 +46,8 @@ class AcceptedOrderPrinting
         app(PrintJobBroker::class)->expireLeases();
         $count = 0;
         foreach (PrintAgent::where('enabled', true)->get() as $agent) {
-            OrderStatusHistory::where('id', '>', $agent->activation_history_id)->where('created_at', '>=', $agent->activated_at)
-                ->where('from_status', 'pending')->where('to_status', 'confirmed')
+            OrderStatusHistory::staffAcceptance()
+                ->where('id', '>', $agent->activation_history_id)->where('created_at', '>=', $agent->activated_at)
                 ->whereHas('order', fn ($query) => $query->where('branch_id', $agent->branch_id)->where('status', '!=', 'cancelled'))
                 ->whereRaw('(select count(*) from print_jobs where print_jobs.acceptance_id = order_status_histories.id and print_jobs.copy_key = ?) < 2', [PrintJob::ORIGINAL_COPY])
                 ->orderBy('id')->limit(200)->get()->each(function ($history) use (&$count): void {

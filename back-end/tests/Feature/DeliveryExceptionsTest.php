@@ -70,6 +70,7 @@ class DeliveryExceptionsTest extends TestCase
         $this->freezeTime();
         $driver = $this->driver();
         $order = $this->order($driver, ['order_number' => 'SH-0002']);
+        Payment::factory()->create(['order_id' => $order->id, 'method' => $order->payment_method]);
         $this->actingAs($driver)->getJson('/api/v1/driver/orders/'.$order->uuid)->assertOk()
             ->assertJsonPath('data.delivery_block.code', 'NETWORK_CONFIRMATION_REQUIRED')
             ->assertJsonPath('data.delivery_block.responsible', 'driver')->assertJsonPath('data.cash_due', '0.00')
@@ -81,7 +82,7 @@ class DeliveryExceptionsTest extends TestCase
         $this->postJson('/api/v1/driver/orders/'.$order->uuid.'/transition', ['status' => 'delivered'])->assertOk()
             ->assertJsonPath('data.preparation_status', 'completed')->assertJsonPath('data.delivery_status', 'delivered');
         $next = $this->order($driver, ['driver_id' => null, 'status' => 'ready', 'delivery_status' => null, 'placed_at' => now()]);
-        $this->postJson('/api/v1/driver/orders/'.$next->uuid.'/accept')->assertConflict();
+        $this->postJson('/api/v1/driver/orders/'.$next->uuid.'/accept')->assertOk()->assertJsonPath('data.delivery_status', 'assigned');
         $this->assertSame('paid', $order->fresh()->payment_status->value);
     }
 
@@ -216,7 +217,7 @@ class DeliveryExceptionsTest extends TestCase
     public function test_exception_list_includes_previous_days_and_tracks_customer_safe_delivery_state(): void
     {
         $driver = $this->driver();
-        $order = $this->order($driver);
+        $order = $this->order($driver, ['delivery_on_the_way_at' => now()->subHours(2)]);
         $this->actingAs($this->staff())->getJson('/api/v1/admin/delivery-exceptions')->assertOk()->assertJsonPath('data.0.id', $order->uuid);
         $this->postJson($this->path($order), $this->payload($order, 'start_return'))->assertOk();
         $tracking = app(OrderTrackingService::class)->buildTrackingData($order->fresh());

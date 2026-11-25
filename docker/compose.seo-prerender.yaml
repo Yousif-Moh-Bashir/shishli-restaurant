@@ -1,0 +1,13 @@
+# Opt in only with the index.html artifact from the exact Nginx image being tested.
+services:
+  app:
+    environment:
+      SEO_PRERENDER: "true"
+      SEO_FRONTEND_HTML: /var/www/html/resources/frontend/index.html
+    volumes:
+      - type: bind
+        source: ${SEO_FRONTEND_HTML_ARTIFACT:?Set the absolute path to the matching Vite index.html}
+        target: /var/www/html/resources/frontend/index.html
+        read_only: true
+        bind:
+          create_host_path: false

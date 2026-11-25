@@ -1,15 +1,27 @@
 <script setup>
 import { vSiteReveal } from '../../directives/siteReveal'
 import AppSkeleton from "../../components/common/AppSkeleton.vue"
-import {computed,inject,ref,watch,nextTick} from 'vue'
+import {computed,inject,ref,watch,nextTick,onMounted} from 'vue'
 import {RouterLink} from 'vue-router'
 import ProductCard from '../../components/site/ProductCard.vue'
 import SiteIcon from '../../components/site/SiteIcon.vue'
 import BranchSelector from '../../components/site/BranchSelector.vue'
 import {usePublicMenu} from '../../composables/usePublicMenu'
 import {useCartStore} from '../../stores/cart'
+import {catalogPage} from '../../api/catalogPages.api'
+import {useApiState} from '../../composables/useApiState'
+import {setCatalogSchema} from '../../utils/seo'
 const {openCart,searchRequest}=inject('site'),menu=usePublicMenu(),searchInput=ref(null),catalogElement=ref(null)
 const cart=useCartStore()
+const prerender = inject('prerender', null)
+const catalog = useApiState()
+const publicPage = computed(() => catalog.data.value || (prerender?.value?.path === '/menu' ? prerender.value : null))
+const publicItems = computed(() => menu.branch.selectedBranch ? [] : publicPage.value?.items || [])
+const categoryLinks = computed(() => publicPage.value?.links?.filter(link => link.href.startsWith('/menu/category/')) || [])
+onMounted(async () => {
+  const page = await catalog.run(signal => catalogPage('/menu', signal))
+  if (page?.schema) setCatalogSchema(page.schema)
+})
 const hasFilters=computed(()=>Boolean(menu.query.value||menu.category.value||menu.available.value||menu.featured.value))
 const categoryLabel=computed(()=>menu.categories.value.find(item=>item.id===menu.category.value)?.label||'كل الأطباق')
 function resetFilters(){menu.query.value='';menu.category.value='';menu.available.value='';menu.featured.value=''}
@@ -27,9 +39,20 @@ watch(searchRequest,async()=>{await nextTick();catalogElement.value?.scrollIntoV
 </div>
 <div class="menu-results-heading"><div><h3>{{ categoryLabel }}</h3><p v-if="menu.state.data.value&&!menu.state.loading.value" role="status">{{ menu.products.value.length }} طبق{{ menu.query.value?' · نتائج البحث عن «'+menu.query.value+'»':'' }}</p><p v-else-if="menu.state.loading.value" role="status">جارٍ تحميل الأطباق…</p></div><button v-if="hasFilters" class="text-button menu-reset" type="button" @click="resetFilters">مسح الفلاتر <SiteIcon name="x"/></button></div>
 <p v-if="!menu.branch.selectedBranch&&!menu.branch.isLoading&&!menu.branch.error" class="empty-search">اختر الفرع لعرض المنيو وأسعاره.</p>
+<ul v-if="publicItems.length" class="section-space">
+  <li v-for="item in publicItems" :key="item.href">
+    <RouterLink :to="item.href">{{ item.label }}</RouterLink>
+    <p v-if="item.text">{{ item.text }}</p>
+  </li>
+</ul>
 <AppSkeleton v-if="menu.state.loading.value" variant="cards" label="جارٍ تحميل منيو الفرع…"/>
 <div v-else-if="menu.state.error.value" class="empty-search" role="alert"><p>{{ menu.state.error.value.message }}</p><button class="button button-primary" @click="menu.load">إعادة المحاولة</button></div>
 <template v-else-if="menu.state.data.value"><p v-if="menu.state.data.value.availability?.reason" class="catalog-note">{{ menu.state.data.value.availability.reason.message }}</p><div class="products-grid"><ProductCard v-for="product in menu.products.value" :key="product.id" :product="product"/></div><div v-if="!menu.products.value.length" class="empty-search menu-empty"><SiteIcon name="search"/><h3>لا توجد أطباق مطابقة</h3><p>جرّب اسمًا آخر أو غيّر خيارات التصفية في هذا الفرع.</p><button v-if="hasFilters" class="button button-primary" type="button" @click="resetFilters">عرض كل الأطباق</button></div></template>
 <div class="menu-catalog-footer"><p>الأسعار والتوفر حسب الفرع المختار، وتُراجع عند تأكيد الطلب.</p><RouterLink class="text-button" to="/offers">استعرض العروض الحالية <SiteIcon name="arrow-left"/></RouterLink></div>
+<RouterLink class="text-button" to="/grills-tabuk">مشويات شيشلي في تبوك</RouterLink>
+<details v-if="categoryLinks.length">
+  <summary>تصفح تصنيفات المنيو</summary>
+  <ul><li v-for="link in categoryLinks" :key="link.href"><RouterLink :to="link.href">{{ link.label }}</RouterLink></li></ul>
+</details>
 </section></main></template>
 

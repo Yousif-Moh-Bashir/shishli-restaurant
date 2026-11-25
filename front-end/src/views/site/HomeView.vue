@@ -7,6 +7,7 @@ import {useCmsPage} from '../../composables/useCmsPage'
 import {useApiState} from '../../composables/useApiState'
 import {usePublicMenu,menuProduct} from '../../composables/usePublicMenu'
 import {safeContentUrl} from '../../utils/contentUrl'
+import {homeSeo} from '../../utils/seo'
 import SiteIcon from '../../components/site/SiteIcon.vue'
 import ProductCard from '../../components/site/ProductCard.vue'
 import BranchSelector from '../../components/site/BranchSelector.vue'
@@ -15,7 +16,6 @@ import AppSkeleton from '../../components/common/AppSkeleton.vue'
 import ContentLink from '../../components/site/ContentLink.vue'
 import SiteGallery from '../../components/site/SiteGallery.vue'
 import {useRestaurantInfo} from '../../composables/useRestaurantInfo'
-import {brandTagline} from '../../utils/branding.js'
 const restaurant=useRestaurantInfo()
 const {searchOpen,closeSearch}=inject('site')
 const page=useCmsPage('home'),menu=usePublicMenu({categoriesEnabled:false,shouldLoad:()=>!!page.error.value||(searchOpen.value&&!!menu.query.value.trim())}),fallbackGallery=useApiState(),bannerIndex=ref(0),aboutExpanded=ref(false),popularElement=ref(null),searchInput=ref(null)
@@ -48,11 +48,11 @@ watch(searchOpen,async open=>{if(open){await nextTick();popularElement.value?.sc
 <template>
 <main id="main">
   <section class="hero" id="home" aria-labelledby="hero-title"><div class="hero-art" :class="{'home-custom-art':heroImage}" :style="heroStyle" role="img" aria-label="شيش طاووق ومشويات تركية مع الأرز والخضروات"></div><div class="hero-shade"></div><div class="container hero-inner"><div v-site-reveal class="hero-copy">
-    <span class="eyebrow"><span></span>{{ section('hero').subtitle||'من الفحم… إلى قلبك' }}</span><h1 id="hero-title"><template v-if="!heroTitle"><span v-if="restaurant.name.startsWith('مطعم ')" class="restaurant-word">مطعم</span> {{ restaurant.name.replace(/^مطعم\s+/,'') }}</template><template v-else>{{ heroTitle }}</template></h1><h2>للدجاج التركي والشيش</h2><p>{{ banner?.subtitle||section('hero').content||brandTagline }}</p>
+    <span class="eyebrow"><span></span>{{ section('hero').subtitle||'من الفحم… إلى قلبك' }}</span><h1 id="hero-title" class="local-home-title">{{ homeSeo.heading }}</h1><h2 v-if="heroTitle">{{ heroTitle }}</h2><p>{{ homeSeo.description }}</p><p v-if="banner?.subtitle||section('hero').content">{{ banner?.subtitle||section('hero').content }}</p>
     <div class="hero-buttons"><ContentLink class="button button-primary" :url="heroButton('primary').url"><SiteIcon name="utensils"/> {{ heroButton('primary').text }}</ContentLink><ContentLink class="button button-outline" :url="heroButton('secondary').url">{{ heroButton('secondary').text }} <SiteIcon name="arrow-left"/></ContentLink></div><div class="hero-note"><span class="tiny-line"></span> مكونات طازجة. تتبيلة أصيلة. طعم لا يُنسى.</div>
   </div></div><div class="hero-caption"><span></span> مشوي على الفحم، بكل حب</div><nav v-if="page.data.value?.banners?.length>1" class="home-banner-controls" aria-label="صور العرض الرئيسي"><button v-for="(item,index) in page.data.value.banners" :key="item.id" :aria-label="item.title||('الصورة '+(index+1))" :aria-pressed="bannerIndex===index" @click="bannerIndex=index"></button></nav></section>
   <section v-site-reveal class="features" aria-label="ما يميز شيشلي فرش"><div class="container features-grid"><article v-for="(item,index) in features" :key="index"><SiteIcon :name="['drumstick','flame','badge-check','truck'][index%4]"/><div><h3>{{ item.title }}</h3><p>{{ item.description }}</p></div></article></div></section>
-  <section ref="popularElement" class="popular section-space container home-popular" id="popular" aria-labelledby="popular-title"><div class="section-heading"><div><span class="section-kicker">{{ section('featured_menu').subtitle||'من شوايتنا إلى مائدتك' }}</span><h2 id="popular-title">{{ section('featured_menu').title||'الأكثر طلبًا' }} <span class="title-flourish">✦</span></h2><p>{{ section('featured_menu').content||'أطباقنا المميزة التي يفضلها عملاؤنا' }}</p></div><RouterLink class="text-button" to="/menu">شاهد المنيو الكامل <SiteIcon name="arrow-left"/></RouterLink></div>
+  <section ref="popularElement" class="popular section-space container home-popular" id="popular" aria-labelledby="popular-title"><div class="section-heading"><div><span class="section-kicker">{{ section('featured_menu').subtitle||'من شوايتنا إلى مائدتك' }}</span><h2 id="popular-title">{{ section('featured_menu').title||'الأكثر طلبًا' }} <span class="title-flourish">✦</span></h2><p>{{ section('featured_menu').content||'أطباقنا المميزة التي يفضلها عملاؤنا' }}</p></div><RouterLink class="text-button" to="/grills-tabuk">تصفح المشويات والكباب <SiteIcon name="arrow-left"/></RouterLink></div>
     <div class="search-bar" id="search-bar" :hidden="!searchOpen"><label for="product-search">ابحث عن طبقك المفضل</label><div><SiteIcon name="search"/><input ref="searchInput" id="product-search" v-model="menu.query.value" type="search" placeholder="دجاج، شيش، كباب…" autocomplete="off"><button class="icon-button" type="button" @click="closeSearch" aria-label="إغلاق البحث"><SiteIcon name="x"/></button></div></div><div class="popular-browse-panel"><div class="popular-browse-copy"><strong>اختيارات مميزة من المنيو</strong><p>اختر الفرع لعرض أطباقه وأسعاره وتوفرها.</p></div><BranchSelector/></div>
     <AppSkeleton v-if="productsLoading" variant="cards" label="جارٍ تحميل أطباق الفرع…"/><div v-else-if="productsError" class="empty-search" role="alert"><p>تعذر تحميل الأطباق.</p><button class="text-button" @click="retryProducts">إعادة المحاولة</button></div><div v-else class="products-grid" id="products-grid"><ProductCard v-for="product in products" :key="product.id" :product="product"/></div><p v-if="!productsLoading&&!productsError&&!products.length" class="empty-search">{{ menu.branch.selectedUuid?'لا توجد أطباق مميزة مطابقة.':'اختر الفرع لعرض أطباقه وأسعاره.' }}</p>
   </section>
@@ -70,4 +70,8 @@ watch(searchOpen,async open=>{if(open){await nextTick();popularElement.value?.sc
   <section v-for="item in page.data.value?.secondary_banners||[]" :key="item.id" class="container home-secondary-banner"><img v-if="safeContentUrl(item.image_url)" class="cms-secondary-banner" :src="safeContentUrl(item.image_url)" :alt="item.title||''" loading="lazy"><h2>{{ item.title }}</h2><p>{{ item.subtitle }}</p><ContentLink v-if="safeContentUrl(item.button_url)&&item.button_text" class="button button-primary" :url="item.button_url">{{ item.button_text }}</ContentLink></section>
 </main>
 </template>
+
+<style scoped>
+.hero .local-home-title { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.15; }
+</style>
 

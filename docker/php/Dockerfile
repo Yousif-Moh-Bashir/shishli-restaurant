@@ -9,10 +9,13 @@ RUN mkdir -p storage/app/public storage/framework/cache/data storage/framework/s
 COPY docker/php/php.ini /usr/local/etc/php/conf.d/shishli.ini
 COPY docker/php/pool.conf /usr/local/etc/php-fpm.d/zz-shishli.conf
 COPY docker/php/entrypoint.sh /usr/local/bin/shishli-entrypoint
-RUN chmod +x /usr/local/bin/shishli-entrypoint
+RUN php -r 'if (str_contains(file_get_contents($argv[1]), chr(13))) { fwrite(STDERR, "docker/php/entrypoint.sh must have LF line endings\n"); exit(1); }' /usr/local/bin/shishli-entrypoint \
+    && /bin/sh -n /usr/local/bin/shishli-entrypoint \
+    && chmod +x /usr/local/bin/shishli-entrypoint
 ENTRYPOINT ["shishli-entrypoint"]
 CMD ["php-fpm"]
 FROM base AS testing
 RUN touch .env && composer install --no-interaction --prefer-dist --no-progress && chown -R www-data:www-data storage bootstrap/cache
 FROM base AS production
-RUN composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader && chown -R www-data:www-data storage bootstrap/cache
+# Bound download concurrency and allow large archives on slower build links.
+RUN COMPOSER_MAX_PARALLEL_HTTP=3 php -d default_socket_timeout=1200 /usr/local/bin/composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader && chown -R www-data:www-data storage bootstrap/cache

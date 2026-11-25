@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\OrderStatus;
 use App\Enums\OrderStatusSource;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,6 +42,14 @@ class OrderStatusHistory extends Model
     public function getRouteKeyName(): string
     {
         return 'uuid';
+    }
+
+    public function scopeStaffAcceptance(Builder $query): Builder
+    {
+        return $query->where('from_status', OrderStatus::Pending)
+            ->where('to_status', OrderStatus::Confirmed)
+            ->whereNotNull('changed_by')
+            ->whereIn('source', [OrderStatusSource::Admin, OrderStatusSource::Cashier]);
     }
 
     public function order(): BelongsTo

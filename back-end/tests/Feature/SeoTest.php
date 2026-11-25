@@ -37,6 +37,9 @@ class SeoTest extends TestCase
             'https://shishlifresh.com/', 'https://shishlifresh.com/menu',
             'https://shishlifresh.com/branches', 'https://shishlifresh.com/offers',
             'https://shishlifresh.com/about',
+            'https://shishlifresh.com/grills-tabuk',
+            'https://shishlifresh.com/menu/category/'.$visible->category->slug,
+            'https://shishlifresh.com/menu/category/'.$unavailable->category->slug,
             'https://shishlifresh.com/product/'.$visible->uuid,
             'https://shishlifresh.com/product/'.$unavailable->uuid,
         ], $urls);

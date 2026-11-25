@@ -5,6 +5,7 @@ const NotFoundView=()=>import('../views/errors/NotFoundView.vue')
 import SiteLayout from '../layouts/SiteLayout.vue'
 const HomeView=()=>import('../views/site/HomeView.vue')
 const MenuView=()=>import('../views/site/MenuView.vue')
+const PublicCatalogView=()=>import('../views/site/PublicCatalogView.vue')
 const ProductView=()=>import('../views/site/ProductView.vue')
 const LoginView=()=>import('../views/auth/LoginView.vue')
 const RegisterView=()=>import('../views/auth/RegisterView.vue')
@@ -56,10 +57,13 @@ export default createRouter({
     component: SiteLayout,
     children: [
       { path: '', name: 'home', component: HomeView },
+      { path: 'index.html', redirect: to => ({ name: 'home', query: to.query, hash: to.hash }) },
       {path:'branches',name:'branches',component:PublicBranchesView,meta:{title:'الفروع | مطعم شيشلي فرش'}},
       {path:'offers',name:'offers',component:PublicOffersView,meta:{title:'العروض | مطعم شيشلي فرش'}},
       {path:':pathMatch(.*)*',name:'not-found',component:NotFoundView,meta:{title:'الصفحة غير موجودة | مطعم شيشلي فرش'}},
       { path: 'menu', name: 'menu', component: MenuView },
+      { path: 'grills-tabuk', name: 'grills-tabuk', component: PublicCatalogView },
+      { path: 'menu/category/:category', name: 'menu-category', component: PublicCatalogView },
       { path: 'product/:slug', name: 'product', component: ProductView },
       { path: 'login', name: 'login', component: LoginView, meta: { guestOnly: true } },
       { path: 'register', name: 'register', component: RegisterView, meta: { guestOnly: true } },

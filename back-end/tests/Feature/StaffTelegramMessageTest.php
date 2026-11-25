@@ -21,6 +21,7 @@ class StaffTelegramMessageTest extends TestCase
         config(['staff_notifications.telegram.token' => 'fake-telegram-secret']);
         Http::preventStrayRequests();
         DB::shouldReceive('connection')->never();
+        DB::shouldReceive('getConnections')->andReturn([]);
     }
 
     private function order(string $payment, string $type): Order
